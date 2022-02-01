@@ -1,9 +1,15 @@
 import React from "react"
+import { Routes, Route } from 'react-router-dom'
+import { HomePage } from './routes/HomePage'
+import { Header } from './components/Header/index'
 
 export const App = () => {
   return (
     <div className="app">
-      <h1>here will be our components</h1>
+      <Header/>
+      <Routes>
+        <Route path={'/*'} element={<HomePage/>}/>
+      </Routes>
     </div>
   );
 }
