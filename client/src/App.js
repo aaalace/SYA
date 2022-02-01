@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { HomePage } from './routes/HomePage'
 import { Header } from './components/Header/index'
 
-function App() {
+export const App = () => {
   return (
     <div className="app">
       <Header/>
@@ -13,5 +13,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
