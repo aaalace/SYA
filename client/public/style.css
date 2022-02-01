@@ -1,0 +1,11 @@
+* {
+    font-family: 'Avenir Next', monospace, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: cadetblue;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
