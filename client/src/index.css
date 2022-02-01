@@ -4,12 +4,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-  
 
 .app {
-    align-items: center;
-    margin-left: 30px;
-    height: 5rem;
-    color: cadetblue;
-    font-size: 2rem;
+    min-height: 100vh;
 }
