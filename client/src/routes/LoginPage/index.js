@@ -1,11 +1,48 @@
 import { useDispatch } from 'react-redux';
 import { setUserDataReducer } from '../../store/user/actions';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import './style.css'
+
+const BoxStyles = {
+    width: '60%',
+    maxWidth: '560px',
+    border: '2px solid rgba(175, 175, 175, 0.3)',
+    borderRadius: '20px',
+    margin: '92px auto',
+    textAlign: 'center',
+    padding: '24px 24px 30px'
+}
+
+const inputStyles = {
+    background: 'rgba(244, 244, 244, 0.7)',
+    border: '1px solid rgba(175, 175, 175, 0.3)',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '24px',
+    padding: '2%'
+}
+
+const formStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '300px',
+    margin: '0 auto',
+}
+
+const buttonsStyles = {
+    background: '#AC80C1',
+    border: '1px solid rgba(175, 175, 175, 0.3)',
+    borderRadius: '5px',
+    color: '#FFFFFF',
+    padding: '6px',
+}
 
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [checked, setChecked] = useState(false);
 
     const handlerLog = () => {
         dispatch(setUserDataReducer({loged: true}));
@@ -14,8 +51,27 @@ export const LoginPage = () => {
     }
 
     return(
-        <div>
-            <button onClick={handlerLog}>Log in</button>
+        <div style={BoxStyles}>
+            <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
+                fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
+            }}>Авторизация</h2>
+            <form style={formStyles}>
+                <input style={inputStyles} placeholder='Имя профиля' type='name'/>
+                <input style={inputStyles} placeholder='Пароль' type='password'/>
+                <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
+                    <input
+                        style={{ color: '#AC80C1', width: '11px', height: '11px'}}
+                        checked={checked}
+                        onChange={() => {setChecked(prevState => !prevState)}}
+                        id="happy" name="happy" value="yes" type="checkbox"
+                    />
+                    <label for='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                </div>
+                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
+                    <button style={buttonsStyles} onClick={handlerLog}>Вход</button>
+                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={handlerLog}>Регистрация</button>
+                </div>
+            </form>
         </div>
     )
 }

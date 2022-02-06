@@ -1,5 +1,5 @@
 .container {
-    padding: 0;
+    padding: 2%;
     margin: 0 auto;
     width: 60%;
     background-color: rgb(253, 234, 148);
@@ -10,7 +10,5 @@
 }
 
 p {
-    padding-top: 30px;
-    padding-left: 30px;
     font-size: 20px;
 }

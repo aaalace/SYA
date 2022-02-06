@@ -2,7 +2,7 @@
     display: flex;
     height: 64px;
     width: 100%;
-    background-color: rgb(253, 234, 148);
+    background-color: #FFFFFF;
     align-items: center;
     border-radius: 0 0 20px 20px;
 }
@@ -10,11 +10,11 @@
 .header-link {
     margin-left: 10%;
     text-decoration: none;
-    color: coral;
+    color: #AC80C1;
     font-size: 20px;
 }
 
 
 .header-link:hover {
-    color: rgb(255, 255, 255);
+    color: #43314b;
 }

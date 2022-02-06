@@ -6,7 +6,7 @@ export const Header = () => {
 
     return (
         <div className='header'>
-            <Link className='header-link' to='/'>Home page</Link>
+            <Link className='header-link' to='/'>Associations</Link>
         </div>
     )
 }
