@@ -1,14 +1,4 @@
 .container {
-    padding: 2%;
-    margin: 0 auto;
-    width: 60%;
-    background-color: rgb(253, 234, 148);
-    min-height: 100vh;
-    border-radius: 20px;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    min-height: 90vh;
 }
 
-p {
-    font-size: 20px;
-}

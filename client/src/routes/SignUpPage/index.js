@@ -38,32 +38,54 @@ const buttonsStyles = {
     padding: '6px',
 }
 
+const inputInfoStyles = {
+    background: 'rgba(244, 244, 244, 0.7)',
+    border: '1px solid rgba(175, 175, 175, 0.3)',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    padding: '4%',
+    width: '100%',
+    margin: '0 auto',
+    marginTop: '24px'
+}
 
-export const LoginPage = () => {
+
+export const SignUpPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [checked, setChecked] = useState(false);
 
     const handlerLog = (arg) => {
+        if(arg === 'auth'){
+            navigate('/login');
+        }
         if(arg === 'home'){
             dispatch(setUserDataReducer({loged: true}));
             navigate('/');
         }
-        if(arg === 'reg'){
-            navigate('/signup');
-        }
-
     }
 
     return(
         <div style={BoxStyles}>
             <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-            }}>Авторизация</h2>
+            }}>Регистрация</h2>
             <form style={formStyles}>
                 <input style={inputStyles} placeholder='Имя профиля' type='name'/>
                 <input style={inputStyles} placeholder='Пароль' type='password'/>
-                <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
+                <input style={inputStyles} placeholder='Повторите пароль' type='password'/>
+                <div style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px'}}>
+                    <input style={inputInfoStyles} placeholder='Имя' type='name'/>
+                    <input style={inputInfoStyles} placeholder='Фамилия' type='name'/>
+                </div>
+                <form className="birthDate" style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px', marginTop: '24px'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <a style={{color: "rgba(0, 0, 0, 0.7)"}}>Дата рождения</a>
+                        <a data-tooltip={'Заполненная дата рождения помогает друзьям легче найти вас, а также подбирать для вас интересные материалы'}>🛈</a>
+                    </div>
+                        <input type="date" class="date"/>
+                </form>
+                <div style={{display: 'flex', alignItems: 'center', marginTop: '24px'}}>
                     <input
                         style={{ color: '#AC80C1', width: '11px', height: '11px'}}
                         checked={checked}
@@ -72,11 +94,10 @@ export const LoginPage = () => {
                     />
                     <label for='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
                 </div>
-                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
-                    <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
-                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
+                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px', marginTop: '24px'}}>
+                    <button style={buttonsStyles} onClick={() => handlerLog('home')}>Зарегестрироваться</button>
+                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('auth')}>Вход</button>
                 </div>
-                <div className='faq'/>
             </form>
         </div>
     )
