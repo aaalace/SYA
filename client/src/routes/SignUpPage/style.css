@@ -1,0 +1,36 @@
+input::placeholder {
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+
+[data-tooltip] {
+    position: relative;
+}
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    width: 15rem;
+    left: 0; top: 0;
+    background: #AC80C1;
+    color: #fff;
+    padding: 0.5em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s;
+    border-radius: 10px;
+} 
+[data-tooltip]:hover::after {
+    opacity: 1;
+    top: 1.2em;
+}
+
+.date {
+    padding: 2%;
+    border-radius: 5px;
+    border: 1px solid rgba(175, 175, 175, 0.3);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.7);
+}

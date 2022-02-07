@@ -5,6 +5,7 @@ import { Header } from './components/Header/index'
 import { PrivateRoute } from "./hocks/PrivateRoute";
 import { useSelector } from 'react-redux';
 import { LoginPage } from "./routes/LoginPage";
+import { SignUpPage } from "./routes/SignUpPage";
 
 export const App = () => {
   const userIsLoged = useSelector((state) => state.user.loged)
@@ -14,6 +15,7 @@ export const App = () => {
       <Header/>
       <Routes>
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/*" element={
           <PrivateRoute authed={userIsLoged}>
             <HomePage />
