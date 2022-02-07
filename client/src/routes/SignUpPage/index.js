@@ -94,7 +94,7 @@ export const SignUpPage = () => {
                     />
                     <label for='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
                 </div>
-                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px', marginTop: '24px'}}>
+                <div style={{display: 'grid', gridTemplateColumns: '3fr 2fr', gridGap: '13px', marginTop: '24px'}}>
                     <button style={buttonsStyles} onClick={() => handlerLog('home')}>Зарегестрироваться</button>
                     <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('auth')}>Вход</button>
                 </div>
