@@ -55,7 +55,7 @@ export const Header = () => {
         if (open) {
             react1.current.style.transform = 'rotate(45deg) translate(17px, -14px)';
             react2.current.style.opacity = '0%';
-            react3.current.style.transform = 'rotate(-45deg) translate(-41px, -14px)';
+            react3.current.style.transform = 'rotate(-45deg) translate(-41px, -1px)';
             menuOpenedRedt.current.style.width = '280px';
             headerRef.current.style.borderRadius = '0 0 0 20px';
             menuOpenedRedt.current.style.borderLeft = '2px solid black';
