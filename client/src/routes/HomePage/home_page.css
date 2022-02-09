@@ -1,5 +1,10 @@
-.container {
-    min-height: 90vh;
+html {
+    scroll-behavior: smooth;
+}
+
+.background {
+    position: relative;
+    min-height: 60vh;
     text-align: center;
     background-image: url('../../images/seminar-art.png');
     background-size: 100%;
@@ -7,6 +12,77 @@
     filter: blur(250px);
 }
 
-.background-image {
-    
+.main {
+    min-width: 100vw;
+    min-height: 200vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.main__title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 84px;
+    letter-spacing: 0.07em;
+    color: #000000;
+    margin: 72px 10% 0 10%;
+}
+
+.posts {
+    margin-top: 64px;
+    width: 100%;
+}
+
+.posts__box {
+    margin: 0 10%;
+    padding: 3%;
+}
+
+.homepage-box__title {
+    font-weight: normal;
+    font-size: 48px;
+}
+
+@media screen and (min-width: 1920px) {
+    .background {
+        filter: blur(500px);
+    }
+    .main__title {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 120px;
+        line-height: 144px;
+        letter-spacing: 0.07em;
+        margin: 144px 10% 0 10%;
+    }
+    .browse-posts {
+        transform: scale(2);
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1919px) {
+    .background {
+        filter: blur(330px);
+    }
+    .browse-posts {
+        transform: scale(1.5);
+    }
+}
+
+@media screen and (min-width: 590px) and (max-width: 1024px) {
+    .main__title {
+        font-size: 54px;
+        line-height: 72px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .main__title {
+        font-size: 44px;
+        line-height: 60px;
+        margin: 28px 4% 0 4%;
+        letter-spacing: 0.02em;
+    }
 }
