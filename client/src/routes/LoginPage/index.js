@@ -43,10 +43,14 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [checked, setChecked] = useState(false);
+    const [ profileName, setProfileName ] = useState('');
+    const [ profilePassword, setProfilePassword ] = useState('');
 
     const handlerLog = (arg) => {
         if(arg === 'home'){
-            dispatch(setUserDataReducer({loged: true}));
+            dispatch(setUserDataReducer({
+                loged: true, profileName, profilePassword
+            }));
             navigate('/');
         }
         if(arg === 'reg'){
@@ -60,9 +64,11 @@ export const LoginPage = () => {
             <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
             }}>Авторизация</h2>
-            <form style={formStyles}>
-                <input style={inputStyles} placeholder='Имя профиля' type='name'/>
-                <input style={inputStyles} placeholder='Пароль' type='password'/>
+            <div style={formStyles}>
+                <input style={inputStyles} placeholder='Имя профиля' type='name'
+                    onChange={e => setProfileName(e.target.value)}/>
+                <input style={inputStyles} placeholder='Пароль' type='password'
+                    onChange={e => setProfilePassword(e.target.value)}/>
                 <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
                     <input
                         style={{ color: '#AC80C1', width: '11px', height: '11px'}}
@@ -70,14 +76,14 @@ export const LoginPage = () => {
                         onChange={() => {setChecked(prevState => !prevState)}}
                         id="happy" name="happy" value="yes" type="checkbox"
                     />
-                    <label for='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                    <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
                 </div>
                 <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
                     <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
                     <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
                 </div>
                 <div className='faq'/>
-            </form>
+            </div>
         </div>
     )
 }

@@ -18,10 +18,6 @@ const rootReducer = combineReducers({
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-// const fetchMiddleWare = store => next => action => {
-//     console.log(action)
-// }
-
 export const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunk))
