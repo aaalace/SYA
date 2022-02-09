@@ -18,12 +18,10 @@ export const Header = () => {
     }
 
     const logOut = () => {
-        if(window.confirm('Are you sure you want to log out')){
             dispatch(LogOut({
                 loged: false, profileName: '', profilePassword: ''
             }));
             navigate('/login')
-        }
     }
 
     return (
