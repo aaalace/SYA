@@ -5,7 +5,7 @@ import './header.css'
 export const Header = () => {
 
     return (
-        <div className='header'>
+        <div className='header' id="header">
             <Link className='header-link' to='/'>SYA</Link>
         </div>
     )
