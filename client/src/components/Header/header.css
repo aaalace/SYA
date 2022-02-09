@@ -5,6 +5,8 @@
     background-color: #FFFFFF;
     align-items: center;
     border-radius: 0 0 20px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .header-link {
