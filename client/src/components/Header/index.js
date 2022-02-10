@@ -10,7 +10,6 @@ import styled from "styled-components";
 const burgerRectCss = {
     width: '100px',
     height: '13px',
-    
 }
 
 const Menu = styled.div`
@@ -53,7 +52,7 @@ export const Header = () => {
     const openMenu = () => {
         open = !open;
         if (open) {
-            react1.current.style.transform = 'rotate(45deg) translate(17px, -14px)';
+            react1.current.style.transform = 'rotate(45deg) translate(17px, -14px) ';
             react2.current.style.opacity = '0%';
             react3.current.style.transform = 'rotate(-45deg) translate(-41px, -1px)';
             menuOpenedRedt.current.style.width = '280px';
@@ -119,15 +118,15 @@ export const Header = () => {
                 {loged ? 
                 <div style={{display: 'none'}} ref={itemsRef}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                        <Link className='menu-link' to='/profile'>Smth</Link>
-                        <Link className='menu-link' to='/profile'>Smth</Link>  
-                        <Link className='menu-link' to='/profile'>Smth</Link>  
-                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
-                        <a className='menu-link' onClick={logOut}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
+                        <Link className='menu-link' to='/'>Smth</Link>
+                        <Link className='menu-link' to='/'>Smth</Link>  
+                        <Link className='menu-link' to='/'>Smth</Link>  
+                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
+                        <a className='menu-link' onClick={logOut}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                     </div>
                 </div>
                 : null}

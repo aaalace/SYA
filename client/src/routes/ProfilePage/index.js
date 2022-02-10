@@ -1,11 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import './style.css'
 
 export const ProfilePage = () => {
     const userInfo = useSelector(state => state.user)
     const [profImage, setProfImage] = useState(null)
+    const [imgOne, setImgOne] = useState(null)
 
     const handler = () => {
         document.getElementById('selectedFile').click();
@@ -15,12 +16,14 @@ export const ProfilePage = () => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             let reader = new FileReader();
-            reader.onloadend = function() {setProfImage(reader.result)}
+            reader.onloadend = function() {setProfImage(reader.result)
+                setImgOne(reader.result)}
             reader.readAsDataURL(img);
           }
         }
+
     
-    return ( 
+    return (
         <div className='container-profile'>
             <div className='container-head'>
                 <div className='image-prof-container'>
@@ -32,8 +35,22 @@ export const ProfilePage = () => {
                 </div>
                 <div className='main-info-container'>
                     <div className='main-info-head'>
-                        <p className='main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
+                        <div>
+                            <p className='main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
+                        </div>
                         <p className='main-info-status'>{<i className="fa fa-tablet"> online</i>}</p>
+                    </div>
+                    <div className='main-info-social-data'>
+                        <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>10</b> публикаций</a>
+                        <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>20</b> подписок</a>
+                        <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>10</b> подписчиков</a>
+                    </div>
+                    <hr style={{backgroundColor: 'rgb(172, 128, 193)', width: '80%', margin: '0 auto', marginTop: '25px'}}></hr>
+                    <p style={{ margin: '0 auto', marginTop: '10px', color: 'rgb(172, 128, 193)' }}>Фотографии</p>
+                    <div className='photo-carousel-container'>
+                        <img id='img1' src={imgOne}></img>
+                        <img id='img2'></img>
+                        <img id='img3'></img>
                     </div>
                 </div>
             </div>

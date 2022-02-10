@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { LoginPage } from "./routes/LoginPage";
 import { SignUpPage } from "./routes/SignUpPage";
 import { ProfilePage } from "./routes/ProfilePage";
+// import ImageCarouselModal from "./components/ImageCarouselModal";
 
 export const App = () => {
   const userIsLoged = useSelector((state) => state.user.loged)
@@ -14,6 +15,7 @@ export const App = () => {
   return (
     <div className="app">
       <Header/>
+      {/* <ImageCarouselModal></ImageCarouselModal> */}
       <Routes>
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<SignUpPage />} />
