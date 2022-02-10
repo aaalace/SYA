@@ -7,6 +7,7 @@ class LiquidButton extends Component {
 
         return (
           <div>
+            
             <svg className={this.props.class}
               data-text={this.props.name}
               data-force-factor="0.1"

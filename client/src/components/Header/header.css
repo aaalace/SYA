@@ -6,7 +6,24 @@
     align-items: center;
     border-radius: 0 0 20px 20px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width:  60%;
+    height: 100%;
+    align-items: center;
+}
+
+.right_bar {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .container {
@@ -58,6 +75,13 @@
     padding: 8px;
     border-radius: 10px;
     border: 1px solid rgba(175, 175, 175, 0.3)
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        margin: 5%;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 500px) {
