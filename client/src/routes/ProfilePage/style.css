@@ -1,5 +1,5 @@
 .container-profile {
-    width: 50%;
+    width: 55%;
     margin: 0 auto;
     margin-top: 5vh;
     min-height: 83vh;
@@ -35,13 +35,13 @@
 .img-change {
     display: block;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 20px;
     background: rgba(172, 128, 193, 0.7);
     border: 1px solid rgba(175, 175, 175, 0.3);
     border-radius: 5px;
     color: #FFFFFF;
     width: 130px;
-    padding: 5px;
+    padding: 3px;
 }
 
 .container-head {
@@ -138,7 +138,7 @@
 .small-profile-image {
     object-fit: cover;
     display: block;
-    margin: 30px;
+    margin: 20px;
     border-radius: 20px;
     width: calc((25vw + 25vh) / 2);
     height: calc((25vw + 25vh) / 2);
@@ -152,30 +152,30 @@
     border-radius: 5px;
     color: #FFFFFF;
     width: 80%;
-    padding: .3vh;
+    padding: .4vh;
     font-size: 3vw;
+    margin-bottom: 10%;
 }
 
 .small-main-info-head {
     display: inline-block;
     flex-direction: row;
     height: 100%;
-    margin: 0 20px 0 0;
+    margin: -40px 20px 0 0;
 }
 
 .small-main-info-name {
     color: rgb(172, 128, 193);
     font-size: 5vw;
-    margin: 20px;
 }
 
 .small-main-info-social-data {
     display: flex;
     flex-direction: column;
     margin-top: 16%;
-    align-items: center;
     font-size: 3vw;
-    color: rgba(175, 175, 175)
+    color: rgba(175, 175, 175);
+    text-align: left;
 }
 
 .small-photo-carousel-container {
