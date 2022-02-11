@@ -57,8 +57,8 @@ export const Header = () => {
             react3.current.style.transform = 'rotate(-45deg) translate(-41px, -1px)';
             menuOpenedRedt.current.style.width = '280px';
             headerRef.current.style.borderRadius = '0 0 0 20px';
-            menuOpenedRedt.current.style.borderLeft = '2px solid black';
-            menuOpenedRedt.current.style.borderTop = '2px solid black';
+            menuOpenedRedt.current.style.borderLeft = '2px solid rgba(175, 175, 175, 0.3)';
+            menuOpenedRedt.current.style.borderTop = '2px solid rgba(175, 175, 175, 0.3)';
             if (loged) {
                 itemsRef.current.style.display = 'block';
             }
@@ -119,7 +119,7 @@ export const Header = () => {
                 <div style={{display: 'none', padding: '20px'}} ref={itemsRef}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <Link className='menu-link' to='/profile' style={{padding: 0}} onClick={openMenu}>
+                            <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
                                 <i className='fas fa-user-alt'/>
                             </Link>
                             <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOut}>
@@ -135,7 +135,7 @@ export const Header = () => {
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
                     </div>
                 </div>
-                : null}
+                : <p style={{ display: 'block', marginLeft: '15px', marginTop: '15px', color: 'rgb(172, 128, 193)' }}>You are not logged in</p>}
             </MenuOpened>
         </div>
     )
