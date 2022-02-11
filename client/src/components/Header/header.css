@@ -54,6 +54,7 @@
     color: #AC80C1;
     font-size: 20px;
     padding-right: 10%;
+    white-space: nowrap;
 }
 
 .menu-link:hover {
@@ -101,6 +102,7 @@
     .menu-link-bot {
         padding: 12px;
         border-radius: 5px;
+        white-space: nowrap;
     }
     .menu-link-bot:hover {
         background-color: #f5eaea;

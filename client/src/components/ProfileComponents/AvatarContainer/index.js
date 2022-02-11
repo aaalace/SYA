@@ -2,6 +2,7 @@ import React from "react"
 import {useMediaQuery} from 'react-responsive'
 import { addProfilePhoto } from '../../../store/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRef } from 'react';
 
 const AvatarContainer = () => {
     let med_cont = 'image-prof-container' 
@@ -13,11 +14,12 @@ const AvatarContainer = () => {
         med_bt = 'small-img-change'
     }
 
+    const selectedFileRef = useRef(null)
     const dispatch = useDispatch()
     const ava = useSelector(state => state.user.avatar)
 
     const handler = () => {
-        document.getElementById('selectedFile').click();
+        selectedFileRef.current.click();
     }
 
     const encodeImage = (event) => {
@@ -34,7 +36,7 @@ const AvatarContainer = () => {
     return (
         <div className={med_cont}>
             <img className={med_pi} src={ava}></img>
-            <input type="file" id="selectedFile" style={{display: "none"}} onChange={encodeImage}/>
+            <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             <div style={{justifyContent: "space-between", marginBottom: '10px'}}>
                 <input type="button" value={ava ? "Change image" : "Add image"} className={med_bt} onClick={handler} />
             </div>

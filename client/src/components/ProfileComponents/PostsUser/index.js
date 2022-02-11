@@ -1,23 +1,12 @@
 import React from "react"
-import { useDispatch, useSelector } from 'react-redux';
-import { addPostUser } from "../../../store/user/actions";
+import { useSelector, useDispatch } from 'react-redux';
+import { deletePostUser } from "../../../store/user/actions";
 
 const PostsUser = () => {
     const posts = useSelector(state => state.user.posts)
-    const dispatch = useDispatch()
 
-    const addPost = () => {
-        dispatch(addPostUser({id: posts.length,
-                            name: `${posts.length}`,
-                            datetime: `${posts.length}`,
-                            description: `${posts.length}`,
-                            image: null}))
-    }
-
-    console.log(posts)
     return (
         <div className="main-posts-user">
-            <button onClick={addPost}>addpost</button>
             {posts ? posts.map((post) => {
                         return <OnePost 
                         key={post.id}
@@ -30,7 +19,19 @@ const PostsUser = () => {
 }
 
 const OnePost = ({post}) => {
-    return(<p>{post.name}</p>)
+
+    const dispatch = useDispatch()
+
+    const handler = (d) => {
+        dispatch(deletePostUser(post.id))
+    }
+
+    return(
+        <div>
+            <p>{post.name}</p>
+            <button onClick={handler}>delete</button>
+        </div>
+    )
 }
 
 export default PostsUser

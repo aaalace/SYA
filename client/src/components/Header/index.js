@@ -105,7 +105,7 @@ export const Header = () => {
                     {loged ? <div className='right_bar'>
                         <Link className='menu-link' to='/'>Smth</Link>
                         <Link className='menu-link' to='/'>Smth</Link>  
-                        <Link className='menu-link' to='/'>Smth</Link>  
+                        <Link className='menu-link' to='/addpost'>New post</Link>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
                         <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
@@ -141,7 +141,7 @@ export const Header = () => {
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
+                        <Link className='menu-link menu-link-bot' to='/addpost' onClick={openMenu}>New post</Link>  
                     </div>
                 </div>
                 : <p style={{ display: 'block', marginLeft: '15px', marginTop: '15px', color: 'rgb(172, 128, 193)' }}>You are not logged in</p>}
