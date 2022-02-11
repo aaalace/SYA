@@ -84,11 +84,28 @@
     }
 }
 
-@media screen and (max-width: 500px) {
-    .find_over_form {
+@media screen and (min-width: 769px) {
+    .tabletBar {
         display: none;
     }
-  }
+}
+
+@media screen and (max-width: 768px) {
+    .find_over_form {
+        justify-content: space-between;
+        margin: 18px 0;
+    }
+    .find_over {
+        width: 100%;
+    }
+    .menu-link-bot {
+        padding: 12px;
+        border-radius: 5px;
+    }
+    .menu-link-bot:hover {
+        background-color: #f5eaea;
+    }
+}
 
 .fa-search{
     margin-left: 10px;

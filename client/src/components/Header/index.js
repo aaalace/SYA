@@ -57,8 +57,8 @@ export const Header = () => {
             react3.current.style.transform = 'rotate(-45deg) translate(-41px, -1px)';
             menuOpenedRedt.current.style.width = '280px';
             headerRef.current.style.borderRadius = '0 0 0 20px';
-            menuOpenedRedt.current.style.borderLeft = '2px solid black';
-            menuOpenedRedt.current.style.borderTop = '2px solid black';
+            menuOpenedRedt.current.style.borderLeft = '2px solid rgba(175, 175, 175, 0.3)';
+            menuOpenedRedt.current.style.borderTop = '2px solid rgba(175, 175, 175, 0.3)';
             if (loged) {
                 itemsRef.current.style.display = 'block';
             }
@@ -80,12 +80,21 @@ export const Header = () => {
         setToFind('')
     }
 
-    const logOut = () => {
-        dispatch(logOut({
-            loged: false, profileName: '', profilePassword: ''
-        }));
+    const logOutHeader = () => {
+        openMenu()
         navigate('/login')
-        }
+        dispatch(logOut({
+            loged: false,
+            profileName: '', 
+            profilePassword: '',
+            profileRepeatedPassword: '',
+            userName: '',
+            userSurname: '',
+            userBirthDate: '',
+            avatar: null,
+            posts: []
+        }));
+    }
     
 
     return (
@@ -98,7 +107,7 @@ export const Header = () => {
                         <Link className='menu-link' to='/'>Smth</Link>  
                         <Link className='menu-link' to='/'>Smth</Link>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
-                        <a className='menu-link' onClick={logOut}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
+                        <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
@@ -114,22 +123,28 @@ export const Header = () => {
                     </svg>
                 </Burger>
             </div>
-            <MenuOpened ref={menuOpenedRedt}>
+            <MenuOpened ref={menuOpenedRedt} className="tabletBar">
                 {loged ? 
-                <div style={{display: 'none'}} ref={itemsRef}>
+                <div style={{display: 'none', padding: '20px'}} ref={itemsRef}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
+                                <i className='fas fa-user-alt'/>
+                            </Link>
+                            <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOutHeader}>
+                                <i className='fa fa-sign-out' style={{fontSize: '30px'}}/>
+                            </Link>
+                        </div>
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
-                        <Link className='menu-link' to='/'>Smth</Link>
-                        <Link className='menu-link' to='/'>Smth</Link>  
-                        <Link className='menu-link' to='/'>Smth</Link>  
-                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
-                        <a className='menu-link' onClick={logOut}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
                     </div>
                 </div>
-                : null}
+                : <p style={{ display: 'block', marginLeft: '15px', marginTop: '15px', color: 'rgb(172, 128, 193)' }}>You are not logged in</p>}
             </MenuOpened>
         </div>
     )
