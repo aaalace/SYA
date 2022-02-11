@@ -14,15 +14,16 @@ const PostsUser = () => {
                             image: null}))
     }
 
+    console.log(posts)
     return (
         <div className="main-posts-user">
             <button onClick={addPost}>addpost</button>
-            {posts.map((post) => {
+            {posts ? posts.map((post) => {
                         return <OnePost 
                         key={post.id}
                         post={post}
                         />
-                    })
+                    }) : []
             }
         </div>
     )
