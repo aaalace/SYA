@@ -4,7 +4,7 @@ import './header.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut } from '../../store/user/actions';
+import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
 
 const burgerRectCss = {
@@ -81,7 +81,7 @@ export const Header = () => {
     }
 
     const logOut = () => {
-        dispatch(LogOut({
+        dispatch(logOut({
             loged: false, profileName: '', profilePassword: ''
         }));
         navigate('/login')
@@ -94,9 +94,9 @@ export const Header = () => {
                 <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
                 <Menu>
                     {loged ? <div className='right_bar'>
-                        <Link className='menu-link' to='/profile'>Smth</Link>
-                        <Link className='menu-link' to='/profile'>Smth</Link>  
-                        <Link className='menu-link' to='/profile'>Smth</Link>  
+                        <Link className='menu-link' to='/'>Smth</Link>
+                        <Link className='menu-link' to='/'>Smth</Link>  
+                        <Link className='menu-link' to='/'>Smth</Link>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
                         <a className='menu-link' onClick={logOut}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
