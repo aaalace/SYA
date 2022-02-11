@@ -130,9 +130,9 @@ export const Header = () => {
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
-                        <Link className='menu-link' to='/' onClick={openMenu}>Smth</Link>
-                        <Link className='menu-link' to='/' onClick={openMenu}>Smth</Link>  
-                        <Link className='menu-link' to='/' onClick={openMenu}>Smth</Link>  
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
                     </div>
                 </div>
                 : null}
