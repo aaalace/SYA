@@ -89,7 +89,10 @@
     color: rgba(172, 128, 193, 1);
 }
 
-.post-icon:hover {
-    color: rgba(172, 128, 193, 0.2);
-    transition-duration: 0.1ms;
+
+@media screen and (min-width: 1200px) {
+    .post-icon:hover {
+        color: rgba(172, 128, 193, 0.2);
+        transition-duration: 0.1ms;
+    }
 }
