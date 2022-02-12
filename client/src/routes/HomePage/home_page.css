@@ -13,11 +13,19 @@ html {
 }
 
 .main {
-    min-width: 100vw;
+    min-width: 100%;
     min-height: 200vh;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.sec {
+    height: 70vh;
+}
+
+.post {
+    min-height: 100vh;
 }
 
 .main__title {
@@ -30,19 +38,64 @@ html {
     margin: 72px 10% 0 10%;
 }
 
-.posts {
-    margin-top: 64px;
-    width: 100%;
+.next-link {
+    text-decoration: none;
 }
 
-.posts__box {
+.posts {
+    width: 100%;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin-top: 32px;
+}
+
+.post {
     margin: 0 10%;
-    padding: 3%;
+    padding: 3% 0 0 3%;
+    position: relative;
+}
+
+.post__top {
+    display: flex;
+    justify-content: space-between;
 }
 
 .homepage-box__title {
     font-weight: normal;
     font-size: 48px;
+}
+
+.next-link {
+    height: fit-content;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #AC80C1;
+    border: none;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 5px 10px 2px #AC80C1;
+    -moz-box-shadow: 0px 5px 10px 2px #AC80C1;
+    box-shadow: 0px 5px 10px 2px #AC80C1;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+}
+
+.next-link:hover {
+    background-color: inherit;
+    color: #000;
+    box-shadow: none;
+    transform: translateY(-7px);
+}
+   
+.next-link:active {
+    transform: translateY(-1px);
 }
 
 @media screen and (min-width: 1920px) {
@@ -76,6 +129,18 @@ html {
         font-size: 54px;
         line-height: 72px;
     }
+    .homepage-box__title {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .next-link {
+        position: absolute;
+        top: -20px;
+        right: 0;
+        border-radius: 0px;
+    }
 }
 
 @media screen and (max-width: 590px) {
@@ -85,4 +150,68 @@ html {
         margin: 28px 4% 0 4%;
         letter-spacing: 0.02em;
     }
+    .homepage-box__title {
+        font-size: 24px;
+    }
+    .next-link {
+        right: -10%;
+    }
 }
+
+/* From cssbuttons.io by @alexmaracinaru */
+.cta {
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+   }
+   
+   .cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #b1dae7;
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+   }
+   
+   .cta span {
+    position: relative;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #234567;
+   }
+   
+   .cta svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #234567;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+   }
+   
+   .cta:hover:before {
+    width: 100%;
+    background: #b1dae7;
+   }
+   
+   .cta:hover svg {
+    transform: translateX(0);
+   }
+   
+   .cta:active {
+    transform: scale(0.95);
+   }

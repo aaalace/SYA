@@ -59,6 +59,7 @@ export const SignUpPage = () => {
     const [ profileRepeatedPassword, setProfileRepeatedPassword ] = useState('');
     const [ userName, setUserName ] = useState('');
     const [ userSurname, setUserSurname ] = useState('');
+    const [ userBirthDate, setUserBirthDate ] = useState('');
 
     const create_user = () => {
         
@@ -71,7 +72,7 @@ export const SignUpPage = () => {
         if(arg === 'home'){
             dispatch(setUserDataReducer({
                 loged: true, profileName, profilePassword,
-                profileRepeatedPassword, userName, userSurname
+                profileRepeatedPassword, userName, userSurname, userBirthDate
             }));
             navigate('/');
         }
@@ -100,7 +101,7 @@ export const SignUpPage = () => {
                         <a style={{color: "rgba(0, 0, 0, 0.7)"}}>Дата рождения</a>
                         <a data-tooltip={'Заполненная дата рождения помогает друзьям легче найти вас, а также подбирать для вас интересные материалы'}>🛈</a>
                     </div>
-                        <input type="date" className="date"/>
+                        <input type="date" className="date" onChange={e => setUserBirthDate(e.target.value)}/>
                 </form>
                 <div style={{display: 'flex', alignItems: 'center', marginTop: '24px'}}>
                     <input
