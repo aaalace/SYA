@@ -204,11 +204,3 @@
 }
 
 /* posts */
-
-.main-posts-user {
-    margin: 0 auto;
-    margin-top: 20px;
-    border-radius: 20px;
-    min-height: calc(100vh - 64px - 116px - 36vh);
-    background-color: #FFFFFF;
-}

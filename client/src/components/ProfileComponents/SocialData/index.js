@@ -7,13 +7,13 @@ const SocialData = () => {
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
         med = "small-main-info-social-data"
     }
-    const publications = useSelector(state => state.user.posts)
+    const publications = useSelector(state => state.posts)
 
     return (
         <div className={med}>
             <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>{publications.length}</b> публикаций</a>
             <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>20</b> подписок</a>
-            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>1000000</b> подписчиков</a>
+            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>100</b> подписчиков</a>
         </div>
     )
 }
