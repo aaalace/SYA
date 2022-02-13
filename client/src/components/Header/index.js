@@ -2,15 +2,26 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import './header.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
 
-const burgerRectCss = {
-    width: '100px',
-    height: '13px',
-}
+const HeaderBox = styled.div`
+    display: flex;
+    height: 64px;
+    width: 100%;
+    background-color: #FFFFFF;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    border-radius: ${props => (props.open ? "0 0 0 20px" : "0 0 20px 20px")};
+`
+
+const LoginedBox = styled.div`
+    display: ${props => (props.open ? "block" : "none")};
+    padding: 20px;
+`
 
 const Menu = styled.div`
     @media (max-width: 768px) {
@@ -28,7 +39,9 @@ const Burger = styled.div`
 
 const MenuOpened = styled.div`
     position: absolute;
-    width: 0px;
+    width: ${props => (props.open ? "280px" : "0px")};
+    border-left: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
+    border-top: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;
@@ -36,44 +49,39 @@ const MenuOpened = styled.div`
     right: 0;
 `;
 
+const Rect1 = styled.rect`
+    width: 100px;
+    height: 13px;
+    transform = ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+`
+
+const Rect2 = styled.rect`
+    width: 100px;
+    height: 13px;
+    opacity: ${props => (props.open ? "0%" : "100%")};
+`
+
+const Rect3 = styled.rect`
+    width: 100px;
+    height: 13px;
+    transform = ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+`
+
+const CastomP = styled.p`
+    display: ${props => (props.open ? "block" : "none")};
+    margin-left: 15px;
+    margin-top: 15px;
+    color: rgb(172, 128, 193);
+`
+
 export const Header = () => {
     const loged = useSelector(state => state.user.loged)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [toFind, setToFind] = useState('')
-    let open = false
-    const react1 = useRef(null);
-    const react2 = useRef(null);
-    const react3 = useRef(null);
-    const menuOpenedRedt = useRef(null);
-    const headerRef = useRef(null);
-    const itemsRef = useRef(null);
+    const [open, setOpen] = useState(false)
 
-    const openMenu = () => {
-        open = !open;
-        if (open) {
-            react1.current.style.transform = 'rotate(45deg) translate(17px, -14px) ';
-            react2.current.style.opacity = '0%';
-            react3.current.style.transform = 'rotate(-45deg) translate(-41px, -1px)';
-            menuOpenedRedt.current.style.width = '280px';
-            headerRef.current.style.borderRadius = '0 0 0 20px';
-            menuOpenedRedt.current.style.borderLeft = '2px solid rgba(175, 175, 175, 0.3)';
-            menuOpenedRedt.current.style.borderTop = '2px solid rgba(175, 175, 175, 0.3)';
-            if (loged) {
-                itemsRef.current.style.display = 'block';
-            }
-        } else {
-            react1.current.style.transform = 'rotate(0deg)';
-            react2.current.style.opacity = '100%';
-            react3.current.style.transform = 'rotate(0deg)';
-            menuOpenedRedt.current.style.width = '0';
-            headerRef.current.style.borderRadius = '0 0 20px 20px';
-            menuOpenedRedt.current.style.border = 'none';
-            if (loged) {
-                itemsRef.current.style.display = 'none';
-            }
-        }
-    }
+    const openMenu = () => {setOpen(prevState => !prevState)}
 
     const submitHandler = () => {
         console.log(toFind)
@@ -98,7 +106,7 @@ export const Header = () => {
     
 
     return (
-        <div className='header' id='header' ref={headerRef}>
+        <HeaderBox id='header' open={open}>
             <div className='container'>
                 <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
                 <Menu>
@@ -117,15 +125,15 @@ export const Header = () => {
                 </Menu>
                 <Burger onClick={() => {openMenu()}}>
                     <svg viewBox="0 0 100 80" width="40" height="40">
-                        <rect style={burgerRectCss} rx="7" ry="7" ref={react1}/>
-                        <rect y="30" style={burgerRectCss} rx="7" ry="7" ref={react2}/>
-                        <rect y="60" style={burgerRectCss} rx="7" ry="7" ref={react3}/>
+                        <Rect1 rx="7" ry="7"/>
+                        <Rect2 y="30" rx="7" ry="7"/>
+                        <Rect3 y="60" rx="7" ry="7"/>
                     </svg>
                 </Burger>
             </div>
-            <MenuOpened ref={menuOpenedRedt} className="tabletBar">
+            <MenuOpened open={open} className="tabletBar">
                 {loged ? 
-                <div style={{display: 'none', padding: '20px'}} ref={itemsRef}>
+                <LoginedBox open={open}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
@@ -143,9 +151,9 @@ export const Header = () => {
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
                         <Link className='menu-link menu-link-bot' to='/addpost' onClick={openMenu}>New post</Link>  
                     </div>
-                </div>
-                : <p style={{ display: 'block', marginLeft: '15px', marginTop: '15px', color: 'rgb(172, 128, 193)' }}>You are not logged in</p>}
+                </LoginedBox>
+                : <CastomP open={open}>You are not logged in</CastomP>}
             </MenuOpened>
-        </div>
+        </HeaderBox>
     )
 }
