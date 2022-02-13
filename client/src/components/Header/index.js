@@ -91,17 +91,7 @@ export const Header = () => {
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
-        dispatch(logOut({
-            loged: false,
-            profileName: '', 
-            profilePassword: '',
-            profileRepeatedPassword: '',
-            userName: '',
-            userSurname: '',
-            userBirthDate: '',
-            avatar: null,
-            posts: []
-        }));
+        dispatch(logOut());
     }
     
 

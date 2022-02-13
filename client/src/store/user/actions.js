@@ -9,10 +9,7 @@ export const setUserDataReducer = (data) => ({
     payload: data,
 })
 
-export const logOut = (data) => ({
-    type: LOG_OUT,
-    payload: data,
-})
+export const logOut = () => ({ type: LOG_OUT })
 
 export const addProfilePhoto = (data) => ({
     type: ADD_AVATAR,

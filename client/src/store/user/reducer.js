@@ -19,7 +19,7 @@ const initialState = {
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOG_OUT: {
-            return {...action.payload}
+            return initialState
         }
         case SET_USER_DATA: {
             return {...state, ...action.payload}
