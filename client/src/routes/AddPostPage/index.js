@@ -26,7 +26,9 @@ export const AddPostPage = () => {
         dispatch(addPost({id: id,
                             datetime: datetime,
                             description: post_text,
-                            image: cur_img}))
+                            image: cur_img,
+                            like: false,
+                            bookmark: false}))
         dispatch(addUserPost(id))
         setCurImg(null)
         setPostText('')

@@ -5,7 +5,7 @@
     margin-bottom: 20px;
     width: 100%;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 20px 0 20px;
     
 }
 
@@ -55,6 +55,7 @@
     font-size: 15px;
     color: rgb(87, 81, 90);
     resize: none;
+    word-break: break-all;
 }
 
 .post-image-container {
@@ -87,12 +88,4 @@
 .post-icon {
     margin: 5px;
     color: rgba(172, 128, 193, 1);
-}
-
-
-@media screen and (min-width: 1200px) {
-    .post-icon:hover {
-        color: rgba(172, 128, 193, 0.2);
-        transition-duration: 0.1ms;
-    }
 }
