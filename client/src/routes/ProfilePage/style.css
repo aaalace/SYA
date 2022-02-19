@@ -1,3 +1,21 @@
+.background {
+    position: relative;
+    min-height: 60vh;
+    text-align: center;
+    background-image: url('../../images/seminar-art.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    filter: blur(250px);
+}
+
+.main {
+    min-width: 100%;
+    min-height: 200vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .container-profile {
     width: 55%;
     margin: 0 auto;

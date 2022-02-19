@@ -5,7 +5,7 @@
     margin-bottom: 20px;
     width: 100%;
     background-color: white;
-    border-radius: 20px 0 20px;
+    border-radius: 20px
     
 }
 
@@ -79,7 +79,7 @@
     display: flex;
     float: right;
     width: 150px;
-    border-radius: 0 0 15px 0;
+    border-radius: 0 0 20px 0;
     background-color: rgba(172, 128, 193, 0.2);
     font-size: 20px;
     justify-content: space-around;

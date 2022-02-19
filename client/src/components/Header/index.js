@@ -83,8 +83,7 @@ export const Header = () => {
 
     const openMenu = () => {setOpen(prevState => !prevState)}
 
-    const submitHandler = () => {
-        console.log(toFind)
+    function submitHandler() {
         setToFind('')
     }
 
@@ -92,6 +91,12 @@ export const Header = () => {
         openMenu()
         navigate('/login')
         dispatch(logOut());
+    }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter'){
+            submitHandler()
+        }
     }
     
 
@@ -107,7 +112,7 @@ export const Header = () => {
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
                         <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
+                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
                     </div> 
@@ -134,7 +139,7 @@ export const Header = () => {
                             </Link>
                         </div>
                         <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} onChange={event => setToFind(event.target.value)}/>
+                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
