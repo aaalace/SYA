@@ -4,7 +4,6 @@ import './style.css'
 import {useMediaQuery} from 'react-responsive'
 import PostsUser from '../../components/ProfileComponents/PostsUser';
 import SocialData from '../../components/ProfileComponents/SocialData';
-import PhotoCarousel from '../../components/ProfileComponents/PhotoCarousel';
 import AvatarContainer from '../../components/ProfileComponents/AvatarContainer';
 
 export const ProfilePage = () => {
@@ -46,7 +45,6 @@ export const ProfilePage = () => {
                                 <div>
                                     <p className='small-main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
                                 </div>
-                                <SocialData/>
                             </div>
                         </div>      
                     </div>}

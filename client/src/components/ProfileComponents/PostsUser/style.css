@@ -6,14 +6,31 @@
     width: 100%;
     background-color: white;
     border-radius: 20px
-    
 }
 
 .post-header {
     display: flex;
     flex-direction: row;
     width: 100%;
-    margin-bottom: 20px
+    justify-content: space-between;
+}
+
+.post-left {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.post-delete_button {
+    height: 20px;
+    width: 20px;
+    margin: 20px;
+    color: rgba(172, 128, 193, 1);
+}
+
+.post-delete_button:hover {
+    color:rgb(73, 39, 88);
 }
 
 .post-avatar {

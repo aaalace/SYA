@@ -1,8 +1,8 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux';
-// import { deletePostUser } from "../../../store/user/actions";
 import './style.css'
-import { changeBookmark, changeLike } from "../../../store/posts/actions";
+import { changeBookmark, changeLike, deletePost } from "../../../store/posts/actions";
+import { deleteUserPost } from "../../../store/user/actions";
 
 const PostsUser = () => {
     const posts = useSelector(state => state.posts)
@@ -22,6 +22,7 @@ const PostsUser = () => {
 
 const OnePost = (postX) => {
     const user_nick = useSelector(state => state.user.profileName)
+    const user_posts = useSelector(state => state.user.posts_id)
     const ava = useSelector(state => state.user.avatar)
     const post = postX.post
     const dispatch = useDispatch()
@@ -34,14 +35,25 @@ const OnePost = (postX) => {
         dispatch(changeBookmark(id))
     }
 
+    const deletePostX = (id) => {
+        console.log(id, user_posts)
+        if (user_posts.includes(id)){
+            dispatch(deletePost(id))
+            dispatch(deleteUserPost(id))
+        }
+    }
+
     return(
         <div className="post-container">
             <div className="post-header">
-                <img src={ava} className="post-avatar"/>
-                <div className="post-pers-data">
-                    <p className="post-pers-nickname">{user_nick}</p>
-                    <p className="post-datatime">{post.datetime}</p>
+                <div className="post-left">
+                    <img src={ava} className="post-avatar"/>
+                    <div className="post-pers-data">
+                        <p className="post-pers-nickname">{user_nick}</p>
+                        <p className="post-datatime">{post.datetime}</p>
+                    </div>
                 </div>
+                <span onClick={() => deletePostX(post.id)} className="post-delete_button">&#10006;</span>
             </div>
             {post.description ? <div className="post-text">
                 <p className="post-textarea">
