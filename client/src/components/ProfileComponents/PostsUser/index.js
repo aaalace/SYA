@@ -9,13 +9,11 @@ const PostsUser = () => {
 
     return (
         <div>
-            {posts ? posts.map((post) => {
-                        return <OnePost
-                        key={post.id}
-                        post={post}
-                        />
-                    }) : []
-            }
+            {posts 
+            ? posts.map((post) => {
+                return <OnePost key={post.id} post={post}/>
+            }) 
+            : []}
         </div>
     )
 }

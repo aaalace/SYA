@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
+import { NewPostPage } from '../NewPost';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -80,8 +81,10 @@ export const Header = () => {
     const dispatch = useDispatch()
     const [toFind, setToFind] = useState('')
     const [open, setOpen] = useState(false)
+    const [createPost, setCreatePost] = useState(false)
 
     const openMenu = () => {setOpen(prevState => !prevState)}
+    const createNewPost = () => {setCreatePost(prevState => !prevState)}
 
     function submitHandler() {
         setToFind('')
@@ -101,6 +104,7 @@ export const Header = () => {
     
 
     return (
+        <>
         <HeaderBox id='header' open={open}>
             <div className='container'>
                 <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
@@ -108,7 +112,7 @@ export const Header = () => {
                     {loged ? <div className='right_bar'>
                         <Link className='menu-link' to='/'>Smth</Link>
                         <Link className='menu-link' to='/'>Smth</Link>  
-                        <Link className='menu-link' to='/addpost'>New post</Link>  
+                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
                         <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
@@ -144,11 +148,13 @@ export const Header = () => {
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
-                        <Link className='menu-link menu-link-bot' to='/addpost' onClick={openMenu}>New post</Link>  
+                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                     </div>
                 </LoginedBox>
                 : <CastomP open={open}>You are not logged in</CastomP>}
             </MenuOpened>
         </HeaderBox>
+        {createPost ? <NewPostPage createNewPost={createNewPost}/> : null}
+        </>
     )
 }
