@@ -55,7 +55,7 @@ const MenuOpened = styled.div`
 const Rect1 = styled.rect`
     width: 100px;
     height: 13px;
-    transform = ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+    transform: ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
 `
 
 const Rect2 = styled.rect`
@@ -67,7 +67,7 @@ const Rect2 = styled.rect`
 const Rect3 = styled.rect`
     width: 100px;
     height: 13px;
-    transform = ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+    transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
 `
 
 const CastomP = styled.p`
@@ -145,9 +145,9 @@ export const Header = () => {
                 </Menu>
                 <Burger onClick={() => {openMenu()}}>
                     <svg viewBox="0 0 100 80" width="40" height="40">
-                        <Rect1 rx="7" ry="7"/>
-                        <Rect2 y="30" rx="7" ry="7"/>
-                        <Rect3 y="60" rx="7" ry="7"/>
+                        <Rect1 rx="7" ry="7" open={open}/>
+                        <Rect2 y="30" rx="7" ry="7" open={open}/>
+                        <Rect3 y="60" rx="7" ry="7" open={open}/>
                     </svg>
                 </Burger>
             </div>
