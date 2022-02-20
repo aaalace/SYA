@@ -6,7 +6,6 @@ import { CHANGE_BOOKMARK } from "./actions"
 const initialState = []
 
 export const postsReducer = (state = initialState, action) => {
-    console.log(action.payload)
     switch (action.type) {
         case ADD_POST: {
             return state.concat(action.payload)

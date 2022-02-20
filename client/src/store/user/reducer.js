@@ -3,16 +3,17 @@ import { LOG_OUT } from "./actions"
 import { ADD_AVATAR } from "./actions"
 import { ADD_USER_POST } from "./actions"
 import { DELETE_USER_POST } from "./actions"
+import { DELETE_AVATAR } from "./actions"
 
 const initialState = {
     loged: false,
-    profileName: '',
+    profileName: 'aaalace',
     profilePassword: '',
     profileRepeatedPassword: '',
-    userName: '',
-    userSurname: '',
-    userBirthDate: '',
-    avatar: '',
+    userName: 'Алмаз',
+    userSurname: 'Тазеев',
+    userBirthDate: '20.06.2005',
+    avatar: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg',
     posts_id: []
 }
 
@@ -26,6 +27,9 @@ export const userReducer = (state = initialState, action) => {
         }
         case ADD_AVATAR: {
             return {...state, ...action.payload}
+        }
+        case DELETE_AVATAR: {
+            return {...state, avatar: initialState.avatar}
         }
         case ADD_USER_POST: {
             return {...state, posts_id: state.posts_id.concat(action.payload)}

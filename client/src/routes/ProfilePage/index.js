@@ -35,7 +35,6 @@ export const ProfilePage = () => {
                             <hr style={{backgroundColor: 'rgb(172, 128, 193)', width: '80%', margin: '0 auto', marginTop: '25px'}}></hr> 
                         </div>
                     </div> :
-                    <div className='container-head'>
                         <div className='small-head-container'>
                             <AvatarContainer/>
                             <div className='small-main-info-head'>
@@ -45,8 +44,8 @@ export const ProfilePage = () => {
                                 <div>
                                     <p className='small-main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
                                 </div>
+
                             </div>
-                        </div>      
                     </div>}
                     <PostsUser/>
                 </div>
