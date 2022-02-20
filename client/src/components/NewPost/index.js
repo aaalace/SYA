@@ -32,10 +32,12 @@ const initialFormats = [
 export const NewPostPage = ({createNewPost}) => {
     const [formats, setFormats] = useState(JSON.parse(JSON.stringify(initialFormats)));
     const [contentFormatClass, setContentFormatClass] = useState('create-post-content__format');
+    const [formatSelected, setFormatSelected] = useState(false);
 
     const closeCreatingPage = () => {
         setFormats(JSON.parse(JSON.stringify(initialFormats)));
         setContentFormatClass('create-post-content__format');
+        setFormatSelected(false)
         createNewPost();
     }
 
@@ -45,7 +47,8 @@ export const NewPostPage = ({createNewPost}) => {
                 item.classNameBlock += ' test_class';
             } else {
                 item.classNameBlock += ' grow_class';
-                setContentFormatClass('create-post-content__format content-grow_class')
+                setFormatSelected(true);
+                setContentFormatClass('create-post-content__format content-grow_class');
             }
             return item;
         }))
@@ -70,6 +73,9 @@ export const NewPostPage = ({createNewPost}) => {
                 <div className={contentFormatClass}>
                     {renderFormats}
                 </div>
+                {formatSelected ? <div className='drag-and-drop-window'>
+                    
+                </div> : null}
             </div>
         </div>
     )

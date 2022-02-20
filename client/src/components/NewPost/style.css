@@ -20,7 +20,7 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding-bottom: 3%;
+    padding: 0 3% 3%;
 }
 
 .create-post-box__close {
@@ -56,14 +56,14 @@
 .format {
     flex-grow: 1;
     border: 2px solid #AC80C1;
-    margin: 5% 5% 0;
     border-radius: 5px;
     color: #AC80C1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3%;
     font-size: 24px;
+    padding: 3%;
+    margin-top: 5%; 
 }
 
 .format:hover {
@@ -81,6 +81,13 @@
 
 .content-grow_class {
     flex-grow: 0;
+}
+
+.drag-and-drop-window {
+    border-radius: 5px;
+    border: 2px solid #AC80C1;
+    flex-grow: 1;
+    margin-top: 5%;
 }
 
 @keyframes selected-format {

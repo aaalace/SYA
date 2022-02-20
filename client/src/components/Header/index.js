@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import './header.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
@@ -14,7 +14,9 @@ const HeaderBox = styled.div`
     width: 100%;
     background-color: #FFFFFF;
     align-items: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
     border-radius: ${props => (props.open ? "0 0 0 20px" : "0 0 20px 20px")};
 `
@@ -76,29 +78,48 @@ const CastomP = styled.p`
 `
 
 export const Header = () => {
-    const loged = useSelector(state => state.user.loged)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [toFind, setToFind] = useState('')
-    const [open, setOpen] = useState(false)
-    const [createPost, setCreatePost] = useState(false)
+    const loged = useSelector(state => state.user.loged);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [toFind, setToFind] = useState('');
+    const [open, setOpen] = useState(false);
+    const [createPost, setCreatePost] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = "scroll"
+    }, [])
+
+    useEffect(() => {
+        open ? 
+            document.body.style.overflow = "hidden" 
+        : document.body.style.overflow = "scroll"
+    }, [open])
+
+    useEffect(() => {
+        createPost ? 
+            document.body.style.overflow = "hidden"
+        : document.body.style.overflow = "scroll"
+    }, [createPost])
 
     const openMenu = () => {setOpen(prevState => !prevState)}
-    const createNewPost = () => {setCreatePost(prevState => !prevState)}
+
+    const createNewPost = () => {
+        setCreatePost(prevState => !prevState);
+    }
 
     function submitHandler() {
-        setToFind('')
+        setToFind('');
     }
 
     const logOutHeader = () => {
-        openMenu()
-        navigate('/login')
+        openMenu();
+        navigate('/login');
         dispatch(logOut());
     }
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter'){
-            submitHandler()
+            submitHandler();
         }
     }
     
