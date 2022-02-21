@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
+import Axios from 'axios';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -90,7 +91,12 @@ export const Header = () => {
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
-        dispatch(logOut());
+        dispatch(logOut())
+        Axios.post('/login', 
+                {login: false}
+            ).then((response) => {
+                console.log(response.data)
+            })
     }
 
     const handleKeyDown = (event) => {

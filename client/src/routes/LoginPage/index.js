@@ -3,6 +3,7 @@ import { setUserDataReducer } from '../../store/user/actions';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
+import Axios from 'axios';
 
 const BoxStyles = {
     width: '70%',
@@ -52,6 +53,11 @@ export const LoginPage = () => {
                 loged: true, profileName, profilePassword
             }));
             navigate('/');
+            Axios.post('/login', 
+                {login: true}
+            ).then((response) => {
+                console.log(response.data)
+            })
         }
         if(arg === 'reg'){
             navigate('/signup');
