@@ -14,7 +14,7 @@ export const HomePage = () => {
                     <h1 className='main__title'>A social network<br/>of associations</h1>
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
                         <Link to='/login'>
-                            <Button text={'Sign In'} className='main__button'/>
+                            <Button text={'Log in'} className='main__button'/>
                         </Link>
                     </div>
                 </div>
