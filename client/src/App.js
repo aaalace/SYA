@@ -13,13 +13,6 @@ import Axios from 'axios'
 export const App = () => {
   const userIsLoged = useSelector((state) => state.user.loged)
 
-  useEffect(() => {
-    Axios.get('/login').then(
-      (response) => {
-      console.log(response.data)
-    })
-  }, [])
-
   return (
     <div className="app">
       <Header/>

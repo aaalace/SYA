@@ -3,6 +3,7 @@ import { setUserDataReducer } from '../../store/user/actions';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
+import Axios from 'axios';
 
 const BoxStyles = {
     width: '70%',
@@ -57,22 +58,35 @@ export const SignUpPage = () => {
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ profileRepeatedPassword, setProfileRepeatedPassword ] = useState('');
-    const [ userName, setUserName ] = useState('');
-    const [ userSurname, setUserSurname ] = useState('');
+    const [ personName, setUserName ] = useState('');
+    const [ personSurname, setUserSurname ] = useState('');
     const [ userBirthDate, setUserBirthDate ] = useState('');
 
     const create_user = () => {
-        
+        Axios.post('/create_user', 
+                        {
+                        profile_name: profileName,
+                        profile_password: profilePassword,
+                        person_name: personName,
+                        person_surname: personSurname,
+                        birth_date: userBirthDate
+                    }
+                    )
     }
 
     const handlerLog = (arg) => {
         if(arg === 'auth'){
             navigate('/login');
         }
-        if(arg === 'home'){
+        if(arg === 'home' && profilePassword === profileRepeatedPassword){
+            create_user()
             dispatch(setUserDataReducer({
-                loged: true, profileName, profilePassword,
-                profileRepeatedPassword, userName, userSurname, userBirthDate
+                loged: true, 
+                profileName: profileName, 
+                profilePassword: profilePassword, 
+                personName: personName,
+                personSurname: personSurname, 
+                userBirthDate: userBirthDate
             }));
             navigate('/');
         }

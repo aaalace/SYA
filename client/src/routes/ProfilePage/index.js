@@ -25,7 +25,7 @@ export const ProfilePage = () => {
                         <div className='main-info-container'>
                             <div className='main-info-head'>
                                 <div>
-                                    <p className='main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
+                                    <p className='main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
                                 </div>
                                 <div>
                                     <p className='main-info-usname'>{userInfo.profileName}</p>

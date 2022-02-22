@@ -7,12 +7,11 @@ import { DELETE_AVATAR } from "./actions"
 
 const initialState = {
     loged: false,
-    profileName: 'aaalace',
+    profileName: '',
     profilePassword: '',
-    profileRepeatedPassword: '',
-    userName: 'Алмаз',
-    userSurname: 'Тазеев',
-    userBirthDate: '20.06.2005',
+    personName: '',
+    personSurname: '',
+    userBirthDate: '',
     avatar: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg',
     posts_id: []
 }

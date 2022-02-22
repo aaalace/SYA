@@ -92,11 +92,6 @@ export const Header = () => {
         openMenu()
         navigate('/login')
         dispatch(logOut())
-        Axios.post('/login', 
-                {login: false}
-            ).then((response) => {
-                console.log(response.data)
-            })
     }
 
     const handleKeyDown = (event) => {
