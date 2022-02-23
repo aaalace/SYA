@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 import { LoginPage } from "./routes/LoginPage"
 import { SignUpPage } from "./routes/SignUpPage"
 import { ProfilePage } from "./routes/ProfilePage"
-import { AddPostPage } from "./routes/AddPostPage"
 import Axios from 'axios'
 
 export const App = () => {
@@ -20,7 +19,6 @@ export const App = () => {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route  path="/profile" element={<ProfilePage/>} />
-        <Route  path="/addpost" element={<AddPostPage/>} />
         <Route path="/*" element={
           <PrivateRoute authed={userIsLoged}>
             <HomePage />

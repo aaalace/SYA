@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
 import Axios from 'axios';
+import LoadingIcon from '../../components/Loading';
 
 const BoxStyles = {
     width: '70%',
     maxWidth: '600px',
     border: '2px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '20px',
-    margin: '92px auto',
+    margin: '70px auto',
     textAlign: 'center',
     padding: '24px 24px 30px'
 }
@@ -46,8 +47,10 @@ export const LoginPage = () => {
     const [ checked, setChecked ] = useState(false);
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
+    const [ logging, setLogging ] = useState(false)
 
     const handlerLog = (arg) => {
+        setLogging(true)
         if(arg === 'home'){
             Axios.post('/checkLoged',
                 {
@@ -78,30 +81,33 @@ export const LoginPage = () => {
     }
 
     return(
-        <div style={BoxStyles}>
-            <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
+        <div style={{display: 'flex'}}>
+            {logging ? <LoadingIcon/> :
+            <div style={BoxStyles}>
+                <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-            }}>Авторизация</h2>
-            <div style={formStyles}>
-                <input style={inputStyles} placeholder='Имя профиля' type='name'
-                    onChange={e => setProfileName(e.target.value)}/>
-                <input style={inputStyles} placeholder='Пароль' type='password'
-                    onChange={e => setProfilePassword(e.target.value)}/>
-                <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
-                    <input
-                        style={{ color: '#AC80C1', width: '11px', height: '11px'}}
-                        checked={checked}
-                        onChange={() => {setChecked(prevState => !prevState)}}
-                        id="happy" name="happy" value="yes" type="checkbox"
-                    />
-                    <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                }}>Авторизация</h2>
+                <div style={formStyles}>
+                    <input style={inputStyles} placeholder='Имя профиля' type='name'
+                        onChange={e => setProfileName(e.target.value)}/>
+                    <input style={inputStyles} placeholder='Пароль' type='password'
+                        onChange={e => setProfilePassword(e.target.value)}/>
+                    <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
+                        <input
+                            style={{ color: '#AC80C1', width: '11px', height: '11px'}}
+                            checked={checked}
+                            onChange={() => {setChecked(prevState => !prevState)}}
+                            id="happy" name="happy" value="yes" type="checkbox"
+                        />
+                        <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                    </div>
+                    <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
+                        <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
+                        <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
+                    </div>
+                    <div className='faq'/>
                 </div>
-                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
-                    <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
-                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
-                </div>
-                <div className='faq'/>
-            </div>
+            </div>}
         </div>
     )
 }

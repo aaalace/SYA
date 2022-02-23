@@ -27,11 +27,3 @@ input::placeholder {
     opacity: 1;
     top: 1.2em;
 }
-
-.date {
-    padding: 2%;
-    border-radius: 5px;
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    background-color: rgba(0, 0, 0, 0);
-    color: rgba(0, 0, 0, 0.7);
-}

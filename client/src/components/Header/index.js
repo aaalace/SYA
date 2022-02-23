@@ -130,8 +130,10 @@ export const Header = () => {
         <HeaderBox id='header' open={open}>
             <div className='container'>
                 <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
+                {loged ?
+                <div>
                 <Menu>
-                    {loged ? <div className='right_bar'>
+                    <div className='right_bar'>
                         <Link className='menu-link' to='/'>Smth</Link>
                         <Link className='menu-link' to='/'>Smth</Link>  
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
@@ -141,8 +143,7 @@ export const Header = () => {
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
                         </div>
-                    </div> 
-                    : <></>}
+                    </div>    
                 </Menu>
                 <Burger onClick={() => {openMenu()}}>
                     <svg viewBox="0 0 100 80" width="40" height="40">
@@ -151,9 +152,11 @@ export const Header = () => {
                         <Rect3 y="60" rx="7" ry="7" open={open}/>
                     </svg>
                 </Burger>
+                </div>
+                : <></>}
             </div>
+            {loged ? 
             <MenuOpened open={open} className="tabletBar">
-                {loged ? 
                 <LoginedBox open={open}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -173,8 +176,8 @@ export const Header = () => {
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                     </div>
                 </LoginedBox>
-                : <CastomP open={open}>You are not logged in</CastomP>}
             </MenuOpened>
+            : null}
         </HeaderBox>
         {createPost ? <NewPostPage createNewPost={createNewPost}/> : null}
         </>
