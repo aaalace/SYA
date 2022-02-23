@@ -113,15 +113,9 @@ export const Header = () => {
     }
 
     const logOutHeader = () => {
-<<<<<<< HEAD
         openMenu()
         navigate('/login')
         dispatch(logOut())
-=======
-        openMenu();
-        navigate('/login');
-        dispatch(logOut());
->>>>>>> mainSham
     }
 
     const handleKeyDown = (event) => {
