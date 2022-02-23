@@ -42,5 +42,10 @@ def check_loged():
         password = data['profile_password']
         res = Users.query.filter(and_(Users.profile_name == name, Users.profile_password == password)).all()
         if len(res) > 0:
-            return {"loged": True}
+            return {
+                "loged": True,
+                "name": res[0].person_name,
+                "surname": res[0].person_surname,
+                "birth_date": res[0].birth_date
+            }
         return {"loged": None}

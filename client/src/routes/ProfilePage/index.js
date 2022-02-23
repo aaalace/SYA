@@ -42,7 +42,7 @@ export const ProfilePage = () => {
                                     <p className='small-main-info-usname'>{userInfo.profileName}</p>
                                 </div>
                                 <div>
-                                    <p className='small-main-info-name'>{userInfo.userName} {userInfo.userSurname}</p>
+                                    <p className='small-main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
                                 </div>
 
                             </div>

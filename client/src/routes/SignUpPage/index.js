@@ -78,7 +78,7 @@ export const SignUpPage = () => {
         if(arg === 'auth'){
             navigate('/login');
         }
-        if(arg === 'home' && profilePassword === profileRepeatedPassword){
+        if(arg === 'signup' && profilePassword === profileRepeatedPassword){
             create_user()
             dispatch(setUserDataReducer({
                 loged: true, 
@@ -127,7 +127,7 @@ export const SignUpPage = () => {
                     <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
                 </div>
                 <div style={{display: 'grid', gridTemplateColumns: '3fr 2fr', gridGap: '13px', marginTop: '24px'}}>
-                    <button style={buttonsStyles} onClick={() => handlerLog('home')}>Зарегестрироваться</button>
+                    <button style={buttonsStyles} onClick={() => handlerLog('signup')}>Зарегестрироваться</button>
                     <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('auth')}>Вход</button>
                 </div>
             </div>

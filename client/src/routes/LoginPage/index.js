@@ -60,8 +60,8 @@ export const LoginPage = () => {
                         loged: true, 
                         profileName: profileName, 
                         profilePassword: profilePassword, 
-                        personName: response.data.person_name, // нужно как то InstrumentedAttribute сюда отправлять
-                        personSurname: response.data.person_surname, // нужно как то InstrumentedAttribute сюда отправлять
+                        personName: response.data.name, // нужно как то InstrumentedAttribute сюда отправлять
+                        personSurname: response.data.surname, // нужно как то InstrumentedAttribute сюда отправлять
                         userBirthDate: response.birth_date // нужно как то InstrumentedAttribute сюда отправлять
                     }));
                     navigate('/');
