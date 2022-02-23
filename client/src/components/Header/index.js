@@ -133,7 +133,7 @@ export const Header = () => {
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
-                                <i className='fas fa-user-alt'/>
+                                <i className="fas fa-user" aria-hidden="true"></i>
                             </Link>
                             <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOutHeader}>
                                 <i className='fa fa-sign-out' style={{fontSize: '30px'}}/>
