@@ -91,7 +91,7 @@ html {
     background-color: inherit;
     color: #000;
     box-shadow: none;
-    transform: translateY(-7px);
+    transform: scale(1.1);
 }
    
 .next-link:active {

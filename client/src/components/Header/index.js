@@ -2,11 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import './header.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
 import Axios from 'axios';
+import { NewPostPage } from '../NewPost';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -14,7 +15,9 @@ const HeaderBox = styled.div`
     width: 100%;
     background-color: #FFFFFF;
     align-items: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
     border-radius: ${props => (props.open ? "0 0 0 20px" : "0 0 20px 20px")};
 `
@@ -53,7 +56,7 @@ const MenuOpened = styled.div`
 const Rect1 = styled.rect`
     width: 100px;
     height: 13px;
-    transform = ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+    transform: ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
 `
 
 const Rect2 = styled.rect`
@@ -65,7 +68,7 @@ const Rect2 = styled.rect`
 const Rect3 = styled.rect`
     width: 100px;
     height: 13px;
-    transform = ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+    transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
 `
 
 const CastomP = styled.p`
@@ -76,32 +79,60 @@ const CastomP = styled.p`
 `
 
 export const Header = () => {
-    const loged = useSelector(state => state.user.loged)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [toFind, setToFind] = useState('')
-    const [open, setOpen] = useState(false)
+    const loged = useSelector(state => state.user.loged);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [toFind, setToFind] = useState('');
+    const [open, setOpen] = useState(false);
+    const [createPost, setCreatePost] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = "scroll"
+    }, [])
+
+    useEffect(() => {
+        open ? 
+            document.body.style.overflow = "hidden" 
+        : document.body.style.overflow = "scroll"
+    }, [open])
+
+    useEffect(() => {
+        createPost ? 
+            document.body.style.overflow = "hidden"
+        : document.body.style.overflow = "scroll"
+    }, [createPost])
 
     const openMenu = () => {setOpen(prevState => !prevState)}
 
+    const createNewPost = () => {
+        setCreatePost(prevState => !prevState);
+    }
+
     function submitHandler() {
-        setToFind('')
+        setToFind('');
     }
 
     const logOutHeader = () => {
+<<<<<<< HEAD
         openMenu()
         navigate('/login')
         dispatch(logOut())
+=======
+        openMenu();
+        navigate('/login');
+        dispatch(logOut());
+>>>>>>> mainSham
     }
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter'){
-            submitHandler()
+            submitHandler();
         }
     }
     
 
     return (
+        <>
         <HeaderBox id='header' open={open}>
             <div className='container'>
                 <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
@@ -109,7 +140,7 @@ export const Header = () => {
                     {loged ? <div className='right_bar'>
                         <Link className='menu-link' to='/'>Smth</Link>
                         <Link className='menu-link' to='/'>Smth</Link>  
-                        <Link className='menu-link' to='/addpost'>New post</Link>  
+                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
                         <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
                         <div className="find_over_form">
@@ -121,9 +152,9 @@ export const Header = () => {
                 </Menu>
                 <Burger onClick={() => {openMenu()}}>
                     <svg viewBox="0 0 100 80" width="40" height="40">
-                        <Rect1 rx="7" ry="7"/>
-                        <Rect2 y="30" rx="7" ry="7"/>
-                        <Rect3 y="60" rx="7" ry="7"/>
+                        <Rect1 rx="7" ry="7" open={open}/>
+                        <Rect2 y="30" rx="7" ry="7" open={open}/>
+                        <Rect3 y="60" rx="7" ry="7" open={open}/>
                     </svg>
                 </Burger>
             </div>
@@ -145,11 +176,13 @@ export const Header = () => {
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
-                        <Link className='menu-link menu-link-bot' to='/addpost' onClick={openMenu}>New post</Link>  
+                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                     </div>
                 </LoginedBox>
                 : <CastomP open={open}>You are not logged in</CastomP>}
             </MenuOpened>
         </HeaderBox>
+        {createPost ? <NewPostPage createNewPost={createNewPost}/> : null}
+        </>
     )
 }
