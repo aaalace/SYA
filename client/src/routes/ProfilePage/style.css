@@ -1,3 +1,21 @@
+.background {
+    position: relative;
+    min-height: 60vh;
+    text-align: center;
+    background-image: url('../../images/seminar-art.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    filter: blur(250px);
+}
+
+.main {
+    min-width: 100%;
+    min-height: 200vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .container-profile {
     width: 55%;
     margin: 0 auto;
@@ -16,8 +34,9 @@
 }
 
 .image-prof-container {
-    float: left;
-    width: 230px;
+    display: flex;
+    min-width: 230px;
+    height: 230px;
     border-radius: 20px;
     background-color: #ffffff;
     padding: 15px;
@@ -32,16 +51,8 @@
     height: 200px;
 }
 
-.img-change {
-    display: block;
-    margin: 0 auto;
-    margin-top: 20px;
-    background: rgba(172, 128, 193, 0.7);
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    border-radius: 5px;
-    color: #FFFFFF;
-    width: 130px;
-    padding: 3px;
+.profile-image-choice {
+    border-radius: 100px 20px;
 }
 
 .container-head {
@@ -90,33 +101,6 @@
     justify-content: space-around;
 }
 
-#img1 {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    margin: 8px 8px 8px 8px;
-    border-radius: 5px;
-}
-
-#img2 {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    margin: 8px 8px 8px 8px;
-    border-radius: 5px;
-}
-
-#img3 {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    margin: 8px 8px 8px 8px;
-    border-radius: 5px;
-}
-
 @media screen and (max-width: 1200px) {
     .container-profile {
         min-width: 95%;
@@ -136,9 +120,20 @@
     margin: 0 auto;
     margin-top: 3%;
     align-items: center;
-    justify-content: space-around;
     background-color: #FFFFFF;
     border-radius: 20px;
+    
+}
+
+.small-image-prof-container {
+    display: flex;
+    min-width: 130px;
+    height: 130px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    padding: 15px;
+    display: inline-flex;
+    align-items: flex-end
 }
 
 .small-profile-image {
@@ -146,37 +141,23 @@
     display: block;
     margin: 20px;
     border-radius: 20px;
-    width: calc((25vw + 25vh) / 2);
-    height: calc((25vw + 25vh) / 2);
-}
-
-.small-img-change {
-    display: block;
-    margin: 0 auto;
-    background: rgba(172, 128, 193, 0.7);
-    border: 1px solid rgba(175, 175, 175, 0.3);
-    border-radius: 5px;
-    color: #FFFFFF;
-    width: 60%;
-    padding: .4vh;
-    font-size: 3vw;
-    margin-bottom: 10%;
+    width: calc((25vw + 25vh) / 3);
+    height: calc((25vw + 25vh) / 3);
 }
 
 .small-main-info-head {
     display: inline-block;
     flex-direction: row;
-    margin: -50px 20px 0 0;
 }
 
 .small-main-info-name {
     color: rgb(172, 128, 193);
-    font-size: 5vw;
+    font-size: 20px;
 }
 
 .small-main-info-usname {
     color: rgba(172, 128, 193, 0.5);
-    font-size: 4vw;
+    font-size: 15px;
 }
 
 .small-main-info-social-data {

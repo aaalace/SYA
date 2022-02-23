@@ -26,7 +26,9 @@ export const AddPostPage = () => {
         dispatch(addPost({id: id,
                             datetime: datetime,
                             description: post_text,
-                            image: cur_img}))
+                            image: cur_img,
+                            like: false,
+                            bookmark: false}))
         dispatch(addUserPost(id))
         setCurImg(null)
         setPostText('')
@@ -48,16 +50,20 @@ export const AddPostPage = () => {
     }
 
     return(
-        <div>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: "center", justifyContent: 'space-around'}}>
             <button onClick={addPostH}>addpost</button>
             <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             <div style={{justifyContent: "space-between", marginBottom: '10px'}}>
                 <input type="button" value={"Add image"} onClick={handler} />
             </div>
-            Chosen image:
-            {cur_img ? <img style={{width: "100px", height: "100px"}}src={cur_img}/> : null}
-            Post description:
-            <textarea type="text" rows="15" value={post_text} onChange={event => setPostText(event.target.value)}></textarea> 
+            <div>
+                Chosen image:
+                {cur_img ? <img style={{width: "100px", height: "100px"}}src={cur_img}/> : null}
+            </div>
+            <div>
+                Post description:
+                <textarea type="text" rows="15" value={post_text} onChange={event => setPostText(event.target.value)}></textarea>
+            </div> 
         </div>
     )
 }

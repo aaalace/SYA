@@ -11,7 +11,7 @@ input::placeholder {
 [data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
-    width: 15rem;
+    width: 10rem;
     left: 0; top: 0;
     background: #AC80C1;
     color: #fff;
@@ -21,6 +21,7 @@ input::placeholder {
     opacity: 0;
     transition: 0.5s;
     border-radius: 10px;
+    font-size: .8rem;
 } 
 [data-tooltip]:hover::after {
     opacity: 1;

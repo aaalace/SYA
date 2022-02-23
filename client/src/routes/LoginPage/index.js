@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserDataReducer } from '../../store/user/actions';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
+import Axios from 'axios';
 
 const BoxStyles = {
     width: '70%',
@@ -42,19 +43,36 @@ const buttonsStyles = {
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [checked, setChecked] = useState(false);
+    const [ checked, setChecked ] = useState(false);
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
 
     const handlerLog = (arg) => {
         if(arg === 'home'){
-            dispatch(setUserDataReducer({
-                loged: true, profileName, profilePassword
-            }));
-            navigate('/');
+            Axios.post('/checkLoged',
+                {
+                    profile_name: profileName,
+                    profile_password: profilePassword
+                }
+            ).then((response) => {
+                if(response.data.loged){
+                    dispatch(setUserDataReducer({
+                        loged: true, 
+                        profileName: profileName, 
+                        profilePassword: profilePassword, 
+                        personName: response.data.name, // нужно как то InstrumentedAttribute сюда отправлять
+                        personSurname: response.data.surname, // нужно как то InstrumentedAttribute сюда отправлять
+                        userBirthDate: response.birth_date // нужно как то InstrumentedAttribute сюда отправлять
+                    }));
+                    navigate('/');
+                }
+                else{
+                    navigate('/')
+                }
+            })
         }
         if(arg === 'reg'){
-            navigate('/signup');
+            navigate('/signup')
         }
 
     }
