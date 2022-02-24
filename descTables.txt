@@ -1,0 +1,13 @@
+users
+	id, name, email, ?image,
+	followers_count, followers_ids_list, 
+	liked_posts_ids, self_posts_ids, bookmarked_posts_ids, 
+	following_count, following_ids
+
+users_passwords
+	id, user_id, hashed_password
+	foreign key: user_id
+
+posts
+	id, user_id, comments [{user_id, type, answer_link, time}], type, media, time
+

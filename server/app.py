@@ -17,6 +17,7 @@ from models.users import Users
 def create():
     if request.method == 'POST':
         data = json.loads(request.data)
+        print(data)
         prof_name = data['profile_name']
         res = Users.query.filter(Users.profile_name == prof_name).all()
         if len(res) == 0:
@@ -38,6 +39,7 @@ def create():
 def check_loged():
     if request.method == 'POST':
         data = json.loads(request.data)
+        print(data)
         name = data['profile_name']
         password = data['profile_password']
         res = Users.query.filter(and_(Users.profile_name == name, Users.profile_password == password)).all()

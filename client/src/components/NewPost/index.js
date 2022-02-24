@@ -2,27 +2,33 @@ import './style.css';
 import { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { AudioBox } from '../PostTypes/AudioPost';
+import { VideoPost } from '../PostTypes/VideoPost';
+import { ImagePost } from '../PostTypes/ImagePost';
+import { TextPost } from '../PostTypes/TextPost';
+import { PostTypeError } from '../PostTypes/PostTypeError';
+
 const initialFormats = [
     {
-        id: 0,
+        id: 1,
         text: 'Аудио',
         classNameBlock: 'format format-audio',
         className: 'fa-solid fa-music',
     },
     {
-        id: 1,
+        id: 2,
         text: 'Видео',
         classNameBlock: 'format format-video',
         className: 'fa-solid fa-video',
     },
     {
-        id: 2,
+        id: 3,
         text: 'Изображение',
         classNameBlock: 'format format-photo',
         className: 'fa-solid fa-image',
     },
     {
-        id: 3,
+        id: 4,
         text: 'Текст',
         classNameBlock: 'format format-text',
         className: 'fa-solid fa-envelope-open-text',
@@ -33,6 +39,11 @@ export const NewPostPage = ({createNewPost}) => {
     const [formats, setFormats] = useState(JSON.parse(JSON.stringify(initialFormats)));
     const [contentFormatClass, setContentFormatClass] = useState('create-post-content__format');
     const [formatSelected, setFormatSelected] = useState(false);
+
+    const [audioData, setAudioData] = useState(false);
+    const [videoData, setVideoData] = useState(false);
+    const [imageData, setImageData] = useState(false);
+    const [textData, setTextData] = useState(false);
 
     const closeCreatingPage = () => {
         setFormats(JSON.parse(JSON.stringify(initialFormats)));
@@ -47,7 +58,7 @@ export const NewPostPage = ({createNewPost}) => {
                 item.classNameBlock += ' test_class';
             } else {
                 item.classNameBlock += ' grow_class';
-                setFormatSelected(true);
+                setFormatSelected(item.id);
                 setContentFormatClass('create-post-content__format content-grow_class');
             }
             return item;
@@ -74,7 +85,13 @@ export const NewPostPage = ({createNewPost}) => {
                     {renderFormats}
                 </div>
                 {formatSelected ? <div className='drag-and-drop-window'>
-                    
+                    {
+                        formatSelected === 1 ? <AudioBox audioData={audioData} setAudioData={setAudioData}/> : 
+                        formatSelected === 2 ? <VideoPost videoData={videoData} setVideoData={setVideoData}/> :
+                        formatSelected === 3 ? <ImagePost imageData={imageData} setImageData={setImageData}/> :
+                        formatSelected === 4 ? <TextPost textData={textData} setTextData={setTextData}/> : 
+                        <PostTypeError />
+                    }
                 </div> : null}
             </div>
         </div>
