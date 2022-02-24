@@ -5,6 +5,7 @@ import { useState } from 'react';
 import './style.css'
 import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
+import TextField from '@mui/material/TextField';
 
 const BoxStyles = {
     width: '70%',
@@ -18,11 +19,9 @@ const BoxStyles = {
 
 const inputStyles = {
     background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(175, 175, 175, 0.3)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     marginTop: '24px',
-    padding: '2%'
 }
 
 const formStyles = {
@@ -88,10 +87,20 @@ export const LoginPage = () => {
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
                 }}>Авторизация</h2>
                 <div style={formStyles}>
-                    <input style={inputStyles} placeholder='Имя профиля' type='name'
-                        onChange={e => setProfileName(e.target.value)}/>
-                    <input style={inputStyles} placeholder='Пароль' type='password'
-                        onChange={e => setProfilePassword(e.target.value)}/>
+                <TextField
+                        label="Имя профиля"
+                        type="name"
+                        variant="standard"
+                        style={inputStyles}
+                        onChange={e => setProfileName(e.target.value)}
+                    />
+                    <TextField
+                        label="Пароль"
+                        type="password"
+                        variant="standard"
+                        style={inputStyles}
+                        onChange={e => setProfilePassword(e.target.value)}
+                    />
                     <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
                         <input
                             style={{ color: '#AC80C1', width: '11px', height: '11px'}}

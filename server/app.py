@@ -65,7 +65,6 @@ def create():
                     "exception": str(e),
                     "exceptionCode": e.errcode()}
 
-
 @app.route("/checkLoged", methods=['POST', 'GET'])
 def check_loged():
     if request.method == 'POST':
@@ -81,3 +80,10 @@ def check_loged():
                 "birth_date": res[0].birth_date
             }
         return {"loged": None}
+
+
+@app.route("/captchaChecker", methods=['POST', 'GET'])
+def check_captcha():
+    if request.method == 'POST':
+        print(request.data)
+    return {'sda': 'asd'}

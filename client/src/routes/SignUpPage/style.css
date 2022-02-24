@@ -4,26 +4,10 @@ input::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
 
-
-[data-tooltip] {
-    position: relative;
+input::-webkit-datetime-edit {
+    color: transparent; 
 }
-[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    width: 10rem;
-    left: 0; top: 0;
-    background: #AC80C1;
-    color: #fff;
-    padding: 0.5em;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    pointer-events: none;
-    opacity: 0;
-    transition: 0.5s;
-    border-radius: 10px;
-    font-size: .8rem;
-} 
-[data-tooltip]:hover::after {
-    opacity: 1;
-    top: 1.2em;
+
+input:focus::-webkit-datetime-edit {
+   color: #AC80C1 !important; 
 }
