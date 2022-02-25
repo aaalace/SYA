@@ -8,11 +8,10 @@ import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 
 const BoxStyles = {
-    width: '70%',
+    width: '80%',
     maxWidth: '600px',
-    border: '2px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '20px',
-    margin: '70px auto',
+    margin: '20vh auto',
     textAlign: 'center',
     padding: '24px 24px 30px'
 }
@@ -101,16 +100,7 @@ export const LoginPage = () => {
                         style={inputStyles}
                         onChange={e => setProfilePassword(e.target.value)}
                     />
-                    <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
-                        <input
-                            style={{ color: '#AC80C1', width: '11px', height: '11px'}}
-                            checked={checked}
-                            onChange={() => {setChecked(prevState => !prevState)}}
-                            id="happy" name="happy" value="yes" type="checkbox"
-                        />
-                        <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
-                    </div>
-                    <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
+                    <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px', marginTop: '36px'}}>
                         <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
                         <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
                     </div>

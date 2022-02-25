@@ -9,4 +9,5 @@ class Users(db.Model):
     birth_date = db.Column(db.String)
     person_name = db.Column(db.String)
     person_surname = db.Column(db.String)
+    registration_date = db.Column(db.String)
     

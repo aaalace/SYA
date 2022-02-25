@@ -5,9 +5,9 @@ input::placeholder {
 }
 
 input::-webkit-datetime-edit {
-    color: transparent; 
+    color: 'black'; 
 }
 
-input:focus::-webkit-datetime-edit {
-   color: #AC80C1 !important; 
+input[value=""]::-webkit-datetime-edit {
+    color: transparent; 
 }

@@ -13,7 +13,8 @@ const initialState = {
     personSurname: '',
     userBirthDate: '',
     avatar: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg',
-    posts_id: []
+    posts_id: [],
+    email: ''
 }
 
 export const userReducer = (state = initialState, action) => {

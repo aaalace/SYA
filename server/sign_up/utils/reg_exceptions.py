@@ -46,3 +46,24 @@ class NullBirthException(Exception):
     
     def errcode(self):
         return [6]
+
+class EmptyEmailException(Exception):
+    def __str__(self):
+        return 'Введите почту'
+    
+    def errcode(self):
+        return [7]
+
+class RegisteredEmailException(Exception):
+    def __str__(self):
+        return 'Пользователь с такой почтой уже зарегистрирован'
+    
+    def errcode(self):
+        return [7]
+
+class NoneEmailException(Exception):
+    def __str__(self):
+        return 'Несуществующая почта'
+    
+    def errcode(self):
+        return [7]

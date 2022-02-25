@@ -7,13 +7,13 @@ import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import ReCAPTCHA from 'react-google-recaptcha'
+import { RegLogError } from '../../components/RegLogError';
 
 const BoxStyles = {
-    width: '70%',
+    width: '80%',
     maxWidth: '600px',
-    border: '2px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '20px',
-    margin: '70px auto',
+    margin: '5vh auto',
     textAlign: 'center',
     padding: '24px 24px 30px'
 }
@@ -26,8 +26,8 @@ const inputStyles = {
 }
 
 const inputErrorStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(200, 0, 0, 0.5)',
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     marginTop: '24px'
@@ -60,8 +60,8 @@ const inputInfoStyles = {
 }
 
 const inputInfoErrorStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(200, 0, 0, 0.5)',
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     width: '100%',
@@ -86,6 +86,8 @@ export const SignUpPage = () => {
     const navigate = useNavigate();
     const [ regging, setRegging ] = useState(false)
     const [ erroredInput, setErroredInput ] = useState([])
+    const [ errorWindowState, setErrorWindowState] = useState(false)
+    const [ errorWindowInfo, setErrorWindowInfo] = useState('')
 
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
@@ -93,6 +95,7 @@ export const SignUpPage = () => {
     const [ personName, setUserName ] = useState('');
     const [ personSurname, setUserSurname ] = useState('');
     const [ userBirthDate, setUserBirthDate ] = useState('');
+    const [ userEmail, setEmail ] = useState('')
     const [ captcha, setCaptcha ] = useState(true)
 
     const resetInfo = () => {
@@ -102,6 +105,7 @@ export const SignUpPage = () => {
         setUserName('')
         setUserSurname('')
         setUserBirthDate('')
+        setEmail('')
         // setCaptcha(null)
     }
 
@@ -111,9 +115,10 @@ export const SignUpPage = () => {
                 profile_name: profileName,
                 profile_password: profilePassword,
                 profile_repeated_password: profileRepeatedPassword,
+                profile_email: userEmail,
                 person_name: personName,
                 person_surname: personSurname,
-                birth_date: userBirthDate
+                birth_date: userBirthDate,
             }
         )
         return response
@@ -134,14 +139,16 @@ export const SignUpPage = () => {
                             profilePassword: profilePassword, 
                             personName: personName,
                             personSurname: personSurname, 
-                            userBirthDate: userBirthDate
+                            userBirthDate: userBirthDate,
+                            email: userEmail
                         }))
                         setRegging(false)
                         navigate('/')
                     }
                     else{
-                        console.log(response.data)
                         setErroredInput(response.data.exceptionCode)
+                        setErrorWindowInfo(response.data)
+                        setErrorWindowState(true)
                         resetInfo()
                     }
                 }
@@ -151,11 +158,17 @@ export const SignUpPage = () => {
     }
 
     const captchaOnChange = (value) => {
-        setCaptcha(value)
+        Axios.post('/captchaChecker', 
+        {
+            captcha: value
+        }).then((response) => {
+            setCaptcha(true ? response.data.result : false)
+        })
     }
 
     return(
         <div style={{display: 'flex'}}>
+            {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
             {regging ? <LoadingIcon/> : 
                 <div style={BoxStyles}>
                 <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
@@ -181,9 +194,15 @@ export const SignUpPage = () => {
                         label="Повторите пароль"
                         type="password"
                         variant="standard"
-                        autoComplete='new-password'
                         style={erroredInput.includes(3) ? inputErrorStyles : inputStyles}
                         onChange={e => setProfileRepeatedPassword(e.target.value)}
+                    />
+                    <TextField
+                        type="email"
+                        label="Почта"
+                        variant="standard"
+                        style={erroredInput.includes(7) ? inputErrorStyles : inputStyles}
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <div style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px'}}>
                         <TextField
@@ -201,31 +220,14 @@ export const SignUpPage = () => {
                             onChange={e => setUserSurname(e.target.value)}
                         />
                     </div>
-                    <form style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px'}}>
-                            <TextField
-                                type="date"
-                                label="Дата"
-                                variant="standard"
-                                style={erroredInput.includes(6) ? inputErrorStyles : inputStyles}
-                                onChange={e => setUserBirthDate(e.target.value)}
-                            />
-                            <TextField
-                                type="email"
-                                label="Почта"
-                                variant="standard"
-                                style={inputStyles}
-                                onChange={e => setUserBirthDate(e.target.value)}
-                            />
-                    </form>
-                    {/* <div style={{display: 'flex', alignItems: 'center', marginTop: '24px'}}>
-                        <input
-                            style={{ color: '#AC80C1', width: '11px', height: '11px'}}
-                            checked={checked}
-                            onChange={() => {setChecked(prevState => !prevState)}}
-                            id="happy" name="happy" value="yes" type="checkbox"
-                        />
-                        <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
-                    </div> */}
+                    <TextField
+                        type="date"
+                        label="Дата рождения"
+                        variant="standard"
+                        value={userBirthDate ? userBirthDate : ''}
+                        style={erroredInput.includes(6) ? inputErrorStyles : inputStyles}
+                        onChange={e => setUserBirthDate(e.target.value)}
+                    ></TextField>
                     <div style={captcha_cont}>
                         <ReCAPTCHA
                             style={captcha_style}

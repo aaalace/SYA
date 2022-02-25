@@ -1,11 +1,9 @@
-from operator import le
-from tkinter import E
+import re
 from flask import Flask, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import json
 from sqlalchemy import and_
-from utils.reg_exceptions import *
 
 app = Flask(__name__)
 CORS(app)
@@ -14,56 +12,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from models.users import Users
+from sign_up.routes.create_user import create_user 
 
 @app.route("/create_user", methods=['POST', 'GET'])
 def create():
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.data)
-            prof_name = data['profile_name']
-            prof_pass = data['profile_password']
-            prof_rep_pass = data['profile_repeated_password']
-            pers_name = data['person_name']
-            pers_surname = data['person_surname']
-            birth_date = data['birth_date']
-
-            res = Users.query.filter(Users.profile_name == prof_name).all()
-            if len(res) != 0:
-                raise SameUserExistsException
-
-            if len(prof_name) < 3:
-                raise SmallUsernameException
-
-            if len(prof_pass) < 3:
-                raise SmallPasswordException
-
-            if prof_pass != prof_rep_pass:
-                raise RepeatedPasswordException
-
-            if len(pers_name) == 0:
-                raise NullNameException
-
-            if len(pers_surname) == 0:
-                raise NullSurnameException
-
-            if len(birth_date) == 0:
-                raise NullBirthException
-
-            user = Users(
-                    profile_name = data['profile_name'],
-                    profile_password = data['profile_password'],
-                    email = "example@gmail.com",
-                    birth_date = data['birth_date'],
-                    person_name = data['person_name'],
-                    person_surname = data['person_surname']
-                )
-            db.session.add(user)
-            db.session.commit()
-            return {"registered": True}
-        except Exception as e:
-            return {"registered": None,
-                    "exception": str(e),
-                    "exceptionCode": e.errcode()}
+    res = create_user()
+    return res
 
 @app.route("/checkLoged", methods=['POST', 'GET'])
 def check_loged():
@@ -85,5 +39,6 @@ def check_loged():
 @app.route("/captchaChecker", methods=['POST', 'GET'])
 def check_captcha():
     if request.method == 'POST':
-        print(request.data)
-    return {'sda': 'asd'}
+        data = json.loads(request.data)
+        res_state = True
+    return {'result': res_state}

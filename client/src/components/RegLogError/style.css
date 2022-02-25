@@ -1,0 +1,33 @@
+.error-box {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    z-index: 4;
+}
+
+.error-box-close {
+    color: #ffffff;
+    margin: 10px;
+    background-color: #AC80C1;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.error-widget {
+    width: 200px;
+    background-color: #AC80C1;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    position: relative;
+}

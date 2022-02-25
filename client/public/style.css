@@ -16,4 +16,5 @@
 body {
     background-color: #F4F4F4;
     margin-top: 64px;
+    min-height: calc(100vh - 64px);
 }
