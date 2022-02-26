@@ -11,7 +11,7 @@ export const RegLogError = ({errorInfo, state}) => {
         <div className='error-box'>
             <div className='error-widget'>
                 <p className='error-text'>
-                    {errorInfo.exception}
+                    {errorInfo}
                 </p>
             </div>
             <div className='error-box-close' onClick={closeErrorPage}>

@@ -84,6 +84,7 @@ const captcha_cont = {
 export const SignUpPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [ regging, setRegging ] = useState(false)
     const [ erroredInput, setErroredInput ] = useState([])
     const [ errorWindowState, setErrorWindowState] = useState(false)
@@ -99,6 +100,7 @@ export const SignUpPage = () => {
     const [ captcha, setCaptcha ] = useState(true)
 
     const resetInfo = () => {
+        setErrorWindowState(true)
         setRegging(false)
         setProfileName('')
         setProfileRepeatedPassword('')
@@ -146,9 +148,9 @@ export const SignUpPage = () => {
                         navigate('/')
                     }
                     else{
+                        console.log(response)
                         setErroredInput(response.data.exceptionCode)
-                        setErrorWindowInfo(response.data)
-                        setErrorWindowState(true)
+                        setErrorWindowInfo(response.data.exception)
                         resetInfo()
                     }
                 }
@@ -162,7 +164,7 @@ export const SignUpPage = () => {
         {
             captcha: value
         }).then((response) => {
-            setCaptcha(true ? response.data.result : false)
+            setCaptcha(response.data.result)
         })
     }
 

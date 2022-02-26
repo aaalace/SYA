@@ -1,8 +1,9 @@
 from flask import request
 import json
-from sign_up.utils.reg_exceptions import *
-from sign_up.utils.email_checker import email_check
+import bcrypt
 from app import db
+from signupLogin.utils.reg_exceptions import *
+from signupLogin.utils.email_checker import email_check
 
 from models.users import Users
 
@@ -50,13 +51,17 @@ def create_user():
             if len(birth_date) == 0:
                 raise NullBirthException
 
+            saltX = bcrypt.gensalt()
+            hashed_password = bcrypt.hashpw(prof_pass.encode(), saltX)
+
             user = Users(
                     profile_name = data['profile_name'],
-                    profile_password = data['profile_password'],
+                    profile_password = hashed_password,
                     email = data['profile_email'],
                     birth_date = data['birth_date'],
                     person_name = data['person_name'],
                     person_surname = data['person_surname'],
+                    salt = saltX
                 )
             db.session.add(user)
             db.session.commit()

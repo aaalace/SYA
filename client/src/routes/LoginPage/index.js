@@ -6,6 +6,7 @@ import './style.css'
 import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
+import { RegLogError } from '../../components/RegLogError';
 
 const BoxStyles = {
     width: '80%',
@@ -42,7 +43,10 @@ const buttonsStyles = {
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ checked, setChecked ] = useState(false);
+
+    const [ errorWindowState, setErrorWindowState] = useState(false)
+    const [ errorWindowInfo, setErrorWindowInfo] = useState('')
+
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ logging, setLogging ] = useState(false)
@@ -61,14 +65,19 @@ export const LoginPage = () => {
                         loged: true, 
                         profileName: profileName, 
                         profilePassword: profilePassword, 
-                        personName: response.data.name, // нужно как то InstrumentedAttribute сюда отправлять
-                        personSurname: response.data.surname, // нужно как то InstrumentedAttribute сюда отправлять
-                        userBirthDate: response.birth_date // нужно как то InstrumentedAttribute сюда отправлять
+                        personName: response.data.name,
+                        personSurname: response.data.surname,
+                        userBirthDate: response.data.birth_date,
+                        email: response.data.email
                     }));
-                    navigate('/');
+                    navigate('/')
+                    setLogging(false)
                 }
                 else{
-                    navigate('/')
+                    console.log(response.data.exc)
+                    setErrorWindowInfo(response.data.exc)
+                    setErrorWindowState(true)
+                    setLogging(false)
                 }
             })
         }
@@ -80,13 +89,14 @@ export const LoginPage = () => {
 
     return(
         <div style={{display: 'flex'}}>
+            {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
             {logging ? <LoadingIcon/> :
             <div style={BoxStyles}>
                 <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
                 }}>Авторизация</h2>
                 <div style={formStyles}>
-                <TextField
+                    <TextField
                         label="Имя профиля"
                         type="name"
                         variant="standard"
