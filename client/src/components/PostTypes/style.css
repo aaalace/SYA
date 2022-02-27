@@ -1,0 +1,67 @@
+.file-uploader {
+    display: none;
+}
+
+.custom-file-upload-container {
+    padding: 5%;
+    border-radius: 5px;
+    border: 2px dashed #ddd9d9;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-file-upload {
+    border: 1px solid #AC80C1;
+    color: #AC80C1;
+    padding: 8px;
+    margin-left: 12px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.audio-player-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+.audio-player {
+    flex-grow: 1;
+}
+
+.audio-player-trash {
+    font-size: 24px;
+    margin: 8px;
+    margin-left: 16px;
+    color: #9274a0;
+}
+
+.custom-file-upload-container__title {
+    font-size: large;
+}
+
+.player-container__content {
+    max-width: 80%;
+    border-radius: 5px;
+}
+
+.text-post {
+    width: 100%;
+}
+
+.text-post__textarea {
+    width: 100%;
+    height: 100%;
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}

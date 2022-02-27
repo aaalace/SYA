@@ -26,3 +26,11 @@ def check_log():
 def check_cap():
     return check_captcha()
 
+# ADD POST
+from flask import request
+import json
+@app.route("/createPost", methods=['POST', 'GET'])
+def createPost():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        return data
