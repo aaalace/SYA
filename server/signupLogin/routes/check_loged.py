@@ -19,6 +19,7 @@ def check_loged():
             if len(res) > 0:
                 return {
                     "loged": True,
+                    "id": res[0].id,
                     "name": res[0].person_name,
                     "surname": res[0].person_surname,
                     "birth_date": res[0].birth_date,

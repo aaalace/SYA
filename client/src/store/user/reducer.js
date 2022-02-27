@@ -7,6 +7,7 @@ import { DELETE_AVATAR } from "./actions"
 
 const initialState = {
     loged: false,
+    profile_id: null,
     profileName: '',
     profilePassword: '',
     personName: '',

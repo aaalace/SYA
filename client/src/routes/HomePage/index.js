@@ -2,6 +2,7 @@ import React from 'react';
 import './home_page.css';
 import { Button } from '../../components/LiquidButton'; 
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const HomePage = () => {
     return ( 

@@ -63,6 +63,7 @@ export const LoginPage = () => {
                 if(response.data.loged){
                     dispatch(setUserDataReducer({
                         loged: true, 
+                        profile_id: response.data.id,
                         profileName: profileName, 
                         profilePassword: profilePassword, 
                         personName: response.data.name,
@@ -71,15 +72,13 @@ export const LoginPage = () => {
                         email: response.data.email
                     }));
                     navigate('/')
-                    setLogging(false)
                 }
                 else{
-                    console.log(response.data.exc)
                     setErrorWindowInfo(response.data.exc)
                     setErrorWindowState(true)
-                    setLogging(false)
                 }
             })
+            setLogging(false)
         }
         if(arg === 'reg'){
             navigate('/signup')

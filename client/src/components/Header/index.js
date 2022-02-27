@@ -134,11 +134,10 @@ export const Header = () => {
                 <div>
                 <Menu>
                     <div className='right_bar'>
-                        <Link className='menu-link' to='/'>Smth</Link>
-                        <Link className='menu-link' to='/'>Smth</Link>  
-                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
-                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt'></i></Link>
-                        <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '30px'}}></i></a> 
+                        <Link className='menu-link' to='/'><i className="fa fa-send" style={{fontSize: '22px'}}></i></Link>  
+                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}><i className="fa fa-plus-square" style={{fontSize: '24px'}}></i></p>  
+                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt' style={{fontSize: '22px'}}></i></Link>
+                        <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '24px'}}></i></a> 
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
@@ -161,18 +160,17 @@ export const Header = () => {
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
-                                <i className="fas fa-user" aria-hidden="true"></i>
+                                <i className="fas fa-user" aria-hidden="true" style={{fontSize: '22px'}}></i>
                             </Link>
                             <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOutHeader}>
-                                <i className='fa fa-sign-out' style={{fontSize: '30px'}}/>
+                                <i className='fa fa-sign-out' style={{fontSize: '24px'}}/>
                             </Link>
                         </div>
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
-                            <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
+                            <a type='submit' onClick={submitHandler}><i className="fa fa-search" style={{fontSize: '24px'}}></i></a>
                         </div>
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Smth</Link>  
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Messages</Link>  
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
                     </div>
                 </LoginedBox>

@@ -136,7 +136,8 @@ export const SignUpPage = () => {
                 create_user().then((response) => {
                     if(response.data.registered){
                         dispatch(setUserDataReducer({
-                            loged: true, 
+                            loged: true,
+                            profile_id: response.data.id,
                             profileName: profileName, 
                             profilePassword: profilePassword, 
                             personName: personName,
@@ -148,7 +149,6 @@ export const SignUpPage = () => {
                         navigate('/')
                     }
                     else{
-                        console.log(response)
                         setErroredInput(response.data.exceptionCode)
                         setErrorWindowInfo(response.data.exception)
                         resetInfo()

@@ -2,6 +2,7 @@ from flask import request
 import json
 import bcrypt
 from app import db
+from sqlalchemy import and_
 from signupLogin.utils.reg_exceptions import *
 from signupLogin.utils.email_checker import email_check
 
@@ -65,7 +66,9 @@ def create_user():
                 )
             db.session.add(user)
             db.session.commit()
-            return {"registered": True}
+            user = Users.query.filter(and_(Users.profile_name == prof_name, Users.profile_password == hashed_password)).all()
+            return {"registered": True,
+            "id": user[0].id}
         except Exception as e:
             return {"registered": None,
                     "exception": str(e),
