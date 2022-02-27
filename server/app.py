@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask import request
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -26,9 +28,7 @@ def check_log():
 def check_cap():
     return check_captcha()
 
-# ADD POST
-from flask import request
-import json
+
 @app.route("/createPost", methods=['POST', 'GET'])
 def createPost():
     if request.method == 'POST':

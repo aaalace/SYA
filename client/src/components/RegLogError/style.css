@@ -12,6 +12,18 @@
     z-index: 4;
 }
 
+.box-main {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .error-box-close {
     color: #ffffff;
     margin: 10px;
@@ -29,5 +41,6 @@
     align-items: center;
     justify-content: center;
     padding: 7px;
-    position: relative;
+    position: absolute;
+    z-index: 5;
 }
