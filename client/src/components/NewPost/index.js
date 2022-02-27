@@ -1,6 +1,8 @@
 import './style.css';
 import { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { ButtonPost } from '../ButtonPost/index';
+import Axios from 'axios';
 
 import { AudioBox } from '../PostTypes/AudioPost';
 import { VideoPost } from '../PostTypes/VideoPost';
@@ -44,6 +46,7 @@ export const NewPostPage = ({createNewPost}) => {
     const [videoData, setVideoData] = useState(false);
     const [imageData, setImageData] = useState(false);
     const [textData, setTextData] = useState(false);
+    const [contentLoaded, setContentLoaded] = useState(false)
 
     const closeCreatingPage = () => {
         setFormats(JSON.parse(JSON.stringify(initialFormats)));
@@ -71,6 +74,28 @@ export const NewPostPage = ({createNewPost}) => {
         </div>
     );
 
+    const postData = () => {
+        let postBody = audioData;
+        if (formatSelected === 2) {
+            postBody = videoData;
+        } else if (formatSelected === 3) {
+            postBody = imageData;
+        } else if (formatSelected === 4) {
+            postBody = textData;
+        } else if (formatSelected !== 1) {
+            return 'error'
+        }
+
+        Axios.post('/createPost',
+            {
+                type: formatSelected,
+                body: postBody
+            }
+        ).then((response) => {
+            console.log(response);
+        })
+    }
+
     return (
         <div className='create-post-box'>
             <div className='create-post-box__close' onClick={closeCreatingPage}>
@@ -86,11 +111,18 @@ export const NewPostPage = ({createNewPost}) => {
                 </div>
                 {formatSelected ? <div className='drag-and-drop-window'>
                     {
-                        formatSelected === 1 ? <AudioBox audioData={audioData} setAudioData={setAudioData}/> : 
-                        formatSelected === 2 ? <VideoPost videoData={videoData} setVideoData={setVideoData}/> :
-                        formatSelected === 3 ? <ImagePost imageData={imageData} setImageData={setImageData}/> :
+                        formatSelected === 1 ? <AudioBox audioData={audioData} setAudioData={setAudioData} setContentLoaded={setContentLoaded}/> : 
+                        formatSelected === 2 ? <VideoPost videoData={videoData} setVideoData={setVideoData} setContentLoaded={setContentLoaded}/> :
+                        formatSelected === 3 ? <ImagePost imageData={imageData} setImageData={setImageData} setContentLoaded={setContentLoaded}/> :
                         formatSelected === 4 ? <TextPost textData={textData} setTextData={setTextData}/> : 
                         <PostTypeError />
+                    }
+                    {
+                        contentLoaded || formatSelected === 4 ? 
+                            <div style={{textAlign: 'end', marginTop: '8px'}}>
+                                <span onClick={() => {postData()}}><ButtonPost /></span>
+                            </div>
+                        : null
                     }
                 </div> : null}
             </div>

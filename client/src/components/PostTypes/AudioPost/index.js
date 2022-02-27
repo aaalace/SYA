@@ -1,10 +1,16 @@
 import '../style.css';
 import { encodeImageFileAsURL } from '../functions';
 
-export const AudioBox = ({audioData, setAudioData}) => {
+export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
 
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target, setAudioData)
+        encodeImageFileAsURL(e.target, setAudioData);
+        setContentLoaded(true);
+    }
+
+    const handleRemoveFileImage = () => {
+        setAudioData(false);
+        setContentLoaded(false);
     }
     
     return (
@@ -22,7 +28,7 @@ export const AudioBox = ({audioData, setAudioData}) => {
             {audioData ? 
                 <div className='audio-player-container'>
                     <audio src={audioData} controls className='audio-player'></audio> 
-                    <i className="fa-solid fa-trash-can audio-player-trash" onClick={() => {setAudioData(false)}}/>
+                    <i className="fa-solid fa-trash-can audio-player-trash" onClick={() => {handleRemoveFileImage()}}/>
                 </div>
             : null}
         </div>

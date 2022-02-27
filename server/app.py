@@ -51,3 +51,10 @@ def check_loged():
                 "birth_date": res[0].birth_date
             }
         return {"loged": None}
+
+
+@app.route("/createPost", methods=['POST', 'GET'])
+def createPost():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        return data

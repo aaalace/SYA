@@ -1,9 +1,15 @@
 import '../style.css';
 import { encodeImageFileAsURL } from '../functions';
 
-export const ImagePost = ({imageData, setImageData}) => {
+export const ImagePost = ({imageData, setImageData, setContentLoaded}) => {
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target, setImageData)
+        encodeImageFileAsURL(e.target, setImageData);
+        setContentLoaded(true);
+    }
+
+    const handleRemoveFileImage = () => {
+        setImageData(false);
+        setContentLoaded(false);
     }
     
     return (
@@ -21,7 +27,7 @@ export const ImagePost = ({imageData, setImageData}) => {
             {imageData ? 
                 <div className='audio-player-container'>
                     <img className='player-container__content' src={imageData} alt="картинка"/>
-                    <i className="fa-solid fa-trash-can audio-player-trash" onClick={() => {setImageData(false)}}/>
+                    <i className="fa-solid fa-trash-can audio-player-trash" onClick={() => {handleRemoveFileImage()}}/>
                 </div>
             : null}
         </div>
