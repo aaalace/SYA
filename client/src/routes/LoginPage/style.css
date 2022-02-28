@@ -10,3 +10,15 @@ input::placeholder {
     right: 0;
     margin: 0 10px 10px 0;
 }
+
+.faq-icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+    color: #AC80C1;
+}
+
+.faq-icon:hover {
+    color: #43314b;
+}

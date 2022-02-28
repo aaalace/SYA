@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import {useMediaQuery} from 'react-responsive'
-import { addProfilePhoto, deleteAvatar } from '../../../store/user/actions';
+import { addProfilePhoto } from '../../../store/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
+import Axios from 'axios';
 
 const AvatarContainer = () => {
     let med_cont = 'image-prof-container' 
@@ -87,6 +88,7 @@ const AvatarContainer = () => {
     const selectedFileRef = useRef(null)
     const dispatch = useDispatch()
     const ava = useSelector(state => state.user.avatar)
+    const user_id = useSelector(state => state.user.profile_id)
 
     const handler = () => {
         giveClickChoice()
@@ -102,6 +104,10 @@ const AvatarContainer = () => {
             let reader = new FileReader();
             reader.onloadend = function() {
                 dispatch(addProfilePhoto({avatar: reader.result}))
+                Axios.post('/changeAvatar', {
+                    base: reader.result,
+                    id: user_id 
+                })
             }
             reader.readAsDataURL(img);
         }
@@ -113,7 +119,11 @@ const AvatarContainer = () => {
     }
 
     const deleteAva = () => {
-        dispatch(deleteAvatar())
+        Axios.post('/deleteAvatar', {
+            id: user_id 
+        }).then((response) => {
+            dispatch(addProfilePhoto({avatar: response.data.avatar}))
+        })
         setChoice(false)
     }
 

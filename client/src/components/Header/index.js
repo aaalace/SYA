@@ -137,7 +137,7 @@ export const Header = () => {
                         <Link className='menu-link' to='/'><i className="fa fa-send" style={{fontSize: '22px'}}></i></Link>  
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}><i className="fa fa-plus-square" style={{fontSize: '24px'}}></i></p>  
                         <Link className='menu-link' to='/profile'><i className='fas fa-user-alt' style={{fontSize: '22px'}}></i></Link>
-                        <a className='menu-link' onClick={logOutHeader}><i className='fa fa-sign-out' style={{fontSize: '24px'}}></i></a> 
+                        <a className='menu-link' onClick={logOutHeader}><i className="fas fa-sign-out-alt" style={{fontSize: '24px'}}></i></a> 
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
@@ -152,7 +152,7 @@ export const Header = () => {
                     </svg>
                 </Burger>
                 </div>
-                : <></>}
+                : null}
             </div>
             {loged ? 
             <MenuOpened open={open} className="tabletBar">
@@ -163,12 +163,12 @@ export const Header = () => {
                                 <i className="fas fa-user" aria-hidden="true" style={{fontSize: '22px'}}></i>
                             </Link>
                             <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOutHeader}>
-                                <i className='fa fa-sign-out' style={{fontSize: '24px'}}/>
+                            <i className="fas fa-sign-out-alt" style={{fontSize: '24px'}}></i>
                             </Link>
                         </div>
                         <div className="find_over_form">
                             <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
-                            <a type='submit' onClick={submitHandler}><i className="fa fa-search" style={{fontSize: '24px'}}></i></a>
+                            <a type='submit' onClick={submitHandler}><i className="fa fa-search" style={{fontSize: '16px'}}></i></a>
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Messages</Link>  
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  

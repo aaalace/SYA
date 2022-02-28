@@ -8,6 +8,8 @@ import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import ReCAPTCHA from 'react-google-recaptcha'
 import { RegLogError } from '../../components/RegLogError';
+import { Link } from 'react-router-dom';
+import { addProfilePhoto } from '../../store/user/actions';
 
 const BoxStyles = {
     width: '80%',
@@ -100,7 +102,6 @@ export const SignUpPage = () => {
     const [ captcha, setCaptcha ] = useState(true)
 
     const resetInfo = () => {
-        setErrorWindowState(true)
         setRegging(false)
         setProfileName('')
         setProfileRepeatedPassword('')
@@ -112,7 +113,7 @@ export const SignUpPage = () => {
     }
 
     async function create_user(){
-        let response = await Axios.post('/create_user', 
+        let response = await Axios.post('/createUser', 
                 {
                 profile_name: profileName,
                 profile_password: profilePassword,
@@ -125,6 +126,7 @@ export const SignUpPage = () => {
         )
         return response
     }
+
 
     const handlerLog = (arg) => {
         if(arg === 'auth'){
@@ -145,12 +147,14 @@ export const SignUpPage = () => {
                             userBirthDate: userBirthDate,
                             email: userEmail
                         }))
-                        setRegging(false)
+                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
                         navigate('/')
+                        resetInfo()
                     }
                     else{
                         setErroredInput(response.data.exceptionCode)
                         setErrorWindowInfo(response.data.exception)
+                        setErrorWindowState(true)
                         resetInfo()
                     }
                 }
@@ -243,6 +247,7 @@ export const SignUpPage = () => {
                     </div>
                 </div>
             </div>}
+            <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '35px'}}></i></Link>
         </div>
     )
 }

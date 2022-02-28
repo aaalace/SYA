@@ -1,3 +1,5 @@
+from email.mime import image
+import imp
 from flask import request
 import json
 import bcrypt
@@ -5,13 +7,17 @@ from app import db
 from sqlalchemy import and_
 from signupLogin.utils.reg_exceptions import *
 from signupLogin.utils.email_checker import email_check
+from signupLogin.utils.default_image import default_image
 
 from models.users import Users
+from models.users_images import UsersImages
 
 def create_user():
     if request.method == 'POST':
         try:
             data = json.loads(request.data)
+
+            # CREATING USER
             prof_name = data['profile_name']
             prof_pass = data['profile_password']
             prof_rep_pass = data['profile_repeated_password']
@@ -20,8 +26,8 @@ def create_user():
             pers_surname = data['person_surname']
             birth_date = data['birth_date']
 
-            uses = Users.query.filter(Users.profile_name == prof_name).all()
-            if len(uses) != 0:
+            user_exists = Users.query.filter(Users.profile_name == prof_name).first()
+            if user_exists:
                 raise SameUserExistsException
 
             if len(prof_name) < 3:
@@ -39,8 +45,8 @@ def create_user():
             if not email_check(prof_email):
                 raise NoneEmailException
             
-            mails = Users.query.filter(Users.email == prof_email).all()
-            if len(mails) > 0:
+            mails = Users.query.filter(Users.email == prof_email).first()
+            if mails:
                 raise RegisteredEmailException
 
             if len(pers_name) == 0:
@@ -66,9 +72,23 @@ def create_user():
                 )
             db.session.add(user)
             db.session.commit()
-            user = Users.query.filter(and_(Users.profile_name == prof_name, Users.profile_password == hashed_password)).all()
+
+            # GETTING NEW USER ID
+            user = Users.query.filter(and_(Users.profile_name == prof_name, Users.profile_password == hashed_password)).first()
+            
+            # CREATING USER AVATAR
+            userImage = UsersImages(
+                user_id = user.id,
+                image = default_image
+            )
+            db.session.add(userImage)
+            db.session.commit()
+
+            image = UsersImages.query.filter(UsersImages.user_id == user.id).first()
+
             return {"registered": True,
-            "id": user[0].id}
+                    "id": user.id,
+                    "avatar": image.image}
         except Exception as e:
             return {"registered": None,
                     "exception": str(e),

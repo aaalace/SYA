@@ -13,7 +13,7 @@ const initialState = {
     personName: '',
     personSurname: '',
     userBirthDate: '',
-    avatar: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg',
+    avatar: null,
     posts_id: [],
     email: ''
 }
@@ -28,9 +28,6 @@ export const userReducer = (state = initialState, action) => {
         }
         case ADD_AVATAR: {
             return {...state, ...action.payload}
-        }
-        case DELETE_AVATAR: {
-            return {...state, avatar: initialState.avatar}
         }
         case ADD_USER_POST: {
             return {...state, posts_id: state.posts_id.concat(action.payload)}

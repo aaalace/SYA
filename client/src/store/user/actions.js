@@ -17,8 +17,6 @@ export const addProfilePhoto = (data) => ({
     payload: data,
 })
 
-export const deleteAvatar = () => ({ type: DELETE_AVATAR })
-
 export const addUserPost = (data) => ({
     type: ADD_USER_POST,
     payload: data,

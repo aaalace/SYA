@@ -14,7 +14,7 @@ from signupLogin.routes.create_user import create_user
 from signupLogin.routes.check_loged import check_loged
 from signupLogin.routes.check_captcha import check_captcha
 
-@app.route("/create_user", methods=['POST', 'GET'])
+@app.route("/createUser", methods=['POST', 'GET'])
 def create():
     return create_user()
 
@@ -34,3 +34,15 @@ def createPost():
     if request.method == 'POST':
         data = json.loads(request.data)
         return data
+
+# PROFILE
+from profilePage.routes.change_avatar import change_avatar
+from profilePage.routes.delete_avatar import delete_avatar
+
+@app.route("/changeAvatar", methods=['POST'])
+def change_ava():
+    return change_avatar()
+
+@app.route("/deleteAvatar", methods=['POST'])
+def delete_ava():
+    return delete_avatar()

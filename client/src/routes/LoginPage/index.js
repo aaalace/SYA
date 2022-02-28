@@ -7,6 +7,8 @@ import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import { RegLogError } from '../../components/RegLogError';
+import { Link } from 'react-router-dom';
+import { addProfilePhoto } from '../../store/user/actions';
 
 const BoxStyles = {
     width: '80%',
@@ -71,14 +73,22 @@ export const LoginPage = () => {
                         userBirthDate: response.data.birth_date,
                         email: response.data.email
                     }));
+                    if (response.data.avatar){
+                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
+                    }
                     navigate('/')
+                    setLogging(false)
+                    setProfileName('')
+                    setProfilePassword('')
                 }
                 else{
                     setErrorWindowInfo(response.data.exc)
+                    setLogging(false)
+                    setProfileName('')
+                    setProfilePassword('')
                     setErrorWindowState(true)
                 }
             })
-            setLogging(false)
         }
         if(arg === 'reg'){
             navigate('/signup')
@@ -113,9 +123,9 @@ export const LoginPage = () => {
                         <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
                         <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
                     </div>
-                    <div className='faq'/>
                 </div>
             </div>}
+            <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '30px'}}></i></Link>
         </div>
     )
 }
