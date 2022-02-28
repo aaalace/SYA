@@ -1,5 +1,6 @@
 import './style.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { ButtonPost } from '../ButtonPost/index';
 import Axios from 'axios';
@@ -9,6 +10,7 @@ import { VideoPost } from '../PostTypes/VideoPost';
 import { ImagePost } from '../PostTypes/ImagePost';
 import { TextPost } from '../PostTypes/TextPost';
 import { PostTypeError } from '../PostTypes/PostTypeError';
+import { useSelector } from 'react-redux'
 
 const initialFormats = [
     {
@@ -37,16 +39,22 @@ const initialFormats = [
     }
 ]
 
-export const NewPostPage = ({createNewPost}) => {
+export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [formats, setFormats] = useState(JSON.parse(JSON.stringify(initialFormats)));
     const [contentFormatClass, setContentFormatClass] = useState('create-post-content__format');
     const [formatSelected, setFormatSelected] = useState(false);
+    const userId = useSelector((state) => state.user.profile_id);
 
     const [audioData, setAudioData] = useState(false);
     const [videoData, setVideoData] = useState(false);
     const [imageData, setImageData] = useState(false);
     const [textData, setTextData] = useState(false);
-    const [contentLoaded, setContentLoaded] = useState(false)
+    const [contentLoaded, setContentLoaded] = useState(false);
+    const navigate = useNavigate();
+
+    const [postStatus, setPostStatus] = useState({
+        loading: false,
+    })
 
     const closeCreatingPage = () => {
         setFormats(JSON.parse(JSON.stringify(initialFormats)));
@@ -74,6 +82,10 @@ export const NewPostPage = ({createNewPost}) => {
         </div>
     );
 
+    useEffect(() => {
+        
+    }, [postStatus])
+
     const postData = () => {
         let postBody = audioData;
         if (formatSelected === 2) {
@@ -85,14 +97,27 @@ export const NewPostPage = ({createNewPost}) => {
         } else if (formatSelected !== 1) {
             return 'error'
         }
+        
+        setPostStatus((prevState) => ({
+            ...prevState,
+            loading: true,
+        }));
 
         Axios.post('/createPost',
             {
+                userId,
                 type: formatSelected,
                 body: postBody
             }
         ).then((response) => {
-            console.log(response);
+            setPostStatus((prevState) => ({
+                ...prevState,
+                loading: false,
+            }));
+            if (response.data === 'correct') {
+                navigate('/profile');
+                setCreatePost(false)
+            }
         })
     }
 
@@ -120,7 +145,7 @@ export const NewPostPage = ({createNewPost}) => {
                     {
                         contentLoaded || formatSelected === 4 ? 
                             <div style={{textAlign: 'end', marginTop: '8px'}}>
-                                <span onClick={() => {postData()}}><ButtonPost /></span>
+                                <ButtonPost loading={postStatus.loading} postData={postData} />
                             </div>
                         : null
                     }

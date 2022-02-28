@@ -177,7 +177,7 @@ export const Header = () => {
             </MenuOpened>
             : null}
         </HeaderBox>
-        {createPost ? <NewPostPage createNewPost={createNewPost}/> : null}
+        {createPost ? <NewPostPage createNewPost={createNewPost} setCreatePost={setCreatePost}/> : null}
         </>
     )
 }

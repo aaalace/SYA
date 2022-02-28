@@ -8,6 +8,7 @@ from signupLogin.utils.email_checker import email_check
 
 from models.users import Users
 
+
 def create_user():
     if request.method == 'POST':
         try:
@@ -38,7 +39,7 @@ def create_user():
 
             if not email_check(prof_email):
                 raise NoneEmailException
-            
+
             mails = Users.query.filter(Users.email == prof_email).all()
             if len(mails) > 0:
                 raise RegisteredEmailException
@@ -56,19 +57,20 @@ def create_user():
             hashed_password = bcrypt.hashpw(prof_pass.encode(), saltX)
 
             user = Users(
-                    profile_name = data['profile_name'],
-                    profile_password = hashed_password,
-                    email = data['profile_email'],
-                    birth_date = data['birth_date'],
-                    person_name = data['person_name'],
-                    person_surname = data['person_surname'],
-                    salt = saltX
-                )
+                profile_name=data['profile_name'],
+                profile_password=hashed_password,
+                email=data['profile_email'],
+                birth_date=data['birth_date'],
+                person_name=data['person_name'],
+                person_surname=data['person_surname'],
+                salt=saltX
+            )
             db.session.add(user)
             db.session.commit()
-            user = Users.query.filter(and_(Users.profile_name == prof_name, Users.profile_password == hashed_password)).all()
+            user = Users.query.filter(
+                and_(Users.profile_name == prof_name, Users.profile_password == hashed_password)).all()
             return {"registered": True,
-            "id": user[0].id}
+                    "id": user[0].id}
         except Exception as e:
             return {"registered": None,
                     "exception": str(e),
