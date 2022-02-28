@@ -1,11 +1,14 @@
 import '../style.css';
-import { encodeImageFileAsURL } from '../functions';
+import { encodeImageFileAsURL, checkFileType } from '../functions';
 
 export const VideoPost = ({videoData, setVideoData, setContentLoaded}) => {
 
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target, setVideoData);
-        setContentLoaded(true);
+        const check = checkFileType(e, 'video');
+        if (check) {
+            encodeImageFileAsURL(e.target, setVideoData);
+            setContentLoaded(true);
+        }
     }
 
     const handleRemoveFileImage = () => {

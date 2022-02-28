@@ -7,5 +7,13 @@ export const encodeImageFileAsURL = (element, setter) => {
         }
         reader.readAsDataURL(file);
     } catch (err) {
-        console.log(err)
+        alert('file reader error')
 }}
+
+export const checkFileType = (e, type) => {
+    if (e.target.files[0].type.split('/')[0] !== type) {
+        alert('Неверный тип файла');
+        return false;
+    }
+    return true;
+}

@@ -1,10 +1,13 @@
 import '../style.css';
-import { encodeImageFileAsURL } from '../functions';
+import { encodeImageFileAsURL, checkFileType } from '../functions';
 
 export const ImagePost = ({imageData, setImageData, setContentLoaded}) => {
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target, setImageData);
-        setContentLoaded(true);
+        const check = checkFileType(e, 'image');
+        if (check) {
+            encodeImageFileAsURL(e.target, setImageData);
+            setContentLoaded(true);
+        }
     }
 
     const handleRemoveFileImage = () => {

@@ -1,11 +1,14 @@
 import '../style.css';
-import { encodeImageFileAsURL } from '../functions';
+import { encodeImageFileAsURL, checkFileType } from '../functions';
 
 export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
 
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target, setAudioData);
-        setContentLoaded(true);
+        const check = checkFileType(e, 'audio');
+        if (check) {
+            encodeImageFileAsURL(e.target, setAudioData);
+            setContentLoaded(true);
+        }
     }
 
     const handleRemoveFileImage = () => {
