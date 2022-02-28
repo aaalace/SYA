@@ -127,7 +127,6 @@ export const SignUpPage = () => {
         return response
     }
 
-
     const handlerLog = (arg) => {
         if(arg === 'auth'){
             navigate('/login');

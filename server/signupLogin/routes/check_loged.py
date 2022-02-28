@@ -6,6 +6,7 @@ import bcrypt
 from models.users import Users
 from models.users_images import UsersImages
 
+
 def check_loged():
     if request.method == 'POST':
         data = json.loads(request.data)
