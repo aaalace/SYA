@@ -125,7 +125,7 @@ export const LoginPage = () => {
                     </div>
                 </div>
             </div>}
-            <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '30px'}}></i></Link>
+            {/* <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '30px'}}></i></Link> */}
         </div>
     )
 }

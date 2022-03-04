@@ -35,6 +35,22 @@ const inputErrorStyles = {
     marginTop: '24px'
 }
 
+const dateStyles = {
+    background: 'rgba(244, 244, 244, 0.7)',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '36px'
+}
+
+const dateErrorStyles = {
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '36px'
+}
+
+
 const formStyles = {
     display: 'flex',
     flexDirection: 'column',
@@ -227,10 +243,9 @@ export const SignUpPage = () => {
                     </div>
                     <TextField
                         type="date"
-                        label="Дата рождения"
                         variant="standard"
                         value={userBirthDate ? userBirthDate : ''}
-                        style={erroredInput.includes(6) ? inputErrorStyles : inputStyles}
+                        style={erroredInput.includes(6) ? dateErrorStyles : dateStyles}
                         onChange={e => setUserBirthDate(e.target.value)}
                     ></TextField>
                     <div style={captcha_cont}>
@@ -246,7 +261,7 @@ export const SignUpPage = () => {
                     </div>
                 </div>
             </div>}
-            <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '35px'}}></i></Link>
+            {/* <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '35px'}}></i></Link> */}
         </div>
     )
 }
