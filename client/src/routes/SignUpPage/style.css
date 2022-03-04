@@ -4,10 +4,6 @@ input::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
 
-input::-webkit-datetime-edit {
-    color: 'black'; 
-}
-
-input[value=""]::-webkit-datetime-edit {
-    color: transparent; 
-}
+input[type="date"] {
+    color: rgb(99, 99, 99)
+  }

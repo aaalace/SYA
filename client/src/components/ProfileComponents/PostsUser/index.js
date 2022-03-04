@@ -3,12 +3,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import { changeBookmark, changeLike, deletePost } from "../../../store/posts/actions";
 import { deleteUserPost } from "../../../store/user/actions";
+import Axios from 'axios';
+import { setOpenPost } from "../../../store/currentPost/actions";
+import { OpenedPost } from "../../OpenedPost";
+import { useState } from "react";
 
 const PostsUser = () => {
     const posts = useSelector(state => state.posts)
+    const dispatch = useDispatch()
+
+    const [postNum, setPostNum] = useState(null)
+
+    async function openPostReq() {
+        let response = await Axios.get('/openPost/', {
+            params: {id: postNum}
+        })
+        return response
+    }
+
+    const openPost = () => {
+        openPostReq().then((response) => {
+            if(response.data.opened){
+                dispatch(setOpenPost({
+                    open: true,
+                    id: response.data.id,
+                    user_id: response.data.user_id,
+                    user_name: response.data.user_name,
+                    user_surname: response.data.user_surname,
+                    user_avatar: response.data.user_avatar,
+                    media: response.data.media,
+                    media_type: response.data.media_type,
+                    likes_count: response.data.likes_count,
+                    post_time: response.data.post_time
+                }))
+            }
+        })
+    }
 
     return (
         <div>
+            <OpenedPost></OpenedPost>
+            <input onClick={openPost} type='button' value='Открыть пост (тестовая кнопка)'></input>
+            <input onChange={e => setPostNum(e.target.value)}/>
             {posts 
             ? posts.map((post) => {
                 return <OnePost key={post.id} post={post}/>
