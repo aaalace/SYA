@@ -5,9 +5,10 @@ from flask import request
 
 app = Flask(__name__)
 CORS(app)
-app.config['SECRET_KEY'] = 'SecretElectYourYieldAssotiationShare'
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
+app.config['SECRET_KEY'] = \
+    'SecretElectYourYieldAssotiationShare'
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -15,8 +16,6 @@ db = SQLAlchemy(app)
 from signupLogin.routes.create_user import create_user
 from signupLogin.routes.check_loged import check_loged
 from signupLogin.routes.check_captcha import check_captcha
-from posts.routes.get_media import get_media
-from posts.routes.get_posts import get_posts_main
 
 
 @app.route("/createUser", methods=['POST', 'GET'])
@@ -62,6 +61,11 @@ def change_ava():
 @app.route("/deleteAvatar", methods=['POST'])
 def delete_ava():
     return delete_avatar()
+
+
+# POSTS
+from posts.routes.get_media import get_media
+from posts.routes.get_posts import get_posts_main
 
 
 @app.route("/get_media/<via_id>", methods=['GET', 'POST'])

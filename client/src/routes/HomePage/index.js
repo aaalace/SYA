@@ -7,8 +7,8 @@ import { useState } from 'react';
 
 export const HomePage = () => {
     const post_limit = 5;
-    const [posts, setPosts] = useState([])
-    const [media, setMedia] = useState({})
+    const [posts, setPosts] = useState([]);
+    const [media, setMedia] = useState({});
 
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
