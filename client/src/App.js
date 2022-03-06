@@ -26,9 +26,10 @@ export const App = () => {
           </PrivateRoute>
         } />
         <Route path="/*" element={
-          <PrivateRoute authed={userIsLoged}>
-            <HomePage />
-          </PrivateRoute>
+          <HomePage />
+          // <PrivateRoute authed={userIsLoged}>
+          //   <HomePage />
+          // </PrivateRoute>
         } />
       </Routes>
     </div>
