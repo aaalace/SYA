@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
-import Axios from 'axios';
 import { NewPostPage } from '../NewPost';
 
 const HeaderBox = styled.div`

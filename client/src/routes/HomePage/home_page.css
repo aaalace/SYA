@@ -25,7 +25,7 @@ html {
 }
 
 .post {
-    min-height: 100vh;
+    min-height: 30vh;
 }
 
 .main__title {
@@ -38,15 +38,9 @@ html {
     margin: 72px 10% 0 10%;
 }
 
-.next-link {
-    text-decoration: none;
-}
-
 .posts {
     width: 100%;
     border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    margin-top: 32px;
 }
 
 .post {
@@ -58,6 +52,7 @@ html {
 .post__top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .homepage-box__title {
@@ -67,7 +62,6 @@ html {
 
 .next-link {
     height: fit-content;
-    margin-top: 20px;
     padding: 15px;
     font-size: 24px;
     text-transform: uppercase;
@@ -85,6 +79,7 @@ html {
     outline: none;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .next-link:hover {
@@ -137,7 +132,7 @@ html {
 @media screen and (max-width: 768px) {
     .next-link {
         position: absolute;
-        top: -20px;
+        top: 0px;
         right: 0;
         border-radius: 0px;
     }
@@ -154,7 +149,8 @@ html {
         font-size: 24px;
     }
     .next-link {
-        right: -10%;
+        font-size: 18px;
+        padding: 10px;
     }
 }
 

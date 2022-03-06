@@ -5,6 +5,7 @@ from app import db
 from profilePage.utils.default_image import default_image
 from models.users_images import UsersImages
 
+
 def delete_avatar():
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -13,4 +14,4 @@ def delete_avatar():
             user_image.image = default_image
             db.session.commit()
         return {'deleted': True,
-        'avatar': default_image}
+                'avatar': default_image}
