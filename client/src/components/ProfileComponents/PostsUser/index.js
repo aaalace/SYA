@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
-import { changeBookmark, changeLike, deletePost } from "../../../store/posts/actions";
+import { changeBookmark, changeLike, deletePost } from "../../../store/profilePosts/actions";
 import { deleteUserPost } from "../../../store/user/actions";
 import Axios from 'axios';
 import { setOpenPost } from "../../../store/currentPost/actions";

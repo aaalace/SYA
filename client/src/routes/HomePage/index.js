@@ -47,8 +47,9 @@ export const HomePage = () => {
             case 2:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <video className='player-container__content video-player' controls>
-                            <source src={media[media_id]}/>
+                        <video controls 
+                            src={media[media_id]}
+                            style={{width: '100%', borderRadius: '5px'}}>
                         </video>
                     </div>
                 )
