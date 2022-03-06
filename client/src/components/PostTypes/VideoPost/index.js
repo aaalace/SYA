@@ -1,13 +1,20 @@
 import '../style.css';
 import { encodeImageFileAsURL, checkFileType } from '../functions';
+import { useState } from 'react';
 
 export const VideoPost = ({videoData, setVideoData, setContentLoaded}) => {
+    const [drag, setDrag] = useState(false);
 
-    const handleUploadedFileImage = (e) => {
-        const check = checkFileType(e, 'video');
+    const handleUploadedFileImage = (e, drag=false) => {
+        const check = checkFileType(e, 'video', drag);
         if (check) {
-            encodeImageFileAsURL(e.target, setVideoData);
-            setContentLoaded(true);
+            if (drag) {
+                encodeImageFileAsURL(e, setVideoData, drag);
+                setContentLoaded(true);
+            } else {
+                encodeImageFileAsURL(e.target, setVideoData);
+                setContentLoaded(true);
+            }
         }
     }
 
@@ -15,10 +22,37 @@ export const VideoPost = ({videoData, setVideoData, setContentLoaded}) => {
         setVideoData(false);
         setContentLoaded(false);
     }
+
+    const dragStartHandler = (e) => {
+        e.preventDefault();
+        setDrag(true);
+    }
+
+    const dragLeaveHandler = (e) => {
+        e.preventDefault();
+        setDrag(false);
+    }
+
+    const onDropHandler = (e) => {
+        e.preventDefault();
+        setDrag(false);
+        let file = [...e.dataTransfer.files][0]
+        handleUploadedFileImage(file, true);
+    }
     
     return (
-        <div className='box'>
-            <div className="custom-file-upload-container">
+        <div className='box'
+            onDragStart={e => dragStartHandler(e)}
+            onDragLeave={e => dragLeaveHandler(e)}
+            onDragOver={e => dragStartHandler(e)}
+            onDrop={e => onDropHandler(e)}
+        >
+            <div className="custom-file-upload-container" 
+                style={{
+                    border: drag ? '2px solid purple' : "2px dashed #ddd9d9",
+                    backgroundColor: drag ? '#ddd9d9' : null
+                }}
+            >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите видео или загрузите</span>
                     <br/>

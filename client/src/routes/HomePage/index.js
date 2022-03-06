@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 
 export const HomePage = () => {
-    const post_limit = 10;
+    const post_limit = 5;
     const [posts, setPosts] = useState([]);
     const [media, setMedia] = useState({});
     const userLoged = useSelector(state => state.user.loged);
