@@ -43,7 +43,10 @@ export const HomePage = () => {
             case 1:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <audio src={media[media_id]} controls className='audio-player' style={{width: '100%'}}></audio> 
+                        <audio src={media[media_id]} 
+                            controls className='audio-player' 
+                            style={{width: '100%'}}>
+                        </audio> 
                     </div>
                 )
             case 2:
@@ -51,14 +54,15 @@ export const HomePage = () => {
                     <div style={{margin: '2% 0'}}>
                         <video controls 
                             src={media[media_id]}
-                            style={{width: '100%', borderRadius: '5px'}}>
+                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
                         </video>
                     </div>
                 )
             case 3:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <img src={media[media_id]} style={{width: '100%', borderRadius: '5px'}} alt="картинка"/>
+                        <img src={media[media_id]} alt="картинка"
+                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
                     </div>
                 )
             case 4:
@@ -88,6 +92,7 @@ export const HomePage = () => {
                         </Link>
                     </div>
                 </div>
+                <div className='posts-box'>
                 {
                     posts.map((post, index) => 
                         <div className='posts' id={`sec-${index + 2}`} key={post.media_id}>
@@ -113,6 +118,7 @@ export const HomePage = () => {
                         </div>
                     )
                 }
+                </div>
                 </div>
             </div>
     )
