@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
 import { NewPostPage } from '../NewPost';
+import Axios from 'axios';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -84,6 +85,8 @@ export const Header = () => {
     const [toFind, setToFind] = useState('');
     const [open, setOpen] = useState(false);
     const [createPost, setCreatePost] = useState(false);
+    const [finded, setFinded] = useState()
+    const [finded_ids, setFindedIds] = useState([])
 
     useEffect(() => {
         document.body.style.overflow = "scroll"
@@ -107,14 +110,19 @@ export const Header = () => {
         setCreatePost(prevState => !prevState);
     }
 
-    function submitHandler() {
-        setToFind('');
-    }
-
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
         dispatch(logOut())
+    }
+
+    function submitHandler(name) {
+        setToFind('')
+        if (finded){
+            if(Object.values(finded).includes(name)){
+                openProfile(name)
+            }
+        }
     }
 
     const handleKeyDown = (event) => {
@@ -122,7 +130,43 @@ export const Header = () => {
             submitHandler();
         }
     }
-    
+
+    const finderChanged = (text) => {
+        setToFind(text)
+        if(text.length > 0){
+            findUsersByReq(text)
+        }
+        else{
+            setFinded(null)
+        }
+    }
+
+    function findUsersByReq(text){
+        Axios.get(`/find_users/`, {
+            params: {text: text}
+        }).then((response) => {
+                if(Object.keys(response.data).length > 0){
+                    setFinded(response.data)
+                    setFindedIds(Object.keys(response.data))
+                }
+                else{
+                    setFinded(null)
+                    setFindedIds([])
+                }
+        })
+    }
+
+    const openProfile = (username) => {
+        navigate(`/profile/${username}`)
+    }
+
+    const DataList = () => {
+        return(
+            <datalist id="names">
+                {finded_ids.map((id) => <option key={id} id={id}>{finded[id]}</option>)}
+            </datalist>
+        )
+    }
 
     return (
         <>
@@ -135,11 +179,12 @@ export const Header = () => {
                     <div className='right_bar'>
                         <Link className='menu-link' to='/'><i className="fa fa-send" style={{fontSize: '22px'}}></i></Link>  
                         <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}><i className="fa fa-plus-square" style={{fontSize: '24px'}}></i></p>  
-                        <Link className='menu-link' to='/profile'><i className='fas fa-user-alt' style={{fontSize: '22px'}}></i></Link>
+                        <Link className='menu-link' to='/profile/'><i className='fas fa-user-alt' style={{fontSize: '22px'}}></i></Link>
                         <a className='menu-link' onClick={logOutHeader}><i className="fas fa-sign-out-alt" style={{fontSize: '24px'}}></i></a> 
                         <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
-                            <a type='submit' onClick={submitHandler}><i className="fa fa-search"></i></a>
+                        <input list='names' className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => finderChanged(event.target.value)}/>
+                        {finded ? <DataList></DataList> : null}
+                        <a type='submit' onClick={() => submitHandler(toFind)}><i className="fa fa-search"></i></a>
                         </div>
                     </div>    
                 </Menu>
@@ -166,7 +211,7 @@ export const Header = () => {
                             </Link>
                         </div>
                         <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => setToFind(event.target.value)}/>
+                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => finderChanged(event.target.value)}/>
                             <a type='submit' onClick={submitHandler}><i className="fa fa-search" style={{fontSize: '16px'}}></i></a>
                         </div>
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Messages</Link>  

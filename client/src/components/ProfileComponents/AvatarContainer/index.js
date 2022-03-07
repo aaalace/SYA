@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import Axios from 'axios';
 
-const AvatarContainer = () => {
+const AvatarContainer = (props) => {
+    const owner = props.owner
+
     let med_cont = 'image-prof-container' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
         med_cont = 'small-image-prof-container' 
@@ -89,12 +91,11 @@ const AvatarContainer = () => {
 
     const selectedFileRef = useRef(null)
     const dispatch = useDispatch()
-    const ava = useSelector(state => state.user.avatar)
+    const avaOwn = useSelector(state => state.user.avatar)
+    const avaGuest = useSelector(state => state.opened_profile.avatar)
     const user_id = useSelector(state => state.user.profile_id)
-
-    const handler = () => {
-        giveClickChoice()
-    }
+    let ava = ''
+    owner ? ava = avaOwn : ava = avaGuest
 
     function giveClickChoice() {
         setChoice(!choice)
@@ -131,9 +132,9 @@ const AvatarContainer = () => {
 
     return (
             <div className={med_cont}>
-                <img style={ava_style} src={ava} onClick={handler}></img>
-                <button onClick={changeAva} style={btn_change}><i style={icon} className="fa fa-paperclip"></i></button>
-                <button onClick={deleteAva} style={btn_delete}><i style={icon} className="fa fa-close"></i></button>
+                <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
+                {owner ? <button onClick={changeAva} style={btn_change}><i style={icon} className="fa fa-paperclip"></i></button>: null} 
+                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon} className="fa fa-close"></i></button>: null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             </div> 
     )

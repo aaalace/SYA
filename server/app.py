@@ -80,3 +80,16 @@ def get_media_via_id(via_id):
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
+
+
+# USERS
+from users.routes.find_user import find_users
+from users.routes.get_oth_user_info import get_oth_user
+
+@app.route("/find_users/", methods=['GET'])
+def find_us():
+    return find_users()
+
+@app.route("/get_oth/", methods=['GET'])
+def get_us():
+    return get_oth_user()

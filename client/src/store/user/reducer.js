@@ -2,8 +2,6 @@ import { SET_USER_DATA } from "./actions"
 import { LOG_OUT } from "./actions"
 import { ADD_AVATAR } from "./actions"
 import { ADD_USER_POST } from "./actions"
-import { DELETE_USER_POST } from "./actions"
-import { DELETE_AVATAR } from "./actions"
 
 const initialState = {
     loged: false,
@@ -31,9 +29,6 @@ export const userReducer = (state = initialState, action) => {
         }
         case ADD_USER_POST: {
             return {...state, posts_id: state.posts_id.concat(action.payload)}
-        }
-        case DELETE_USER_POST: {
-            return {...state, posts_id: state.posts_id.filter(id => id !== action.payload)}
         }
         default: {
             return state

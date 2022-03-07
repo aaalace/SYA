@@ -16,8 +16,13 @@
     left: 0;
 }
 
+.info-container {
+    width: 100%;
+}
+
 .container-profile {
-    width: 55%;
+    min-width: 55%;
+    max-width: 55%;
     margin: 0 auto;
     margin-top: 5vh;
     min-height: 83vh;
@@ -30,8 +35,9 @@
     flex-direction: column;
     margin-left: 20px;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px 15px 5px 5px;
+    width: 100%
 }
 
 .image-prof-container {
@@ -52,7 +58,7 @@
 }
 
 .main-info-name {
-    color: rgb(172, 128, 193);
+    color: rgb(167, 121, 189);
     font-size: 25px;
     margin: 15px;
     margin-left: 20px;
