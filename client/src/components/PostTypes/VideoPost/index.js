@@ -1,12 +1,12 @@
 import '../style.css';
-import { encodeImageFileAsURL, checkFileType } from '../functions';
+import { encodeImageFileAsURL, checkFileTypeAndSize } from '../functions';
 import { useState } from 'react';
 
 export const VideoPost = ({videoData, setVideoData, setContentLoaded}) => {
     const [drag, setDrag] = useState(false);
 
     const handleUploadedFileImage = (e, drag=false) => {
-        const check = checkFileType(e, 'video', drag);
+        const check = checkFileTypeAndSize(e, 'video', drag);
         if (check) {
             if (drag) {
                 encodeImageFileAsURL(e, setVideoData, drag);

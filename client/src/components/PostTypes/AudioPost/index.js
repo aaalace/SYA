@@ -1,12 +1,12 @@
 import '../style.css';
-import { encodeImageFileAsURL, checkFileType } from '../functions';
+import { encodeImageFileAsURL, checkFileTypeAndSize } from '../functions';
 import { useState } from 'react';
 
 export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
     const [drag, setDrag] = useState(false);
 
     const handleUploadedFileImage = (e, drag=false) => {
-        const check = checkFileType(e, 'audio', drag);
+        const check = checkFileTypeAndSize(e, 'audio', drag);
         if (check) {
             if (drag) {
                 encodeImageFileAsURL(e, setAudioData, drag);
@@ -36,7 +36,7 @@ export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
     const onDropHandler = (e) => {
         e.preventDefault();
         setDrag(false);
-        let file = [...e.dataTransfer.files][0]
+        let file = [...e.dataTransfer.files][0];
         handleUploadedFileImage(file, true);
     }
     
