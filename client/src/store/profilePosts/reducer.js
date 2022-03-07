@@ -1,4 +1,4 @@
-import { ADD_POST } from "./actions"
+import { ADD_USER_POSTS } from "./actions"
 import { DELETE_POST } from "./actions"
 import { CHANGE_LIKE } from "./actions"
 import { CHANGE_BOOKMARK } from "./actions"
@@ -30,25 +30,14 @@ import { CHANGE_BOOKMARK } from "./actions"
 // }
 
 
-const initialState = []
+const initialState = {
+    
+}
 
 export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST: {
-            return state.concat(action.payload)
-        }
-        case DELETE_POST: {
-            return state.filter(post => post.id !== action.payload)
-        }
-        case CHANGE_LIKE: {
-            return state.map((post => post.id === action.payload ? 
-                {id: post.id, description: post.description, datetime: post.datetime, 
-                    image: post.image, like: !post.like, bookmark: post.bookmark} : post))
-        }
-        case CHANGE_BOOKMARK: {
-            return state.map((post => post.id === action.payload ? 
-                {id: post.id, description: post.description, datetime: post.datetime, 
-                    image: post.image, like: post.like, bookmark: !post.bookmark} : post))
+        case ADD_USER_POSTS: {
+            return {...state, ...action.payload}
         }
         default: {
             return state

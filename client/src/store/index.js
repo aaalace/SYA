@@ -16,7 +16,7 @@ import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
     user: userReducer,
-    posts: postsReducer,
+    profilePosts: postsReducer,
     current_post: currentPostReduser
 })
 

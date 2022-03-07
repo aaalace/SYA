@@ -36,6 +36,7 @@ def check_cap():
 # POSTS
 from posts.routes.create_post import create_post
 from posts.routes.open_post import open_post
+from posts.routes.get_user_posts import get_user_posts
 
 
 @app.route("/createPost", methods=['POST', 'GET'])
@@ -47,11 +48,14 @@ def createPost():
 def openPost():
     return open_post()
 
+@app.route("/get_user_posts/", methods=['POST', 'GET'])
+def getUserSPosts():
+    return get_user_posts()
+
 
 # PROFILE
 from profilePage.routes.change_avatar import change_avatar
 from profilePage.routes.delete_avatar import delete_avatar
-
 
 @app.route("/changeAvatar", methods=['POST'])
 def change_ava():

@@ -28,11 +28,111 @@
     position: absolute;
     top: 15%;
     width: 50%;
-    min-height: 60vh;
     height: fit-content;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 0 3% 3%;
     margin-bottom: 5%;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.post-left {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.post-delete_button {
+    height: 20px;
+    width: 20px;
+    margin: 20px;
+    color: rgba(172, 128, 193, 1);
+    cursor: pointer;
+}
+
+.post-delete_button:hover {
+    color:rgb(73, 39, 88);
+}
+
+.post-avatar {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+    border-radius: 18px;
+}
+
+.post-pers-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.post-pers-nickname {
+    color: rgba(172, 128, 193, 1);
+    font-size: 18px;
+}
+
+.post-datatime {
+    color: rgba(172, 128, 193, 0.6);
+    font-size: 13px;
+    word-spacing: -3px;
+}
+
+.post-text {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.post-textarea {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    height: auto;
+    outline: none;
+    background-color:rgba(240, 248, 255, 0);
+    border: 0;
+    font-size: 15px;
+    color: rgb(87, 81, 90);
+    resize: none;
+    word-break: break-all;
+}
+
+.post-image-container {
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.post-image {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+    height: 30%;
+    border-radius: 18px;
+}
+
+.post-social-interact-container {
+    width: 100%;
+}
+
+.post-social-interact {
+    display: flex;
+    float: right;
+    width: 150px;
+    border-radius: 0 0 20px 0;
+    background-color: rgba(172, 128, 193, 0.2);
+    font-size: 20px;
+    justify-content: space-around;
+}
+
+.post-icon {
+    margin: 5px;
+    color: rgba(172, 128, 193, 1);
 }

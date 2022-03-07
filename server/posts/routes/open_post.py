@@ -1,8 +1,5 @@
-from turtle import pen
 from flask import request
 from app import db
-import base64
-import json
 
 from models.posts import Posts
 from models.media import Media
@@ -25,8 +22,7 @@ def open_post():
 
         user = Users.query.filter(Users.id == post.user_id).first()
         user_id = user.id
-        user_name = user.person_name
-        user_surname = user.person_surname
+        user_username = user.profile_name
 
         image = UsersImages.query.filter(UsersImages.user_id == user.id).first()
         user_avatar = image.image
@@ -42,8 +38,7 @@ def open_post():
         return {'opened': True,
                 'id': post_id,
                 'user_id': user_id,
-                'user_name': user_name,
-                'user_surname': user_surname,
+                'user_username': user_username,
                 'user_avatar': user_avatar,
                 'likes_count': likes_count,
                 'post_time': post_time,

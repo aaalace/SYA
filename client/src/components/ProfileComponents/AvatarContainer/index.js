@@ -18,13 +18,13 @@ const AvatarContainer = () => {
         display: 'flex',
         margin: '0 auto',
         borderRadius: '20px',
-        width: '200px',
-        height: '200px',
+        width: '240px',
+        height: '240px',
         position: 'absolute'
     }
     let btn_change = {
         display: 'none',
-        width: '100px',
+        width: '120px',
         borderRadius: '20px 0 0 20px',
         border: '0',
         backgroundColor: 'rgba(172, 128, 193, 0.2)',
@@ -33,7 +33,7 @@ const AvatarContainer = () => {
     }
     let btn_delete = {
         display: 'none',
-        width: '100px',
+        width: '120px',
         alignItems: 'flex-end',
         justifyContent: 'right',
         border: '0',
@@ -47,10 +47,11 @@ const AvatarContainer = () => {
     }
 
     if (med_cont === 'small-image-prof-container'){
-        ava_style.width = '100px'
-        ava_style.height = '100px'
-        btn_change.width = '50px'
-        btn_delete.width = '50px'
+        ava_style.position = 'relative'
+        ava_style.width = '120px'
+        ava_style.height = '120px'
+        btn_change.width = '60px'
+        btn_delete.width = '60px'
         btn_change.height = '100px'
         btn_delete.height = '100px'
     }
@@ -60,6 +61,7 @@ const AvatarContainer = () => {
             ava_style.borderRadius = '100px 5px'
         }
         else{
+            ava_style.position = 'absolute'
             ava_style.borderRadius = '20px'
             btn_change.backgroundColor = 'rgba(255, 255, 255, 0.9)'
             btn_delete.backgroundColor = 'rgba(255, 255, 255, 0.9)'

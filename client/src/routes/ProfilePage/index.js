@@ -22,32 +22,33 @@ export const ProfilePage = () => {
                     {med === 'large' ? 
                     <div className='container-head'>
                         <AvatarContainer/>
-                        <div className='main-info-container'>
+                        <div className='info-container'>
+                            <div className='main-info-container'>
+                                <div className='main-info-head'>
+                                    <div>
+                                        <p className='main-info-name'>{userInfo.personName} {userInfo.personSurname}</p>
+                                    </div>
+                                    <div>
+                                        <p className='main-info-usname'>{userInfo.profileName}</p>
+                                    </div>
+                                </div>
+                                <SocialData/>
+                            </div>
+                            <PostsUser></PostsUser>
+                        </div>
+                    </div> :
+                        <div className='small-head-container'>
+                            <AvatarContainer/>
                             <div className='main-info-head'>
                                 <div>
-                                    <p className='main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
+                                    <p className='main-info-name'>{userInfo.personName} {userInfo.personSurname}</p>
                                 </div>
                                 <div>
                                     <p className='main-info-usname'>{userInfo.profileName}</p>
                                 </div>
                             </div>
-                            <SocialData/>
-                            <hr style={{backgroundColor: 'rgb(172, 128, 193)', width: '80%', margin: '0 auto', marginTop: '25px'}}></hr> 
-                        </div>
-                    </div> :
-                        <div className='small-head-container'>
-                            <AvatarContainer/>
-                            <div className='small-main-info-head'>
-                                <div>
-                                    <p className='small-main-info-usname'>{userInfo.profileName}</p>
-                                </div>
-                                <div>
-                                    <p className='small-main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
-                                </div>
-
-                            </div>
+                            <PostsUser></PostsUser>
                     </div>}
-                    <PostsUser/>
                 </div>
             </div>
         </div>

@@ -1,112 +1,142 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
-import { changeBookmark, changeLike, deletePost } from "../../../store/posts/actions";
-import { deleteUserPost } from "../../../store/user/actions";
 import Axios from 'axios';
 import { setOpenPost } from "../../../store/currentPost/actions";
 import { OpenedPost } from "../../OpenedPost";
 import { useState } from "react";
+import { useEffect } from "react";
+import ReactLoading from 'react-loading';
+import { addUserPosts } from "../../../store/profilePosts/actions";
+import ReactCrop from 'react-image-crop'
 
 const PostsUser = () => {
-    const posts = useSelector(state => state.posts)
+    const [media, setMedia] = useState({});
     const dispatch = useDispatch()
+    const postsX = useSelector(state => state.profilePosts[73])
+    const [posts, setPosts] = useState([]);
 
-    const [postNum, setPostNum] = useState(null)
+    const getMedia = (mediaIds) => {
+        for (const id of mediaIds) {
+            Axios.get(`/get_media//${id}`).then((res) => {
+                setMedia(prevState => ({
+                    ...prevState,
+                    [id]: res.data
+                }))
+            })
+        }
+    }
+
+    function getUserPosts(){
+        Axios.get(`/get_user_posts/`, {
+            params: {id: 73}
+        }).then((response) => {
+                // dispatch(addUserPosts(
+                //     {
+                        
+                //     }
+                // )
+                // )
+                setPosts(response.data.body)
+                getMedia(response.data.media_ids);
+        })
+    }
+
+    useEffect(() => {
+        getUserPosts();
+    }, [])
+
+    return (
+        <div style={{marginLeft: '20px'}}>            
+            <OpenedPost></OpenedPost>
+            <section className="posts-container">
+                {posts 
+                ? posts.map((post) => {
+                    return <OnePost key={post.id} post={post} media={media}/>
+                }) 
+                : []}
+            </section>
+        </div>
+    )
+}
+
+const OnePost = (props) => {
+    const post = props.post
+    const media = props.media
+    const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
+
+    
+    const switchType = () => {
+        switch(post.type) {
+            case 1:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src="https://static.vecteezy.com/system/resources/thumbnails/004/571/688/small/volume-up-line-icon-vector.jpg" alt="картинка"/>
+                    </figure>
+                )
+            case 2:
+                return (
+                    <figure className="post-image-prof">
+                        <video className='video-in-post' controls src={media[post.media_id]}/>
+                    </figure>
+                )
+            case 3:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src={media[post.media_id]}></img>
+                    </figure>
+                )
+            case 4:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU8v85Iy7hfL0Q8sXT8s7T3bs_Ot1Q1XnZDKeaf33DgtFmALdZSIMd80qsunpUcci73BQ&usqp=CAU"></img>
+                    </figure>
+                )
+            default:
+                return 'error'
+        }
+    }
 
     async function openPostReq() {
         let response = await Axios.get('/openPost/', {
-            params: {id: postNum}
+            params: {id: post.id}
         })
         return response
     }
 
     const openPost = () => {
+        setLoading(true)
         openPostReq().then((response) => {
             if(response.data.opened){
                 dispatch(setOpenPost({
                     open: true,
                     id: response.data.id,
                     user_id: response.data.user_id,
-                    user_name: response.data.user_name,
-                    user_surname: response.data.user_surname,
+                    user_name: response.data.user_username,
                     user_avatar: response.data.user_avatar,
                     media: response.data.media,
                     media_type: response.data.media_type,
                     likes_count: response.data.likes_count,
                     post_time: response.data.post_time
                 }))
+                setLoading(false)
             }
         })
     }
-
-    return (
-        <div>
-            <OpenedPost></OpenedPost>
-            <input onClick={openPost} type='button' value='Открыть пост (тестовая кнопка)'></input>
-            <input onChange={e => setPostNum(e.target.value)}/>
-            {posts 
-            ? posts.map((post) => {
-                return <OnePost key={post.id} post={post}/>
-            }) 
-            : []}
-        </div>
-    )
-}
-
-const OnePost = (postX) => {
-    const user_nick = useSelector(state => state.user.profileName)
-    const user_posts = useSelector(state => state.user.posts_id)
-    const ava = useSelector(state => state.user.avatar)
-    const post = postX.post
-    const dispatch = useDispatch()
-
-    const changeLikeX = (id) => {
-        dispatch(changeLike(id))
-    }
-
-    const changeBookmarkX = (id) => {
-        dispatch(changeBookmark(id))
-    }
-
-    const deletePostX = (id) => {
-        console.log(id, user_posts)
-        if (user_posts.includes(id)){
-            dispatch(deletePost(id))
-            dispatch(deleteUserPost(id))
-        }
-    }
-
     return(
-        <div className="post-container">
-            <div className="post-header">
-                <div className="post-left">
-                    <img src={ava} className="post-avatar"/>
-                    <div className="post-pers-data">
-                        <p className="post-pers-nickname">{user_nick}</p>
-                        <p className="post-datatime">{post.datetime}</p>
-                    </div>
-                </div>
-                <span onClick={() => deletePostX(post.id)} className="post-delete_button">&#10006;</span>
-            </div>
-            {post.description ? <div className="post-text">
-                <p className="post-textarea">
-                    {post.description}
-                </p>
-            </div> : null}
-            {post.image ? <div className="post-image-container">
-                <img className="post-image" src={post.image}></img>
-            </div> : null}
-            <div className="post-social-interact-container">
-                <div className="post-social-interact">
-                    {post.like ?  <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="fa fa-heart"></i></a>
-                    : <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="far fa-heart"></i></a>}
-                    <a className="post-icon"><i className='far fa-comment'></i></a>
-                    {post.bookmark ? <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="fas fa-bookmark"></i></a>
-                    : <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="far fa-bookmark"></i></a>}
-                </div>
-            </div>
-        </div>
+        <a className="post-block" onClick={openPost}>
+            {switchType()}
+            {post.type == 2 ? null : 
+            <span class="post-overlay">
+            {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
+            <p>
+            <span className="post-likes"><i className="far fa-heart"></i> {post.likes_count}</span>
+            <span className="post-comments">21 < i className='far fa-comment'></i></span>
+            </p>
+            }
+            </span>}
+        </a>
     )
 }
 

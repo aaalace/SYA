@@ -32,9 +32,9 @@ export const HomePage = () => {
         getPosts();
     }, [])
 
-    useEffect(() => {
-        console.log(media)
-    }, [media])
+    // useEffect(() => {
+    //     console.log(media)
+    // }, [media])
 
     const switchType = (type, media_id) => {
         switch(type) {
@@ -47,8 +47,7 @@ export const HomePage = () => {
             case 2:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <video className='player-container__content video-player' controls>
-                            <source src={media[media_id]}/>
+                        <video className='player-container__content video-player' controls src={media[media_id]}>
                         </video>
                     </div>
                 )
