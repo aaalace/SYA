@@ -64,6 +64,12 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     }
 
     const selectFormat = (id) => {
+        if (formatSelected) {
+            setFormats(JSON.parse(JSON.stringify(initialFormats)));
+            setContentFormatClass('create-post-content__format');
+            setFormatSelected(false);
+            return 'formats-init';
+        }
         setFormats(items => items.map(item => {
             if (item.id !== id) {
                 item.classNameBlock += ' test_class';

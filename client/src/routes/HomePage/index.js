@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './home_page.css';
 import { Button } from '../../components/LiquidButton'; 
 import { Link } from 'react-router-dom';
@@ -9,6 +10,7 @@ export const HomePage = () => {
     const post_limit = 5;
     const [posts, setPosts] = useState([]);
     const [media, setMedia] = useState({});
+    const userLoged = useSelector(state => state.user.loged);
 
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
@@ -41,20 +43,26 @@ export const HomePage = () => {
             case 1:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <audio src={media[media_id]} controls className='audio-player' style={{width: '100%'}}></audio> 
+                        <audio src={media[media_id]} 
+                            controls className='audio-player' 
+                            style={{width: '100%'}}>
+                        </audio> 
                     </div>
                 )
             case 2:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <video className='player-container__content video-player' controls src={media[media_id]}>
+                        <video controls 
+                            src={media[media_id]}
+                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
                         </video>
                     </div>
                 )
             case 3:
                 return (
                     <div style={{margin: '2% 0'}}>
-                        <img src={media[media_id]} style={{width: '100%', borderRadius: '5px'}} alt="картинка"/>
+                        <img src={media[media_id]} alt="картинка"
+                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
                     </div>
                 )
             case 4:
@@ -84,13 +92,23 @@ export const HomePage = () => {
                         </Link>
                     </div>
                 </div>
+                <div className='posts-box'>
                 {
                     posts.map((post, index) => 
                         <div className='posts' id={`sec-${index + 2}`} key={post.media_id}>
                             <div className='post homepage-box'>
                                 <div className='post__top'>
                                     <h2 className='homepage-box__title'>SYA daily {index + 1}</h2>
-                                    <a href={index < post_limit - 1 ? `#sec-${index + 3}` : "#sec-1"} className='next-link'>Next</a>
+                                    {userLoged ? 
+                                        <a href={index < post_limit - 1 ? `#sec-${index + 3}` : "#sec-1"} 
+                                            className='next-link'
+                                        ><span style={{fontSize: '22px'}}>G</span>O!
+                                        </a>
+                                        : <Link to="/login" 
+                                            className='next-link'
+                                        ><span style={{fontSize: '22px'}}>G</span>O!
+                                        </Link>
+                                    }
                                 </div>
                                 <div>
                                     <h4>type: {post.type}</h4>
@@ -100,6 +118,7 @@ export const HomePage = () => {
                         </div>
                     )
                 }
+                </div>
                 </div>
             </div>
     )

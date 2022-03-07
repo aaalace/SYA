@@ -7,12 +7,9 @@ import { OpenedPost } from "../../OpenedPost";
 import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
-import { addUserPosts } from "../../../store/profilePosts/actions";
-import ReactCrop from 'react-image-crop'
 
 const PostsUser = () => {
     const [media, setMedia] = useState({});
-    const dispatch = useDispatch()
     const postsX = useSelector(state => state.profilePosts[73])
     const [posts, setPosts] = useState([]);
 

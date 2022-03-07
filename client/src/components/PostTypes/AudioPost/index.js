@@ -1,13 +1,20 @@
 import '../style.css';
-import { encodeImageFileAsURL, checkFileType } from '../functions';
+import { encodeImageFileAsURL, checkFileTypeAndSize } from '../functions';
+import { useState } from 'react';
 
 export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
+    const [drag, setDrag] = useState(false);
 
-    const handleUploadedFileImage = (e) => {
-        const check = checkFileType(e, 'audio');
+    const handleUploadedFileImage = (e, drag=false) => {
+        const check = checkFileTypeAndSize(e, 'audio', drag);
         if (check) {
-            encodeImageFileAsURL(e.target, setAudioData);
-            setContentLoaded(true);
+            if (drag) {
+                encodeImageFileAsURL(e, setAudioData, drag);
+                setContentLoaded(true);
+            } else {
+                encodeImageFileAsURL(e.target, setAudioData);
+                setContentLoaded(true);
+            }
         }
     }
 
@@ -15,10 +22,37 @@ export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
         setAudioData(false);
         setContentLoaded(false);
     }
+
+    const dragStartHandler = (e) => {
+        e.preventDefault();
+        setDrag(true);
+    }
+
+    const dragLeaveHandler = (e) => {
+        e.preventDefault();
+        setDrag(false);
+    }
+
+    const onDropHandler = (e) => {
+        e.preventDefault();
+        setDrag(false);
+        let file = [...e.dataTransfer.files][0];
+        handleUploadedFileImage(file, true);
+    }
     
     return (
-        <div className='box'>
-            <div className="custom-file-upload-container">
+        <div className='box'
+            onDragStart={e => dragStartHandler(e)}
+            onDragLeave={e => dragLeaveHandler(e)}
+            onDragOver={e => dragStartHandler(e)}
+            onDrop={e => onDropHandler(e)}
+        >
+            <div className="custom-file-upload-container" 
+                style={{
+                    border: drag ? '2px solid purple' : "2px dashed #ddd9d9",
+                    backgroundColor: drag ? '#ddd9d9' : null
+                }}
+            >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите аудио или загрузите</span>
                     <br/>
