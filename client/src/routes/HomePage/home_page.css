@@ -40,6 +40,9 @@ html {
 .posts {
     width: 100%;
     /* border-top: 1px solid #000; */
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .post {

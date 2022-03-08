@@ -34,6 +34,10 @@
     border-radius: 5px;
 }
 
+.post-block {
+    break-inside: avoid-column;
+}
+
 .post-block:hover .image-in-post {
     padding: 10px
 }
