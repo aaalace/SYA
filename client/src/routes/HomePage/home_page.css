@@ -9,6 +9,8 @@ html {
     background-image: url('../../images/seminar-art.png');
     background-size: 100%;
     background-repeat: no-repeat;
+    -webkit-filter: blur(250px);
+    -moz-filter: blur(250px);
     filter: blur(250px);
 }
 
@@ -21,11 +23,8 @@ html {
 }
 
 .sec {
-    height: 70vh;
-}
-
-.post {
-    min-height: 30vh;
+    height: 100vh;
+    max-height: 600px;
 }
 
 .main__title {
@@ -40,12 +39,11 @@ html {
 
 .posts {
     width: 100%;
-    border-top: 1px solid #000;
+    /* border-top: 1px solid #000; */
 }
 
 .post {
-    margin: 0 10%;
-    padding: 3% 0 0 3%;
+    padding: 3%;
     position: relative;
 }
 
@@ -97,7 +95,9 @@ html {
 
 @media screen and (min-width: 1920px) {
     .background {
-        filter: blur(800px);
+        -webkit-filter: blur(400px);
+        -moz-filter: blur(400px);
+        filter: blur(400px);
     }
     .main__title {
         font-style: normal;
@@ -113,15 +113,21 @@ html {
     .posts-box {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        margin: 0 10%;
     }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1919px) {
     .background {
+        -webkit-filter: blur(330px);
+        -moz-filter: blur(330px);
         filter: blur(330px);
     }
     .browse-posts {
         transform: scale(1.5);
+    }
+    .posts-box {
+        margin: 0 5%;
     }
 }
 
@@ -146,6 +152,7 @@ html {
     .posts-box {
         display: grid;
         grid-template-columns: 1fr;
+        margin: 0 3%;
     }
 }
 
@@ -162,6 +169,9 @@ html {
     .next-link {
         font-size: 18px;
         padding: 10px;
+    }
+    .posts-box {
+        margin: 0;
     }
 }
 

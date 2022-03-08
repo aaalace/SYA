@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 
 export const HomePage = () => {
-    const post_limit = 10;
+    const post_limit = 5;
     const [posts, setPosts] = useState([]);
     const [media, setMedia] = useState({});
     const userLoged = useSelector(state => state.user.loged);
@@ -42,7 +42,7 @@ export const HomePage = () => {
         switch(type) {
             case 1:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <audio src={media[media_id]} 
                             controls className='audio-player' 
                             style={{width: '100%'}}>
@@ -51,7 +51,7 @@ export const HomePage = () => {
                 )
             case 2:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <video controls 
                             src={media[media_id]}
                             style={{width: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
@@ -60,7 +60,7 @@ export const HomePage = () => {
                 )
             case 3:
                 return (
-                    <div style={{margin: '2% 0', boxSizing: 'inherit'}}>
+                    <div style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {media[media_id] ? 
                             <img src={media[media_id]} alt="картинка"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
@@ -74,7 +74,7 @@ export const HomePage = () => {
                 )
             case 4:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <div style={{margin: '12px'}}>
                             {media[media_id]}
                         </div>
@@ -106,7 +106,7 @@ export const HomePage = () => {
                             <div className='post homepage-box'>
                                 <div className='post__top'>
                                     <h2 className='homepage-box__title'>SYA daily {index + 1}</h2>
-                                    {userLoged ? 
+                                    {/* {userLoged ? 
                                         <a href={index < post_limit - 1 ? `#sec-${index + 3}` : "#sec-1"} 
                                             className='next-link'
                                         ><span style={{fontSize: '22px'}}>G</span>O!
@@ -115,7 +115,7 @@ export const HomePage = () => {
                                             className='next-link'
                                         ><span style={{fontSize: '22px'}}>G</span>O!
                                         </Link>
-                                    }
+                                    } */}
                                 </div>
                                 <div>
                                     <h4>type: {post.type}</h4>
