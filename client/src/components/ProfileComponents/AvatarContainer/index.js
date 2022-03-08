@@ -19,7 +19,7 @@ const AvatarContainer = (props) => {
         objectFit: 'cover',
         display: 'flex',
         margin: '0 auto',
-        borderRadius: '20px',
+        borderRadius: '20px 5px 5px 5px',
         width: '240px',
         height: '240px',
         position: 'absolute'

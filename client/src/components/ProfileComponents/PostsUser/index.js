@@ -7,11 +7,13 @@ import { OpenedPost } from "../../OpenedPost";
 import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
+import { addUserPosts, addPostMedia } from "../../../store/profilePosts/actions";
 
 const PostsUser = (props) => {
+    const usersPosts = useSelector(state => state.profilePosts)
+    const [userPosts, setUserPosts] = useState([])
     const [media, setMedia] = useState({});
-    // const postsX = useSelector(state => state.profilePosts[73])
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch()
 
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
@@ -20,6 +22,11 @@ const PostsUser = (props) => {
                     ...prevState,
                     [id]: res.data
                 }))
+                Axios.get(`/get_post_by_media//${id}`).then((result) => {
+                dispatch(addPostMedia({
+                    userId: props.id, post_id: result.data, id, data: res.data
+                }))
+            })
             })
         }
     }
@@ -28,20 +35,33 @@ const PostsUser = (props) => {
         Axios.get(`/get_user_posts/`, {
             params: {id: props.id}
         }).then((response) => {
-                // dispatch(addUserPosts(
-                //     {
-                        
-                //     }
-                // )
-                // )
-                setPosts(response.data.body)
-                getMedia(response.data.media_ids);
+                const object = {}
+                object[props.id] = response.data.body
+                dispatch(addUserPosts(object))
+                const posts = []
+                for (let key in response.data.body){
+                    posts.push(response.data.body[key])
+                }
+                setUserPosts(posts)
+                getMedia(response.data.media_ids)
         })
     }
 
     useEffect(() => {
         if(props.id){
-            getUserPosts()
+            if(Object.keys(usersPosts).includes(props.id.toString())){
+                const posts = []
+                const media = {}
+                for (let key in usersPosts[props.id]){
+                    posts.push(usersPosts[props.id][key])
+                    media[usersPosts[props.id][key]['media_id']] = usersPosts[props.id][key]['media']
+                }
+                setUserPosts(posts)
+                setMedia(media)
+            }
+            else{
+                getUserPosts()
+            }
         }
     }, [props.id])
 
@@ -49,8 +69,8 @@ const PostsUser = (props) => {
         <div style={{marginLeft: '20px'}}>            
             <OpenedPost></OpenedPost>
             <section className="posts-container">
-                {posts 
-                ? posts.map((post) => {
+                {userPosts 
+                ? userPosts.map((post) => {
                     return <OnePost key={post.id} post={post} media={media}/>
                 }) 
                 : []}
@@ -133,19 +153,20 @@ const OnePost = (props) => {
             if(response.data.opened){
                 dispatch(setOpenPost({
                     open: true,
-                    id: response.data.id,
-                    user_id: response.data.user_id,
+                    id: post.id,
+                    user_id: post.user_id,
                     user_name: response.data.user_username,
                     user_avatar: response.data.user_avatar,
-                    media: response.data.media,
-                    media_type: response.data.media_type,
-                    likes_count: response.data.likes_count,
-                    post_time: response.data.post_time
+                    media: media[post.media_id],
+                    media_type: post.type,
+                    likes_count: post.likes_count,
+                    post_time: post.post_time
                 }))
                 setLoading(false)
             }
         })
     }
+    
     return(
         <a style={post_block_style} className="post-block" onClick={openPost}>
             {switchType()}
@@ -154,7 +175,7 @@ const OnePost = (props) => {
             {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
             <p>
             <span className="post-likes"><i className="far fa-heart"></i> {post.likes_count}</span>
-            <span className="post-comments">21 < i className='far fa-comment'></i></span>
+            <span className="post-comments">0 < i className='far fa-comment'></i></span>
             </p>
             }
             </span>}

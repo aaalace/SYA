@@ -143,7 +143,7 @@ export const Header = () => {
 
     function findUsersByReq(text){
         Axios.get(`/find_users/`, {
-            params: {text: text}
+            params: {text}
         }).then((response) => {
                 if(Object.keys(response.data).length > 0){
                     setFinded(response.data)
@@ -163,7 +163,9 @@ export const Header = () => {
     const DataList = () => {
         return(
             <datalist id="names">
-                {finded_ids.map((id) => <option key={id} id={id}>{finded[id]}</option>)}
+                {finded_ids.map((id) => <option key={id} id={id}>
+                                            {finded[id]}
+                                        </option>)}
             </datalist>
         )
     }

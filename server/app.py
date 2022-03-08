@@ -70,12 +70,16 @@ def delete_ava():
 # POSTS
 from posts.routes.get_media import get_media
 from posts.routes.get_posts import get_posts_main
+from posts.routes.get_post_by_media import get_post_by_media
 
 
 @app.route("/get_media/<via_id>", methods=['GET', 'POST'])
 def get_media_via_id(via_id):
     return get_media(via_id)
 
+@app.route("/get_post_by_media/<med>", methods=['GET'])
+def get_post_by_med(med):
+    return get_post_by_media(med)
 
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):

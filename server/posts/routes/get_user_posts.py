@@ -8,12 +8,11 @@ def get_user_posts():
         user_id = data.get('id')
 
         posts = Posts.query.filter(Posts.user_id == user_id).all()
-        result = []
+        result = {}
         media_ids = []
         
         for post in posts:
-            result.append(
-                {
+            result[post.id] = {
                     'id': post.id,
                     'user_id': post.user_id,
                     'type': post.type,
@@ -23,9 +22,7 @@ def get_user_posts():
                     'middle_color': post.middle_color,
                     'proportion': post.height_width_proportion
                 }
-            )
-            if post.type in [2, 3]:
-                media_ids.append(post.media_id)
+            media_ids.append(post.media_id)
 
         return {
             "body": result,
