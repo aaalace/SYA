@@ -10,7 +10,6 @@ export const HomePage = () => {
     const post_limit = 5;
     const [posts, setPosts] = useState([]);
     const [media, setMedia] = useState({});
-    const userLoged = useSelector(state => state.user.loged);
 
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
@@ -38,7 +37,10 @@ export const HomePage = () => {
     //     console.log(media)
     // }, [media])
 
-    const switchType = (type, media_id, proportion=0) => {
+    const switchType = (type, media_id, proportion=0, middle_color) => {
+        if(middle_color){
+            middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
+        }
         switch(type) {
             case 1:
                 return (
@@ -66,7 +68,7 @@ export const HomePage = () => {
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
                             : 
                             <div style={{width: '100%', borderRadius: '5px', maxHeight: '60vh',
-                                backgroundColor: 'black', aspectRatio: `1 / ${proportion}`
+                                backgroundColor: middle_color, aspectRatio: `1 / ${proportion}`
                             }}>
                             </div>
                         }
@@ -119,7 +121,7 @@ export const HomePage = () => {
                                 </div>
                                 <div>
                                 </div>
-                                {switchType(post.type, post.media_id, post.proportion)}
+                                {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
                             </div>
                         </div>
                     )

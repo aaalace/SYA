@@ -20,7 +20,8 @@ def get_user_posts():
                     'media_id': post.media_id,
                     'likes_count': post.likes_count,
                     'post_time': post.post_time,
-                    'middle_color': post.middle_color
+                    'middle_color': post.middle_color,
+                    'proportion': post.height_width_proportion
                 }
             )
             if post.type in [2, 3]:

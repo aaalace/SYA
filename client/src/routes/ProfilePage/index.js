@@ -37,8 +37,12 @@ export const ProfilePage = () => {
     }
 
     const params = useParams()
+    if(params['*'] == ''){
+        params['*'] = Own.profileName
+    }
+
     useEffect(() => {
-        if(params['*'] != '' && params['*'] != Own.profileName){
+        if(params['*'] != Own.profileName){
             getUserData(params['*'])
         }
         else{

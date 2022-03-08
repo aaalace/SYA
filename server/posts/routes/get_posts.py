@@ -13,6 +13,7 @@ def get_posts_main(count):
             'media_id': post.media_id,
             'likes_count': post.likes_count,
             'post_time': post.post_time,
+            'middle_color': post.middle_color,
             'proportion': post.height_width_proportion
         })
         media_ids.append(post.media_id)

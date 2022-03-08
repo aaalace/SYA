@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import ReactLoading from 'react-loading';
 
 const PostsUser = (props) => {
-    console.log(props.id)
     const [media, setMedia] = useState({});
     // const postsX = useSelector(state => state.profilePosts[73])
     const [posts, setPosts] = useState([]);
@@ -41,6 +40,7 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
+        console.log(props.id)
         getUserPosts();
     }, [props.id])
 
@@ -65,6 +65,7 @@ const OnePost = (props) => {
     const [loading, setLoading] = useState(false)
 
     let mid_col = 'transparent'
+
     if (post.middle_color){
         mid_col = 'rgb(' + post.middle_color.split(';').join(', ') + ')'
     }
@@ -76,11 +77,12 @@ const OnePost = (props) => {
         cursor: 'pointer',
         position: 'relative',
         display: 'block',
-        marginBottom: '1vw',
         padding: '0',
+        marginRight: '0',
+        marginBottom: '1vw',
         borderRadius: '5px',
-        height: '98.5%',
-        backgroundColor: mid_col
+        backgroundColor: mid_col,
+        aspectRatio: `1 / ${post.proportion}`
     }
 
     
