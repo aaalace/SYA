@@ -1,3 +1,4 @@
+from http import server
 from flask import request
 import json
 from app import db
@@ -6,6 +7,7 @@ import datetime
 from models.posts import Posts
 from models.media import Media
 
+from posts.utils.get_mid_color import middle_color
 
 def create_post():
     if request.method == 'POST':
@@ -37,15 +39,20 @@ def create_post():
         try:
             dt = datetime.datetime.now()
 
+            mid_col = ''
+            if post_type == 3:
+                mid_col = middle_color(content)
+
             post = Posts(
                 type=post_type,
                 user_id=user_id,
                 media_id=media_id,
                 likes_count=0,
-                post_time=dt
+                post_time=dt,
+                middle_color=';'.join(mid_col)
             )
             db.session.add(post)
             db.session.commit()
-        except:
+        except Exception as e:
             return 'server error'
         return 'correct'

@@ -1,5 +1,4 @@
 from models.posts import Posts
-import json
 
 
 def get_posts_main(count):

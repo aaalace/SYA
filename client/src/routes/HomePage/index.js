@@ -111,7 +111,6 @@ export const HomePage = () => {
                                     }
                                 </div>
                                 <div>
-                                    <h4>type: {post.type}</h4>
                                 </div>
                                 {switchType(post.type, post.media_id)}
                             </div>

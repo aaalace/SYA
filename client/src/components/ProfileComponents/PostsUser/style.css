@@ -3,17 +3,8 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     grid-gap: 1vw;
-    flex-grow: 1;
     margin: 0 auto;
     width: 80%;
-}
-.post-block {
-    cursor: pointer;
-    position: relative;
-    display: block;
-    margin: 0;
-    padding: 0;
-    height: 98.5%;
 }
 
 .image-in-post {

@@ -63,6 +63,21 @@ const OnePost = (props) => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
 
+    let mid_col = 'transparent'
+    if (post.middle_color){
+        mid_col = post.middle_color.split('.').join(' ')
+    }
+    
+    const post_block_style = {
+        cursor: 'pointer',
+        position: 'relative',
+        display: 'block',
+        margin: '0',
+        padding: '0',
+        height: '98.5%',
+        backgroundColor: mid_col
+    }
+
     
     const switchType = () => {
         switch(post.type) {
@@ -124,7 +139,7 @@ const OnePost = (props) => {
         })
     }
     return(
-        <a className="post-block" onClick={openPost}>
+        <a className="post-block" style={post_block_style} onClick={openPost}>
             {switchType()}
             {
             <span className="post-overlay">
