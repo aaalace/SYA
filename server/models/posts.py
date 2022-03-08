@@ -9,3 +9,5 @@ class Posts(db.Model):
     likes_count = db.Column(db.Integer)
     post_time = db.Column(db.DateTime)
     middle_color = db.Column(db.Text)
+    height_width_proportion = db.Column(db.Float, nullable=True)
+

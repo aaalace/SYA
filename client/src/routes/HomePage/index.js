@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './home_page.css';
 import { Button } from '../../components/LiquidButton'; 
@@ -38,11 +38,11 @@ export const HomePage = () => {
     //     console.log(media)
     // }, [media])
 
-    const switchType = (type, media_id) => {
+    const switchType = (type, media_id, proportion=0) => {
         switch(type) {
             case 1:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <audio src={media[media_id]} 
                             controls className='audio-player' 
                             style={{width: '100%'}}>
@@ -51,23 +51,30 @@ export const HomePage = () => {
                 )
             case 2:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <video controls 
                             src={media[media_id]}
-                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
+                            style={{width: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
                         </video>
                     </div>
                 )
             case 3:
                 return (
-                    <div style={{margin: '2% 0'}}>
-                        <img src={media[media_id]} alt="картинка"
-                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
+                    <div style={{marginTop: '2%', boxSizing: 'inherit'}}>
+                        {media[media_id] ? 
+                            <img src={media[media_id]} alt="картинка"
+                                style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
+                            : 
+                            <div style={{width: '100%', borderRadius: '5px', maxHeight: '60vh',
+                                backgroundColor: 'black', aspectRatio: `1 / ${proportion}`
+                            }}>
+                            </div>
+                        }
                     </div>
                 )
             case 4:
                 return (
-                    <div style={{margin: '2% 0'}}>
+                    <div style={{marginTop: '2%'}}>
                         <div style={{margin: '12px'}}>
                             {media[media_id]}
                         </div>
@@ -99,7 +106,7 @@ export const HomePage = () => {
                             <div className='post homepage-box'>
                                 <div className='post__top'>
                                     <h2 className='homepage-box__title'>SYA daily {index + 1}</h2>
-                                    {userLoged ? 
+                                    {/* {userLoged ? 
                                         <a href={index < post_limit - 1 ? `#sec-${index + 3}` : "#sec-1"} 
                                             className='next-link'
                                         ><span style={{fontSize: '22px'}}>G</span>O!
@@ -108,17 +115,17 @@ export const HomePage = () => {
                                             className='next-link'
                                         ><span style={{fontSize: '22px'}}>G</span>O!
                                         </Link>
-                                    }
+                                    } */}
                                 </div>
                                 <div>
                                 </div>
-                                {switchType(post.type, post.media_id)}
+                                {switchType(post.type, post.media_id, post.proportion)}
                             </div>
                         </div>
                     )
                 }
                 </div>
-                </div>
             </div>
+        </div>
     )
 }

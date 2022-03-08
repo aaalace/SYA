@@ -12,7 +12,8 @@ def get_posts_main(count):
             'type': post.type,
             'media_id': post.media_id,
             'likes_count': post.likes_count,
-            'post_time': post.post_time
+            'post_time': post.post_time,
+            'proportion': post.height_width_proportion
         })
         media_ids.append(post.media_id)
     return {"body": res, 'media_ids': media_ids}

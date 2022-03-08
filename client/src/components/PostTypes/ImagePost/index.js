@@ -1,9 +1,10 @@
 import '../style.css';
 import { encodeImageFileAsURL, checkFileTypeAndSize } from '../functions';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
-export const ImagePost = ({imageData, setImageData, setContentLoaded}) => {
+export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostProportion}) => {
     const [drag, setDrag] = useState(false);
+    const imageUploadedRef = useRef(null);
 
     const handleUploadedFileImage = (e, drag=false) => {
         const check = checkFileTypeAndSize(e, 'image', drag);
@@ -39,6 +40,10 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded}) => {
         let file = [...e.dataTransfer.files][0];
         handleUploadedFileImage(file, true);
     }
+
+    const onLoadImageHandler = () => {
+        setPostProportion(imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth);
+    }
     
     return (
         <div className='box'
@@ -64,8 +69,14 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded}) => {
                 onChange={e => {handleUploadedFileImage(e)}}/>
             {imageData ? 
                 <div className='audio-player-container'>
-                    <img className='player-container__content' src={imageData} alt="картинка"/>
-                    <i className="fa-solid fa-trash-can audio-player-trash" onClick={() => {handleRemoveFileImage()}}/>
+                    <img ref={imageUploadedRef} 
+                        className='player-container__content' 
+                        src={imageData} alt="картинка"
+                        onLoad={() => onLoadImageHandler()}
+                    />
+                    <i className="fa-solid fa-trash-can audio-player-trash" 
+                        onClick={() => {handleRemoveFileImage()}}
+                    />
                 </div>
             : null}
         </div>
