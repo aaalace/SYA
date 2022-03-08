@@ -40,8 +40,9 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.id)
-        getUserPosts();
+        if(props.id){
+            getUserPosts()
+        }
     }, [props.id])
 
     return (
