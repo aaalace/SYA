@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import ReactLoading from 'react-loading';
 
 const PostsUser = (props) => {
+    console.log(props.id)
     const [media, setMedia] = useState({});
     // const postsX = useSelector(state => state.profilePosts[73])
     const [posts, setPosts] = useState([]);
@@ -65,7 +66,10 @@ const OnePost = (props) => {
 
     let mid_col = 'transparent'
     if (post.middle_color){
-        mid_col = post.middle_color.split('.').join(' ')
+        mid_col = 'rgb(' + post.middle_color.split(';').join(', ') + ')'
+    }
+    if(media[post.media_id]){
+        mid_col = 'transparent'
     }
     
     const post_block_style = {
@@ -74,6 +78,7 @@ const OnePost = (props) => {
         display: 'block',
         margin: '0',
         padding: '0',
+        borderRadius: '5px',
         height: '98.5%',
         backgroundColor: mid_col
     }
@@ -139,7 +144,7 @@ const OnePost = (props) => {
         })
     }
     return(
-        <a className="post-block" style={post_block_style} onClick={openPost}>
+        <a style={post_block_style} className="post-block" onClick={openPost}>
             {switchType()}
             {
             <span className="post-overlay">

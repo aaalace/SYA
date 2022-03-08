@@ -26,7 +26,7 @@
 .openpost-box_content {
     background-color: #FFFFFF;
     position: absolute;
-    margin: 10%;
+    top: 5%;
     width: 50%;
     height: fit-content;
     border-radius: 20px;
