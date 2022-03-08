@@ -15,6 +15,7 @@ def create_post():
             user_id = data['userId']
             post_type = data['type']
             content = data['body']
+            proportion = data['proportion']
         except Exception:
             return 'не верный формат данных'
 
@@ -42,7 +43,8 @@ def create_post():
                 user_id=user_id,
                 media_id=media_id,
                 likes_count=0,
-                post_time=dt
+                post_time=dt,
+                height_width_proportion=proportion
             )
             db.session.add(post)
             db.session.commit()

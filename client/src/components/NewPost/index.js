@@ -51,6 +51,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
     const navigate = useNavigate();
+    const [postProportion, setPostProportion] = useState(0)
 
     const [postStatus, setPostStatus] = useState({
         loading: false,
@@ -108,12 +109,12 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             ...prevState,
             loading: true,
         }));
-
         Axios.post('/createPost',
             {
                 userId,
                 type: formatSelected,
-                body: postBody
+                body: postBody,
+                proportion: postProportion,
             }
         ).then((response) => {
             setPostStatus((prevState) => ({
@@ -143,8 +144,8 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 {formatSelected ? <div className='drag-and-drop-window'>
                     {
                         formatSelected === 1 ? <AudioBox audioData={audioData} setAudioData={setAudioData} setContentLoaded={setContentLoaded}/> : 
-                        formatSelected === 2 ? <VideoPost videoData={videoData} setVideoData={setVideoData} setContentLoaded={setContentLoaded}/> :
-                        formatSelected === 3 ? <ImagePost imageData={imageData} setImageData={setImageData} setContentLoaded={setContentLoaded}/> :
+                        formatSelected === 2 ? <VideoPost setPostProportion={setPostProportion} videoData={videoData} setVideoData={setVideoData} setContentLoaded={setContentLoaded}/> :
+                        formatSelected === 3 ? <ImagePost setPostProportion={setPostProportion} imageData={imageData} setImageData={setImageData} setContentLoaded={setContentLoaded}/> :
                         formatSelected === 4 ? <TextPost textData={textData} setTextData={setTextData}/> : 
                         <PostTypeError />
                     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './home_page.css';
 import { Button } from '../../components/LiquidButton'; 
@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 
 export const HomePage = () => {
-    const post_limit = 5;
+    const post_limit = 10;
     const [posts, setPosts] = useState([]);
     const [media, setMedia] = useState({});
     const userLoged = useSelector(state => state.user.loged);
@@ -35,10 +35,10 @@ export const HomePage = () => {
     }, [])
 
     useEffect(() => {
-        console.log(media)
+        console.log(media);
     }, [media])
 
-    const switchType = (type, media_id) => {
+    const switchType = (type, media_id, proportion=0) => {
         switch(type) {
             case 1:
                 return (
@@ -54,15 +54,22 @@ export const HomePage = () => {
                     <div style={{margin: '2% 0'}}>
                         <video controls 
                             src={media[media_id]}
-                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
+                            style={{width: '100%', maxHeight: '60vh', borderRadius: '5px'}}>
                         </video>
                     </div>
                 )
             case 3:
                 return (
-                    <div style={{margin: '2% 0'}}>
-                        <img src={media[media_id]} alt="картинка"
-                            style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
+                    <div style={{margin: '2% 0', boxSizing: 'inherit'}}>
+                        {media[media_id] ? 
+                            <img src={media[media_id]} alt="картинка"
+                                style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '5px'}}/>
+                            : 
+                            <div style={{width: '100%', borderRadius: '5px', maxHeight: '60vh',
+                                backgroundColor: 'black', aspectRatio: `1 / ${proportion}`
+                            }}>
+                            </div>
+                        }
                     </div>
                 )
             case 4:
@@ -113,13 +120,13 @@ export const HomePage = () => {
                                 <div>
                                     <h4>type: {post.type}</h4>
                                 </div>
-                                {switchType(post.type, post.media_id)}
+                                {switchType(post.type, post.media_id, post.proportion)}
                             </div>
                         </div>
                     )
                 }
                 </div>
-                </div>
             </div>
+        </div>
     )
 }

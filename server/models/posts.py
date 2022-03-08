@@ -9,3 +9,5 @@ class Posts(db.Model):
     media_id = db.Column(db.Integer, db.ForeignKey('media.id'), nullable=False)
     likes_count = db.Column(db.Integer)
     post_time = db.Column(db.DateTime)
+    height_width_proportion = db.Column(db.Float, nullable=True)
+
