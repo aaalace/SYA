@@ -1,10 +1,11 @@
 .posts-container {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
-    grid-gap: 1vw;
+    grid-gap: 1vw; */
     margin: 0 auto;
     width: 80%;
+    column-count: 3;
 }
 
 .image-in-post {

@@ -76,7 +76,7 @@ const OnePost = (props) => {
         cursor: 'pointer',
         position: 'relative',
         display: 'block',
-        margin: '0',
+        marginBottom: '1vw',
         padding: '0',
         borderRadius: '5px',
         height: '98.5%',
