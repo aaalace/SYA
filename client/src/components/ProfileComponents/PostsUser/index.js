@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
 import { addUserPosts, addPostMedia } from "../../../store/profilePosts/actions";
+import { useMediaQuery } from "react-responsive";
 
 const PostsUser = (props) => {
     const usersPosts = useSelector(state => state.profilePosts)
@@ -65,10 +66,15 @@ const PostsUser = (props) => {
         }
     }, [props.id])
 
+    let cont = 'posts-container' 
+    if (useMediaQuery({ query: '(max-width: 1200px)' })){
+        cont += "-small"
+    }
+
     return (
         <div style={{marginLeft: '20px'}}>            
             <OpenedPost></OpenedPost>
-            <section className="posts-container">
+            <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {
                     return <OnePost key={post.id} post={post} media={media}/>
@@ -103,7 +109,7 @@ const OnePost = (props) => {
         marginBottom: '1vw',
         borderRadius: '5px',
         backgroundColor: mid_col,
-        aspectRatio: `1 / ${post.proportion}`
+        aspectRatio: `1 / ${post.proportion}`,
     }
 
     

@@ -8,6 +8,12 @@
     column-count: 3
 }
 
+.posts-container-small {
+    margin: 0 auto;
+    width: 100%;
+    column-count: 3
+}
+
 .post-image-prof {
     height: 100%;
 }

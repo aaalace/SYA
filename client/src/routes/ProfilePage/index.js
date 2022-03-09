@@ -63,35 +63,28 @@ export const ProfilePage = () => {
             <div className='main'>
                 <div className='container-profile'>
                     {med === 'large' ? 
-                    <div className='container-head'>
-                        <AvatarContainer owner={OwnState} />
-                        <div className='info-container'>
-                            <div className='main-info-container'>
-                                <div className='main-info-head'>
-                                    <div>
-                                        <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                        <div style={{display: 'flex'}}>
+                            <AvatarContainer owner={OwnState} />
+                            <div className='info-container'>
+                                <div className='main-info-container'>
+                                    <div className='main-info-head'>
+                                        <div>
+                                            <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                        </div>
+                                        <div>
+                                            <p className='main-info-usname'>{MainInfo.profileName}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className='main-info-usname'>{MainInfo.profileName}</p>
-                                    </div>
+                                    <SocialData/>
                                 </div>
-                                <SocialData/>
+                                <PostsUser id={MainInfo.profile_id}></PostsUser>
                             </div>
-                            <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>
-                    </div> :
-                        <div className='small-head-container'>
-                            <AvatarContainer owner={OwnState}/>
-                            <div className='main-info-head'>
-                                <div>
-                                    <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
-                                </div>
-                                <div>
-                                    <p className='main-info-usname'>{MainInfo.profileName}</p>
-                                </div>
-                            </div>
-                            <PostsUser id={MainInfo.profile_id}></PostsUser>
-                    </div>}
+                        :
+                        <div style={{display: 'flex'}}>
+                            мне очень лень верстать для телефонов но я это сделаю когда нибудь честно
+                        </div>
+                    }
                 </div>
             </div> : null}
 

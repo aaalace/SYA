@@ -16,10 +16,6 @@
     left: 0;
 }
 
-.info-container {
-    width: 100%;
-}
-
 .container-profile {
     min-width: 55%;
     max-width: 55%;
@@ -51,10 +47,6 @@
 
 .profile-image-choice {
     border-radius: 100px 20px;
-}
-
-.container-head {
-    display: flex;
 }
 
 .main-info-name {
@@ -96,4 +88,16 @@
     .container-profile {
         width: 90%;
     }
+}
+
+/* SMALL */
+
+.info-container-small {
+    display: flex;
+    background-color: #FFFFFF;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px 15px 5px 5px;
+    width: 100%
 }

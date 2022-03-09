@@ -118,7 +118,6 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 proportion: postProportion,
             }
         ).then((response) => {
-            console.log(response)
             setPostStatus((prevState) => ({
                 ...prevState,
                 loading: false,
