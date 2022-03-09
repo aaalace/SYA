@@ -1,5 +1,5 @@
 import './style.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { ButtonPost } from '../ButtonPost/index';
@@ -11,6 +11,10 @@ import { ImagePost } from '../PostTypes/ImagePost';
 import { TextPost } from '../PostTypes/TextPost';
 import { PostTypeError } from '../PostTypes/PostTypeError';
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+
+import { addNewPost } from '../../store/profilePosts/actions';
+
 
 const initialFormats = [
     {
@@ -51,6 +55,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [postProportion, setPostProportion] = useState(0)
 
     const [postStatus, setPostStatus] = useState({
@@ -87,11 +92,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
         <div className={format.classNameBlock} key={format.id} onClick={() => {selectFormat(format.id)}}>
             <span>{format.text}</span><i className={format.className}/>
         </div>
-    );
-
-    useEffect(() => {
-        
-    }, [postStatus])
+    )
 
     const postData = () => {
         let postBody = audioData;
@@ -117,12 +118,16 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 proportion: postProportion,
             }
         ).then((response) => {
+            console.log(response)
             setPostStatus((prevState) => ({
                 ...prevState,
                 loading: false,
             }));
-            if (response.data === 'correct') {
-                navigate('/profile');
+            dispatch(addNewPost({
+                userId: response.data.userId, post_id: response.data.post_id, data: response.data.data
+            }))
+            if (response.data.state === 'correct') {
+                navigate('/profile')
                 setCreatePost(false)
             }
         })

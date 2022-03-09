@@ -19,6 +19,7 @@ def create_post():
             content = data['body']
             proportion = data['proportion']
         except Exception:
+            print(e)
             return 'не верный формат данных'
 
         try:
@@ -30,11 +31,13 @@ def create_post():
             db.session.add(media)
             db.session.commit()
         except Exception:
+            print(e)
             return 'ошибка базы'
 
         try:
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
         except Exception:
+            print(e)
             return 'ошибка запроса'
 
         try:
@@ -55,6 +58,25 @@ def create_post():
             )
             db.session.add(post)
             db.session.commit()
-        except Exception as e:
-            return 'server error'
-        return 'correct'
+        except Exception as e: 
+            # лера лучшая обожаю ее
+            print(e)
+            return {
+                'state': e,
+            }
+        return {
+            'state': 'correct',
+            'userId': user_id,
+            'post_id': post.id,
+            'data':{
+                    'id': post.id,
+                    'user_id': user_id,
+                    'type': post_type,
+                    'media_id': post.media_id,
+                    'likes_count': post.likes_count,
+                    'post_time': post.post_time,
+                    'middle_color': post.middle_color,
+                    'proportion': post.height_width_proportion,
+                    'media': content
+                }
+        }

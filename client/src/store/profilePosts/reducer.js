@@ -1,5 +1,6 @@
 import { ADD_USER_POSTS } from "./actions"
 import { ADD_POST_MEDIA } from "./actions"
+import { ADD_NEW_POST } from "./actions"
 
 // const UsersPagePosts = {
 //     userid1: {
@@ -21,6 +22,16 @@ export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_USER_POSTS: {
             return {...state, ...action.payload}
+        }
+        case ADD_NEW_POST: {
+            const stateCopy = {...state}
+            if (stateCopy.hasOwnProperty(action.payload.userId)) {
+                stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
+                return stateCopy;
+            }
+            stateCopy[action.payload.userId] = {}
+            stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
+            return stateCopy;
         }
         case ADD_POST_MEDIA: {
             const stateCopy = {...state}

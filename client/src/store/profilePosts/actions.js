@@ -1,5 +1,6 @@
 export const ADD_USER_POSTS = 'ADD_USER_POSTS'
 export const ADD_POST_MEDIA = 'ADD_POST_MEDIA'
+export const ADD_NEW_POST = 'ADD_NEW_POST'
 
 export const addUserPosts = (data) => ({
     type: ADD_USER_POSTS,
@@ -11,4 +12,8 @@ export const addPostMedia = (data) => ({
     payload: data,
 })
 
+export const addNewPost = (data) => ({
+    type: ADD_NEW_POST,
+    payload: data,
+})
 
