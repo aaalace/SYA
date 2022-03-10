@@ -5,16 +5,17 @@ import {useMediaQuery} from 'react-responsive'
 import PostsUser from '../../components/ProfileComponents/PostsUser';
 import SocialData from '../../components/ProfileComponents/SocialData';
 import AvatarContainer from '../../components/ProfileComponents/AvatarContainer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { changeUser } from '../../store/openedProfile/actions';
-import { useState } from 'react';
+import { useState } from 'react'
 
 export const ProfilePage = () => {
     const [MainInfo, setMainInfo] = useState({})
     let Own = useSelector(state => state.user)
     const dispatch = useDispatch()
     const [OwnState, setOwnState] = useState(true)
+    const navigate = useNavigate()
 
     function getUserData(par) {
         Axios.get('/get_oth/', {
@@ -61,31 +62,38 @@ export const ProfilePage = () => {
             <div className="background"/>
             {MainInfo ?
             <div className='main'>
-                <div className='container-profile'>
                     {med === 'large' ? 
-                        <div style={{display: 'flex'}}>
-                            <AvatarContainer owner={OwnState} />
-                            <div className='info-container'>
-                                <div className='main-info-container'>
-                                    <div className='main-info-head'>
-                                        <div>
-                                            <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                        <div className='container-profile'>
+                            <div style={{display: 'flex', width: '100%'}}>
+                                <AvatarContainer owner={OwnState} />
+                                <div className='info-container'>
+                                    <div className='main-info-container'>
+                                        <div className='main-info-head'>
+                                            <div>
+                                                <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                            </div>
+                                            <div>
+                                                <p className='main-info-usname'>{MainInfo.profileName}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p className='main-info-usname'>{MainInfo.profileName}</p>
-                                        </div>
+                                        <SocialData/>
                                     </div>
-                                    <SocialData/>
+                                    <PostsUser id={MainInfo.profile_id}></PostsUser>
                                 </div>
-                                <PostsUser id={MainInfo.profile_id}></PostsUser>
                             </div>
                         </div>
                         :
-                        <div style={{display: 'flex'}}>
-                            мне очень лень верстать для телефонов но я это сделаю когда нибудь честно
+                        <div className='container-profile-small'>
+                            <div className='info-container-small'>
+                                <AvatarContainer owner={OwnState} />
+                                <div className='main-info-container-small'>
+                                    <p className='main-info-usname-small'>{MainInfo.profileName}</p>
+                                    <p className='main-info-name-small'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                </div>
+                            </div>
+                            <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>
                     }
-                </div>
             </div> : null}
 
         </div>

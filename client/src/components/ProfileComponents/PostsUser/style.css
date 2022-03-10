@@ -10,7 +10,7 @@
 
 .posts-container-small {
     margin: 0 auto;
-    width: 100%;
+    width: 90%;
     column-count: 3
 }
 
@@ -20,6 +20,8 @@
 
 .post-block {
     break-inside: avoid-column;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .image-in-post {

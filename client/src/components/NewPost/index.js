@@ -126,7 +126,6 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 userId: response.data.userId, post_id: response.data.post_id, data: response.data.data
             }))
             if (response.data.state === 'correct') {
-                navigate('/profile')
                 setCreatePost(false)
             }
         })

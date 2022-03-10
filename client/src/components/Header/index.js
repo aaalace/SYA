@@ -38,7 +38,6 @@ const Burger = styled.div`
     z-index: 4;
     @media (min-width: 769px) {
         display: none;
-    
 `;
 
 const MenuOpened = styled.div`

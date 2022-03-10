@@ -90,11 +90,10 @@ export const HomePage = () => {
     return ( 
         <div style={{position: 'relative'}} id="sec-1">
             <div className="background">
-
             </div>
             <div  className='main'>
                 <div className='sec'>
-                    <h1 className='main__title'>&nbsp;A social network<br/>of associations</h1>
+                    <h1 className='main__title'>A social network<br/>of associations</h1>
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
                         <Link to='/login'>
                             <Button text={'Log in'} className='main__button'/>

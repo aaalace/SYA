@@ -25,6 +25,10 @@
     flex-direction: row;
 }
 
+.info-container {
+    width: 100%;
+}
+
 .main-info-container {
     display: flex;
     background-color: #FFFFFF;
@@ -56,11 +60,6 @@
     margin-left: 20px;
 }
 
-.main-info-status {
-    color: rgba(172, 128, 193, 0.5);
-    margin: 15px;
-}
-
 .main-info-usname {
     color: rgba(172, 128, 193, 0.5);
     font-size: 20px;
@@ -84,20 +83,50 @@
     color: rgba(175, 175, 175)
 }
 
-@media screen and (max-width: 1200px) {
-    .container-profile {
-        width: 90%;
-    }
+/* SMALL */
+
+.main-info-container-small {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px 15px 15px 15px;
+    width: 100%;
+    justify-content: center;
 }
 
-/* SMALL */
+.main-info-name-small {
+    color: rgb(167, 121, 189);
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+.main-info-usname-small {
+    color: rgba(172, 128, 193, 0.5);
+    font-size: 20px;
+    margin-left: 20px;
+}
 
 .info-container-small {
     display: flex;
     background-color: #FFFFFF;
-    margin-left: 20px;
     margin-bottom: 20px;
     padding: 10px;
-    border-radius: 5px 15px 5px 5px;
+    border-radius: 15px 15px 15px 15px;
     width: 100%
+}
+
+.container-profile-small {
+    min-width: 90%;
+    max-width: 90%;
+    margin: 0 auto;
+    margin-top: 3vh;
+    min-height: 83vh;
+    flex-direction: column;
+}
+
+.image-prof-container-small {
+    display: flex;
+    min-width: 120px;
+    height: 120px;
+    border-radius: 15px 15px 15px 15px;
+    background-color: #ffffff;
 }

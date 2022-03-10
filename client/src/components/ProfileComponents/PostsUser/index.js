@@ -72,7 +72,7 @@ const PostsUser = (props) => {
     }
 
     return (
-        <div style={{marginLeft: '20px'}}>            
+        <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
             <OpenedPost></OpenedPost>
             <section className={cont}>
                 {userPosts 
