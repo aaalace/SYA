@@ -4,7 +4,7 @@ $(document).ready(function() {
     var socket = io(namespace);
 
     socket.on('connect', function() {
-        socket.emit('my_event_for_greeting', {data: 'Welcome to the SYA zone'});
+        // socket.emit('my_event_for_greeting', {data: 'Welcome to the SYA zone'});
         socket.emit('my_event_first');
     });
 
@@ -22,12 +22,12 @@ $(document).ready(function() {
         socket.emit('my_event', {data: $('#emit_data').val()});
         return false;
     });
-    $('form#broadcast').submit(function(event) {
-        socket.emit('my_broadcast_event', {data: $('#broadcast_data').val()});
-        return false;
-    });
-    $('form#disconnect').submit(function(event) {
-        socket.emit('disconnect_request');
-        return false;
-    });
+    // $('form#broadcast').submit(function(event) {
+    //     socket.emit('my_broadcast_event', {data: $('#broadcast_data').val()});
+    //     return false;
+    // });
+    // $('form#disconnect').submit(function(event) {
+    //     socket.emit('disconnect_request');
+    //     return false;
+    // });
 });

@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'zxc_GHOUL!'
 socket_ = SocketIO(app, cors_allowed_origins="*")
 
-db_session.global_init("db/coms.db")
+db_session.global_init("socket_io/db/coms.db")
 db_sess = db_session.create_session()
 
 post_id = 420
@@ -48,30 +48,6 @@ def test_message(message):
         {'data': message['data']})
 
 
-@socket_.on('my_broadcast_event', namespace='/test')
-def test_broadcast_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': message['data'], 'count': session['receive_count']},
-         broadcast=True)
-
-
-@socket_.on('disconnect_request', namespace='/test')
-def disconnect_request():
-    @copy_current_request_context
-    def can_disconnect():
-        disconnect()
-
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': 'Disconnected!', 'count': session['receive_count']},
-         callback=can_disconnect)
-
-
 if __name__ == '__main__':
-    # user = User()
-    # user.name = "Пользователь 1"
-    # db_sess.add(user)
-    # db_sess.commit()
 
     socket_.run(app, debug=True)
