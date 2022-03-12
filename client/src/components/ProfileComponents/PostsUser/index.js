@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
 
+
 const PostsUser = (props) => {
     const [media, setMedia] = useState({});
     // const postsX = useSelector(state => state.profilePosts[73])
@@ -16,6 +17,7 @@ const PostsUser = (props) => {
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
             Axios.get(`/get_media//${id}`).then((res) => {
+                console.log(res.data);
                 setMedia(prevState => ({
                     ...prevState,
                     [id]: res.data
