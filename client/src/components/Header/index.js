@@ -180,7 +180,7 @@ export const Header = () => {
                         <Link className='menu-link' to='/all'>
                             <i className="fa-solid fa-house"/>
                         </Link> 
-                        <Link className='menu-link' to='/'>
+                        <Link className='menu-link' to='/forum'>
                             <i className="fa fa-send"/>
                         </Link>  
                         <p className='menu-link menu-link-bot' onClick={createNewPost}>

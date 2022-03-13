@@ -17,3 +17,4 @@ def get_posts_main(count):
         }
         media_ids[post.media_id] = ""
     return {"body": res, 'media_ids': media_ids}
+

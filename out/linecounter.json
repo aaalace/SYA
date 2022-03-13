@@ -1,0 +1,945 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/Users/samilvaliahmetov/education/programming/local-github/associations",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-03-13 19:37:23",
+            "filesum": 139,
+            "codesum": 33211,
+            "commentsum": 91,
+            "blanksum": 536,
+            "statistics": {
+                ".js": {
+                    "code": 2308,
+                    "comment": 76,
+                    "blank": 253
+                },
+                ".css": {
+                    "code": 915,
+                    "comment": 6,
+                    "blank": 131
+                },
+                "": {
+                    "code": 21,
+                    "comment": 1,
+                    "blank": 5
+                },
+                ".json": {
+                    "code": 29273,
+                    "comment": 0,
+                    "blank": 6
+                },
+                ".html": {
+                    "code": 15,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".py": {
+                    "code": 482,
+                    "comment": 8,
+                    "blank": 140
+                },
+                ".iml": {
+                    "code": 8,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".xml": {
+                    "code": 183,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".md": {
+                    "code": 6,
+                    "comment": 0,
+                    "blank": 1
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 5,
+                    "code": 18,
+                    "comment": 1,
+                    "filename": "client/.gitignore"
+                },
+                {
+                    "blank": 2,
+                    "code": 29205,
+                    "comment": 0,
+                    "filename": "client/package-lock.json"
+                },
+                {
+                    "blank": 4,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "client/package.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "client/public/index.html"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "client/public/style.css"
+                },
+                {
+                    "blank": 2,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "client/src/App.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "client/src/components/AllPostsWithLazyLoading/index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "client/src/components/ButtonPost/index.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "client/src/components/ButtonPost/style.css"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "client/src/components/Footer/.gitkeep"
+                },
+                {
+                    "blank": 13,
+                    "code": 85,
+                    "comment": 0,
+                    "filename": "client/src/components/Header/header.css"
+                },
+                {
+                    "blank": 24,
+                    "code": 229,
+                    "comment": 6,
+                    "filename": "client/src/components/Header/index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 3,
+                    "filename": "client/src/components/LiquidButton/index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 39,
+                    "comment": 1,
+                    "filename": "client/src/components/LiquidButton/style.css"
+                },
+                {
+                    "blank": 47,
+                    "code": 335,
+                    "comment": 0,
+                    "filename": "client/src/components/LiquidButtonFromNodes/index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "client/src/components/Loading/index.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 150,
+                    "comment": 0,
+                    "filename": "client/src/components/NewPost/index.js"
+                },
+                {
+                    "blank": 17,
+                    "code": 104,
+                    "comment": 0,
+                    "filename": "client/src/components/NewPost/style.css"
+                },
+                {
+                    "blank": 7,
+                    "code": 94,
+                    "comment": 8,
+                    "filename": "client/src/components/OpenedPost/index.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 119,
+                    "comment": 0,
+                    "filename": "client/src/components/OpenedPost/style.css"
+                },
+                {
+                    "blank": 7,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/AudioPost/index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/functions.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 76,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/ImagePost/index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/PostTypeError/index.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/style.css"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/TextPost/index.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "client/src/components/PostTypes/VideoPost/index.js"
+                },
+                {
+                    "blank": 16,
+                    "code": 127,
+                    "comment": 0,
+                    "filename": "client/src/components/ProfileComponents/AvatarContainer/index.js"
+                },
+                {
+                    "blank": 16,
+                    "code": 148,
+                    "comment": 7,
+                    "filename": "client/src/components/ProfileComponents/PostsUser/index.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 62,
+                    "comment": 4,
+                    "filename": "client/src/components/ProfileComponents/PostsUser/style.css"
+                },
+                {
+                    "blank": 3,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "client/src/components/ProfileComponents/SocialData/index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "client/src/components/RegLogError/index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "client/src/components/RegLogError/style.css"
+                },
+                {
+                    "blank": 3,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "client/src/components/scrollToTop.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "client/src/connect/mainPagePosts/index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "client/src/hocks/PrivateRoute.js"
+                },
+                {
+                    "filename": "client/src/images/seminar-art.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 1,
+                    "code": 18,
+                    "comment": 2,
+                    "filename": "client/src/index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 3,
+                    "filename": "client/src/middleWare/index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "client/src/routes/AllPostsPage/index.js"
+                },
+                {
+                    "blank": 29,
+                    "code": 223,
+                    "comment": 1,
+                    "filename": "client/src/routes/HomePage/home_page.css"
+                },
+                {
+                    "blank": 9,
+                    "code": 117,
+                    "comment": 13,
+                    "filename": "client/src/routes/HomePage/index.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 120,
+                    "comment": 0,
+                    "filename": "client/src/routes/LoginPage/index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "client/src/routes/LoginPage/style.css"
+                },
+                {
+                    "blank": 7,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "client/src/routes/ProfilePage/index.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 86,
+                    "comment": 0,
+                    "filename": "client/src/routes/ProfilePage/style.css"
+                },
+                {
+                    "blank": 21,
+                    "code": 245,
+                    "comment": 1,
+                    "filename": "client/src/routes/SignUpPage/index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "client/src/routes/SignUpPage/style.css"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "client/src/store/currentPost/actions.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "client/src/store/currentPost/reducer.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 10,
+                    "filename": "client/src/store/index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "client/src/store/MainPagePosts/actions.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "client/src/store/MainPagePosts/index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "client/src/store/MainPagePosts/reducer.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "client/src/store/MainPagePosts/selectors.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "client/src/store/openedProfile/actions.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "client/src/store/openedProfile/reducer.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "client/src/store/profilePosts/actions.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 23,
+                    "filename": "client/src/store/profilePosts/reducer.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "client/src/store/user/actions.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "client/src/store/user/reducer.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "server/.idea/.gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "server/.idea/discord.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "server/.idea/inspectionProfiles/profiles_settings.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "server/.idea/inspectionProfiles/Project_Default.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "server/.idea/misc.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "server/.idea/modules.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "server/.idea/server.iml"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "server/.idea/vcs.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 106,
+                    "comment": 0,
+                    "filename": "server/.idea/workspace.xml"
+                },
+                {
+                    "filename": "server/__pycache__/app.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/__pycache__/app.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/__pycache__/users.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 32,
+                    "code": 58,
+                    "comment": 5,
+                    "filename": "server/app.py"
+                },
+                {
+                    "filename": "server/models/__pycache__/media.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/media.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/posts.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/posts.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/users.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/users.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/users_images.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/models/__pycache__/users_images.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "server/models/media.py"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "server/models/posts.py"
+                },
+                {
+                    "blank": 2,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "server/models/users.py"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "server/models/users_images.py"
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/create_post.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/create_post.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_media.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_media.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_posts.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_posts.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_user_posts.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/get_user_posts.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/open_post.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/routes/__pycache__/open_post.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 9,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "server/posts/routes/create_post.py"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "server/posts/routes/get_media.py"
+                },
+                {
+                    "blank": 2,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "server/posts/routes/get_posts.py"
+                },
+                {
+                    "blank": 5,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "server/posts/routes/get_user_posts.py"
+                },
+                {
+                    "blank": 10,
+                    "code": 36,
+                    "comment": 0,
+                    "filename": "server/posts/routes/open_post.py"
+                },
+                {
+                    "filename": "server/posts/utils/__pycache__/get_mid_color.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/posts/utils/__pycache__/get_mid_color.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "server/posts/utils/get_mid_color.py"
+                },
+                {
+                    "filename": "server/profilePage/routes/__pycache__/change_avatar.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/profilePage/routes/__pycache__/change_avatar.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/profilePage/routes/__pycache__/delete_avatar.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/profilePage/routes/__pycache__/delete_avatar.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "server/profilePage/routes/change_avatar.py"
+                },
+                {
+                    "blank": 3,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "server/profilePage/routes/delete_avatar.py"
+                },
+                {
+                    "filename": "server/profilePage/utils/__pycache__/default_image.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/profilePage/utils/__pycache__/default_image.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "server/profilePage/utils/default_image.py"
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/check_captcha.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/check_captcha.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/check_loged.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/check_loged.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/create_user.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/routes/__pycache__/create_user.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "server/signupLogin/routes/check_captcha.py"
+                },
+                {
+                    "blank": 6,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "server/signupLogin/routes/check_loged.py"
+                },
+                {
+                    "blank": 21,
+                    "code": 76,
+                    "comment": 3,
+                    "filename": "server/signupLogin/routes/create_user.py"
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/create_salt.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/default_image.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/default_image.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/email_checker.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/email_checker.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/reg_exceptions.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/signupLogin/utils/__pycache__/reg_exceptions.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "server/signupLogin/utils/default_image.py"
+                },
+                {
+                    "blank": 2,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "server/signupLogin/utils/email_checker.py"
+                },
+                {
+                    "blank": 28,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "server/signupLogin/utils/reg_exceptions.py"
+                },
+                {
+                    "filename": "server/users/routes/__pycache__/find_user.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/users/routes/__pycache__/find_user.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/users/routes/__pycache__/get_oth_user_info.cpython-310.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "server/users/routes/__pycache__/get_oth_user_info.cpython-39.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "server/users/routes/find_user.py"
+                },
+                {
+                    "blank": 4,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "server/users/routes/get_oth_user_info.py"
+                }
+            ]
+        }
+    ]
+}
