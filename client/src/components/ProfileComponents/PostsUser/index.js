@@ -17,7 +17,6 @@ const PostsUser = (props) => {
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
             Axios.get(`/get_media//${id}`).then((res) => {
-                console.log(res.data);
                 setMedia(prevState => ({
                     ...prevState,
                     [id]: res.data
@@ -42,7 +41,6 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.id)
         getUserPosts();
     }, [props.id])
 
@@ -93,7 +91,9 @@ const OnePost = (props) => {
             case 1:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src="https://cdn-icons-png.flaticon.com/512/1262/1262046.png"/>
+                        <img className="image-in-post"
+                            src="https://cdn-icons-png.flaticon.com/512/1262/1262046.png"
+                        />
                         <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
@@ -107,13 +107,17 @@ const OnePost = (props) => {
             case 3:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src={media[post.media_id]}></img>
+                        <img className="image-in-post"
+                            src={media[post.media_id]}
+                        />
                     </figure>
                 )
             case 4:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src="https://cdn-icons-png.flaticon.com/512/5116/5116509.png"></img>
+                        <img className="image-in-post"
+                            src="https://cdn-icons-png.flaticon.com/512/5116/5116509.png"
+                        />
                     </figure>
                 )
             default:

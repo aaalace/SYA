@@ -8,7 +8,7 @@ export const Button = ({text}) => {
         }}>
             <span>Sign in</span>
         </button>
-        // <LiquidButton class="browse-posts" name={text} background="#AC80C1" 
+        // <LiquidButton className="browse-posts" name={text} background="#AC80C1" 
         // firstcolor="#AC80C1" secondcolor="#483D8B" />
     )
 }

@@ -8,7 +8,6 @@ const initialState = {
 }
 
 export const mainPagePostsReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case SET_MAIN_PAGE_POSTS: {
             return { ...state, 

@@ -54,13 +54,12 @@ export const OpenedPost = () => {
         // dispatch(changeBookmark(id))
     }
 
-    const deletePostX = (id) => {
-        // console.log(id, user_posts)
-        // if (user_posts.includes(id)){
-        //     dispatch(deletePost(id))
-        //     dispatch(deleteUserPost(id))
-        // }
-    }
+    // const deletePostX = (id) => {
+    //     // if (user_posts.includes(id)){
+    //     //     dispatch(deletePost(id))
+    //     //     dispatch(deleteUserPost(id))
+    //     // }
+    // }
 
     return (
         <div>
@@ -69,7 +68,7 @@ export const OpenedPost = () => {
                 <div className='openpost-box_content'>
                     <div className="post-header">
                         <div className="post-left">
-                            <img src={post.user_avatar} className="post-avatar"/>
+                            <img src={post.user_avatar} className="post-avatar" alt="avatar"/>
                             <div className="post-pers-data">
                                 <p className="post-pers-nickname">{post.user_name}</p>
                                 <p className="post-datatime">{post.post_time}</p>
@@ -80,11 +79,27 @@ export const OpenedPost = () => {
                     {switchType(post.media_type)}
                     <div className="post-social-interact-container">
                         <div className="post-social-interact">
-                            {post.like ?  <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="fa fa-heart"></i></a>
-                            : <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="far fa-heart"></i></a>}
-                            <a className="post-icon"><i className='far fa-comment'></i></a>
-                            {post.bookmark ? <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="fas fa-bookmark"></i></a>
-                            : <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="far fa-bookmark"></i></a>}
+                            {
+                            post.like ? 
+                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                    <i className="fa fa-heart"/>
+                                </p>
+                            :   <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                    <i className="far fa-heart"/>
+                                    </p>
+                            }
+                            <p className="post-icon">
+                                <i className='far fa-comment'/>
+                            </p>
+                            {
+                            post.bookmark ? 
+                                <p onClick={() => changeBookmarkX(post.id)} className="post-icon">
+                                    <i className="fas fa-bookmark"/>
+                                </p>
+                            :   <p onClick={() => changeBookmarkX(post.id)} className="post-icon">
+                                    <i className="far fa-bookmark"/>
+                                </p>
+                            }
                         </div>
                     </div>
                 </div>

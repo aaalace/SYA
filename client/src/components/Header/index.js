@@ -71,12 +71,12 @@ const Rect3 = styled.rect`
     transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
 `
 
-const CastomP = styled.p`
-    display: ${props => (props.open ? "block" : "none")};
-    margin-left: 15px;
-    margin-top: 15px;
-    color: rgb(172, 128, 193);
-`
+// const CastomP = styled.p`
+//     display: ${props => (props.open ? "block" : "none")};
+//     margin-left: 15px;
+//     margin-top: 15px;
+//     color: rgb(172, 128, 193);
+// `
 
 export const Header = () => {
     const loged = useSelector(state => state.user.loged);
@@ -177,14 +177,32 @@ export const Header = () => {
                 <div>
                 <Menu>
                     <div className='right_bar'>
-                        <Link className='menu-link' to='/'><i className="fa fa-send" style={{fontSize: '22px'}}></i></Link>  
-                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}><i className="fa fa-plus-square" style={{fontSize: '24px'}}></i></p>  
-                        <Link className='menu-link' to='/profile/'><i className='fas fa-user-alt' style={{fontSize: '22px'}}></i></Link>
-                        <a className='menu-link' onClick={logOutHeader}><i className="fas fa-sign-out-alt" style={{fontSize: '24px'}}></i></a> 
+                        <Link className='menu-link' to='/all'>
+                            <i className="fa-solid fa-house"/>
+                        </Link> 
+                        <Link className='menu-link' to='/'>
+                            <i className="fa fa-send"/>
+                        </Link>  
+                        <p className='menu-link menu-link-bot' onClick={createNewPost}>
+                            <i className="fa fa-plus-square"/>
+                        </p>  
+                        <Link className='menu-link' to='/profile/'>
+                            <i className='fas fa-user-alt'/>
+                        </Link>
+                        <p className='menu-link' onClick={logOutHeader}>
+                            <i className="fas fa-sign-out-alt"/>
+                        </p> 
                         <div className="find_over_form">
-                        <input list='names' className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => finderChanged(event.target.value)}/>
-                        {finded ? <DataList></DataList> : null}
-                        <a type='submit' onClick={() => submitHandler(toFind)}><i className="fa fa-search"></i></a>
+                            <input list='names' className="find_over" 
+                                type="text" placeholder="Find" value={toFind} 
+                                onKeyDown={handleKeyDown} 
+                                onChange={event => finderChanged(event.target.value)}
+                            />
+                            {finded ? <DataList></DataList> : null}
+                            <p type='submit' className='pointer'
+                                onClick={() => submitHandler(toFind)}>
+                                <i className="fa fa-search"/>
+                            </p>
                         </div>
                     </div>    
                 </Menu>
@@ -203,19 +221,33 @@ export const Header = () => {
                 <LoginedBox open={open}>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} onClick={openMenu}>
-                                <i className="fas fa-user" aria-hidden="true" style={{fontSize: '22px'}}></i>
+                            <Link className='menu-link' to='/profile' style={{padding: 0, margin: 0}} 
+                                onClick={openMenu}>
+                                <i className="fas fa-user" aria-hidden="true"/>
                             </Link>
-                            <Link className='menu-link' to='/login' style={{padding: 0}} onClick={logOutHeader}>
-                            <i className="fas fa-sign-out-alt" style={{fontSize: '24px'}}></i>
+                            <Link className='menu-link' to='/login' style={{padding: 0}} 
+                                onClick={logOutHeader}>
+                                <i className="fas fa-sign-out-alt"/>
                             </Link>
                         </div>
                         <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} onKeyDown={handleKeyDown} onChange={event => finderChanged(event.target.value)}/>
-                            <a type='submit' onClick={submitHandler}><i className="fa fa-search" style={{fontSize: '16px'}}></i></a>
+                            <input className="find_over" type="text" placeholder="Find" value={toFind} 
+                                onKeyDown={handleKeyDown} 
+                                onChange={event => finderChanged(event.target.value)}
+                            />
+                            <p type='submit' className='pointer'
+                                onClick={submitHandler}>
+                                <i className="fa fa-search"/>
+                            </p>
                         </div>
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>Messages</Link>  
-                        <p className='menu-link menu-link-bot' style={{cursor: 'pointer'}} onClick={createNewPost}>New post</p>  
+                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>
+                            Messages
+                        </Link>  
+                        <p className='menu-link menu-link-bot' 
+                            style={{cursor: 'pointer'}} 
+                            onClick={createNewPost}
+                            >New post
+                        </p>  
                     </div>
                 </LoginedBox>
             </MenuOpened>

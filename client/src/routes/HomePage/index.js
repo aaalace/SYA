@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { mainPagePostsConnect } from '../../connect/mainPagePosts';
 import { nanoid } from 'nanoid';
+import { ButtonOpenPost } from '../../components/ButtonPost';
 
 
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
@@ -33,7 +34,6 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     }, [])
 
     // useEffect(() => {
-    //     console.log(media)
     // }, [media])
 
     const switchType = (type, media_id, proportion=0, middle_color) => {
@@ -43,11 +43,12 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div style={{marginTop: '2%'}} className="hoverBrightness">
+                    <div style={{marginTop: '2%'}}>
                         <audio src={mediaConnect[media_id]} 
                             controls className='audio-player' 
                             style={{width: '100%'}}>
                         </audio> 
+                        <ButtonOpenPost text={"Перейти"}/>
                     </div>
                 )
             case 2:

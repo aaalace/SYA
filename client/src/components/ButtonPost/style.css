@@ -14,7 +14,7 @@
     left: 0;
     display: block;
     border-radius: 50px;
-    background: #fff;
+    background: inherit;
     width: 45px;
     height: 45px;
     transition: all 0.3s ease;
