@@ -49,7 +49,6 @@ const AvatarContainer = (props) => {
     }
     let icon_d   = {
         margin: '10px',
-        marginLeft: '100%'
     }
 
     if (med_cont === 'image-prof-container-small'){
@@ -68,14 +67,12 @@ const AvatarContainer = (props) => {
     if (choice){
         if(med_cont === 'image-prof-container'){
             ava_style.borderRadius = '100px 5px'
-            ava_style.margin = '0'
             ava_style.backgroundColor = 'white'
             btn_change.display = 'inline-flex'
             btn_delete.display = 'inline-flex'
         }
         else{
             ava_style.borderRadius = '70px 5px'
-            ava_style.margin = '0'
             ava_style.backgroundColor = 'white'
             btn_change.display = 'inline-flex'
             btn_delete.display = 'inline-flex'

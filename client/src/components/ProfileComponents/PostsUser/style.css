@@ -22,16 +22,17 @@
     break-inside: avoid-column;
     max-width: 200px;
     max-height: 200px;
+    border-radius: 20px;
 }
 
 .image-in-post {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .video-in-post {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .post-overlay {
@@ -41,17 +42,30 @@
     right: 0;
     bottom: 0;
     top: 0;
+    height: 98%;
     display: none;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 20px;
 }
-
 
 .post-block:hover .post-overlay{
     display: flex;
+}
+
+
+@media screen and (max-width: 768px) {
+    .post-overlay {
+        display: none;
+    }
+    .post-block:hover .post-likeicon{
+        display: none;
+    }
+    .post-block:hover .post-likes{
+        display: none;
+    }
 }
 
 .post-likes {
@@ -59,6 +73,11 @@
     margin: 10px;
     text-align: center;
     display: inline-block;
+}
+
+.post-likeicon {
+    font-size: 20px;
+    z-index: 5;
 }
 
 .post-comments {

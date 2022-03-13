@@ -15,7 +15,6 @@ export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
     const dispatch = useDispatch()
     const [OwnState, setOwnState] = useState(true)
-    const navigate = useNavigate()
 
     function getUserData(par) {
         Axios.get('/get_oth/', {

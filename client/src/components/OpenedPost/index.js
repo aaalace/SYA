@@ -2,6 +2,7 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import './style.css'
 import { setClosePost } from "../../store/currentPost/actions"
+import ReactLoading from 'react-loading';
 
 export const OpenedPost = () => {
     const post = useSelector(state => state.current_post)
@@ -50,18 +51,7 @@ export const OpenedPost = () => {
         // dispatch(changeLike(id))
     }
 
-    const changeBookmarkX = (id) => {
-        // dispatch(changeBookmark(id))
-    }
-
-    const deletePostX = (id) => {
-        // console.log(id, user_posts)
-        // if (user_posts.includes(id)){
-        //     dispatch(deletePost(id))
-        //     dispatch(deleteUserPost(id))
-        // }
-    }
-
+    console.log(post.media)
     return (
         <div>
             {post.open ? 
@@ -77,14 +67,15 @@ export const OpenedPost = () => {
                         </div>
                         <span onClick={closePostPage} className="post-delete_button">&#10006;</span>
                     </div>
-                    {switchType(post.media_type)}
+                    {post.media ? switchType(post.media_type) : 
+                    <div style={{display: 'block', margin: '0 auto', marginBottom: '20px'}}>
+                        <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={40} width={80}/>
+                    </div>}
                     <div className="post-social-interact-container">
                         <div className="post-social-interact">
                             {post.like ?  <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="fa fa-heart"></i></a>
                             : <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="far fa-heart"></i></a>}
                             <a className="post-icon"><i className='far fa-comment'></i></a>
-                            {post.bookmark ? <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="fas fa-bookmark"></i></a>
-                            : <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="far fa-bookmark"></i></a>}
                         </div>
                     </div>
                 </div>

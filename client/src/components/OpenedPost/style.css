@@ -125,7 +125,7 @@
 .post-social-interact {
     display: flex;
     float: right;
-    width: 150px;
+    width: 100px;
     border-radius: 20px;
     background-color: rgba(172, 128, 193, 0.2);
     font-size: 20px;

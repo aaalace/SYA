@@ -118,7 +118,7 @@ const OnePost = (props) => {
             case 1:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src="https://cdn-icons-png.flaticon.com/512/1262/1262046.png"/>
+                        <img className="image-in-post" src="../images/audio-icon.jpg"/>
                         <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
@@ -138,7 +138,7 @@ const OnePost = (props) => {
             case 4:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src="https://cdn-icons-png.flaticon.com/512/5116/5116509.png"></img>
+                        <img className="image-in-post" src="../images/text-icon.jpg"></img>
                     </figure>
                 )
             default:
@@ -155,22 +155,42 @@ const OnePost = (props) => {
 
     const openPost = () => {
         setLoading(true)
-        openPostReq().then((response) => {
-            if(response.data.opened){
-                dispatch(setOpenPost({
-                    open: true,
-                    id: post.id,
-                    user_id: post.user_id,
-                    user_name: response.data.user_username,
-                    user_avatar: response.data.user_avatar,
-                    media: media[post.media_id],
-                    media_type: post.type,
-                    likes_count: post.likes_count,
-                    post_time: post.post_time
-                }))
-                setLoading(false)
-            }
-        })
+        if(media[post.media_id]){
+            dispatch(setOpenPost({
+                open: true,
+                id: post.id,
+                user_id: post.user_id,
+                user_name: post.user_name,
+                user_avatar: post.user_avatar,
+                media: media[post.media_id],
+                media_type: post.type,
+                likes_count: post.likes_count,
+                post_time: post.post_time
+            }))
+            setLoading(false)
+        }
+        else{
+            openPostReq().then((response) => {
+                if(response.data.opened){
+                    dispatch(setOpenPost({
+                        open: true,
+                        id: post.id,
+                        user_id: post.user_id,
+                        user_name: response.data.user_username,
+                        user_avatar: response.data.user_avatar,
+                        media: media[post.media_id],
+                        media_type: post.type,
+                        likes_count: post.likes_count,
+                        post_time: post.post_time
+                    }))
+                    setLoading(false)
+                }
+            })
+    }
+    }
+
+    function likePost(id){
+        console.log(id)
     }
     
     return(
@@ -180,8 +200,7 @@ const OnePost = (props) => {
             <span className="post-overlay">
             {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
             <p>
-            <span className="post-likes"><i className="far fa-heart"></i> {post.likes_count}</span>
-            <span className="post-comments">0 < i className='far fa-comment'></i></span>
+            <i onClick={() => likePost(post)} className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
             </p>
             }
             </span>}

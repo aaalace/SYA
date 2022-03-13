@@ -54,7 +54,6 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [imageData, setImageData] = useState(false);
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
-    const navigate = useNavigate();
     const dispatch = useDispatch()
     const [postProportion, setPostProportion] = useState(0)
 
@@ -138,7 +137,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             </div>
             <div className='create-post-content'>
                 <div className='create-post-content__title'>
-                    <h4 className='create-post__title'>Создание публикации</h4>
+                    <h4 className='create-post__title'>Опубликовать</h4>
                 </div>
                 <hr/>
                 <div className={contentFormatClass}>
