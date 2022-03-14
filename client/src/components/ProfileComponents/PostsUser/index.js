@@ -64,7 +64,7 @@ const PostsUser = (props) => {
                 getUserPosts()
             }
         }
-    }, [props.id])
+    }, [props.id, usersPosts])
 
     let cont = 'posts-container' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
@@ -106,10 +106,9 @@ const OnePost = (props) => {
         display: 'block',
         padding: '0',
         marginRight: '0',
-        marginBottom: '1vw',
-        borderRadius: '5px',
+        marginBottom: '10px',
         backgroundColor: mid_col,
-        aspectRatio: `1 / ${post.proportion}`,
+        aspectRatio: `1 / ${post.proportion ? post.proportion : 1}`,
     }
 
     
@@ -118,15 +117,15 @@ const OnePost = (props) => {
             case 1:
                 return (
                     <figure className="post-image-prof">
-                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                         <img className="image-in-post" src="../images/audio-icon.jpg"/>
+                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
             case 2:
                 return (
                     <figure className="post-image-prof">
-                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                         <video className='video-in-post' src={media[post.media_id]}/>
+                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
             case 3:
@@ -152,7 +151,6 @@ const OnePost = (props) => {
         if(media[post.media_id]){
             CurrentMedia = media[post.media_id]
         }
-        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,
@@ -178,7 +176,7 @@ const OnePost = (props) => {
             <span className="post-overlay">
             {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
             <p>
-            <i onClick={() => likePost(post)} className="far fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
+            <i onClick={() => likePost(post)} className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
             </p>
             }
             </span>}

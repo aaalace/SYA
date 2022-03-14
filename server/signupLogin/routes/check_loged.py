@@ -5,7 +5,7 @@ import bcrypt
 
 from models.users import Users
 from models.users_images import UsersImages
-
+from models.posts_liked import PostsLiked
 
 def check_loged():
     if request.method == 'POST':
@@ -21,6 +21,11 @@ def check_loged():
 
             image = UsersImages.query.filter(UsersImages.user_id == user.id).first()
 
+            liked_posts = PostsLiked.query.filter(PostsLiked.user_id == user.id).all()
+            liked_res = []
+            for el in liked_posts:
+                liked_res.append(el.post_id)
+
             if user:
                 return {
                     "loged": True,
@@ -29,7 +34,8 @@ def check_loged():
                     "surname": user.person_surname,
                     "birth_date": user.birth_date,
                     "email": user.email,
-                    "avatar": image.image
+                    "avatar": image.image,
+                    "liked_posts": liked_res
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}

@@ -1,5 +1,6 @@
 import { OPEN_POST } from "./actions"
 import { CLOSE_POST } from "./actions"
+import { SET_LIKES_CURRENT_POST } from "./actions"
 
 const initialState = {
     open: false,
@@ -21,6 +22,9 @@ export const currentPostReduser = (state = initialState, action) => {
         }
         case CLOSE_POST: {
             return {initialState}
+        }
+        case SET_LIKES_CURRENT_POST: {
+            return {...state, likes_count: state.likes_count + action.payload}
         }
         default: {
             return state

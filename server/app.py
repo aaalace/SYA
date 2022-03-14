@@ -10,6 +10,7 @@ app.config['SECRET_KEY'] = \
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['listen_addresses'] = ''
 db = SQLAlchemy(app)
 
 # SIGNUP and LOGIN
@@ -71,6 +72,7 @@ def delete_ava():
 from posts.routes.get_media import get_media
 from posts.routes.get_posts import get_posts_main
 from posts.routes.get_post_by_media import get_post_by_media
+from posts.routes.change_like import change_like
 
 
 @app.route("/get_media/<via_id>", methods=['GET', 'POST'])
@@ -84,6 +86,10 @@ def get_post_by_med(med):
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
+
+@app.route("/change_like/", methods=['GET', 'POST'])
+def change_like_state():
+    return change_like()
 
 
 # USERS

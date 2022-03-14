@@ -2,6 +2,23 @@ html {
     scroll-behavior: smooth;
 }
 
+.hoverBrightness {
+    cursor: pointer;
+}
+
+.hoverBrightness:hover {
+    filter: brightness(70%);
+} 
+
+.hoverBrightness__text {
+    cursor: pointer;
+}
+
+.hoverBrightness__text:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid black !important;
+}
+
 .background {
     position: relative;
     min-height: 60vh;
@@ -40,6 +57,9 @@ html {
 .posts {
     width: 100%;
     /* border-top: 1px solid #000; */
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .post {

@@ -2,6 +2,8 @@ import { SET_USER_DATA } from "./actions"
 import { LOG_OUT } from "./actions"
 import { ADD_AVATAR } from "./actions"
 import { ADD_USER_POST } from "./actions"
+import { CHANGE_LIKES } from "./actions"
+import { REMOVE_LIKES } from "./actions"
 
 const initialState = {
     loged: false,
@@ -13,7 +15,8 @@ const initialState = {
     userBirthDate: '',
     avatar: null,
     posts_id: [],
-    email: ''
+    email: '',
+    liked_posts: []
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -29,6 +32,12 @@ export const userReducer = (state = initialState, action) => {
         }
         case ADD_USER_POST: {
             return {...state, posts_id: state.posts_id.concat(action.payload)}
+        }
+        case CHANGE_LIKES: {
+            return {...state, liked_posts: state.liked_posts.concat(action.payload)}
+        }
+        case REMOVE_LIKES: {
+            return {...state, liked_posts: state.liked_posts.filter(post => post !== action.payload)}
         }
         default: {
             return state

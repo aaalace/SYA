@@ -3,11 +3,17 @@ import { useDispatch, useSelector } from "react-redux"
 import './style.css'
 import { setClosePost } from "../../store/currentPost/actions"
 import ReactLoading from 'react-loading';
+import Axios from 'axios'
+import { changeLikes } from "../../store/user/actions";
+import { removeLikes } from "../../store/user/actions";
+import { changeLikesPost } from "../../store/profilePosts/actions";
+import { setLikesCurrentPost } from "../../store/currentPost/actions";
 
 export const OpenedPost = () => {
     const post = useSelector(state => state.current_post)
+    const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
-
+    const liked_posts = useSelector(state => state.user.liked_posts)
     const closePostPage = () => {
         dispatch(setClosePost())
     }
@@ -47,8 +53,21 @@ export const OpenedPost = () => {
         }
     }
 
-    const changeLikeX = (id) => {
-        // dispatch(changeLike(id))
+    const changeLikeX = (post_id) => {
+        if(liked_posts.includes(post_id)){
+            dispatch(removeLikes(post_id))
+            dispatch(changeLikesPost({'data': -1, 'userId': post.user_id, 'post_id': post_id}))
+            dispatch(setLikesCurrentPost(-1))
+        }
+        else{
+            dispatch(changeLikes(post_id))
+            dispatch(changeLikesPost({'data': 1, 'userId': post.user_id, 'post_id': post_id}))
+            dispatch(setLikesCurrentPost(1))
+        }
+        Axios.post('/change_like', {
+            'post_id': post_id,
+            'user_id': user_id
+        })
     }
 
     return (
@@ -58,7 +77,7 @@ export const OpenedPost = () => {
                 <div className='openpost-box_content'>
                     <div className="post-header">
                         <div className="post-left">
-                            <img src={post.user_avatar} className="post-avatar"/>
+                            <img src={post.user_avatar} className="post-avatar" alt="avatar"/>
                             <div className="post-pers-data">
                                 <p className="post-pers-nickname">{post.user_name}</p>
                                 <p className="post-datatime">{post.post_time}</p>
@@ -72,9 +91,18 @@ export const OpenedPost = () => {
                     </div>}
                     <div className="post-social-interact-container">
                         <div className="post-social-interact">
-                            {post.like ?  <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="fa fa-heart"></i></a>
-                            : <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="far fa-heart"></i></a>}
-                            <a className="post-icon"><i className='far fa-comment'></i></a>
+                            {
+                                liked_posts.includes(post.id) ?
+                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                    <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                </p> :
+                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                    <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                </p>
+                            }
+                            <p className="post-icon">
+                                <i className='far fa-comment'></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>0</a>
+                            </p>
                         </div>
                     </div>
                 </div>

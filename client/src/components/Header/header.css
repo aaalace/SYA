@@ -28,6 +28,12 @@
     font-size: 20px;
     padding: 5%;
     white-space: nowrap;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .menu-link:hover {

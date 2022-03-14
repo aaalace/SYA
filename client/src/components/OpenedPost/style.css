@@ -38,6 +38,7 @@
 @media screen and (max-width: 768px) {
     .openpost-box_content {
         width: 90%;
+        margin: 0;
         margin-top: 100px;
     }
 }
@@ -133,15 +134,18 @@
 .post-social-interact {
     display: flex;
     float: right;
-    width: 100px;
+    width: max-content;
     border-radius: 20px;
     background-color: rgba(172, 128, 193, 0.2);
     font-size: 20px;
-    justify-content: space-around;
+    justify-content: center;
     margin: 10px;
 }
 
 .post-icon {
-    margin: 5px;
+    display: flex;
+    margin: 7px 10px;
     color: rgba(172, 128, 193, 1);
+    align-items: center;
+    justify-content: center;
 }

@@ -1,6 +1,7 @@
 import { ADD_USER_POSTS } from "./actions"
 import { ADD_POST_MEDIA } from "./actions"
 import { ADD_NEW_POST } from "./actions"
+import { CHANGE_LIKES_POST } from "./actions"
 // import { ADD_POST_USERNAME } from "./actions"
 // import { ADD_POST_AVATAR } from "./actions"
 
@@ -25,6 +26,16 @@ export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_USER_POSTS: {
             return {...state, ...action.payload}
+        }
+        case CHANGE_LIKES_POST: {
+            const stateCopy = {...state}
+            if (stateCopy.hasOwnProperty(action.payload.userId)) {
+                stateCopy[action.payload.userId][action.payload.post_id]['likes_count'] = stateCopy[action.payload.userId][action.payload.post_id]['likes_count'] + action.payload.data;
+                return stateCopy;
+            }
+            stateCopy[action.payload.userId] = {}
+            stateCopy[action.payload.userId][action.payload.post_id]['likes_count'] = stateCopy[action.payload.userId][action.payload.post_id]['likes_count'] + action.payload.data;
+            return stateCopy;
         }
         case ADD_NEW_POST: {
             const stateCopy = {...state}

@@ -21,7 +21,6 @@
 .post-block {
     break-inside: avoid-column;
     max-width: 200px;
-    max-height: 200px;
     border-radius: 20px;
 }
 
@@ -36,13 +35,13 @@
 }
 
 .post-overlay {
-    background: rgba(0,0,0, .4);
+    break-inside: avoid-column;
     position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
-    height: 98%;
     display: none;
     align-items: center;
     justify-content: center;
@@ -54,6 +53,7 @@
 .post-block:hover .post-overlay{
     display: flex;
 }
+
 
 
 @media screen and (max-width: 768px) {

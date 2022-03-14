@@ -3,6 +3,7 @@ export const ADD_POST_MEDIA = 'ADD_POST_MEDIA'
 export const ADD_NEW_POST = 'ADD_NEW_POST'
 export const ADD_POST_USERNAME = 'ADD_POST_USERNAME'
 export const ADD_POST_AVATAR = 'ADD_NEW_POST'
+export const CHANGE_LIKES_POST = 'CHANGE_LIKES_POST'
 
 export const addUserPosts = (data) => ({
     type: ADD_USER_POSTS,
@@ -28,4 +29,11 @@ export const addPostAvatar = (data) => ({
     type: ADD_POST_AVATAR,
     payload: data,
 })
+
+export const changeLikesPost = (data) => ({
+    type: CHANGE_LIKES_POST,
+    payload: data,
+})
+
+
 
