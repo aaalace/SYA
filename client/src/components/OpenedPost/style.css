@@ -16,6 +16,7 @@
     top: 64px;
     right: 12px;
     z-index: 5;
+    
     color: white;
 }
 
@@ -26,12 +27,19 @@
 .openpost-box_content {
     background-color: #FFFFFF;
     position: absolute;
-    top: 5%;
     width: 50%;
+    margin: 50px;
     height: fit-content;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+    .openpost-box_content {
+        width: 90%;
+        margin-top: 100px;
+    }
 }
 
 .post-header {

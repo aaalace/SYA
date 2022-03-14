@@ -57,7 +57,20 @@
 
 
 @media screen and (max-width: 768px) {
-    .post-overlay {
+    .post-block:hover .post-overlay {
+        border-radius: 10px;
+        display: none;
+    }
+    .post-block {
+        border-radius: 10px;
+    }
+    .image-in-post {
+        border-radius: 10px;
+    }
+    .video-in-post {
+        border-radius: 10px;
+    }    
+    .post-block {
         display: none;
     }
     .post-block:hover .post-likeicon{
@@ -80,18 +93,11 @@
     z-index: 5;
 }
 
-.post-comments {
-    font-size: 20px;
-    margin: 10px;
-    text-align: center;
-    display: inline-block;
-}
-
 .video-icon {
     position: absolute;
     left: 0;
     top: 0;
     margin: 10px;
     color: rgb(255, 255, 255);
-    font-size: 20px;
+    font-size: 1.5em;
 }

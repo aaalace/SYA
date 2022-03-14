@@ -51,7 +51,6 @@ export const OpenedPost = () => {
         // dispatch(changeLike(id))
     }
 
-    console.log(post.media)
     return (
         <div>
             {post.open ? 
