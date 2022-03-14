@@ -1,5 +1,10 @@
+import { Posts } from "../../components/AllPostsWithLazyLoading";
+
+
 export const AllPostsPage = () => {
     return (
-        <div></div>
+        <div>
+            <Posts/>
+        </div>
     )
 }
