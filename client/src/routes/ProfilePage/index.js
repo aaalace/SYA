@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import {useMediaQuery} from 'react-responsive'
 import PostsUser from '../../components/ProfileComponents/PostsUser';
-import SocialData from '../../components/ProfileComponents/SocialData';
 import AvatarContainer from '../../components/ProfileComponents/AvatarContainer';
 import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
@@ -11,10 +10,12 @@ import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
 
 export const ProfilePage = () => {
-    const [MainInfo, setMainInfo] = useState({})
     let Own = useSelector(state => state.user)
     const dispatch = useDispatch()
+
+    const [MainInfo, setMainInfo] = useState({})
     const [OwnState, setOwnState] = useState(true)
+    const [posts_count, setPostsCount] = useState(0)
 
     function getUserData(par) {
         Axios.get('/get_oth/', {
@@ -28,9 +29,8 @@ export const ProfilePage = () => {
                 avatar: response.data.avatar,
                 posts_id: response.data.posts_id
             }
-            dispatch(changeUser(
-                data
-            ))
+            dispatch(changeUser(data))
+            setPostsCount(data.posts_id.length)
             setMainInfo(data)
             setOwnState(false)
         })
@@ -46,16 +46,19 @@ export const ProfilePage = () => {
             getUserData(params['*'])
         }
         else{
+            setPostsCount(Own.posts_id.length)
             setMainInfo(Own)
             setOwnState(true)
         }
-    }, [params['*']])
+    }, [params['*'], Own])
 
     let med = 'large' 
+    let med_soc = 'main-info-social-data' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
         med = "small"
+        med_soc = "small-main-info-social-data"
     }
-    
+
     return (
         <div style={{position: 'relative'}}>
             <div className="background"/>
@@ -75,7 +78,11 @@ export const ProfilePage = () => {
                                                 <p className='main-info-usname'>{MainInfo.profileName}</p>
                                             </div>
                                         </div>
-                                        <SocialData/>
+                                        <div className={med_soc}>
+                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</a>
+                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</a>
+                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</a>
+                                        </div>
                                     </div>
                                     <PostsUser id={MainInfo.profile_id}></PostsUser>
                                 </div>

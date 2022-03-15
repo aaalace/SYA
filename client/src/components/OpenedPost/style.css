@@ -37,9 +37,11 @@
 
 @media screen and (max-width: 768px) {
     .openpost-box_content {
-        width: 90%;
+        width: 100%;
+        min-height: 100%;
+        height: fit-content;
         margin: 0;
-        margin-top: 100px;
+        border-radius: 0;
     }
 }
 
@@ -97,6 +99,7 @@
 .post-text {
     margin-bottom: 20px;
     margin-top: 10px;
+    word-wrap: break-word;
 }
 
 .post-textarea {
@@ -104,13 +107,13 @@
     margin: 0 auto;
     width: 70%;
     height: auto;
-    outline: none;
     background-color:rgba(240, 248, 255, 0);
     border: 0;
     font-size: 15px;
     color: rgb(87, 81, 90);
     resize: none;
-    word-break: break-all;
+    line-height: 20px;
+    letter-spacing: 1.5px;
 }
 
 .post-image-container {
@@ -139,7 +142,8 @@
     background-color: rgba(172, 128, 193, 0.2);
     font-size: 20px;
     justify-content: center;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .post-icon {

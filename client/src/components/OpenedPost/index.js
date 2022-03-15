@@ -8,14 +8,21 @@ import { changeLikes } from "../../store/user/actions";
 import { removeLikes } from "../../store/user/actions";
 import { changeLikesPost } from "../../store/profilePosts/actions";
 import { setLikesCurrentPost } from "../../store/currentPost/actions";
+import { rollMedia } from "../../store/rolledMedia/actions";
 
 export const OpenedPost = () => {
     const post = useSelector(state => state.current_post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)
+
     const closePostPage = () => {
         dispatch(setClosePost())
+    }
+
+    const rollUp = () => {
+        dispatch(rollMedia({type: 1, media: post.media}))
+        closePostPage()
     }
 
     const switchType = (type) => {
@@ -23,7 +30,7 @@ export const OpenedPost = () => {
             case 1:
                 return (
                     <div className="post-image-container">
-                        <audio src={post.media} controls style={{display: 'block', width: '70%', margin: '0 auto'}}></audio> 
+                        <audio src={post.media} loop autoPlay controls style={{display: 'block', width: '70%', margin: '0 auto'}}></audio>
                     </div>
                 )
             case 2:
@@ -90,6 +97,11 @@ export const OpenedPost = () => {
                         <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={40} width={80}/>
                     </div>}
                     <div className="post-social-interact-container">
+                        {post.media_type === 1 ? 
+                            <div className="post-social-interact">
+                                <p className="post-icon" onClick={rollUp}><i className="fa-solid fa-down-left-and-up-right-to-center"></i></p>
+                            </div>
+                        : null}
                         <div className="post-social-interact">
                             {
                                 liked_posts.includes(post.id) ?
@@ -100,9 +112,6 @@ export const OpenedPost = () => {
                                     <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
                                 </p>
                             }
-                            <p className="post-icon">
-                                <i className='far fa-comment'></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>0</a>
-                            </p>
                         </div>
                     </div>
                 </div>

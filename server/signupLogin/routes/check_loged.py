@@ -1,3 +1,4 @@
+import imp
 from flask import request
 from sqlalchemy import and_
 import json
@@ -6,6 +7,7 @@ import bcrypt
 from models.users import Users
 from models.users_images import UsersImages
 from models.posts_liked import PostsLiked
+from models.posts import Posts
 
 def check_loged():
     if request.method == 'POST':
@@ -26,6 +28,11 @@ def check_loged():
             for el in liked_posts:
                 liked_res.append(el.post_id)
 
+            posts = Posts.query.filter(Posts.user_id == user.id).all()
+            posts_id = []
+            for el in posts:
+                posts_id.append(el.id)
+
             if user:
                 return {
                     "loged": True,
@@ -35,7 +42,8 @@ def check_loged():
                     "birth_date": user.birth_date,
                     "email": user.email,
                     "avatar": image.image,
-                    "liked_posts": liked_res
+                    "liked_posts": liked_res,
+                    "posts_id": posts_id
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}

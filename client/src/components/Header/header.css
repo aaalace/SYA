@@ -1,3 +1,36 @@
+.audio-header::-webkit-media-controls-mute-button {
+    display: none !important;
+    }
+    
+.audio-header::-webkit-media-controls-volume-slider {
+    display: none !important;
+}
+
+.audio-header::-webkit-media-controls-volume-control-container.closed {
+    display: none !important;
+}
+
+.audio-header::-webkit-media-controls-volume-control-container{
+    display: none !important;
+}
+
+.audio-header::-webkit-media-controls-timeline{
+    display: none !important;
+}
+
+.audio-header::-webkit-media-controls-current-time-display{
+    display: none !important;
+}
+
+.audio-header::-webkit-media-controls-time-remaining-display{
+    display: none !important;
+}
+
+.audio-header {
+    margin: 0;
+}
+
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -25,10 +58,18 @@
 .menu-link {
     text-decoration: none;
     color: #AC80C1;
-    font-size: 20px;
     padding: 5%;
     white-space: nowrap;
     font-size: 22px;
+    cursor: pointer;
+}
+
+.menu-link-audio {
+    text-decoration: none;
+    color: #AC80C1;
+    font-size: 25px;
+    padding-left: 5%;
+    white-space: nowrap;
     cursor: pointer;
 }
 

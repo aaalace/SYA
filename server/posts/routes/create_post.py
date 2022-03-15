@@ -1,4 +1,6 @@
+from curses.ascii import US
 from http import server
+import imp
 from flask import request
 import json
 from app import db
@@ -6,6 +8,7 @@ import datetime
 
 from models.posts import Posts
 from models.media import Media
+from models.users import Users
 
 from posts.utils.get_mid_color import middle_color
 
@@ -58,8 +61,8 @@ def create_post():
             )
             db.session.add(post)
             db.session.commit()
+            
         except Exception as e: 
-            # лера лучшая обожаю ее
             print(e)
             return {
                 'state': e,

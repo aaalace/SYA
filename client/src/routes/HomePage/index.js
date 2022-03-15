@@ -35,8 +35,9 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         }
     }, [])
 
-    // useEffect(() => {
-    // }, [media])
+    const openPost = (id) => {
+        console.log('still not opened')
+    }
 
     const switchType = (type, media_id, proportion=0, middle_color) => {
         if(middle_color){
@@ -45,7 +46,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div style={{marginTop: '2%'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%'}}>
                         <audio src={mediaConnect[media_id]} 
                             controls className='audio-player' 
                             style={{width: '100%'}}>
@@ -55,7 +56,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 2:
                 return (
-                    <div style={{marginTop: '2%'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%'}}>
                         <video controls className="hoverBrightness"
                             src={mediaConnect[media_id]}
                             style={{width: '100%', maxHeight: '60vh', borderRadius: '15px'}}>
@@ -64,7 +65,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 3:
                 return (
-                    <div style={{marginTop: '2%', boxSizing: 'inherit'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {mediaConnect[media_id] ? 
                             <img src={mediaConnect[media_id]} alt="картинка" className="hoverBrightness"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '15px'}}/>
@@ -79,7 +80,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 4:
                 return (
-                    <div className="hoverBrightness__text"
+                    <div onClick={() => openPost()} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>

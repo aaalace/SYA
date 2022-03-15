@@ -151,6 +151,7 @@ const OnePost = (props) => {
         if(media[post.media_id]){
             CurrentMedia = media[post.media_id]
         }
+        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,
@@ -165,10 +166,6 @@ const OnePost = (props) => {
         setLoading(false)
     }
 
-    function likePost(id){
-        console.log(id)
-    }
-    
     return(
         <a style={post_block_style} className="post-block" onClick={openPost}>
             {switchType()}
@@ -176,7 +173,7 @@ const OnePost = (props) => {
             <span className="post-overlay">
             {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
             <p>
-            <i onClick={() => likePost(post)} className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
+            <i className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
             </p>
             }
             </span>}

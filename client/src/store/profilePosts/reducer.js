@@ -22,7 +22,6 @@ import { CHANGE_LIKES_POST } from "./actions"
 const initialState = {}
 
 export const postsReducer = (state = initialState, action) => {
-    console.log(state)
     switch (action.type) {
         case ADD_USER_POSTS: {
             return {...state, ...action.payload}

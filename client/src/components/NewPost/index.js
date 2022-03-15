@@ -1,6 +1,5 @@
 import './style.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { ButtonPost } from '../ButtonPost/index';
 import Axios from 'axios';
@@ -14,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 
 import { addNewPost } from '../../store/profilePosts/actions';
+import { addUserPost } from '../../store/user/actions';
 
 
 const initialFormats = [
@@ -48,6 +48,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [contentFormatClass, setContentFormatClass] = useState('create-post-content__format');
     const [formatSelected, setFormatSelected] = useState(false);
     const userId = useSelector((state) => state.user.profile_id);
+    const user = useSelector((state) => state.user);
 
     const [audioData, setAudioData] = useState(false);
     const [videoData, setVideoData] = useState(false);
@@ -121,9 +122,13 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 ...prevState,
                 loading: false,
             }));
+            // add post to profilePostsReducer
             dispatch(addNewPost({
-                userId: response.data.userId, post_id: response.data.post_id, data: response.data.data
+                userId: response.data.userId, post_id: response.data.post_id, data: {...response.data.data, user_name: user.profileName, 
+                user_avatar: user.avatar}
             }))
+            // add post to userReducer
+            dispatch(addUserPost(response.data.post_id))
             if (response.data.state === 'correct') {
                 setCreatePost(false)
             }
