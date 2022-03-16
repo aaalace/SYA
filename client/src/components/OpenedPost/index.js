@@ -30,7 +30,7 @@ export const OpenedPost = () => {
             case 1:
                 return (
                     <div className="post-image-container">
-                        <audio src={post.media} loop autoPlay controls style={{display: 'block', width: '70%', margin: '0 auto'}}></audio>
+                        <audio src={post.media} loop controls style={{display: 'block', width: '70%', margin: '0 auto'}}></audio>
                     </div>
                 )
             case 2:

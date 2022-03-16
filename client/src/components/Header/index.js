@@ -88,11 +88,11 @@ export const Header = () => {
     const [finded, setFinded] = useState()
     const [finded_ids, setFindedIds] = useState([])
 
-    const [audioState, setAudioState] = useState(false) 
+    const [audioState, setAudioState] = useState(true) 
     const selectedAudioRef = useRef(null)
 
     useEffect(() => {
-        setAudioState(false)
+        setAudioState(true)
     }, [rolled_media])
 
     useEffect(() => {
@@ -199,7 +199,7 @@ export const Header = () => {
             <div className='container'>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
                     <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
-                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header' src={rolled_media} controls style={{display: 'none'}}></audio> : null}
+                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
                     {rolled_media && loged ? 
                         <a className='menu-link-audio'>
                             <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#ac80c1ad', padding: '7px 15px', borderRadius: '10px'}}>

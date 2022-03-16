@@ -4,10 +4,11 @@ import './style.css'
 import {useMediaQuery} from 'react-responsive'
 import PostsUser from '../../components/ProfileComponents/PostsUser';
 import AvatarContainer from '../../components/ProfileComponents/AvatarContainer';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
+import SocialInform from '../../components/ProfileComponents/SocalInfo';
 
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
@@ -67,7 +68,10 @@ export const ProfilePage = () => {
                     {med === 'large' ? 
                         <div className='container-profile'>
                             <div style={{display: 'flex', width: '100%'}}>
-                                <AvatarContainer owner={OwnState} />
+                                <div>
+                                    <AvatarContainer owner={OwnState} />
+                                    <SocialInform></SocialInform>
+                                </div>
                                 <div className='info-container'>
                                     <div className='main-info-container'>
                                         <div className='main-info-head'>
