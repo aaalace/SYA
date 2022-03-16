@@ -29,7 +29,8 @@ def check_loged():
                     "surname": user.person_surname,
                     "birth_date": user.birth_date,
                     "email": user.email,
-                    "avatar": image.image
+                    "avatar": image.image,
+                    "tags": user.tags
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}
