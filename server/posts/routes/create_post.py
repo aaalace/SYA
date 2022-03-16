@@ -23,7 +23,8 @@ def create_post():
                 tags = ['SYA']
             if len(tags) > 4:
                 tags = tags[:4]
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'не верный формат данных'
 
         try:
@@ -34,12 +35,14 @@ def create_post():
             )
             db.session.add(media)
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка базы'
 
         try:
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
 
         try:
@@ -65,21 +68,21 @@ def create_post():
 
         try:
             post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
 
         try:
+            print(tags)
             for tag in tags:
-                try:
-                    Post_tag = Post_tags(
-                        tag=tag,
-                        post_id=post_id
-                    )
-                    db.session.add(Post_tag)
-                except Exception as e:
-                    print(e)
+                Post_tag = Post_tags(
+                    tag=tag,
+                    post_id=post_id
+                )
+                db.session.add(Post_tag)
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
 
         return 'correct'
