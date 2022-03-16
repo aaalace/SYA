@@ -43,7 +43,8 @@ def check_loged():
                     "email": user.email,
                     "avatar": image.image,
                     "liked_posts": liked_res,
-                    "posts_id": posts_id
+                    "posts_id": posts_id,
+                    "tags": user.tags
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}

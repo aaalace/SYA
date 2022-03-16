@@ -31,7 +31,8 @@ def get_user_posts():
                     'middle_color': post.middle_color,
                     'proportion': post.height_width_proportion,
                     'user_name': user_name,
-                    'user_avatar': user_avatar
+                    'user_avatar': user_avatar,
+                    'tags': post.tags
                 }
             media_ids.append(post.media_id)
 

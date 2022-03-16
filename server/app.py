@@ -49,6 +49,7 @@ def createPost():
 def openPost():
     return open_post()
 
+
 @app.route("/get_user_posts/", methods=['POST', 'GET'])
 def getUserSPosts():
     return get_user_posts()
@@ -57,6 +58,7 @@ def getUserSPosts():
 # PROFILE
 from profilePage.routes.change_avatar import change_avatar
 from profilePage.routes.delete_avatar import delete_avatar
+
 
 @app.route("/changeAvatar", methods=['POST'])
 def change_ava():
@@ -96,9 +98,11 @@ def change_like_state():
 from users.routes.find_user import find_users
 from users.routes.get_oth_user_info import get_oth_user
 
+
 @app.route("/find_users/", methods=['GET'])
 def find_us():
     return find_users()
+
 
 @app.route("/get_oth/", methods=['GET'])
 def get_us():

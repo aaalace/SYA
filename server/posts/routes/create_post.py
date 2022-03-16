@@ -6,8 +6,9 @@ import datetime
 from models.posts import Posts
 from models.media import Media
 from models.users import Users
-
+from models.post_tags import Post_tags
 from posts.utils.get_mid_color import middle_color
+
 
 def create_post():
     if request.method == 'POST':
@@ -18,7 +19,12 @@ def create_post():
             post_type = data['type']
             content = data['body']
             proportion = data['proportion']
-        except Exception:
+            tags = data['tags'].split()
+            if not tags:
+                tags = ['SYA']
+            if len(tags) > 4:
+                tags = tags[:4]
+        except Exception as e:
             print(e)
             return 'не верный формат данных'
 
@@ -30,13 +36,13 @@ def create_post():
             )
             db.session.add(media)
             db.session.commit()
-        except Exception:
+        except Exception as e:
             print(e)
             return 'ошибка базы'
 
         try:
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
-        except Exception:
+        except Exception as e:
             print(e)
             return 'ошибка запроса'
 
@@ -54,16 +60,32 @@ def create_post():
                 likes_count=0,
                 post_time=dt,
                 middle_color=';'.join(mid_col),
-                height_width_proportion=proportion
+                height_width_proportion=proportion,
+                tags="`".join(tags) + '`'
             )
             db.session.add(post)
             db.session.commit()
-            
-        except Exception as e: 
+        except Exception as e:
+            return 'server error'
+
+        try:
+            post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
+        except Exception as e:
             print(e)
-            return {
-                'state': e,
-            }
+            return 'ошибка запроса'
+        
+        try:
+            for tag in tags:
+                Post_tag = Post_tags(
+                    tag=tag,
+                    post_id=post_id
+                )
+                db.session.add(Post_tag)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return 'ошибка запроса'
+
         return {
             'state': 'correct',
             'userId': user_id,

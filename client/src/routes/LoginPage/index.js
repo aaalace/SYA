@@ -72,7 +72,8 @@ export const LoginPage = () => {
                         userBirthDate: response.data.birth_date,
                         email: response.data.email,
                         liked_posts: response.data.liked_posts,
-                        posts_id: response.data.posts_id
+                        posts_id: response.data.posts_id,
+                        tags: response.data.tags
                     }));
                     if (response.data.avatar){
                         dispatch(addProfilePhoto({avatar: response.data.avatar}))
