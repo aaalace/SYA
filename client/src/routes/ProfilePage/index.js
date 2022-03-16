@@ -8,7 +8,8 @@ import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
-import SocialInform from '../../components/ProfileComponents/SocalInfo';
+import SocialInfo from '../../components/ProfileComponents/SocialInfo';
+import MessagePanel from '../../components/ProfileComponents/MessagePanel';
 
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
@@ -70,7 +71,8 @@ export const ProfilePage = () => {
                             <div style={{display: 'flex', width: '100%'}}>
                                 <div>
                                     <AvatarContainer owner={OwnState} />
-                                    <SocialInform></SocialInform>
+                                    <MessagePanel></MessagePanel>
+                                    <SocialInfo />
                                 </div>
                                 <div className='info-container'>
                                     <div className='main-info-container'>

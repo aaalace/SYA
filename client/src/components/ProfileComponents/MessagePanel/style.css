@@ -1,0 +1,6 @@
+.message-panel-container {
+    display: 'grid';
+    grid-template-columns: '3fr 2fr';
+    grid-gap: '13px';
+    margin-top: '24px'
+}
