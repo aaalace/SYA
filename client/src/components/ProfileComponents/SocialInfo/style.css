@@ -31,55 +31,6 @@
     cursor: pointer;
 }
 
-.closing-button span {
-    position: relative;
-    z-index: 5;
-    cursor: pointer;
-}
-
-.work-button span {
-    position: relative;
-    z-index: 5;
-    cursor: pointer;
-}
-
-.closing-button:before, .closing-button:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-
-.work-button:before, .work-button:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-
-.closing-button:before {
-    transform: translateX(-100%);
-    background: #ac80c1bd;
-    transition: transform .3s cubic-bezier(.55, .055, .675, .19);
-}
-
-.work-button:before {
-    transform: translateX(100%);
-    background: #ffffff81;
-    transition: transform .3s cubic-bezier(.55, .055, .675, .19);
-}
-
-.closing-button:hover:before, .closing-button:hover:after {
-    transform: translateX(0);
-}
-
-.work-button:hover:before, .work-button:hover:after {
-    transform: translateX(0);
-}
 
 .user-line-img {
     width: 50px;

@@ -16,7 +16,7 @@ function SocialInfo() {
     const container = {
         width: '100%',
         backgroundColor: 'white',
-        marginTop: '20px',
+        margin: '20px 0 40px 0',
         borderRadius: '5px 5px 5px 15px'
     }
 
