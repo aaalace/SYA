@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { NewPostPage } from '../NewPost';
 import Axios from 'axios';
 import { useRef } from 'react';
+import { rollMedia } from '../../store/rolledMedia/actions';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -43,8 +44,6 @@ const Burger = styled.div`
 const MenuOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "280px" : "0px")};
-    border-left: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
-    border-top: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;
@@ -189,14 +188,28 @@ export const Header = () => {
         }
     }
 
+    const closeRolledMedia = () => {
+        setAudioState(false)
+        dispatch(rollMedia({type: null, media: null}))
+    }
+
     return (
         <>
         <HeaderBox id='header' open={open}>
             <div className='container'>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
                     <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
-                    {rolled_media ? <audio ref={selectedAudioRef} className='audio-header' src={rolled_media} controls style={{display: 'none'}}></audio> : null}
-                    {rolled_media ? <a className='menu-link-audio' onClick={playAudio}>{audioState ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}</a> : null}
+                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header' src={rolled_media} controls style={{display: 'none'}}></audio> : null}
+                    {rolled_media && loged ? 
+                        <a className='menu-link-audio'>
+                            <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#ac80c1ad', padding: '7px 15px', borderRadius: '10px'}}>
+                                {audioState ? 
+                                        <i className="fa-solid fa-pause" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>
+                                    : <i className="fa-solid fa-play" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>}
+                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i class="fa-solid fa-xmark"></i></i>
+                            </div>
+                        </a> 
+                    : null}
                 </div>
                 {loged ?
                 <div>

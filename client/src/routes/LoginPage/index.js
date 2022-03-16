@@ -67,7 +67,6 @@ export const LoginPage = () => {
                         loged: true, 
                         profile_id: response.data.id,
                         profileName: profileName, 
-                        profilePassword: profilePassword, 
                         personName: response.data.name,
                         personSurname: response.data.surname,
                         userBirthDate: response.data.birth_date,

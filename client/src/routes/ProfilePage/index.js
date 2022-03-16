@@ -61,9 +61,9 @@ export const ProfilePage = () => {
 
     return (
         <div style={{position: 'relative'}}>
-            <div className="background"/>
+            <div className="background-prof"/>
             {MainInfo ?
-            <div className='main'>
+            <div className='main-prof'>
                     {med === 'large' ? 
                         <div className='container-profile'>
                             <div style={{display: 'flex', width: '100%'}}>
@@ -79,9 +79,9 @@ export const ProfilePage = () => {
                                             </div>
                                         </div>
                                         <div className={med_soc}>
-                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</a>
-                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</a>
-                                            <a className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</a>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
                                         </div>
                                     </div>
                                     <PostsUser id={MainInfo.profile_id}></PostsUser>
@@ -93,9 +93,16 @@ export const ProfilePage = () => {
                             <div className='info-container-small'>
                                 <AvatarContainer owner={OwnState} />
                                 <div className='main-info-container-small'>
-                                    <p className='main-info-usname-small'>{MainInfo.profileName}</p>
-                                    <p className='main-info-name-small'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                    <div>
+                                        <p className='main-info-usname-small'>{MainInfo.profileName}</p>
+                                        <p className='main-info-name-small'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                    </div>
                                 </div>
+                            </div>
+                            <div className={med_soc}>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
                             </div>
                             <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>
