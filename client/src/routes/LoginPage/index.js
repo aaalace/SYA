@@ -1,27 +1,29 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserDataReducer } from '../../store/user/actions';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
 import Axios from 'axios';
+import LoadingIcon from '../../components/Loading';
+import TextField from '@mui/material/TextField';
+import { RegLogError } from '../../components/RegLogError';
+import { Link } from 'react-router-dom';
+import { addProfilePhoto } from '../../store/user/actions';
 
 const BoxStyles = {
-    width: '70%',
+    width: '80%',
     maxWidth: '600px',
-    border: '2px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '20px',
-    margin: '92px auto',
+    margin: '20vh auto',
     textAlign: 'center',
     padding: '24px 24px 30px'
 }
 
 const inputStyles = {
     background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(175, 175, 175, 0.3)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     marginTop: '24px',
-    padding: '2%'
 }
 
 const formStyles = {
@@ -43,11 +45,16 @@ const buttonsStyles = {
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ checked, setChecked ] = useState(false);
+
+    const [ errorWindowState, setErrorWindowState] = useState(false)
+    const [ errorWindowInfo, setErrorWindowInfo] = useState('')
+
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
+    const [ logging, setLogging ] = useState(false)
 
     const handlerLog = (arg) => {
+        setLogging(true)
         if(arg === 'home'){
             Axios.post('/checkLoged',
                 {
@@ -58,16 +65,30 @@ export const LoginPage = () => {
                 if(response.data.loged){
                     dispatch(setUserDataReducer({
                         loged: true, 
+                        profile_id: response.data.id,
                         profileName: profileName, 
-                        profilePassword: profilePassword, 
-                        personName: response.data.name, // нужно как то InstrumentedAttribute сюда отправлять
-                        personSurname: response.data.surname, // нужно как то InstrumentedAttribute сюда отправлять
-                        userBirthDate: response.birth_date // нужно как то InstrumentedAttribute сюда отправлять
+                        personName: response.data.name,
+                        personSurname: response.data.surname,
+                        userBirthDate: response.data.birth_date,
+                        email: response.data.email,
+                        liked_posts: response.data.liked_posts,
+                        posts_id: response.data.posts_id,
+                        tags: response.data.tags
                     }));
-                    navigate('/');
+                    if (response.data.avatar){
+                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
+                    }
+                    navigate('/')
+                    setLogging(false)
+                    setProfileName('')
+                    setProfilePassword('')
                 }
                 else{
-                    navigate('/')
+                    setErrorWindowInfo(response.data.exc)
+                    setLogging(false)
+                    setProfileName('')
+                    setProfilePassword('')
+                    setErrorWindowState(true)
                 }
             })
         }
@@ -78,30 +99,35 @@ export const LoginPage = () => {
     }
 
     return(
-        <div style={BoxStyles}>
-            <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
+        <div style={{display: 'flex'}}>
+            {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
+            {logging ? <LoadingIcon/> :
+            <div style={BoxStyles}>
+                <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
                 fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-            }}>Авторизация</h2>
-            <div style={formStyles}>
-                <input style={inputStyles} placeholder='Имя профиля' type='name'
-                    onChange={e => setProfileName(e.target.value)}/>
-                <input style={inputStyles} placeholder='Пароль' type='password'
-                    onChange={e => setProfilePassword(e.target.value)}/>
-                <div style={{display: 'flex', alignItems: 'center', marginTop: '36px', marginBottom: '14px'}}>
-                    <input
-                        style={{ color: '#AC80C1', width: '11px', height: '11px'}}
-                        checked={checked}
-                        onChange={() => {setChecked(prevState => !prevState)}}
-                        id="happy" name="happy" value="yes" type="checkbox"
+                }}>Авторизация</h2>
+                <div style={formStyles}>
+                    <TextField
+                        label="Имя профиля"
+                        type="name"
+                        variant="standard"
+                        style={inputStyles}
+                        onChange={e => setProfileName(e.target.value)}
                     />
-                    <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                    <TextField
+                        label="Пароль"
+                        type="password"
+                        variant="standard"
+                        style={inputStyles}
+                        onChange={e => setProfilePassword(e.target.value)}
+                    />
+                    <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px', marginTop: '36px'}}>
+                        <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
+                        <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
+                    </div>
                 </div>
-                <div style={{display: 'grid', gridTemplateColumns: '2fr 3fr', gridGap: '13px'}}>
-                    <button style={buttonsStyles} onClick={() => handlerLog('home')}>Войти</button>
-                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('reg')}>Регистрация</button>
-                </div>
-                <div className='faq'/>
-            </div>
+            </div>}
+            {/* <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '30px'}}></i></Link> */}
         </div>
     )
 }

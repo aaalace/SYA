@@ -12,7 +12,7 @@
     font-family: inherit;
     text-align: center;
     font-size: 13px;
-    box-shadow: 0px 4px 70px -11px #ae00ff;
+    box-shadow: 0px 4px 70px -11px #ffffff;
     width: 10em;
     padding: 1em;
     transition: all 0.4s;
@@ -27,16 +27,16 @@
    }
    
    .button__sign span:after {
-    content: ' Sign in';
+    content: 'Log in';
     position: absolute;
     opacity: 0;
     top: 0;
-    right: -20px;
+    right: -10px;
     transition: 0.7s;
    }
    
    .button__sign:hover span {
-    padding-right: 3.55em;
+    padding-right: 4em;
    }
    
    .button__sign:hover span:after {

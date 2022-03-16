@@ -4,6 +4,8 @@ export const ADD_AVATAR = 'ADD_AVATAR';
 export const ADD_USER_POST = 'ADD_USER_POST'
 export const DELETE_USER_POST = 'DELETE_USER_POST'
 export const DELETE_AVATAR = 'DELETE_AVATAR'
+export const CHANGE_LIKES = 'CHANGE_LIKES'
+export const REMOVE_LIKES = 'REMOVE_LIKES'
  
 export const setUserDataReducer = (data) => ({
     type: SET_USER_DATA,
@@ -17,8 +19,6 @@ export const addProfilePhoto = (data) => ({
     payload: data,
 })
 
-export const deleteAvatar = () => ({ type: DELETE_AVATAR })
-
 export const addUserPost = (data) => ({
     type: ADD_USER_POST,
     payload: data,
@@ -28,3 +28,14 @@ export const deleteUserPost = (data) => ({
     type: DELETE_USER_POST,
     payload: data,
 })
+
+export const changeLikes = (data) => ({
+    type: CHANGE_LIKES,
+    payload: data,
+})
+
+export const removeLikes = (data) => ({
+    type: REMOVE_LIKES,
+    payload: data,
+})
+

@@ -1,0 +1,124 @@
+.create-post-box {
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,.5);
+    overflow: auto;
+    z-index: 4;
+}
+
+.create-post-content {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 15%;
+    width: 50%;
+    min-height: 60vh;
+    height: fit-content;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 3% 3%;
+}
+
+.create-post-box__close {
+    position: absolute;
+    top: 10%;
+    width: 50%;
+    color: white;
+}
+
+.create-post-box__close-icon {
+    position: relative;
+    font-size: 52px;
+    left: 100%;
+}
+
+.create-post-content__title {
+    padding: 12px;
+    text-align: center;
+    color: #AC80C1;
+    font-size: 20px;
+}
+
+.create-post__title {
+    font-weight: bold;
+}
+
+.create-post-content__format {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.format {
+    flex-grow: 1;
+    border: 2px solid #AC80C1;
+    border-radius: 5px;
+    color: #AC80C1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    padding: 3%;
+    margin-top: 5%; 
+}
+
+.format:hover {
+    background-color: #f5eaea;
+}
+
+.test_class {
+    opacity: 0;
+    display: none;
+}
+
+.grow_class {
+    flex-grow: 0;
+}
+
+.content-grow_class {
+    flex-grow: 0;
+}
+
+.drag-and-drop-window {
+    border-radius: 5px;
+    margin-top: 5%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.audio-player-container {
+    width: 100%;
+    height: 100%;
+}
+
+.video-player {
+    flex-grow: 1;
+}
+
+@keyframes selected-format {
+}
+
+@media screen and (max-width: 768px) {
+    .create-post-content {
+        width: 100vw;
+        min-height: 100vh;
+        height: fit-content;
+        border-radius: 0px;
+        top: 0;
+    }
+
+    .create-post-box__close {
+        top: 0px;
+        color: #AC80C1;
+        z-index: 5;
+        width: 80%;
+    }
+}

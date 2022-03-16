@@ -1,55 +1,118 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import {useMediaQuery} from 'react-responsive'
 import PostsUser from '../../components/ProfileComponents/PostsUser';
-import SocialData from '../../components/ProfileComponents/SocialData';
 import AvatarContainer from '../../components/ProfileComponents/AvatarContainer';
+import { useParams } from 'react-router-dom';
+import Axios from 'axios';
+import { changeUser } from '../../store/openedProfile/actions';
+import { useState } from 'react'
+import SocialInform from '../../components/ProfileComponents/SocalInfo';
 
 export const ProfilePage = () => {
-    const userInfo = useSelector(state => state.user)
+    let Own = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    const [MainInfo, setMainInfo] = useState({})
+    const [OwnState, setOwnState] = useState(true)
+    const [posts_count, setPostsCount] = useState(0)
+
+    function getUserData(par) {
+        Axios.get('/get_oth/', {
+            params: {username: par}
+        }).then(response => {
+            const data = {
+                profile_id: response.data.id,
+                profileName: response.data.profileName,
+                personName: response.data.personName,
+                personSurname: response.data.personSurname,
+                avatar: response.data.avatar,
+                posts_id: response.data.posts_id
+            }
+            dispatch(changeUser(data))
+            setPostsCount(data.posts_id.length)
+            setMainInfo(data)
+            setOwnState(false)
+        })
+    }
+
+    const params = useParams()
+    if(params['*'] === ''){
+        params['*'] = Own.profileName
+    }
+
+    useEffect(() => {
+        if(params['*'] !== Own.profileName){
+            getUserData(params['*'])
+        }
+        else{
+            setPostsCount(Own.posts_id.length)
+            setMainInfo(Own)
+            setOwnState(true)
+        }
+    }, [params['*'], Own])
 
     let med = 'large' 
+    let med_soc = 'main-info-social-data' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
         med = "small"
+        med_soc = "small-main-info-social-data"
     }
-    
+
     return (
         <div style={{position: 'relative'}}>
-            <div className="background"/>
-            <div className='main'>
-                <div className='container-profile'>
+            <div className="background-prof"/>
+            {MainInfo ?
+            <div className='main-prof'>
                     {med === 'large' ? 
-                    <div className='container-head'>
-                        <AvatarContainer/>
-                        <div className='main-info-container'>
-                            <div className='main-info-head'>
+                        <div className='container-profile'>
+                            <div style={{display: 'flex', width: '100%'}}>
                                 <div>
-                                    <p className='main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
+                                    <AvatarContainer owner={OwnState} />
+                                    <SocialInform></SocialInform>
                                 </div>
-                                <div>
-                                    <p className='main-info-usname'>{userInfo.profileName}</p>
+                                <div className='info-container'>
+                                    <div className='main-info-container'>
+                                        <div className='main-info-head'>
+                                            <div>
+                                                <p className='main-info-name'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                            </div>
+                                            <div>
+                                                <p className='main-info-usname'>{MainInfo.profileName}</p>
+                                            </div>
+                                        </div>
+                                        <div className={med_soc}>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                            <div className='social-data'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
+                                        </div>
+                                    </div>
+                                    <PostsUser id={MainInfo.profile_id}></PostsUser>
                                 </div>
                             </div>
-                            <SocialData/>
-                            <hr style={{backgroundColor: 'rgb(172, 128, 193)', width: '80%', margin: '0 auto', marginTop: '25px'}}></hr> 
                         </div>
-                    </div> :
-                        <div className='small-head-container'>
-                            <AvatarContainer/>
-                            <div className='small-main-info-head'>
-                                <div>
-                                    <p className='small-main-info-usname'>{userInfo.profileName}</p>
+                        :
+                        <div className='container-profile-small'>
+                            <div className='info-container-small'>
+                                <AvatarContainer owner={OwnState} />
+                                <div className='main-info-container-small'>
+                                    <div>
+                                        <p className='main-info-usname-small'>{MainInfo.profileName}</p>
+                                        <p className='main-info-name-small'>{MainInfo.personName} {MainInfo.personSurname}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className='small-main-info-name'>{userInfo.personName} {userInfo.personSurame}</p>
-                                </div>
-
                             </div>
-                    </div>}
-                    <PostsUser/>
-                </div>
-            </div>
+                            <div className={med_soc}>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
+                            </div>
+                            <PostsUser id={MainInfo.profile_id}></PostsUser>
+                        </div>
+                    }
+            </div> : null}
+
         </div>
     )
 }

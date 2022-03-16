@@ -2,6 +2,23 @@ html {
     scroll-behavior: smooth;
 }
 
+.hoverBrightness {
+    cursor: pointer;
+}
+
+.hoverBrightness:hover {
+    filter: brightness(70%);
+} 
+
+.hoverBrightness__text {
+    cursor: pointer;
+}
+
+.hoverBrightness__text:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid black !important;
+}
+
 .background {
     position: relative;
     min-height: 60vh;
@@ -9,6 +26,8 @@ html {
     background-image: url('../../images/seminar-art.png');
     background-size: 100%;
     background-repeat: no-repeat;
+    -webkit-filter: blur(250px);
+    -moz-filter: blur(250px);
     filter: blur(250px);
 }
 
@@ -20,12 +39,17 @@ html {
     left: 0;
 }
 
-.sec {
-    height: 70vh;
+@media screen and (max-width: 1000px) {
+    .background {
+        background-image: none;
+        background-color: #e2ccec;
+        filter: blur(60px);
+    }
 }
 
-.post {
-    min-height: 100vh;
+.sec {
+    height: 100vh;
+    max-height: 600px;
 }
 
 .main__title {
@@ -34,30 +58,27 @@ html {
     font-size: 72px;
     line-height: 84px;
     letter-spacing: 0.07em;
-    color: #000000;
+    color: #3b3535;
     margin: 72px 10% 0 10%;
-}
-
-.next-link {
-    text-decoration: none;
 }
 
 .posts {
     width: 100%;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    margin-top: 32px;
+    /* border-top: 1px solid #000; */
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .post {
-    margin: 0 10%;
-    padding: 3% 0 0 3%;
+    padding: 3%;
     position: relative;
 }
 
 .post__top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .homepage-box__title {
@@ -67,7 +88,6 @@ html {
 
 .next-link {
     height: fit-content;
-    margin-top: 20px;
     padding: 15px;
     font-size: 24px;
     text-transform: uppercase;
@@ -77,30 +97,35 @@ html {
     background-color: #AC80C1;
     border: none;
     border-radius: 15px;
-    -webkit-box-shadow: 0px 5px 10px 2px #AC80C1;
-    -moz-box-shadow: 0px 5px 10px 2px #AC80C1;
-    box-shadow: 0px 5px 10px 2px #AC80C1;
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .next-link:hover {
     background-color: inherit;
     color: #000;
     box-shadow: none;
-    transform: translateY(-7px);
+    transform: scale(1.1);
 }
    
 .next-link:active {
     transform: translateY(-1px);
 }
 
+.posts-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 @media screen and (min-width: 1920px) {
     .background {
-        filter: blur(500px);
+        -webkit-filter: blur(400px);
+        -moz-filter: blur(400px);
+        filter: blur(400px);
     }
     .main__title {
         font-style: normal;
@@ -113,14 +138,24 @@ html {
     .browse-posts {
         transform: scale(2);
     }
+    .posts-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 0 10%;
+    }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1919px) {
     .background {
+        -webkit-filter: blur(330px);
+        -moz-filter: blur(330px);
         filter: blur(330px);
     }
     .browse-posts {
         transform: scale(1.5);
+    }
+    .posts-box {
+        margin: 0 5%;
     }
 }
 
@@ -137,9 +172,15 @@ html {
 @media screen and (max-width: 768px) {
     .next-link {
         position: absolute;
-        top: -20px;
+        top: 0px;
         right: 0;
         border-radius: 0px;
+    }
+
+    .posts-box {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 0 3%;
     }
 }
 
@@ -154,14 +195,16 @@ html {
         font-size: 24px;
     }
     .next-link {
-        right: -10%;
+        font-size: 18px;
+        padding: 10px;
+    }
+    .posts-box {
+        margin: 0;
     }
 }
 
-/* From cssbuttons.io by @alexmaracinaru */
 .cta {
     position: relative;
-    margin: auto;
     padding: 12px 18px;
     transition: all 0.2s ease;
     border: none;

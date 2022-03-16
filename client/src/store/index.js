@@ -1,8 +1,11 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import { userReducer } from './user/reducer';
-import { imageModalReducer } from './imageModal/reducer';
-import { postsReducer } from './posts/reducer';
+import { postsReducer } from './profilePosts/reducer';
+import { currentPostReduser } from './currentPost/reducer';
+import { openedProfileReducer } from './openedProfile/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { mainPagePostsReducer } from './MainPagePosts';
+import { rolledMediaRuducer } from './rolledMedia/reducer';
 import thunk from 'redux-thunk';
 // import storage from 'redux-persist/lib/storage';
 // import persistReducer from "redux-persist/es/persistReducer";
@@ -16,8 +19,11 @@ import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
     user: userReducer,
-    modal: imageModalReducer,
-    posts: postsReducer
+    profilePosts: postsReducer,
+    current_post: currentPostReduser,
+    opened_profile: openedProfileReducer,
+    mainPagePosts: mainPagePostsReducer,
+    rolledMedia: rolledMediaRuducer
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)

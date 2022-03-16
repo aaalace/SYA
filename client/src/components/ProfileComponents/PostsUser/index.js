@@ -1,78 +1,183 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
-import { changeBookmark, changeLike, deletePost } from "../../../store/posts/actions";
-import { deleteUserPost } from "../../../store/user/actions";
+import Axios from 'axios';
+import { setOpenPost } from "../../../store/currentPost/actions";
+import { OpenedPost } from "../../OpenedPost";
+import { useState } from "react";
+import { useEffect } from "react";
+import ReactLoading from 'react-loading';
+import { addUserPosts, addPostMedia } from "../../../store/profilePosts/actions";
+import { useMediaQuery } from "react-responsive";
 
-const PostsUser = () => {
-    const posts = useSelector(state => state.posts)
+const PostsUser = (props) => {
+    const usersPosts = useSelector(state => state.profilePosts)
+    const [userPosts, setUserPosts] = useState([])
+    const [media, setMedia] = useState({});
+    const dispatch = useDispatch()
+
+    const getMedia = (mediaIds) => {
+        for (const id of mediaIds) {
+            Axios.get(`/get_media//${id}`).then((res) => {
+                setMedia(prevState => ({
+                    ...prevState,
+                    [id]: res.data
+                }))
+                Axios.get(`/get_post_by_media//${id}`).then((result) => {
+                dispatch(addPostMedia({
+                    userId: props.id, post_id: result.data, id, data: res.data
+                }))
+            })
+            })
+        }
+    }
+
+    function getUserPosts(){
+        Axios.get(`/get_user_posts/`, {
+            params: {id: props.id}
+        }).then((response) => {
+                const object = {}
+                object[props.id] = response.data.body
+                dispatch(addUserPosts(object))
+                const posts = []
+                for (let key in response.data.body){
+                    posts.push(response.data.body[key])
+                }
+                setUserPosts(posts)
+                getMedia(response.data.media_ids)
+        })
+    }
+
+    useEffect(() => {
+        if(props.id){
+            if(Object.keys(usersPosts).includes(props.id.toString())){
+                const posts = []
+                const media = {}
+                for (let key in usersPosts[props.id]){
+                    posts.push(usersPosts[props.id][key])
+                    media[usersPosts[props.id][key]['media_id']] = usersPosts[props.id][key]['media']
+                }
+                setUserPosts(posts)
+                setMedia(media)
+            }
+            else{
+                getUserPosts()
+            }
+        }
+    }, [props.id, usersPosts])
+
+    let cont = 'posts-container' 
+    if (useMediaQuery({ query: '(max-width: 1200px)' })){
+        cont += "-small"
+    }
 
     return (
-        <div>
-            {posts ? posts.map((post) => {
-                        return <OnePost
-                        key={post.id}
-                        post={post}
-                        />
-                    }) : []
-            }
+        <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
+            <OpenedPost></OpenedPost>
+            <section className={cont}>
+                {userPosts 
+                ? userPosts.map((post) => {
+                    return <OnePost key={post.id} post={post} media={media}/>
+                }) 
+                : []}
+            </section>
         </div>
     )
 }
 
-const OnePost = (postX) => {
-    const user_nick = useSelector(state => state.user.profileName)
-    const user_posts = useSelector(state => state.user.posts_id)
-    const ava = useSelector(state => state.user.avatar)
-    const post = postX.post
+const OnePost = (props) => {
+    const post = props.post
+    const media = props.media
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
 
-    const changeLikeX = (id) => {
-        dispatch(changeLike(id))
+    let mid_col = 'transparent'
+
+    if (post.middle_color){
+        mid_col = 'rgb(' + post.middle_color.split(';').join(', ') + ')'
+    }
+    if(media[post.media_id]){
+        mid_col = 'transparent'
+    }
+    
+    const post_block_style = {
+        cursor: 'pointer',
+        position: 'relative',
+        display: 'block',
+        padding: '0',
+        marginRight: '0',
+        marginBottom: '10px',
+        backgroundColor: mid_col,
+        aspectRatio: `1 / ${post.proportion ? post.proportion : 1}`,
     }
 
-    const changeBookmarkX = (id) => {
-        dispatch(changeBookmark(id))
-    }
-
-    const deletePostX = (id) => {
-        console.log(id, user_posts)
-        if (user_posts.includes(id)){
-            dispatch(deletePost(id))
-            dispatch(deleteUserPost(id))
+    
+    const switchType = () => {
+        switch(post.type) {
+            case 1:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src="../images/audio-icon.jpg"/>
+                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
+                    </figure>
+                )
+            case 2:
+                return (
+                    <figure className="post-image-prof">
+                        <video className='video-in-post' src={media[post.media_id]}/>
+                        <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
+                    </figure>
+                )
+            case 3:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src={media[post.media_id]}></img>
+                    </figure>
+                )
+            case 4:
+                return (
+                    <figure className="post-image-prof">
+                        <img className="image-in-post" src="../images/text-icon.jpg"></img>
+                    </figure>
+                )
+            default:
+                return 'error'
         }
     }
 
+    const openPost = () => {
+        setLoading(true)
+        let CurrentMedia = null
+        if(media[post.media_id]){
+            CurrentMedia = media[post.media_id]
+        }
+        console.log(post)
+        dispatch(setOpenPost({
+            open: true,
+            id: post.id,
+            user_id: post.user_id,
+            user_name: post.user_name,
+            user_avatar: post.user_avatar,
+            media: CurrentMedia,
+            media_type: post.type,
+            likes_count: post.likes_count,
+            post_time: post.post_time
+        }))
+        setLoading(false)
+    }
+
     return(
-        <div className="post-container">
-            <div className="post-header">
-                <div className="post-left">
-                    <img src={ava} className="post-avatar"/>
-                    <div className="post-pers-data">
-                        <p className="post-pers-nickname">{user_nick}</p>
-                        <p className="post-datatime">{post.datetime}</p>
-                    </div>
-                </div>
-                <span onClick={() => deletePostX(post.id)} className="post-delete_button">&#10006;</span>
-            </div>
-            {post.description ? <div className="post-text">
-                <p className="post-textarea">
-                    {post.description}
-                </p>
-            </div> : null}
-            {post.image ? <div className="post-image-container">
-                <img className="post-image" src={post.image}></img>
-            </div> : null}
-            <div className="post-social-interact-container">
-                <div className="post-social-interact">
-                    {post.like ?  <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="fa fa-heart"></i></a>
-                    : <a onClick={() => changeLikeX(post.id)} className="post-icon"><i className="far fa-heart"></i></a>}
-                    <a className="post-icon"><i className='far fa-comment'></i></a>
-                    {post.bookmark ? <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="fas fa-bookmark"></i></a>
-                    : <a onClick={() => changeBookmarkX(post.id)} className="post-icon"><i className="far fa-bookmark"></i></a>}
-                </div>
-            </div>
-        </div>
+        <a style={post_block_style} className="post-block" onClick={openPost}>
+            {switchType()}
+            {
+            <span className="post-overlay">
+            {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
+            <p>
+            <i className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
+            </p>
+            }
+            </span>}
+        </a>
     )
 }
 

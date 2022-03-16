@@ -1,51 +1,109 @@
-from flask import Flask, request
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-import json
-
-from sqlalchemy import and_
+from flask import request
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
+app.config['SECRET_KEY'] = \
+    'SecretElectYourYieldAssotiationShare'
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['listen_addresses'] = ''
 db = SQLAlchemy(app)
 
-from models.users import Users
+# SIGNUP and LOGIN
+from signupLogin.routes.create_user import create_user
+from signupLogin.routes.check_loged import check_loged
+from signupLogin.routes.check_captcha import check_captcha
 
-@app.route("/create_user", methods=['POST', 'GET'])
+
+@app.route("/createUser", methods=['POST', 'GET'])
 def create():
-    if request.method == 'POST':
-        data = json.loads(request.data)
-        prof_name = data['profile_name']
-        res = Users.query.filter(Users.profile_name == prof_name).all()
-        if len(res) == 0:
-            user = Users(
-                profile_name = data['profile_name'],
-                profile_password = data['profile_password'],
-                email = "example@gmail.com",
-                birth_date = data['birth_date'],
-                person_name = data['person_name'],
-                person_surname = data['person_surname']
-            )
-            db.session.add(user)
-            db.session.commit()
-            return {"registered": True}
-        return {"registered": None}
+    return create_user()
 
 
 @app.route("/checkLoged", methods=['POST', 'GET'])
-def check_loged():
-    if request.method == 'POST':
-        data = json.loads(request.data)
-        name = data['profile_name']
-        password = data['profile_password']
-        res = Users.query.filter(and_(Users.profile_name == name, Users.profile_password == password)).all()
-        if len(res) > 0:
-            return {
-                "loged": True,
-                "name": res[0].person_name,
-                "surname": res[0].person_surname,
-                "birth_date": res[0].birth_date
-            }
-        return {"loged": None}
+def check_log():
+    return check_loged()
+
+
+@app.route("/captchaChecker", methods=['POST', 'GET'])
+def check_cap():
+    return check_captcha()
+
+
+# POSTS
+from posts.routes.create_post import create_post
+from posts.routes.open_post import open_post
+from posts.routes.get_user_posts import get_user_posts
+
+
+@app.route("/createPost", methods=['POST', 'GET'])
+def createPost():
+    return create_post()
+
+
+@app.route("/openPost/", methods=['POST', 'GET'])
+def openPost():
+    return open_post()
+
+
+@app.route("/get_user_posts/", methods=['POST', 'GET'])
+def getUserSPosts():
+    return get_user_posts()
+
+
+# PROFILE
+from profilePage.routes.change_avatar import change_avatar
+from profilePage.routes.delete_avatar import delete_avatar
+
+
+@app.route("/changeAvatar", methods=['POST'])
+def change_ava():
+    return change_avatar()
+
+
+@app.route("/deleteAvatar", methods=['POST'])
+def delete_ava():
+    return delete_avatar()
+
+
+# POSTS
+from posts.routes.get_media import get_media
+from posts.routes.get_posts import get_posts_main
+from posts.routes.get_post_by_media import get_post_by_media
+from posts.routes.change_like import change_like
+
+
+@app.route("/get_media/<via_id>", methods=['GET', 'POST'])
+def get_media_via_id(via_id):
+    return get_media(via_id)
+
+@app.route("/get_post_by_media/<med>", methods=['GET'])
+def get_post_by_med(med):
+    return get_post_by_media(med)
+
+@app.route("/get_posts/<count>", methods=['GET', 'POST'])
+def get_posts_box(count):
+    return get_posts_main(count)
+
+@app.route("/change_like/", methods=['GET', 'POST'])
+def change_like_state():
+    return change_like()
+
+
+# USERS
+from users.routes.find_user import find_users
+from users.routes.get_oth_user_info import get_oth_user
+
+
+@app.route("/find_users/", methods=['GET'])
+def find_us():
+    return find_users()
+
+
+@app.route("/get_oth/", methods=['GET'])
+def get_us():
+    return get_oth_user()

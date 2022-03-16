@@ -4,133 +4,257 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './style.css'
 import Axios from 'axios';
+import LoadingIcon from '../../components/Loading';
+import TextField from '@mui/material/TextField';
+import ReCAPTCHA from 'react-google-recaptcha'
+import { RegLogError } from '../../components/RegLogError';
+import { Link } from 'react-router-dom';
+import { addProfilePhoto } from '../../store/user/actions';
 
 const BoxStyles = {
-    width: '70%',
+    width: '80%',
     maxWidth: '600px',
-    border: '2px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '20px',
-    margin: '92px auto',
+    margin: '5vh auto',
     textAlign: 'center',
     padding: '24px 24px 30px'
 }
 
 const inputStyles = {
     background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(175, 175, 175, 0.3)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
-    marginTop: '24px',
-    padding: '2%'
+    marginTop: '24px'
 }
+
+const inputErrorStyles = {
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '24px'
+}
+
+const dateStyles = {
+    background: 'rgba(244, 244, 244, 0.7)',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '36px'
+}
+
+const dateErrorStyles = {
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    marginTop: '36px'
+}
+
 
 const formStyles = {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '300px',
-    margin: '0 auto',
+    margin: '0 auto'
 }
 
 const buttonsStyles = {
     background: '#AC80C1',
-    border: '1px solid rgba(175, 175, 175, 0.3)',
     borderRadius: '5px',
     color: '#FFFFFF',
-    padding: '6px',
+    padding: '4%',
+    border: '1px solid rgba(175, 175, 175, 0.1)',
+    fontSize: '0.8em',
+    margin: '0'
 }
 
 const inputInfoStyles = {
     background: 'rgba(244, 244, 244, 0.7)',
-    border: '1px solid rgba(175, 175, 175, 0.3)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
-    padding: '4%',
     width: '100%',
     margin: '0 auto',
     marginTop: '24px'
+}
+
+const inputInfoErrorStyles = {
+    background: 'rgba(172, 128, 193, 0.2)',
+    border: '1px solid transparent',
+    boxSizing: 'borderBox',
+    borderRadius: '5px',
+    width: '100%',
+    margin: '0 auto',
+    marginTop: '24px'
+}
+
+const captcha_style = {
+    transform: 'scale(0.57)',
+    WebkitTransform: 'scale(0.77)',
+    marginTop: '24px'
+}
+
+const captcha_cont = {
+    display: 'flex',
+    justifyContent: 'space-around'
 }
 
 
 export const SignUpPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ checked, setChecked ] = useState(false);
+
+    const [ regging, setRegging ] = useState(false)
+    const [ erroredInput, setErroredInput ] = useState([])
+    const [ errorWindowState, setErrorWindowState] = useState(false)
+    const [ errorWindowInfo, setErrorWindowInfo] = useState('')
+
     const [ profileName, setProfileName ] = useState('');
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ profileRepeatedPassword, setProfileRepeatedPassword ] = useState('');
     const [ personName, setUserName ] = useState('');
     const [ personSurname, setUserSurname ] = useState('');
     const [ userBirthDate, setUserBirthDate ] = useState('');
+    const [ userEmail, setEmail ] = useState('')
+    const [ captcha, setCaptcha ] = useState(true)
 
-    const create_user = () => {
-        Axios.post('/create_user', 
-                        {
-                        profile_name: profileName,
-                        profile_password: profilePassword,
-                        person_name: personName,
-                        person_surname: personSurname,
-                        birth_date: userBirthDate
-                    }
-                    )
+    const resetInfo = () => {
+        setRegging(false)
+        // setCaptcha(null)
+    }
+
+    async function create_user(){
+        let response = await Axios.post('/createUser', 
+                {
+                profile_name: profileName,
+                profile_password: profilePassword,
+                profile_repeated_password: profileRepeatedPassword,
+                profile_email: userEmail,
+                person_name: personName,
+                person_surname: personSurname,
+                birth_date: userBirthDate,
+            }
+        )
+        return response
     }
 
     const handlerLog = (arg) => {
         if(arg === 'auth'){
             navigate('/login');
         }
-        if(arg === 'signup' && profilePassword === profileRepeatedPassword){
-            create_user()
-            dispatch(setUserDataReducer({
-                loged: true, 
-                profileName: profileName, 
-                profilePassword: profilePassword, 
-                personName: personName,
-                personSurname: personSurname, 
-                userBirthDate: userBirthDate
-            }));
-            navigate('/');
+        if(captcha){
+            setRegging(true)
+            if(arg === 'signup'){
+                create_user().then((response) => {
+                    if(response.data.registered){
+                        dispatch(setUserDataReducer({
+                            loged: true,
+                            profile_id: response.data.id,
+                            profileName: profileName, 
+                            personName: personName,
+                            personSurname: personSurname, 
+                            userBirthDate: userBirthDate,
+                            email: userEmail
+                        }))
+                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
+                        navigate('/')
+                        resetInfo()
+                    }
+                    else{
+                        setErroredInput(response.data.exceptionCode)
+                        setErrorWindowInfo(response.data.exception)
+                        setErrorWindowState(true)
+                        resetInfo()
+                    }
+                }
+                )
+            }
         }
     }
 
+    const captchaOnChange = (value) => {
+        Axios.post('/captchaChecker', 
+        {
+            captcha: value
+        }).then((response) => {
+            setCaptcha(response.data.result)
+        })
+    }
+
     return(
-        <div style={BoxStyles}>
-            <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
-                fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-            }}>Регистрация</h2>
-            <div style={formStyles}>
-                <input style={inputStyles} placeholder='Имя профиля' type='name' 
-                    onChange={e => setProfileName(e.target.value)}/>
-                <input style={inputStyles} placeholder='Пароль' type='password' 
-                    onChange={e => setProfilePassword(e.target.value)}/>
-                <input style={inputStyles} placeholder='Повторите пароль' type='password' 
-                    onChange={e => setProfileRepeatedPassword(e.target.value)}/>
-                <div style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px'}}>
-                    <input style={inputInfoStyles} placeholder='Имя' type='name'
-                        onChange={e => setUserName(e.target.value)}/>
-                    <input style={inputInfoStyles} placeholder='Фамилия' type='name'
-                        onChange={e => setUserSurname(e.target.value)}/>
-                </div>
-                <form className="birthDate" style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px', marginTop: '24px'}}>
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <a style={{color: "rgba(0, 0, 0, 0.7)"}}>Дата рождения</a>
-                        <a data-tooltip={'Заполненная дата рождения помогает друзьям легче найти вас, а также подбирать для вас интересные материалы'}>🛈</a>
-                    </div>
-                        <input type="date" className="date" onChange={e => setUserBirthDate(e.target.value)}/>
-                </form>
-                <div style={{display: 'flex', alignItems: 'center', marginTop: '24px'}}>
-                    <input
-                        style={{ color: '#AC80C1', width: '11px', height: '11px'}}
-                        checked={checked}
-                        onChange={() => {setChecked(prevState => !prevState)}}
-                        id="happy" name="happy" value="yes" type="checkbox"
+        <div style={{display: 'flex'}}>
+            {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
+            {regging ? <LoadingIcon/> : 
+                <div style={BoxStyles}>
+                <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
+                    fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
+                }}>Регистрация</h2>
+                <div style={formStyles}>
+                    <TextField
+                        label="Имя профиля"
+                        type="name"
+                        variant="standard"
+                        style={erroredInput.includes(1) ? inputErrorStyles : inputStyles}
+                        onChange={e => setProfileName(e.target.value)}
                     />
-                    <label htmlFor='happy' style={{fontSize: '12px', marginLeft: '10px'}}>запомнить</label>
+                    <TextField
+                        label="Пароль"
+                        type="password"
+                        variant="standard"
+                        autoComplete='new-password'
+                        style={erroredInput.includes(2) ? inputErrorStyles : inputStyles}
+                        onChange={e => setProfilePassword(e.target.value)}
+                    />
+                    <TextField
+                        label="Повторите пароль"
+                        type="password"
+                        variant="standard"
+                        style={erroredInput.includes(3) ? inputErrorStyles : inputStyles}
+                        onChange={e => setProfileRepeatedPassword(e.target.value)}
+                    />
+                    <TextField
+                        type="email"
+                        label="Почта"
+                        variant="standard"
+                        style={erroredInput.includes(7) ? inputErrorStyles : inputStyles}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <div style={{display: 'grid', gridTemplateColumns: '3fr 3fr', gridGap: '13px'}}>
+                        <TextField
+                            label="Имя"
+                            type="name"
+                            variant="standard"
+                            style={erroredInput.includes(4) ? inputInfoErrorStyles : inputInfoStyles}
+                            onChange={e => setUserName(e.target.value)}
+                        />
+                        <TextField
+                            label="Фамилия"
+                            type="name"
+                            variant="standard"
+                            style={erroredInput.includes(5) ? inputInfoErrorStyles : inputInfoStyles}
+                            onChange={e => setUserSurname(e.target.value)}
+                        />
+                    </div>
+                    <TextField
+                        type="date"
+                        variant="standard"
+                        value={userBirthDate ? userBirthDate : ''}
+                        style={erroredInput.includes(6) ? dateErrorStyles : dateStyles}
+                        onChange={e => setUserBirthDate(e.target.value)}
+                    ></TextField>
+                    <div style={captcha_cont}>
+                        <ReCAPTCHA
+                            style={captcha_style}
+                            sitekey="6LfpJp0eAAAAAM0_wKPC5EHc4cgAxyYVRzae5lDl"
+                            onChange={captchaOnChange}
+                        />
+                    </div>
+                    <div style={{display: 'grid', gridTemplateColumns: '3fr 2fr', gridGap: '13px', marginTop: '24px'}}>
+                        <button style={buttonsStyles} onClick={() => {handlerLog('signup')}}>Зарегистрироваться</button>
+                        <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('auth')}>Вход</button>
+                    </div>
                 </div>
-                <div style={{display: 'grid', gridTemplateColumns: '3fr 2fr', gridGap: '13px', marginTop: '24px'}}>
-                    <button style={buttonsStyles} onClick={() => handlerLog('signup')}>Зарегестрироваться</button>
-                    <button style={{...buttonsStyles, background: 'rgba(172, 128, 193, 0.7)'}} onClick={() => handlerLog('auth')}>Вход</button>
-                </div>
-            </div>
+            </div>}
+            {/* <Link className='faq-icon' to='/'><i className="far fa-question-circle" style={{fontSize: '35px'}}></i></Link> */}
         </div>
     )
 }
