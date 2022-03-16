@@ -1,4 +1,3 @@
-from http import server
 from flask import request
 import json
 from app import db
@@ -6,8 +5,9 @@ import datetime
 
 from models.posts import Posts
 from models.media import Media
-
+from models.post_tags import Post_tags
 from posts.utils.get_mid_color import middle_color
+
 
 def create_post():
     if request.method == 'POST':
@@ -18,6 +18,11 @@ def create_post():
             post_type = data['type']
             content = data['body']
             proportion = data['proportion']
+            tags = data['tags'].split()
+            if not tags:
+                tags = ['SYA']
+            if len(tags) > 4:
+                tags = tags[:4]
         except Exception:
             return 'не верный формат данных'
 
@@ -57,4 +62,24 @@ def create_post():
             db.session.commit()
         except Exception as e:
             return 'server error'
+
+        try:
+            post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
+        except Exception:
+            return 'ошибка запроса'
+
+        try:
+            for tag in tags:
+                try:
+                    Post_tag = Post_tags(
+                        tag=tag,
+                        post_id=post_id
+                    )
+                    db.session.add(Post_tag)
+                except Exception as e:
+                    print(e)
+            db.session.commit()
+        except Exception:
+            return 'ошибка запроса'
+
         return 'correct'

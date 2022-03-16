@@ -1,4 +1,5 @@
 import './style.css';
+import './inputTags.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -51,7 +52,9 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
     const navigate = useNavigate();
-    const [postProportion, setPostProportion] = useState(0)
+    const [postProportion, setPostProportion] = useState(0);
+    const [tags, setTags] = useState('');
+    const [error, setError] = useState('')
 
     const [postStatus, setPostStatus] = useState({
         loading: false,
@@ -90,10 +93,23 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     );
 
     useEffect(() => {
-        
-    }, [postStatus])
+        if (tags.search('`') !== -1) {
+            setError('В теге не должен встречаться символ `')
+        } else {
+            setError('')
+        }
+    }, [tags])
+
+    const handleTagInput = (e) => {
+        setTags(e.target.value);
+    }
 
     const postData = () => {
+        if (tags.search('`') !== -1) {
+            setError('В теге не должен встречаться символ `')
+            return false
+        }
+
         let postBody = audioData;
         if (formatSelected === 2) {
             postBody = videoData;
@@ -115,6 +131,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 type: formatSelected,
                 body: postBody,
                 proportion: postProportion,
+                tags
             }
         ).then((response) => {
             setPostStatus((prevState) => ({
@@ -151,11 +168,24 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                     }
                     {
                         contentLoaded || formatSelected === 4 ? 
-                            <div style={{textAlign: 'end', marginTop: '8px'}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '24px'}}>
+                                <div className="page" style={{width: '49%'}}>
+                                    <label className="field field_v3" style={{width: '100%'}}>
+                                        <input className="field__input" placeholder="SYA1 SYA2 SYA3" 
+                                            style={{width: '100%'}} onChange={e => handleTagInput(e)}
+                                        />
+                                        <span className="field__label-wrap">
+                                            <span className="field__label">
+                                                Добавьте до 4 тегов
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
                                 <ButtonPost loading={postStatus.loading} postData={postData} />
                             </div>
                         : null
                     }
+                    <p style={{color: 'red'}}>{error}</p>
                 </div> : null}
             </div>
         </div>
