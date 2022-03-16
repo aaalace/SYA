@@ -11,4 +11,5 @@ class Posts(db.Model):
     post_time = db.Column(db.DateTime)
     middle_color = db.Column(db.Text)
     height_width_proportion = db.Column(db.Float, nullable=True)
+    tags = db.Column(db.Text, nullable=True)
 

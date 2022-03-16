@@ -71,7 +71,8 @@ export const LoginPage = () => {
                         personName: response.data.name,
                         personSurname: response.data.surname,
                         userBirthDate: response.data.birth_date,
-                        email: response.data.email
+                        email: response.data.email,
+                        tags: response.data.tags
                     }));
                     if (response.data.avatar){
                         dispatch(addProfilePhoto({avatar: response.data.avatar}))
