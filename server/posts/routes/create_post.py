@@ -56,7 +56,8 @@ def create_post():
                 likes_count=0,
                 post_time=dt,
                 middle_color=';'.join(mid_col),
-                height_width_proportion=proportion
+                height_width_proportion=proportion,
+                tags="`".join(tags) + '`'
             )
             db.session.add(post)
             db.session.commit()
