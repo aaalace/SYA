@@ -10,6 +10,7 @@ import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
 import SocialInfo from '../../components/ProfileComponents/SocialInfo';
 import MessagePanel from '../../components/ProfileComponents/MessagePanel';
+import { addInitialInfoFollSubs } from '../../store/followers/actions';
 
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
@@ -51,6 +52,7 @@ export const ProfilePage = () => {
             setPostsCount(Own.posts_id.length)
             setMainInfo(Own)
             setOwnState(true)
+
         }
     }, [params['*'], Own])
 
@@ -71,8 +73,8 @@ export const ProfilePage = () => {
                             <div style={{display: 'flex', width: '100%'}}>
                                 <div>
                                     <AvatarContainer owner={OwnState} />
-                                    <MessagePanel></MessagePanel>
-                                    <SocialInfo />
+                                    {OwnState ? null : <MessagePanel></MessagePanel>}
+                                    <SocialInfo id={MainInfo.profile_id} />
                                 </div>
                                 <div className='info-container'>
                                     <div className='main-info-container'>

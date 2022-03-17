@@ -97,13 +97,27 @@ def change_like_state():
 # USERS
 from users.routes.find_user import find_users
 from users.routes.get_oth_user_info import get_oth_user
+from users.routes.un_follow import un_follow
+from users.routes.get_followers import get_fols
+from users.routes.get_subscriptions import get_subs
 
 
 @app.route("/find_users/", methods=['GET'])
 def find_us():
     return find_users()
 
-
 @app.route("/get_oth/", methods=['GET'])
 def get_us():
     return get_oth_user()
+
+@app.route("/profile/un_follow/", methods=['POST'])
+def un_fol():
+    return un_follow()
+
+@app.route("/profile/get_followers/", methods=['GET'])
+def get_fol():
+    return get_fols()
+
+@app.route("/profile/get_subscriptions/", methods=['GET'])
+def un_sub():
+    return get_subs()
