@@ -6,11 +6,13 @@ import Axios from 'axios';
 import { mainPagePostsConnect } from '../../connect/mainPagePosts';
 import { nanoid } from 'nanoid';
 import { ButtonOpenPost } from '../../components/ButtonPost';
+import { useSelector } from 'react-redux';
 
 
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     const post_limit = 5;
     let borderColor = '#9979d4';
+    const loged = useSelector(state => state.user.loged)
 
     const getMedia = (mediaIds) => {
         for (const id in mediaIds) {
@@ -33,8 +35,9 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         }
     }, [])
 
-    // useEffect(() => {
-    // }, [media])
+    const openPost = (id) => {
+        console.log('still not opened')
+    }
 
     const switchType = (type, media_id, proportion=0, middle_color) => {
         if(middle_color){
@@ -43,7 +46,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div style={{marginTop: '2%'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%'}}>
                         <audio src={mediaConnect[media_id]} 
                             controls className='audio-player' 
                             style={{width: '100%'}}>
@@ -53,7 +56,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 2:
                 return (
-                    <div style={{marginTop: '2%'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%'}}>
                         <video controls className="hoverBrightness"
                             src={mediaConnect[media_id]}
                             style={{width: '100%', maxHeight: '60vh', borderRadius: '15px'}}>
@@ -62,7 +65,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 3:
                 return (
-                    <div style={{marginTop: '2%', boxSizing: 'inherit'}}>
+                    <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {mediaConnect[media_id] ? 
                             <img src={mediaConnect[media_id]} alt="картинка" className="hoverBrightness"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '15px'}}/>
@@ -77,7 +80,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 4:
                 return (
-                    <div className="hoverBrightness__text"
+                    <div onClick={() => openPost()} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>
@@ -93,20 +96,24 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     return ( 
         <div style={{position: 'relative'}} id="sec-1">
             <div className="background">
-
             </div>
             <div  className='main'>
                 <div className='sec'>
                     <h1 className='main__title'>A social network<br/>of associations</h1>
-                    <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
+                    {!loged ? <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
                         <Link to='/login'>
                             <Button text={'Log in'} className='main__button'/>
                         </Link>
-                    </div>
+                    </div> : null}
                 </div>
                 <div className='posts-box'>
                 {
-                    Object.values(postsConnect).map((post, index) => 
+                    Object.values(postsConnect).sort(function (post1, post2){
+                        if (post1.likes_count > post2.likes_count) {
+                            return -1;
+                        }
+                        return 0;
+                    }).map((post, index) => 
                         <div className='posts' id={`sec-${index + 2}`} key={nanoid(8)}>
                             <div className='post homepage-box'>
                                 <div className='post__top'>

@@ -67,11 +67,12 @@ export const LoginPage = () => {
                         loged: true, 
                         profile_id: response.data.id,
                         profileName: profileName, 
-                        profilePassword: profilePassword, 
                         personName: response.data.name,
                         personSurname: response.data.surname,
                         userBirthDate: response.data.birth_date,
                         email: response.data.email,
+                        liked_posts: response.data.liked_posts,
+                        posts_id: response.data.posts_id,
                         tags: response.data.tags
                     }));
                     if (response.data.avatar){

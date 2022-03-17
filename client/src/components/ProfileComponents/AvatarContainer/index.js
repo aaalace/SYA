@@ -10,7 +10,7 @@ const AvatarContainer = (props) => {
 
     let med_cont = 'image-prof-container' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
-        med_cont = 'small-image-prof-container' 
+        med_cont = 'image-prof-container-small' 
     }
 
     const [choice, setChoice] = useState(false)
@@ -19,7 +19,7 @@ const AvatarContainer = (props) => {
         objectFit: 'cover',
         display: 'flex',
         margin: '0 auto',
-        borderRadius: '20px',
+        borderRadius: '20px 5px 5px 5px',
         width: '240px',
         height: '240px',
         position: 'absolute'
@@ -44,48 +44,57 @@ const AvatarContainer = (props) => {
         color: 'rgba(255, 255, 255, 0.9)',
         fontSize: '20px'
     }
-    let icon = {
+    let icon_с = {
+        margin: '10px',
+    }
+    let icon_d   = {
         margin: '10px',
     }
 
-    if (med_cont === 'small-image-prof-container'){
-        ava_style.position = 'relative'
+    if (med_cont === 'image-prof-container-small'){
+        ava_style.borderRadius = '15px 15px 15px 15px'
         ava_style.width = '120px'
         ava_style.height = '120px'
         btn_change.width = '60px'
         btn_delete.width = '60px'
-        btn_change.height = '100px'
-        btn_delete.height = '100px'
+        btn_change.fontSize = '16px'
+        btn_delete.fontSize = '16px'
+        icon_с.margin = '7px'
+        icon_d.margin = '7px'
+        icon_d.marginLeft = '100%'
     }
 
     if (choice){
         if(med_cont === 'image-prof-container'){
             ava_style.borderRadius = '100px 5px'
+            ava_style.backgroundColor = 'white'
+            btn_change.display = 'inline-flex'
+            btn_delete.display = 'inline-flex'
         }
         else{
-            ava_style.position = 'absolute'
-            ava_style.borderRadius = '20px'
-            btn_change.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-            btn_delete.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-            btn_delete.color = 'rgba(172, 128, 193, 1)'
-            btn_delete.position = 'relative'
-            btn_change.position = 'relative'
-            btn_delete.height = '30px'
-            btn_change.height = '30px'
-            btn_change.alignItems = 'flex-end'
-            btn_change.justifyContent = 'left'
-            btn_change.borderRadius = '0 0 0 18px'
-            btn_delete.borderRadius = '0 0 18px 0'
-            btn_delete.fontSize = '18px'
-            btn_change.fontSize = '18px'
-            icon.margin = '7px'
+            ava_style.borderRadius = '70px 5px'
+            ava_style.backgroundColor = 'white'
+            btn_change.display = 'inline-flex'
+            btn_delete.display = 'inline-flex'
         }
-        ava_style.margin = '0'
-        ava_style.backgroundColor = 'white'
-
-        btn_change.display = 'inline-flex'
-
-        btn_delete.display = 'inline-flex'
+        // else{
+        //     ava_style.position = 'absolute'
+        //     ava_style.borderRadius = '20px'
+        //     btn_change.backgroundColor = 'rgba(255, 255, 255, 0.9)'
+        //     btn_delete.backgroundColor = 'rgba(255, 255, 255, 0.9)'
+        //     btn_delete.color = 'rgba(172, 128, 193, 1)'
+        //     btn_delete.position = 'relative'
+        //     btn_change.position = 'relative'
+        //     btn_delete.height = '30px'
+        //     btn_change.height = '30px'
+        //     btn_change.alignItems = 'flex-end'
+        //     btn_change.justifyContent = 'left'
+        //     btn_change.borderRadius = '0 0 0 18px'
+        //     btn_delete.borderRadius = '0 0 18px 0'
+        //     btn_delete.fontSize = '18px'
+        //     btn_change.fontSize = '18px'
+        //     icon.margin = '7px'
+        // }
     }
 
 
@@ -133,8 +142,8 @@ const AvatarContainer = (props) => {
     return (
             <div className={med_cont}>
                 <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
-                {owner ? <button onClick={changeAva} style={btn_change}><i style={icon} className="fa fa-paperclip"></i></button>: null} 
-                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon} className="fa fa-close"></i></button>: null}     
+                {owner ? <button onClick={changeAva} style={btn_change}><i style={icon_с} className="fa fa-paperclip"></i></button>: null} 
+                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} className="fa fa-close"></i></button>: null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             </div> 
     )

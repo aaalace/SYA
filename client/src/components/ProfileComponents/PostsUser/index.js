@@ -7,12 +7,14 @@ import { OpenedPost } from "../../OpenedPost";
 import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
-
+import { addUserPosts, addPostMedia } from "../../../store/profilePosts/actions";
+import { useMediaQuery } from "react-responsive";
 
 const PostsUser = (props) => {
+    const usersPosts = useSelector(state => state.profilePosts)
+    const [userPosts, setUserPosts] = useState([])
     const [media, setMedia] = useState({});
-    // const postsX = useSelector(state => state.profilePosts[73])
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch()
 
     const getMedia = (mediaIds) => {
         for (const id of mediaIds) {
@@ -21,6 +23,11 @@ const PostsUser = (props) => {
                     ...prevState,
                     [id]: res.data
                 }))
+                Axios.get(`/get_post_by_media//${id}`).then((result) => {
+                dispatch(addPostMedia({
+                    userId: props.id, post_id: result.data, id, data: res.data
+                }))
+            })
             })
         }
     }
@@ -29,27 +36,47 @@ const PostsUser = (props) => {
         Axios.get(`/get_user_posts/`, {
             params: {id: props.id}
         }).then((response) => {
-                // dispatch(addUserPosts(
-                //     {
-                        
-                //     }
-                // )
-                // )
-                setPosts(response.data.body)
-                getMedia(response.data.media_ids);
+                const object = {}
+                object[props.id] = response.data.body
+                dispatch(addUserPosts(object))
+                const posts = []
+                for (let key in response.data.body){
+                    posts.push(response.data.body[key])
+                }
+                setUserPosts(posts)
+                getMedia(response.data.media_ids)
         })
     }
 
     useEffect(() => {
-        getUserPosts();
-    }, [props.id])
+        if(props.id){
+            if(Object.keys(usersPosts).includes(props.id.toString())){
+                const posts = []
+                const media = {}
+                for (let key in usersPosts[props.id]){
+                    posts.push(usersPosts[props.id][key])
+                    media[usersPosts[props.id][key]['media_id']] = usersPosts[props.id][key]['media']
+                }
+                setUserPosts(posts)
+                setMedia(media)
+            }
+            else{
+                getUserPosts()
+            }
+        }
+    }, [props.id, usersPosts])
+
+    let cont = 'posts-container' 
+    if (useMediaQuery({ query: '(max-width: 1200px)' })){
+        cont += "-small"
+    }
 
     return (
-        <div style={{marginLeft: '20px'}}>            
+        <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
             <OpenedPost></OpenedPost>
-            <section className="posts-container">
-                {posts 
-                ? posts.map((post) => {
+            <section className={cont}>
+                {userPosts 
+                ? userPosts.map((post) => {
                     return <OnePost key={post.id} post={post} media={media}/>
                 }) 
                 : []}
@@ -79,10 +106,9 @@ const OnePost = (props) => {
         display: 'block',
         padding: '0',
         marginRight: '0',
-        marginBottom: '1vw',
-        borderRadius: '5px',
+        marginBottom: '10px',
         backgroundColor: mid_col,
-        aspectRatio: `1 / ${post.proportion}`
+        aspectRatio: `1 / ${post.proportion ? post.proportion : 1}`,
     }
 
     
@@ -91,9 +117,7 @@ const OnePost = (props) => {
             case 1:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post"
-                            src="https://cdn-icons-png.flaticon.com/512/1262/1262046.png"
-                        />
+                        <img className="image-in-post" src="../images/audio-icon.jpg"/>
                         <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
@@ -107,17 +131,13 @@ const OnePost = (props) => {
             case 3:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post"
-                            src={media[post.media_id]}
-                        />
+                        <img className="image-in-post" src={media[post.media_id]}></img>
                     </figure>
                 )
             case 4:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post"
-                            src="https://cdn-icons-png.flaticon.com/512/5116/5116509.png"
-                        />
+                        <img className="image-in-post" src="../images/text-icon.jpg"></img>
                     </figure>
                 )
             default:
@@ -125,32 +145,27 @@ const OnePost = (props) => {
         }
     }
 
-    async function openPostReq() {
-        let response = await Axios.get('/openPost/', {
-            params: {id: post.id}
-        })
-        return response
-    }
-
     const openPost = () => {
         setLoading(true)
-        openPostReq().then((response) => {
-            if(response.data.opened){
-                dispatch(setOpenPost({
-                    open: true,
-                    id: response.data.id,
-                    user_id: response.data.user_id,
-                    user_name: response.data.user_username,
-                    user_avatar: response.data.user_avatar,
-                    media: response.data.media,
-                    media_type: response.data.media_type,
-                    likes_count: response.data.likes_count,
-                    post_time: response.data.post_time
-                }))
-                setLoading(false)
-            }
-        })
+        let CurrentMedia = null
+        if(media[post.media_id]){
+            CurrentMedia = media[post.media_id]
+        }
+        console.log(post)
+        dispatch(setOpenPost({
+            open: true,
+            id: post.id,
+            user_id: post.user_id,
+            user_name: post.user_name,
+            user_avatar: post.user_avatar,
+            media: CurrentMedia,
+            media_type: post.type,
+            likes_count: post.likes_count,
+            post_time: post.post_time
+        }))
+        setLoading(false)
     }
+
     return(
         <a style={post_block_style} className="post-block" onClick={openPost}>
             {switchType()}
@@ -158,8 +173,7 @@ const OnePost = (props) => {
             <span className="post-overlay">
             {loading ? <div style={{marginBottom: '35px'}}><ReactLoading type={'bars'} color={'white'} height={40} width={80}/></div> :
             <p>
-            <span className="post-likes"><i className="far fa-heart"></i> {post.likes_count}</span>
-            <span className="post-comments">21 < i className='far fa-comment'></i></span>
+            <i className="fa fa-heart post-likeicon"></i><span className="post-likes">{post.likes_count}</span>
             </p>
             }
             </span>}

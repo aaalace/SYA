@@ -5,6 +5,7 @@ import datetime
 
 from models.posts import Posts
 from models.media import Media
+from models.users import Users
 from models.post_tags import Post_tags
 from posts.utils.get_mid_color import middle_color
 
@@ -23,7 +24,8 @@ def create_post():
                 tags = ['SYA']
             if len(tags) > 4:
                 tags = tags[:4]
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'не верный формат данных'
 
         try:
@@ -34,12 +36,14 @@ def create_post():
             )
             db.session.add(media)
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка базы'
 
         try:
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
 
         try:
@@ -66,21 +70,35 @@ def create_post():
 
         try:
             post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
-
+        
         try:
             for tag in tags:
-                try:
-                    Post_tag = Post_tags(
-                        tag=tag,
-                        post_id=post_id
-                    )
-                    db.session.add(Post_tag)
-                except Exception as e:
-                    print(e)
+                Post_tag = Post_tags(
+                    tag=tag,
+                    post_id=post_id
+                )
+                db.session.add(Post_tag)
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             return 'ошибка запроса'
 
-        return 'correct'
+        return {
+            'state': 'correct',
+            'userId': user_id,
+            'post_id': post.id,
+            'data':{
+                    'id': post.id,
+                    'user_id': user_id,
+                    'type': post_type,
+                    'media_id': post.media_id,
+                    'likes_count': post.likes_count,
+                    'post_time': post.post_time,
+                    'middle_color': post.middle_color,
+                    'proportion': post.height_width_proportion,
+                    'media': content
+                }
+        }

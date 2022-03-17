@@ -25,15 +25,16 @@
 }
 
 .create-post-box__close {
-    position: fixed;
-    top: 64px;
-    right: 12px;
-    z-index: 5;
+    position: absolute;
+    top: 10%;
+    width: 50%;
     color: white;
 }
 
 .create-post-box__close-icon {
+    position: relative;
     font-size: 52px;
+    left: 100%;
 }
 
 .create-post-content__title {
@@ -116,6 +117,8 @@
 
     .create-post-box__close {
         top: 0px;
-        color: black;
+        color: #AC80C1;
+        z-index: 5;
+        width: 80%;
     }
 }
