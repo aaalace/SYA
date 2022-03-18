@@ -16,13 +16,13 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
 
     const getMedia = (mediaIds) => {
         for (const id in mediaIds) {
-            Axios.get(`http://127.0.0.1:5000/get_media//${id}`).then((res) => {
+            Axios.get(`/get_media//${id}`).then((res) => {
                 updateMedia({[id]: res.data})
             })
         }
     }
     const getPosts = () => {
-        Axios.get(`http://127.0.0.1:5000/get_posts//${post_limit}`)
+        Axios.get(`/get_posts//${post_limit}`)
             .then((res) => {
                 setPosts(res.data);
                 getMedia(res.data.media_ids);

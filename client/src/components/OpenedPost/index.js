@@ -61,7 +61,7 @@ export const OpenedPost = () => {
     }
 
     const changeLikeX = (post_id) => {
-        if(liked_posts.includes(post_id)){
+        if(liked_posts.includes(post_id)) {
             dispatch(removeLikes(post_id))
             dispatch(changeLikesPost({'data': -1, 'userId': post.user_id, 'post_id': post_id}))
             dispatch(setLikesCurrentPost(-1))
@@ -72,8 +72,10 @@ export const OpenedPost = () => {
             dispatch(setLikesCurrentPost(1))
         }
         Axios.post('/change_like', {
-            'post_id': post_id,
-            'user_id': user_id
+            post_id,
+            user_id
+        }).then((response) => {
+            console.log(response)
         })
     }
 

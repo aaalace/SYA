@@ -1,0 +1,19 @@
+.forum__input::placeholder {
+    font-size: 0.7em;
+}
+
+.button_send {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    color: black;
+    border: none;
+    background-color: white;
+}
+
+.button_send:hover i {
+    transform: rotate(45deg);
+}

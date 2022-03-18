@@ -1,10 +1,9 @@
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask import request
 
 app = Flask(__name__)
-CORS(app)
 app.config['SECRET_KEY'] = \
     'SecretElectYourYieldAssotiationShare'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -12,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['listen_addresses'] = ''
 db = SQLAlchemy(app)
+CORS(app)
 
 # SIGNUP and LOGIN
 from signupLogin.routes.create_user import create_user
@@ -45,7 +45,7 @@ def createPost():
     return create_post()
 
 
-@app.route("/openPost/", methods=['POST', 'GET'])
+@app.route("/openPost", methods=['POST', 'GET'])
 def openPost():
     return open_post()
 
@@ -81,15 +81,18 @@ from posts.routes.change_like import change_like
 def get_media_via_id(via_id):
     return get_media(via_id)
 
+
 @app.route("/get_post_by_media/<med>", methods=['GET'])
 def get_post_by_med(med):
     return get_post_by_media(med)
+
 
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
 
-@app.route("/change_like/", methods=['GET', 'POST'])
+
+@app.route("/change_like", methods=['GET', 'POST'])
 def change_like_state():
     return change_like()
 

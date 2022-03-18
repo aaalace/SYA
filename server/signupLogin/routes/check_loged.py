@@ -1,4 +1,3 @@
-import imp
 from flask import request
 from sqlalchemy import and_
 import json
@@ -8,6 +7,7 @@ from models.users import Users
 from models.users_images import UsersImages
 from models.posts_liked import PostsLiked
 from models.posts import Posts
+
 
 def check_loged():
     if request.method == 'POST':
