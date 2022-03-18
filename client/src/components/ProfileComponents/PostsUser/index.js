@@ -73,7 +73,7 @@ const PostsUser = (props) => {
 
     return (
         <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
-            <OpenedPost></OpenedPost>
+            <OpenedPost loged={true}></OpenedPost>
             <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {

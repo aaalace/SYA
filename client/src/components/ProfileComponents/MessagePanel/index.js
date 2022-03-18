@@ -2,7 +2,8 @@ import { React, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Axios from 'axios'
 import './style.css'
-import { addFollower } from '../../../store/followers/actions'
+import { addFollower, deleteFollower } from '../../../store/followers/actions'
+import { useDispatch } from 'react-redux'
 
 function MessagePanel() {
     const followStyle = {
@@ -27,9 +28,26 @@ function MessagePanel() {
         boxShadow: '0 0 0 1px #ac80c1bd'
     }
 
-    const [followState, setFollowState] = useState(false)
+    const dispatch = useDispatch()
+
     const follower_id = useSelector(state => state.user.profile_id)
+    const follower_username = useSelector(state => state.user.profileName)
+
     const user_id = useSelector(state => state.opened_profile.profile_id)
+    const user_username = useSelector(state => state.opened_profile.profileName)
+
+    const conn_user_subscriptions = useSelector(state => state.fols_subs['subscriptions'][follower_id])
+    const conn_user_subscriptions_ids = conn_user_subscriptions.map((subs) => subs.id)
+    const [followState, setFollowState] = useState(false)
+
+    useEffect(() => {
+        if(conn_user_subscriptions_ids.includes(user_id)){
+            setFollowState(true)
+        }
+        else{
+            setFollowState(false)
+        }
+    }, [user_id])
 
     const followChange = () => {
         Axios.post('un_follow/', {
@@ -42,12 +60,12 @@ function MessagePanel() {
             }
             else{
                 if(response.data.state === 'follow'){
-                    console.log(response.data.state)
                     setFollowState(true)
-                    addFollower()
+                    dispatch(addFollower({follower_id: follower_id, follower_info: {id: follower_id, username: follower_username},
+                                            subscriptor_id: user_id, subscriptor_info: {id: user_id, username: user_username}}))
                 }
                 if(response.data.state === 'unfollow'){
-                    console.log(response.data.state)
+                    dispatch(deleteFollower({follower_id: follower_id, subscriptor_id: user_id}))
                     setFollowState(false)
                 }
             }

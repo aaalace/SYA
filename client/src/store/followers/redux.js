@@ -1,6 +1,7 @@
 import { ADD_INITIAL_FOLLOWERS } from "./actions"
 import { ADD_INITIAL_SUBSCRIPTIONS } from "./actions"
 import { ADD_FOLLOWER } from "./actions"
+import { DELETE_FOLLOWER } from "./actions"
 // const followersReducer = {
 //     subscriptions: {
 //          userId: [subscriptions ids list]
@@ -30,13 +31,21 @@ export const followersReducer = (state = initialState, action) => {
         }
         case ADD_FOLLOWER: {
             const stateCopy = {...state}
-            if (stateCopy.hasOwnProperty(action.payload.userId)) {
-                stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
-                return stateCopy;
+            if(!stateCopy['followers'].hasOwnProperty(action.payload.subscriptor_id)) {
+                stateCopy['followers'][action.payload.subscriptor_id] = []
             }
-            stateCopy[action.payload.userId] = {}
-            stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
-            return stateCopy;
+            if(!stateCopy['subscriptions'].hasOwnProperty(action.payload.follower_id)) {
+                stateCopy['subscriptions'][action.payload.follower_id] = []
+            }
+            stateCopy['followers'][action.payload.subscriptor_id].push(action.payload.follower_info);
+            stateCopy['subscriptions'][action.payload.follower_id].push(action.payload.subscriptor_info);
+            return stateCopy
+        }
+        case DELETE_FOLLOWER: {
+            const stateCopy = {...state}
+            stateCopy['followers'][action.payload.subscriptor_id] = stateCopy['followers'][action.payload.subscriptor_id].filter(sub => sub.id !== action.payload.follower_id);
+            stateCopy['subscriptions'][action.payload.follower_id] = stateCopy['subscriptions'][action.payload.follower_id].filter(fol => fol.id !== action.payload.subscriptor_id);
+            return stateCopy
         }
         default: {
             return state

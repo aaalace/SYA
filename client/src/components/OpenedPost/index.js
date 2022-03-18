@@ -9,12 +9,15 @@ import { removeLikes } from "../../store/user/actions";
 import { changeLikesPost } from "../../store/profilePosts/actions";
 import { setLikesCurrentPost } from "../../store/currentPost/actions";
 import { rollMedia } from "../../store/rolledMedia/actions";
+import { useNavigate } from 'react-router-dom';
 
-export const OpenedPost = () => {
+export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)
+
+    const navigate = useNavigate();
 
     const closePostPage = () => {
         dispatch(setClosePost())
@@ -102,17 +105,23 @@ export const OpenedPost = () => {
                                 <p className="post-icon" onClick={rollUp}><i className="fa-solid fa-down-left-and-up-right-to-center"></i></p>
                             </div>
                         : null}
+                        {props.loged ?
+                            <div className="post-social-interact">
+                                {
+                                    liked_posts.includes(post.id) ?
+                                    <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                        <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                    </p> :
+                                    <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                        <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                    </p>
+                                }
+                            </div>
+                        :
                         <div className="post-social-interact">
-                            {
-                                liked_posts.includes(post.id) ?
-                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                    <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
-                                </p> :
-                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                    <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
-                                </p>
-                            }
+                            <p onClick={() => navigate('/login')} className="post-icon">Sign in</p>
                         </div>
+                        }
                     </div>
                 </div>
             </div> : null}

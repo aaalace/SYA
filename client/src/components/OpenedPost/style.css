@@ -143,6 +143,7 @@
     justify-content: center;
     margin-right: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .post-icon {

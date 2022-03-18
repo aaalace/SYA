@@ -11,7 +11,7 @@ export const addInitialInfoFollowers = (data) => ({
 })
 
 export const addInitialInfoSubscriptions = (data) => ({
-    type: ADD_INITIAL_FOLLOWERS,
+    type: ADD_INITIAL_SUBSCRIPTIONS,
     payload: data
 })
 

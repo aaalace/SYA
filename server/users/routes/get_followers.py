@@ -15,9 +15,9 @@ def get_fols():
         for sub in subs_ids:
             user = Users.query.filter(Users.id == sub.follower_id).first()
             result[sub.id] = {
-                    'id': sub.user_id,
+                    'id': user.id,
                     'username': user.profile_name
                 }
 
-        print('fol', result)
+        print(result)
         return result

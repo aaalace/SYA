@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
     opened_profile: openedProfileReducer,
     mainPagePosts: mainPagePostsReducer,
     rolledMedia: rolledMediaRuducer,
-    followers: followersReducer
+    fols_subs: followersReducer
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -119,5 +119,5 @@ def get_fol():
     return get_fols()
 
 @app.route("/profile/get_subscriptions/", methods=['GET'])
-def un_sub():
+def get_sub():
     return get_subs()

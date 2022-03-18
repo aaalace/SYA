@@ -19,5 +19,4 @@ def get_subs():
                     'username': user.profile_name
                 }
 
-        print('sub', result)
         return result

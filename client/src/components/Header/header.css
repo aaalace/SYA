@@ -85,12 +85,24 @@
     color: #43314b;
 }
 
+.find_over_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .find_over_form {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     margin-left: 30px;
+}
+
+.dropdown-search {
+    position: fixed;
+    margin-top: 50px;
 }
 
 .find_over {
