@@ -1,57 +1,47 @@
 import { useState, useEffect } from "react"
-import io from "socket.io-client";
-import { nanoid } from "nanoid";
+import Axios from 'axios';
 import "./style.css";
+import { Routes, Route } from 'react-router-dom';
+import { Room } from "../../components/ForumComponents/Room";
+import { ForumConnect } from "../../connect/Forum";
+import { RoomsList } from "../../components/ForumComponents/RoomsList";
+import { MyLoader } from "../../components/Loader";
+import { useSelector } from "react-redux";
 
-export const ForumPage = () => {
-    let endPoint = "http://localhost:5001";
-    let socket = io.connect(`${endPoint}`);
-    const [message, setMessage] = useState("")
-    const [messages, setMessages] = useState(["Hello And Welcome"]);
+
+export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
+    const [roomsLoaded, setRoomsLoaded] = useState(Object.values(roomsConnect).length)
+    const user_id = useSelector(state => state.user.profile_id)
 
     useEffect(() => {
-        getMessages();
-    }, [messages.length]);
-
-    const getMessages = () => {
-        socket.on("message", msg => {
-            setMessages([...messages, msg]);
-        });
-    };
-
-    const handleMessage = () => {
-        if (message !== "") {
-            socket.emit("message", message);
-            setMessage("");
-        } else {
-            alert("Please Add A Message");
+        if (!roomsLoaded) {
+            getRooms()
         }
-    };
+    }, [])
+
+    const getRooms = () => {
+        Axios.get('/get_forum_rooms').then((res) => {
+            setRoomsCon(res.data)
+            setRoomsLoaded(true);
+        })
+    }
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', margin: '64px 2%'}}>
-            <div style={{
-                width: '100%', maxWidth: '1024px', minHeight: '60vh', 
-                backgroundColor: "white", borderRadius: '10px', padding: '0 8px'
-            }}>
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <input className="forum__input"
-                        type="text" placeholder="Type message" value={message}
-                        style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '1.25em'}}
-                        onChange={e => {setMessage(e.target.value)}}
-                    />
-                    <button className="button_send" onClick={() => {handleMessage()}}>
-                        <i className="fa-solid fa-paper-plane"></i>
-                    </button>
+        <div style={{display: 'grid', gridTemplateColumns: 'minmax(200px, 300px) 1fr', margin: '2%'}}>
+            <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
+                <h3 style={{marginTop: '12px'}}>Комнаты</h3>
+                <div style={{display: 'flex', flexDirection: 'column', margin: '8px'}}>
+                    {Object.values(roomsConnect).length > 0 ?
+                        <RoomsList rooms={roomsConnect}/> : 
+                        <MyLoader/>
+                    }
                 </div>
-                <hr/>
-                {messages.length > 0 &&
-                    messages.map(msg => (
-                    <div key={nanoid(8)} style={{marginTop: '8px'}}>
-                        <p>{msg}</p>
-                    </div>
-                ))}
+            </div>
+            <div style={{marginLeft: '2%', width: '100%', maxWidth: '1024px'}}>
+                <Routes>
+                    <Route path="/room/:roomId" element={<Room user_id={user_id}/>} />
+                </Routes>
             </div>
         </div>
     )
-}
+})

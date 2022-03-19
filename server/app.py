@@ -1,7 +1,6 @@
 from flask import Flask
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask import request
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = \
@@ -110,3 +109,24 @@ def find_us():
 @app.route("/get_oth/", methods=['GET'])
 def get_us():
     return get_oth_user()
+
+
+# Forum
+from Forum.routes.get_forum_rooms import get_forum_rooms_
+from Forum.routes.get_room_data import get_room_data
+from Forum.routes.add_room_new_message import add_room_new_message
+
+
+@app.route("/get_forum_rooms", methods=['GET'])
+def get_forum_rooms():
+    return get_forum_rooms_()
+
+
+@app.route("/get_room_messages/<roomId>", methods=['GET'])
+def get_room_messages(roomId):
+    return get_room_data(roomId)
+
+
+@app.route("/add_forum_message", methods=['GET', 'POST'])
+def add_room_messages():
+    return add_room_new_message()

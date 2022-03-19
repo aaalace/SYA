@@ -9,6 +9,17 @@ from models.posts import Posts
 def get_oth_user():
     if request.method == 'GET':
         data = request.args
+        user_id = data.get('user_id')
+        if user_id:
+            user = Users.query.filter(Users.id == user_id).first()
+            image = UsersImages.query.filter(UsersImages.user_id == user.id).first()
+            return {
+                "personName": user.person_name,
+                "personSurame": user.person_surname,
+                "profileName": user.profile_name,
+                "avatar": image.image,
+            }
+
         name = data.get('username')
 
         user = Users.query.filter(Users.profile_name == name).first()

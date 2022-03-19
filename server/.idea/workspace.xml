@@ -2,20 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/socket_io/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Forum/routes/add_room_new_message.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Forum/routes/get_forum_rooms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Forum/routes/get_room_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Forum_messages.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/forum_rooms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/components/OpenedPost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/OpenedPost/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/routes/Forum/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/routes/HomePage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/HomePage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/routes/Forum/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/Forum/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/routes/Forum/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/Forum/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/linecounter.json" beforeDir="false" afterPath="$PROJECT_DIR$/../out/linecounter.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/linecounter.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../out/linecounter.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/change_like.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/change_like.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/utils/get_mid_color.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/utils/get_mid_color.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signupLogin/routes/check_loged.py" beforeDir="false" afterPath="$PROJECT_DIR$/signupLogin/routes/check_loged.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signupLogin/utils/email_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/signupLogin/utils/email_checker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/create_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/get_user_posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_user_posts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/routes/get_oth_user_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/routes/get_oth_user_info.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +45,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Python.server">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
