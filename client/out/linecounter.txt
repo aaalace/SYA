@@ -1,0 +1,330 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-03-19 23:49:39
+count workspace : /Users/samilvaliahmetov/education/programming/local-github/associations/client
+total files : 87
+total code lines : 33987
+total comment lines : 119
+total blank lines : 536
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .js|           2665|             97|            294|    7.8|
+   |           .css|           1197|              8|            187|    3.5|
+   |           .jsx|            167|              8|             22|   0.49|
+   |               |             19|              2|              5|  0.056|
+   |          .json|          29750|              0|              6|     88|
+   |          .less|            173|              4|             22|   0.51|
+   |          .html|             16|              0|              0|  0.047|
+   -------------------------------------------------------------------------
+.env, code is 1, comment is 1, blank is 0.
+.gitignore, code is 18, comment is 1, blank is 5.
+package-lock.json, code is 29662, comment is 0, blank is 2.
+package.json, code is 73, comment is 0, blank is 4.
+public/favicon.ico, it is a binary file.
+public/images/audio-icon.jpg, it is a binary file.
+public/images/text-icon.jpg, it is a binary file.
+public/index.html, code is 16, comment is 0, blank is 0.
+public/manifest.json, code is 15, comment is 0, blank is 0.
+public/style.css, code is 22, comment is 1, blank is 4.
+src/App.js, code is 33, comment is 0, blank is 2.
+src/components/AllPostsWithLazyLoading/index.js, code is 9, comment is 0, blank is 3.
+src/components/ButtonPost/index.js, code is 31, comment is 0, blank is 4.
+src/components/ButtonPost/style.css, code is 49, comment is 0, blank is 6.
+src/components/Footer/.gitkeep, code is 0, comment is 0, blank is 0.
+src/components/ForumComponents/Room/index.jsx, code is 65, comment is 8, blank is 9.
+src/components/ForumComponents/RoomsList/index.jsx, code is 15, comment is 0, blank is 2.
+src/components/Header/header.css, code is 117, comment is 0, blank is 23.
+src/components/Header/index.js, code is 266, comment is 6, blank is 28.
+src/components/LiquidButton/index.js, code is 10, comment is 3, blank is 1.
+src/components/LiquidButton/style.css, code is 39, comment is 1, blank is 5.
+src/components/LiquidButtonFromNodes/index.js, code is 335, comment is 0, blank is 47.
+src/components/Loader/index.jsx, code is 18, comment is 0, blank is 1.
+src/components/Loading/index.js, code is 10, comment is 0, blank is 2.
+src/components/Loading/style.less, code is 173, comment is 4, blank is 22.
+src/components/NewPost/index.js, code is 188, comment is 2, blank is 16.
+src/components/NewPost/inputTags.css, code is 101, comment is 0, blank is 27.
+src/components/NewPost/style.css, code is 107, comment is 0, blank is 17.
+src/components/OpenedPost/index.js, code is 117, comment is 0, blank is 6.
+src/components/OpenedPost/style.css, code is 135, comment is 0, blank is 19.
+src/components/PostTypes/AudioPost/index.js, code is 66, comment is 0, blank is 7.
+src/components/PostTypes/functions.js, code is 37, comment is 0, blank is 1.
+src/components/PostTypes/ImagePost/index.js, code is 76, comment is 0, blank is 8.
+src/components/PostTypes/PostTypeError/index.js, code is 9, comment is 0, blank is 0.
+src/components/PostTypes/style.css, code is 57, comment is 0, blank is 10.
+src/components/PostTypes/TextPost/index.js, code is 10, comment is 0, blank is 1.
+src/components/PostTypes/VideoPost/index.js, code is 68, comment is 0, blank is 7.
+src/components/ProfileComponents/AvatarContainer/index.js, code is 120, comment is 18, blank is 14.
+src/components/ProfileComponents/PostsUser/index.js, code is 169, comment is 2, blank is 15.
+src/components/ProfileComponents/PostsUser/style.css, code is 86, comment is 4, blank is 13.
+src/components/ProfileComponents/SocalInfo/index.js, code is 44, comment is 0, blank is 9.
+src/components/RegLogError/index.js, code is 18, comment is 0, blank is 3.
+src/components/RegLogError/style.css, code is 43, comment is 0, blank is 3.
+src/components/UserMessage/index.jsx, code is 29, comment is 0, blank is 5.
+src/connect/Forum/index.js, code is 12, comment is 0, blank is 4.
+src/connect/Forum/roomMessagesCon.js, code is 12, comment is 0, blank is 4.
+src/connect/mainPagePosts/index.js, code is 18, comment is 0, blank is 4.
+src/connect/Users/index.js, code is 11, comment is 0, blank is 4.
+src/hocks/PrivateRoute.js, code is 4, comment is 0, blank is 1.
+src/images/seminar-art.png, it is a binary file.
+src/index.js, code is 18, comment is 2, blank is 1.
+src/middleWare/index.js, code is 4, comment is 3, blank is 0.
+src/routes/AllPostsPage/index.js, code is 8, comment is 0, blank is 2.
+src/routes/Forum/index.jsx, code is 40, comment is 0, blank is 5.
+src/routes/Forum/socket.js, code is 0, comment is 0, blank is 0.
+src/routes/Forum/style.css, code is 30, comment is 0, blank is 4.
+src/routes/HomePage/home_page.css, code is 229, comment is 1, blank is 30.
+src/routes/HomePage/index.js, code is 127, comment is 11, blank is 8.
+src/routes/LoginPage/index.js, code is 122, comment is 0, blank is 11.
+src/routes/LoginPage/style.css, code is 21, comment is 0, blank is 3.
+src/routes/ProfilePage/index.js, code is 110, comment is 0, blank is 8.
+src/routes/ProfilePage/style.css, code is 153, comment is 1, blank is 22.
+src/routes/SignUpPage/index.js, code is 238, comment is 1, blank is 21.
+src/routes/SignUpPage/style.css, code is 8, comment is 0, blank is 1.
+src/store/currentPost/actions.js, code is 15, comment is 0, blank is 3.
+src/store/currentPost/reducer.js, code is 31, comment is 0, blank is 2.
+src/store/Forum/actions.js, code is 8, comment is 0, blank is 2.
+src/store/Forum/index.js, code is 3, comment is 0, blank is 0.
+src/store/Forum/reducer.js, code is 22, comment is 0, blank is 3.
+src/store/Forum/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/index.js, code is 25, comment is 10, blank is 5.
+src/store/MainPagePosts/actions.js, code is 8, comment is 0, blank is 2.
+src/store/MainPagePosts/index.js, code is 3, comment is 0, blank is 0.
+src/store/MainPagePosts/reducer.js, code is 24, comment is 0, blank is 3.
+src/store/MainPagePosts/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/openedProfile/actions.js, code is 5, comment is 0, blank is 1.
+src/store/openedProfile/reducer.js, code is 20, comment is 0, blank is 2.
+src/store/profilePosts/actions.js, code is 30, comment is 0, blank is 9.
+src/store/profilePosts/reducer.js, code is 47, comment is 39, blank is 3.
+src/store/rolledMedia/actions.js, code is 5, comment is 0, blank is 1.
+src/store/rolledMedia/reducer.js, code is 15, comment is 0, blank is 2.
+src/store/user/actions.js, code is 33, comment is 0, blank is 8.
+src/store/user/reducer.js, code is 44, comment is 0, blank is 2.
+src/store/usersData/actions.js, code is 4, comment is 0, blank is 1.
+src/store/usersData/index.js, code is 3, comment is 0, blank is 0.
+src/store/usersData/reducer.js, code is 15, comment is 0, blank is 3.
+src/store/usersData/selectors.js, code is 1, comment is 0, blank is 0.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-03-19 23:50:05
+count workspace : /Users/samilvaliahmetov/education/programming/local-github/associations/client
+total files : 87
+total code lines : 33987
+total comment lines : 119
+total blank lines : 536
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |               |             19|              2|              5|  0.056|
+   |          .json|          29750|              0|              6|     88|
+   |            .js|           2665|             97|            294|    7.8|
+   |           .css|           1197|              8|            187|    3.5|
+   |           .jsx|            167|              8|             22|   0.49|
+   |          .html|             16|              0|              0|  0.047|
+   |          .less|            173|              4|             22|   0.51|
+   -------------------------------------------------------------------------
+.env, code is 1, comment is 1, blank is 0.
+.gitignore, code is 18, comment is 1, blank is 5.
+package-lock.json, code is 29662, comment is 0, blank is 2.
+package.json, code is 73, comment is 0, blank is 4.
+public/favicon.ico, it is a binary file.
+public/images/audio-icon.jpg, it is a binary file.
+public/images/text-icon.jpg, it is a binary file.
+public/index.html, code is 16, comment is 0, blank is 0.
+public/manifest.json, code is 15, comment is 0, blank is 0.
+public/style.css, code is 22, comment is 1, blank is 4.
+src/App.js, code is 33, comment is 0, blank is 2.
+src/components/AllPostsWithLazyLoading/index.js, code is 9, comment is 0, blank is 3.
+src/components/ButtonPost/index.js, code is 31, comment is 0, blank is 4.
+src/components/ButtonPost/style.css, code is 49, comment is 0, blank is 6.
+src/components/Footer/.gitkeep, code is 0, comment is 0, blank is 0.
+src/components/ForumComponents/Room/index.jsx, code is 65, comment is 8, blank is 9.
+src/components/ForumComponents/RoomsList/index.jsx, code is 15, comment is 0, blank is 2.
+src/components/Header/header.css, code is 117, comment is 0, blank is 23.
+src/components/Header/index.js, code is 266, comment is 6, blank is 28.
+src/components/LiquidButton/index.js, code is 10, comment is 3, blank is 1.
+src/components/LiquidButton/style.css, code is 39, comment is 1, blank is 5.
+src/components/LiquidButtonFromNodes/index.js, code is 335, comment is 0, blank is 47.
+src/components/Loader/index.jsx, code is 18, comment is 0, blank is 1.
+src/components/Loading/index.js, code is 10, comment is 0, blank is 2.
+src/components/Loading/style.less, code is 173, comment is 4, blank is 22.
+src/components/NewPost/index.js, code is 188, comment is 2, blank is 16.
+src/components/NewPost/inputTags.css, code is 101, comment is 0, blank is 27.
+src/components/NewPost/style.css, code is 107, comment is 0, blank is 17.
+src/components/OpenedPost/index.js, code is 117, comment is 0, blank is 6.
+src/components/OpenedPost/style.css, code is 135, comment is 0, blank is 19.
+src/components/PostTypes/AudioPost/index.js, code is 66, comment is 0, blank is 7.
+src/components/PostTypes/functions.js, code is 37, comment is 0, blank is 1.
+src/components/PostTypes/ImagePost/index.js, code is 76, comment is 0, blank is 8.
+src/components/PostTypes/PostTypeError/index.js, code is 9, comment is 0, blank is 0.
+src/components/PostTypes/style.css, code is 57, comment is 0, blank is 10.
+src/components/PostTypes/TextPost/index.js, code is 10, comment is 0, blank is 1.
+src/components/PostTypes/VideoPost/index.js, code is 68, comment is 0, blank is 7.
+src/components/ProfileComponents/AvatarContainer/index.js, code is 120, comment is 18, blank is 14.
+src/components/ProfileComponents/PostsUser/index.js, code is 169, comment is 2, blank is 15.
+src/components/ProfileComponents/PostsUser/style.css, code is 86, comment is 4, blank is 13.
+src/components/ProfileComponents/SocalInfo/index.js, code is 44, comment is 0, blank is 9.
+src/components/RegLogError/index.js, code is 18, comment is 0, blank is 3.
+src/components/RegLogError/style.css, code is 43, comment is 0, blank is 3.
+src/components/UserMessage/index.jsx, code is 29, comment is 0, blank is 5.
+src/connect/Forum/index.js, code is 12, comment is 0, blank is 4.
+src/connect/Forum/roomMessagesCon.js, code is 12, comment is 0, blank is 4.
+src/connect/mainPagePosts/index.js, code is 18, comment is 0, blank is 4.
+src/connect/Users/index.js, code is 11, comment is 0, blank is 4.
+src/hocks/PrivateRoute.js, code is 4, comment is 0, blank is 1.
+src/images/seminar-art.png, it is a binary file.
+src/index.js, code is 18, comment is 2, blank is 1.
+src/middleWare/index.js, code is 4, comment is 3, blank is 0.
+src/routes/AllPostsPage/index.js, code is 8, comment is 0, blank is 2.
+src/routes/Forum/index.jsx, code is 40, comment is 0, blank is 5.
+src/routes/Forum/socket.js, code is 0, comment is 0, blank is 0.
+src/routes/Forum/style.css, code is 30, comment is 0, blank is 4.
+src/routes/HomePage/home_page.css, code is 229, comment is 1, blank is 30.
+src/routes/HomePage/index.js, code is 127, comment is 11, blank is 8.
+src/routes/LoginPage/index.js, code is 122, comment is 0, blank is 11.
+src/routes/LoginPage/style.css, code is 21, comment is 0, blank is 3.
+src/routes/ProfilePage/index.js, code is 110, comment is 0, blank is 8.
+src/routes/ProfilePage/style.css, code is 153, comment is 1, blank is 22.
+src/routes/SignUpPage/index.js, code is 238, comment is 1, blank is 21.
+src/routes/SignUpPage/style.css, code is 8, comment is 0, blank is 1.
+src/store/currentPost/actions.js, code is 15, comment is 0, blank is 3.
+src/store/currentPost/reducer.js, code is 31, comment is 0, blank is 2.
+src/store/Forum/actions.js, code is 8, comment is 0, blank is 2.
+src/store/Forum/index.js, code is 3, comment is 0, blank is 0.
+src/store/Forum/reducer.js, code is 22, comment is 0, blank is 3.
+src/store/Forum/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/index.js, code is 25, comment is 10, blank is 5.
+src/store/MainPagePosts/actions.js, code is 8, comment is 0, blank is 2.
+src/store/MainPagePosts/index.js, code is 3, comment is 0, blank is 0.
+src/store/MainPagePosts/reducer.js, code is 24, comment is 0, blank is 3.
+src/store/MainPagePosts/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/openedProfile/actions.js, code is 5, comment is 0, blank is 1.
+src/store/openedProfile/reducer.js, code is 20, comment is 0, blank is 2.
+src/store/profilePosts/actions.js, code is 30, comment is 0, blank is 9.
+src/store/profilePosts/reducer.js, code is 47, comment is 39, blank is 3.
+src/store/rolledMedia/actions.js, code is 5, comment is 0, blank is 1.
+src/store/rolledMedia/reducer.js, code is 15, comment is 0, blank is 2.
+src/store/user/actions.js, code is 33, comment is 0, blank is 8.
+src/store/user/reducer.js, code is 44, comment is 0, blank is 2.
+src/store/usersData/actions.js, code is 4, comment is 0, blank is 1.
+src/store/usersData/index.js, code is 3, comment is 0, blank is 0.
+src/store/usersData/reducer.js, code is 15, comment is 0, blank is 3.
+src/store/usersData/selectors.js, code is 1, comment is 0, blank is 0.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-03-20 10:48:03
+count workspace : /Users/samilvaliahmetov/education/programming/local-github/associations/client
+total files : 87
+total code lines : 34010
+total comment lines : 119
+total blank lines : 537
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .js|           2062|             81|            236|    6.1|
+   |           .css|           1197|              8|            187|    3.5|
+   |           .jsx|            793|             24|             81|    2.3|
+   |               |             19|              2|              5|  0.056|
+   |          .json|          29750|              0|              6|     87|
+   |          .less|            173|              4|             22|   0.51|
+   |          .html|             16|              0|              0|  0.047|
+   -------------------------------------------------------------------------
+.env, code is 1, comment is 1, blank is 0.
+.gitignore, code is 18, comment is 1, blank is 5.
+package-lock.json, code is 29662, comment is 0, blank is 2.
+package.json, code is 73, comment is 0, blank is 4.
+public/favicon.ico, it is a binary file.
+public/images/audio-icon.jpg, it is a binary file.
+public/images/text-icon.jpg, it is a binary file.
+public/index.html, code is 16, comment is 0, blank is 0.
+public/manifest.json, code is 15, comment is 0, blank is 0.
+public/style.css, code is 22, comment is 1, blank is 4.
+src/App.js, code is 33, comment is 0, blank is 2.
+src/components/AllPostsWithLazyLoading/index.jsx, code is 9, comment is 0, blank is 3.
+src/components/ButtonPost/index.jsx, code is 31, comment is 0, blank is 4.
+src/components/ButtonPost/style.css, code is 49, comment is 0, blank is 6.
+src/components/Footer/.gitkeep, code is 0, comment is 0, blank is 0.
+src/components/ForumComponents/Room/index.jsx, code is 78, comment is 8, blank is 10.
+src/components/ForumComponents/RoomsList/index.jsx, code is 15, comment is 0, blank is 2.
+src/components/Header/header.css, code is 117, comment is 0, blank is 23.
+src/components/Header/index.js, code is 266, comment is 6, blank is 28.
+src/components/LiquidButton/index.jsx, code is 10, comment is 3, blank is 1.
+src/components/LiquidButton/style.css, code is 39, comment is 1, blank is 5.
+src/components/LiquidButtonFromNodes/index.js, code is 335, comment is 0, blank is 47.
+src/components/Loader/index.jsx, code is 18, comment is 0, blank is 1.
+src/components/Loading/index.js, code is 10, comment is 0, blank is 2.
+src/components/Loading/style.less, code is 173, comment is 4, blank is 22.
+src/components/NewPost/index.jsx, code is 188, comment is 2, blank is 16.
+src/components/NewPost/inputTags.css, code is 101, comment is 0, blank is 27.
+src/components/NewPost/style.css, code is 107, comment is 0, blank is 17.
+src/components/OpenedPost/index.js, code is 117, comment is 0, blank is 6.
+src/components/OpenedPost/style.css, code is 135, comment is 0, blank is 19.
+src/components/PostTypes/AudioPost/index.jsx, code is 66, comment is 0, blank is 7.
+src/components/PostTypes/functions.js, code is 37, comment is 0, blank is 1.
+src/components/PostTypes/ImagePost/index.jsx, code is 76, comment is 0, blank is 8.
+src/components/PostTypes/PostTypeError/index.jsx, code is 9, comment is 0, blank is 0.
+src/components/PostTypes/style.css, code is 57, comment is 0, blank is 10.
+src/components/PostTypes/TextPost/index.jsx, code is 10, comment is 0, blank is 1.
+src/components/PostTypes/VideoPost/index.jsx, code is 68, comment is 0, blank is 7.
+src/components/ProfileComponents/AvatarContainer/index.js, code is 120, comment is 18, blank is 14.
+src/components/ProfileComponents/PostsUser/index.js, code is 169, comment is 2, blank is 15.
+src/components/ProfileComponents/PostsUser/style.css, code is 86, comment is 4, blank is 13.
+src/components/ProfileComponents/SocalInfo/index.js, code is 44, comment is 0, blank is 9.
+src/components/RegLogError/index.js, code is 18, comment is 0, blank is 3.
+src/components/RegLogError/style.css, code is 43, comment is 0, blank is 3.
+src/components/UserMessage/index.jsx, code is 34, comment is 0, blank is 5.
+src/connect/Forum/index.js, code is 12, comment is 0, blank is 4.
+src/connect/Forum/roomMessagesCon.js, code is 14, comment is 0, blank is 4.
+src/connect/mainPagePosts/index.js, code is 18, comment is 0, blank is 4.
+src/connect/Users/index.js, code is 11, comment is 0, blank is 4.
+src/hocks/PrivateRoute.jsx, code is 4, comment is 0, blank is 1.
+src/images/seminar-art.png, it is a binary file.
+src/index.js, code is 18, comment is 2, blank is 1.
+src/middleWare/index.js, code is 4, comment is 3, blank is 0.
+src/routes/AllPostsPage/index.jsx, code is 8, comment is 0, blank is 2.
+src/routes/Forum/index.jsx, code is 42, comment is 0, blank is 5.
+src/routes/Forum/socket.js, code is 0, comment is 0, blank is 0.
+src/routes/Forum/style.css, code is 30, comment is 0, blank is 4.
+src/routes/HomePage/home_page.css, code is 229, comment is 1, blank is 30.
+src/routes/HomePage/index.jsx, code is 127, comment is 11, blank is 8.
+src/routes/LoginPage/index.js, code is 122, comment is 0, blank is 11.
+src/routes/LoginPage/style.css, code is 21, comment is 0, blank is 3.
+src/routes/ProfilePage/index.js, code is 110, comment is 0, blank is 8.
+src/routes/ProfilePage/style.css, code is 153, comment is 1, blank is 22.
+src/routes/SignUpPage/index.js, code is 238, comment is 1, blank is 21.
+src/routes/SignUpPage/style.css, code is 8, comment is 0, blank is 1.
+src/store/currentPost/actions.js, code is 15, comment is 0, blank is 3.
+src/store/currentPost/reducer.js, code is 31, comment is 0, blank is 2.
+src/store/Forum/actions.js, code is 8, comment is 0, blank is 2.
+src/store/Forum/index.js, code is 3, comment is 0, blank is 0.
+src/store/Forum/reducer.js, code is 22, comment is 0, blank is 3.
+src/store/Forum/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/index.js, code is 25, comment is 10, blank is 5.
+src/store/MainPagePosts/actions.js, code is 8, comment is 0, blank is 2.
+src/store/MainPagePosts/index.js, code is 3, comment is 0, blank is 0.
+src/store/MainPagePosts/reducer.js, code is 24, comment is 0, blank is 3.
+src/store/MainPagePosts/selectors.js, code is 2, comment is 0, blank is 0.
+src/store/openedProfile/actions.js, code is 5, comment is 0, blank is 1.
+src/store/openedProfile/reducer.js, code is 20, comment is 0, blank is 2.
+src/store/profilePosts/actions.js, code is 30, comment is 0, blank is 9.
+src/store/profilePosts/reducer.js, code is 47, comment is 39, blank is 3.
+src/store/rolledMedia/actions.js, code is 5, comment is 0, blank is 1.
+src/store/rolledMedia/reducer.js, code is 15, comment is 0, blank is 2.
+src/store/user/actions.js, code is 33, comment is 0, blank is 8.
+src/store/user/reducer.js, code is 44, comment is 0, blank is 2.
+src/store/usersData/actions.js, code is 4, comment is 0, blank is 1.
+src/store/usersData/index.js, code is 3, comment is 0, blank is 0.
+src/store/usersData/reducer.js, code is 15, comment is 0, blank is 3.
+src/store/usersData/selectors.js, code is 2, comment is 0, blank is 0.
+===============================================================================

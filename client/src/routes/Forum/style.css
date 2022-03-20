@@ -1,0 +1,34 @@
+.forum__input::placeholder {
+    font-size: 0.7em;
+}
+
+.button_send {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    color: black;
+    border: none;
+    background-color: white;
+}
+
+.button_send:hover i {
+    transform: rotate(45deg);
+}
+
+.chat-link {
+    text-decoration: none;
+    color: #AC80C1;
+    white-space: nowrap;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.chat-link:hover {
+    background-color: #f5eaea;
+    color: #43314b;
+}

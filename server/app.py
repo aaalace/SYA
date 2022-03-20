@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask import request
 
 app = Flask(__name__)
-CORS(app)
 app.config['SECRET_KEY'] = \
     'SecretElectYourYieldAssotiationShare'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -12,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['listen_addresses'] = ''
 db = SQLAlchemy(app)
+CORS(app)
 
 # SIGNUP and LOGIN
 from signupLogin.routes.create_user import create_user
@@ -45,7 +44,7 @@ def createPost():
     return create_post()
 
 
-@app.route("/openPost/", methods=['POST', 'GET'])
+@app.route("/openPost", methods=['POST', 'GET'])
 def openPost():
     return open_post()
 
@@ -85,11 +84,21 @@ def get_media_via_id(via_id):
 def get_post_by_med(med):
     return get_post_by_media(med)
 
+@app.route("/get_post_by_media/<med>", methods=['GET'])
+def get_post_by_med(med):
+    return get_post_by_media(med)
+
+
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
 
 @app.route("/change_like/", methods=['GET', 'POST'])
+def change_like_state():
+    return change_like()
+
+
+@app.route("/change_like", methods=['GET', 'POST'])
 def change_like_state():
     return change_like()
 
@@ -121,3 +130,23 @@ def get_fol():
 @app.route("/profile/get_subscriptions/", methods=['GET'])
 def get_sub():
     return get_subs()
+
+# Forum
+from Forum.routes.get_forum_rooms import get_forum_rooms_
+from Forum.routes.get_room_data import get_room_data
+from Forum.routes.add_room_new_message import add_room_new_message
+
+
+@app.route("/get_forum_rooms", methods=['GET'])
+def get_forum_rooms():
+    return get_forum_rooms_()
+
+
+@app.route("/get_room_messages/<roomId>", methods=['GET'])
+def get_room_messages(roomId):
+    return get_room_data(roomId)
+
+
+@app.route("/add_forum_message", methods=['GET', 'POST'])
+def add_room_messages():
+    return add_room_new_message()

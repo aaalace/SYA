@@ -1,4 +1,3 @@
-from turtle import pos
 from app import db
 from flask import request
 import json

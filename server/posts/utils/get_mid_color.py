@@ -3,6 +3,7 @@ from PIL import Image
 import base64
 from collections import defaultdict
 
+
 def middle_color(base):
     base = ''.join(base.split('base64')[1:])
     img = Image.open(BytesIO(base64.b64decode(base)))

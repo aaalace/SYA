@@ -20,13 +20,13 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
 
     const getMedia = (mediaIds) => {
         for (const id in mediaIds) {
-            Axios.get(`http://127.0.0.1:5000/get_media//${id}`).then((res) => {
+            Axios.get(`/get_media//${id}`).then((res) => {
                 updateMedia({[id]: res.data})
             })
         }
     }
     const getPosts = () => {
-        Axios.get(`http://127.0.0.1:5000/get_posts//${post_limit}`)
+        Axios.get(`/get_posts//${post_limit}`)
             .then((res) => {
                 setPosts(res.data);
                 getMedia(res.data.media_ids);
@@ -128,7 +128,12 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 </div>
                 <div className='posts-box'>
                 {
-                    Object.values(postsConnect).map((post, index) => 
+                    Object.values(postsConnect).sort(function (post1, post2){
+                        if (post1.likes_count > post2.likes_count) {
+                            return -1;
+                        }
+                        return 0;
+                    }).map((post, index) => 
                         <div className='posts' id={`sec-${index + 2}`} key={nanoid(8)}>
                             <div className='post homepage-box'>
                                 <div className='post__top'>
