@@ -1,5 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic|Comfortaa:400,700&subset=latin,cyrillic);
+
+html {
+    overflow-x: hidden;
+}
+
 * {
-    font-family: 'Avenir Next', monospace, sans-serif;
+    font-family: 'Comfortaa';
     margin: 0;
     padding: 0;
     box-sizing: border-box;

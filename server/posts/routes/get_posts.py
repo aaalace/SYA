@@ -1,10 +1,14 @@
+from turtle import pos
 from models.posts import Posts
+from models.users import Users
+from models.users_images import UsersImages
 
 
 def get_posts_main(count):
     res = {}
     media_ids = {}
     posts = Posts.query.order_by(Posts.likes_count.desc()).limit(count).all()
+
     for post in posts:
         res[post.id] = {
             'user_id': post.user_id,

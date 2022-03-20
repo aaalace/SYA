@@ -72,7 +72,7 @@ def create_post():
         except Exception as e:
             print(e)
             return 'ошибка запроса'
-
+        
         try:
             print(tags)
             for tag in tags:
@@ -86,4 +86,19 @@ def create_post():
             print(e)
             return 'ошибка запроса'
 
-        return 'correct'
+        return {
+            'state': 'correct',
+            'userId': user_id,
+            'post_id': post.id,
+            'data':{
+                    'id': post.id,
+                    'user_id': user_id,
+                    'type': post_type,
+                    'media_id': post.media_id,
+                    'likes_count': post.likes_count,
+                    'post_time': post.post_time,
+                    'middle_color': post.middle_color,
+                    'proportion': post.height_width_proportion,
+                    'media': content
+                }
+        }

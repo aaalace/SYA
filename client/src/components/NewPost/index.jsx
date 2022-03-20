@@ -12,6 +12,11 @@ import { ImagePost } from '../PostTypes/ImagePost';
 import { TextPost } from '../PostTypes/TextPost';
 import { PostTypeError } from '../PostTypes/PostTypeError';
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+
+import { addNewPost } from '../../store/profilePosts/actions';
+import { addUserPost } from '../../store/user/actions';
+
 
 const initialFormats = [
     {
@@ -45,12 +50,14 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [contentFormatClass, setContentFormatClass] = useState('create-post-content__format');
     const [formatSelected, setFormatSelected] = useState(false);
     const userId = useSelector((state) => state.user.profile_id);
+    const user = useSelector((state) => state.user);
 
     const [audioData, setAudioData] = useState(false);
     const [videoData, setVideoData] = useState(false);
     const [imageData, setImageData] = useState(false);
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [postProportion, setPostProportion] = useState(0);
     const [tags, setTags] = useState('');
@@ -138,8 +145,14 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 ...prevState,
                 loading: false,
             }));
-            if (response.data === 'correct') {
-                navigate('/profile');
+            // add post to profilePostsReducer
+            dispatch(addNewPost({
+                userId: response.data.userId, post_id: response.data.post_id, data: {...response.data.data, user_name: user.profileName, 
+                user_avatar: user.avatar}
+            }))
+            // add post to userReducer
+            dispatch(addUserPost(response.data.post_id))
+            if (response.data.state === 'correct') {
                 setCreatePost(false)
             }
         })
@@ -152,7 +165,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             </div>
             <div className='create-post-content'>
                 <div className='create-post-content__title'>
-                    <h4 className='create-post__title'>Создание публикации</h4>
+                    <h4 className='create-post__title'>Опубликовать</h4>
                 </div>
                 <hr/>
                 <div className={contentFormatClass}>

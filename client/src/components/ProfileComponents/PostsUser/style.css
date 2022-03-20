@@ -5,23 +5,39 @@
     grid-gap: 1vw; */
     margin: 0 auto;
     width: 80%;
-    column-count: 3;
+    column-count: 3
+}
+
+.posts-container-small {
+    margin: 0 auto;
+    width: 100%;
+    column-count: 3
+}
+
+.post-image-prof {
+    height: 100%;
+}
+
+.post-block {
+    break-inside: avoid-column;
+    max-width: 200px;
+    border-radius: 20px;
 }
 
 .image-in-post {
     width: 100%;
-    border-radius: 5px;
-    padding-bottom: -30%;
+    border-radius: 20px;
 }
 
 .video-in-post {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .post-overlay {
-    background: rgba(0,0,0, .4);
+    break-inside: avoid-column;
     position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
     left: 0;
     right: 0;
     bottom: 0;
@@ -31,27 +47,38 @@
     justify-content: center;
     color: white;
     text-align: center;
-    border-radius: 5px;
-}
-
-.post-block {
-    break-inside: avoid-column;
-}
-
-.post-block:hover .image-in-post {
-    padding: 10px
-}
-
-.post-block:hover .video-in-post {
-    padding: 10px
-}
-
-.post-block:hover .video-icon {
-    padding: 10px
+    border-radius: 20px;
 }
 
 .post-block:hover .post-overlay{
     display: flex;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .post-block:hover .post-overlay {
+        border-radius: 10px;
+        display: none;
+    }
+    .post-block {
+        border-radius: 10px;
+    }
+    .image-in-post {
+        border-radius: 10px;
+    }
+    .video-in-post {
+        border-radius: 10px;
+    }    
+    .post-block {
+        display: none;
+    }
+    .post-block:hover .post-likeicon{
+        display: none;
+    }
+    .post-block:hover .post-likes{
+        display: none;
+    }
 }
 
 .post-likes {
@@ -61,10 +88,9 @@
     display: inline-block;
 }
 
-.post-comments {
+.post-likeicon {
     font-size: 20px;
-    text-align: center;
-    display: inline-block;
+    z-index: 5;
 }
 
 .video-icon {
@@ -73,5 +99,5 @@
     top: 0;
     margin: 10px;
     color: rgb(255, 255, 255);
-    font-size: 20px;
+    font-size: 1.5em;
 }

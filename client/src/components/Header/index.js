@@ -8,6 +8,8 @@ import { logOut } from '../../store/user/actions';
 import styled from "styled-components";
 import { NewPostPage } from '../NewPost';
 import Axios from 'axios';
+import { useRef } from 'react';
+import { rollMedia } from '../../store/rolledMedia/actions';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -19,7 +21,6 @@ const HeaderBox = styled.div`
     top: 0;
     left: 0;
     z-index: 2;
-    border-radius: ${props => (props.open ? "0 0 0 20px" : "0 0 20px 20px")};
 `
 
 const LoginedBox = styled.div`
@@ -38,14 +39,11 @@ const Burger = styled.div`
     z-index: 4;
     @media (min-width: 769px) {
         display: none;
-    
 `;
 
 const MenuOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "280px" : "0px")};
-    border-left: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
-    border-top: ${props => (props.open ? "2px solid rgba(175, 175, 175, 0.3)" : "0px solid rgba(175, 175, 175, 0.3)")};
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;
@@ -80,6 +78,8 @@ const Rect3 = styled.rect`
 
 export const Header = () => {
     const loged = useSelector(state => state.user.loged);
+    const rolled_media = useSelector(state => state.rolledMedia.media)
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [toFind, setToFind] = useState('');
@@ -87,6 +87,13 @@ export const Header = () => {
     const [createPost, setCreatePost] = useState(false);
     const [finded, setFinded] = useState()
     const [finded_ids, setFindedIds] = useState([])
+
+    const [audioState, setAudioState] = useState(true) 
+    const selectedAudioRef = useRef(null)
+
+    useEffect(() => {
+        setAudioState(true)
+    }, [rolled_media])
 
     useEffect(() => {
         document.body.style.overflow = "scroll"
@@ -143,7 +150,7 @@ export const Header = () => {
 
     function findUsersByReq(text){
         Axios.get(`/find_users/`, {
-            params: {text: text}
+            params: {text}
         }).then((response) => {
                 if(Object.keys(response.data).length > 0){
                     setFinded(response.data)
@@ -163,16 +170,47 @@ export const Header = () => {
     const DataList = () => {
         return(
             <datalist id="names">
-                {finded_ids.map((id) => <option key={id} id={id}>{finded[id]}</option>)}
+                {finded_ids.map((id) => <option key={id} id={id}>
+                                            {finded[id]}
+                                        </option>)}
             </datalist>
         )
+    }
+
+    const playAudio = () => {
+        if(audioState){
+            selectedAudioRef.current.pause();
+            setAudioState(false)
+        }
+        else{
+            selectedAudioRef.current.play();
+            setAudioState(true)
+        }
+    }
+
+    const closeRolledMedia = () => {
+        setAudioState(false)
+        dispatch(rollMedia({type: null, media: null}))
     }
 
     return (
         <>
         <HeaderBox id='header' open={open}>
             <div className='container'>
-                <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
+                <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
+                    <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
+                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
+                    {rolled_media && loged ? 
+                        <a className='menu-link-audio'>
+                            <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#ac80c1ad', padding: '7px 15px', borderRadius: '10px'}}>
+                                {audioState ? 
+                                        <i className="fa-solid fa-pause" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>
+                                    : <i className="fa-solid fa-play" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>}
+                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i class="fa-solid fa-xmark"></i></i>
+                            </div>
+                        </a> 
+                    : null}
+                </div>
                 {loged ?
                 <div>
                 <Menu>
@@ -240,8 +278,11 @@ export const Header = () => {
                                 <i className="fa fa-search"/>
                             </p>
                         </div>
+                        <Link className='menu-link menu-link-bot' to='/all'>
+                            Home
+                        </Link> 
                         <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>
-                            Messages
+                            Forum
                         </Link>  
                         <p className='menu-link menu-link-bot' 
                             style={{cursor: 'pointer'}} 

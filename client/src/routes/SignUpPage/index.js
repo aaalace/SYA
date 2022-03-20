@@ -119,12 +119,6 @@ export const SignUpPage = () => {
 
     const resetInfo = () => {
         setRegging(false)
-        setProfileName('')
-        setProfileRepeatedPassword('')
-        setUserName('')
-        setUserSurname('')
-        setUserBirthDate('')
-        setEmail('')
         // setCaptcha(null)
     }
 
@@ -156,7 +150,6 @@ export const SignUpPage = () => {
                             loged: true,
                             profile_id: response.data.id,
                             profileName: profileName, 
-                            profilePassword: profilePassword, 
                             personName: personName,
                             personSurname: personSurname, 
                             userBirthDate: userBirthDate,

@@ -39,6 +39,14 @@ html {
     left: 0;
 }
 
+@media screen and (max-width: 1000px) {
+    .background {
+        background-image: none;
+        background-color: #e2ccec;
+        filter: blur(60px);
+    }
+}
+
 .sec {
     height: 100vh;
     max-height: 600px;
@@ -50,7 +58,7 @@ html {
     font-size: 72px;
     line-height: 84px;
     letter-spacing: 0.07em;
-    color: #000000;
+    color: #3b3535;
     margin: 72px 10% 0 10%;
 }
 
