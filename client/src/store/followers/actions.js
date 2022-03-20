@@ -4,6 +4,8 @@ export const ADD_FOLLOWER = 'ADD_FOLLOWER'
 export const DELETE_FOLLOWER = 'DELETE_FOLLOWER'
 export const ADD_SUBSCRIPTION = 'ADD_SUBSCRIPTION'
 export const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION'
+export const ADD_INITIAL_FOLLOWER_AVATAR = 'ADD_INITIAL_FOLLOWER_AVATAR'
+export const ADD_INITIAL_SUBSCRIPTOR_AVATAR = 'ADD_INITIAL_SUBSCRIPTOR_AVATAR'
 
 export const addInitialInfoFollowers = (data) => ({
     type: ADD_INITIAL_FOLLOWERS,
@@ -25,13 +27,12 @@ export const deleteFollower = (data) => ({
     payload: data
 })
 
-export const addSubscription = (data) => ({
-    type: ADD_SUBSCRIPTION,
+export const addInitialFollowerAvatar = (data) => ({
+    type: ADD_INITIAL_FOLLOWER_AVATAR,
     payload: data
 })
 
-export const deleteSubscription = (data) => ({
-    type: DELETE_SUBSCRIPTION,
+export const addInitialSubscriptorAvatar = (data) => ({
+    type: ADD_INITIAL_SUBSCRIPTOR_AVATAR,
     payload: data
 })
-

@@ -11,13 +11,17 @@ def get_fols():
         subs_ids = Followers.query.filter(Followers.user_id == user_id).all()
 
         result = {}
+        avatar_ids = []
         
         for sub in subs_ids:
             user = Users.query.filter(Users.id == sub.follower_id).first()
             result[sub.id] = {
                     'id': user.id,
-                    'username': user.profile_name
+                    'username': user.profile_name,
                 }
+            avatar_ids.append(user.id)
 
-        print(result)
-        return result
+        return {
+            'result': result,
+            'avatar_ids': avatar_ids
+        }

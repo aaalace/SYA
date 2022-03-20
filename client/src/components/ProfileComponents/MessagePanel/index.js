@@ -31,9 +31,11 @@ function MessagePanel() {
     const dispatch = useDispatch()
 
     const follower_id = useSelector(state => state.user.profile_id)
+    const follower_avatar = useSelector(state => state.user.avatar)
     const follower_username = useSelector(state => state.user.profileName)
 
     const user_id = useSelector(state => state.opened_profile.profile_id)
+    const user_avatar = useSelector(state => state.opened_profile.avatar)
     const user_username = useSelector(state => state.opened_profile.profileName)
 
     const conn_user_subscriptions = useSelector(state => state.fols_subs['subscriptions'][follower_id])
@@ -61,8 +63,8 @@ function MessagePanel() {
             else{
                 if(response.data.state === 'follow'){
                     setFollowState(true)
-                    dispatch(addFollower({follower_id: follower_id, follower_info: {id: follower_id, username: follower_username},
-                                            subscriptor_id: user_id, subscriptor_info: {id: user_id, username: user_username}}))
+                    dispatch(addFollower({follower_id: follower_id, follower_info: {id: follower_id, username: follower_username, avatar: follower_avatar},
+                                            subscriptor_id: user_id, subscriptor_info: {id: user_id, username: user_username, avatar: user_avatar}}))
                 }
                 if(response.data.state === 'unfollow'){
                     dispatch(deleteFollower({follower_id: follower_id, subscriptor_id: user_id}))

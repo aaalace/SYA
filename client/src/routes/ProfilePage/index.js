@@ -10,7 +10,6 @@ import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
 import SocialInfo from '../../components/ProfileComponents/SocialInfo';
 import MessagePanel from '../../components/ProfileComponents/MessagePanel';
-import { addInitialInfoFollSubs } from '../../store/followers/actions';
 
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
@@ -19,6 +18,12 @@ export const ProfilePage = () => {
     const [MainInfo, setMainInfo] = useState({})
     const [OwnState, setOwnState] = useState(true)
     const [posts_count, setPostsCount] = useState(0)
+
+    const followers = useSelector(state => state.fols_subs.followers)
+    const [followers_count, setFollowersCount] = useState(0)
+
+    const subscriptors = useSelector(state => state.fols_subs.subscriptors)
+    const [subscriptors_count, setSubscriptorsCount] = useState(0)
 
     function getUserData(par) {
         Axios.get('/get_oth/', {

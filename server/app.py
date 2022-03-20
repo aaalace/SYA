@@ -84,11 +84,6 @@ def get_media_via_id(via_id):
 def get_post_by_med(med):
     return get_post_by_media(med)
 
-@app.route("/get_post_by_media/<med>", methods=['GET'])
-def get_post_by_med(med):
-    return get_post_by_media(med)
-
-
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
@@ -97,18 +92,13 @@ def get_posts_box(count):
 def change_like_state():
     return change_like()
 
-
-@app.route("/change_like", methods=['GET', 'POST'])
-def change_like_state():
-    return change_like()
-
-
 # USERS
 from users.routes.find_user import find_users
 from users.routes.get_oth_user_info import get_oth_user
 from users.routes.un_follow import un_follow
 from users.routes.get_followers import get_fols
 from users.routes.get_subscriptions import get_subs
+from users.routes.get_person_avatar import get_person_avatar
 
 
 @app.route("/find_users/", methods=['GET'])
@@ -126,6 +116,10 @@ def un_fol():
 @app.route("/profile/get_followers/", methods=['GET'])
 def get_fol():
     return get_fols()
+    
+@app.route("/profile/get_person_avatar/", methods=['GET'])
+def get_pers_avatar():
+    return get_person_avatar()
 
 @app.route("/profile/get_subscriptions/", methods=['GET'])
 def get_sub():

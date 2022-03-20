@@ -254,7 +254,7 @@ export const Header = () => {
                     </svg>
                 </Burger>
                 </div>
-                : null}
+                : <Link className='header-link' style={{fontSize: '17px', whiteSpace: 'nowrap'}} to='/login'>Log in</Link>}
             </div>
             {loged ? 
             <MenuOpened open={open} className="tabletBar">

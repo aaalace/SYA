@@ -11,6 +11,7 @@ def get_subs():
         subs_ids = Followers.query.filter(Followers.follower_id == user_id).all()
 
         result = {}
+        avatar_ids = []
         
         for sub in subs_ids:
             user = Users.query.filter(Users.id == sub.user_id).first()
@@ -18,5 +19,9 @@ def get_subs():
                     'id': sub.user_id,
                     'username': user.profile_name
                 }
+            avatar_ids.append(user.id)
 
-        return result
+        return {
+            'result': result,
+            'avatar_ids': avatar_ids
+        }

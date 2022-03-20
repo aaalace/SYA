@@ -49,6 +49,7 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
+        console.log(usersPosts)
         if(props.id){
             if(Object.keys(usersPosts).includes(props.id.toString())){
                 const posts = []
