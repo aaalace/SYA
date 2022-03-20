@@ -27,7 +27,12 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
     }
 
     return (
-        <div style={{display: 'grid', gridTemplateColumns: 'minmax(200px, 300px) 1fr', margin: '2%'}}>
+        <>
+        <div className="background">
+        </div>
+        <div style={{ position: 'absolute', top: '64px',
+            display: 'grid', gridTemplateColumns: 'minmax(150px, 300px) 1fr', margin: '2%', width: '95%'
+        }}>
             <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                 <h3 style={{marginTop: '12px'}}>Комнаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', margin: '8px'}}>
@@ -43,5 +48,6 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
                 </Routes>
             </div>
         </div>
+        </>
     )
 })
