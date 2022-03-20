@@ -1,4 +1,4 @@
-import { SET_ROOMS, SET_ROOM_DATA } from "./actions"
+import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA } from "./actions"
 
 
 const initialState = {
@@ -17,6 +17,18 @@ export const ForumReducer = (state = initialState, action) => {
             const copyState = {...state}
             copyState.rooms[roomId].messages = {...action.payload.data}
             return copyState;
+        }
+        case SET_NEW_MESSAGE_DATA: {
+            const data = action.payload
+            const copyState = {...state}
+            const roomCopy = copyState.rooms[data.room_id]
+            copyState.rooms = {
+                ...copyState.rooms,
+                [data.room_id]: {
+                    ...roomCopy, messages: {...roomCopy.messages, [data.id]: {...data}} 
+                }
+            }
+            return copyState
         }
         default: {
             return state

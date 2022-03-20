@@ -12,7 +12,7 @@ def add_room_new_message():
 
             user_id = data['user_id']
             room_id = data['room_id']
-            message = data['message_body']
+            message = data['message']
 
             forum_message = Forum_messages(
                 user_id=user_id,

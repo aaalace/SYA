@@ -7,7 +7,7 @@ import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 
 
-export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
+export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
     const RoomName = room.name;
 
     if (!RoomName) {
@@ -16,10 +16,9 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
 
     const checkRoomMsgs = room.messages
     const [roomMessages, setRoomMessages] = useState(room.messages);
-    const [newMessages, setNewMessages] = useState({})
     // let endPoint = "http://localhost:5001";
     // let socket = io.connect(`${endPoint}`);
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         if (!checkRoomMsgs) {
@@ -41,21 +40,20 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
 
     const handleMessage = () => {
         if (message !== "" && user_id) {
-            const newMessageId = nanoid(8)
-            setNewMessages(prevState => ({...prevState, [newMessageId]: {
-                id: newMessageId, 
-                message: message,
-                room_id: roomId,
-                user_id: user_id
-            }}))
-            Axios.post('/add_forum_message',
-            {
+            const msgObject = {
                 user_id: user_id,
                 room_id: roomId,
-                message_body: message,
+                message: message,
+                id: nanoid(8),
             }
+            setNewMessage(msgObject)
+            setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
+            Axios.post('/add_forum_message', msgObject
         ).then((response) => {
             console.log(response)
+            if (response.data === 1) {
+                // setMessages(prevState => [...prevState, msgObject])
+            }
         })
             // socket.emit("message", message);
             setMessage("");

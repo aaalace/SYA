@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { getRoom } from "../../store/Forum/selectors";
-import { setRoomData } from "../../store/Forum/actions";
+import { setNewMessageData, setRoomData } from "../../store/Forum/actions";
 import { getUsers } from "../../store/usersData";
 
 
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
     setRoom(data) {
         return dispatch(setRoomData(data));
     },
+    setNewMessage(data) {
+        return dispatch(setNewMessageData(data));
+    }
 })
 
 export const ForumRoomConnect = connect(mapStateToProps, mapDispatchToProps);
