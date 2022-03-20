@@ -9,7 +9,7 @@ export const Posts = () => {
     const userTags = useSelector(state => state.user.tags);
 
     const getPosts = () => {
-        Axios.get(`artem's url`, {
+        Axios.get(`/get_posts_by_tags`, {
             userTags,
             postIds
         }).then((res) => {
