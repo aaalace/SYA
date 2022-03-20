@@ -1,4 +1,5 @@
 import { UsersConnect } from "../../connect/Users"
+import { IconLoader } from "../Loaders/icons"; 
 
 
 import Axios from 'axios';
@@ -27,7 +28,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
                     margin: '0 10px'
                 }}
                 src={user.avatar}
-            /> : null}
+            /> : <IconLoader style={{margin: '0 10px'}} />}
             <div style={{marginTop: '14px', display: 'flex', flexDirection: 'column', 
                 alignItems: current_user_id === msg.user_id ? 'flex-end' : 'flex-start'
             }}>

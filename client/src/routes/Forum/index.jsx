@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Room } from "../../components/ForumComponents/Room";
 import { ForumConnect } from "../../connect/Forum";
 import { RoomsList } from "../../components/ForumComponents/RoomsList";
-import { MyLoader } from "../../components/Loader";
+import { MyLoader } from "../../components/Loaders/rooms";
 import { useSelector } from "react-redux";
 
 

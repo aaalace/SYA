@@ -16,6 +16,7 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
 
     const checkRoomMsgs = room.messages
     const [roomMessages, setRoomMessages] = useState(room.messages);
+    const [newMessages, setNewMessages] = useState({})
     // let endPoint = "http://localhost:5001";
     // let socket = io.connect(`${endPoint}`);
     const [message, setMessage] = useState("")
@@ -39,7 +40,14 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
     };
 
     const handleMessage = () => {
-        if (message !== "") {
+        if (message !== "" && user_id) {
+            const newMessageId = nanoid(8)
+            setNewMessages(prevState => ({...prevState, [newMessageId]: {
+                id: newMessageId, 
+                message: message,
+                room_id: roomId,
+                user_id: user_id
+            }}))
             Axios.post('/add_forum_message',
             {
                 user_id: user_id,
@@ -52,7 +60,9 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
             // socket.emit("message", message);
             setMessage("");
         } else {
-            alert("Please Add A Message");
+            if (!user_id) {
+                alert("Вы не вошли в аккаунт");
+            }
         }
     };
 
@@ -60,8 +70,8 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
         <>
             <h2 style={{margin: '1%'}}>{RoomName}</h2>
             <div style={{
-                minHeight: '60vh', 
-                backgroundColor: "white", borderRadius: '10px', padding: '0 8px'
+                height: 'fit-content', 
+                backgroundColor: "white", borderRadius: '10px', padding: '0 8px 8px'
             }}>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
@@ -75,12 +85,12 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id}) => {
                 </div>
                 <hr/>
                 <div style={{marginTop: '8px'}}>
-                    <p>Hello And Welcome</p>
+                    <p>#Hello And Welcome</p>
                 </div>
-                {Object.values(roomMessages).length > 0 &&
+                {Object.values(roomMessages).length > 0 ?
                     Object.values(roomMessages).reverse().map(msg => (
                         <UserMessage msg={msg} key={nanoid(8)} userId={msg.user_id} current_user_id={user_id}/>
-                ))}
+                )) : <h3 style={{margin: '32px auto', textAlign: 'center'}}>Похоже, здесь пока пусто</h3> }
             </div>
         </>
     )
