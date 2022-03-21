@@ -9,8 +9,12 @@ def get_posts_main(count):
     posts = Posts.query.order_by(Posts.likes_count.desc()).limit(count).all()
 
     for post in posts:
+        user = Users.query.filter(Users.id == post.user_id).first()
+        img = UsersImages.query.filter(UsersImages.user_id == post.user_id).first()
         res[post.id] = {
             'user_id': post.user_id,
+            'user_name': user.profile_name,
+            'user_avatar': img.image,
             'type': post.type,
             'media_id': post.media_id,
             'likes_count': post.likes_count,

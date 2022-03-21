@@ -44,7 +44,6 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if(mediaConnect[media_id]){
             CurrentMedia = mediaConnect[media_id]
         }
-        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,
@@ -62,6 +61,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
+        const from_main = true
         switch(type) {
             case 1:
                 return (
@@ -117,7 +117,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             <div className="background">
             </div>
             <div  className='main'>
-                <OpenedPost loged={loged}></OpenedPost>
+                <OpenedPost loged={loged} from_main={true}></OpenedPost>
                 <div className='sec'>
                     <h1 className='main__title'>A social network<br/>of associations</h1>
                     {!loged ? <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>

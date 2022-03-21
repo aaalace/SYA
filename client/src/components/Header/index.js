@@ -145,6 +145,7 @@ export const Header = () => {
         }
         else{
             setFinded(null)
+            setFindedIds([])
         }
     }
 
@@ -164,13 +165,14 @@ export const Header = () => {
     }
 
     const openProfile = (username) => {
+        setFindedIds([])
         navigate(`/profile/${username}`)
     }
 
     const DataList = () => {
         return(
             <div className='dropdown-search' id="names">
-                {finded_ids.map((id) => <div key={id} id={id} onClick={() => submitHandler(finded[id])}>
+                {finded_ids.slice(0, 3).map((id) => <div className='dropdown-item' key={id} id={id} onClick={() => submitHandler(finded[id])}>
                                             {finded[id]}
                                         </div>)}
             </div>
@@ -270,18 +272,20 @@ export const Header = () => {
                                 <i className="fas fa-sign-out-alt"/>
                             </Link>
                         </div>
-                        <div className="find_over_form">
-                            <input list='names' className="find_over" 
-                                type="text" placeholder="Find" value={toFind} 
-                                onKeyDown={handleKeyDown} 
-                                onChange={event => finderChanged(event.target.value)}
-                            />
-                            {finded ? <DataList></DataList> : null}
-                            <p type='submit' className='pointer'
-                                onClick={() => submitHandler(toFind)}>
-                                <i className="fa fa-search"/>
-                            </p>
+                        <div className="find_over_container">
+                            <div className="find_over_form">
+                                <input list='names' className="find_over" 
+                                    type="text" placeholder="Find" value={toFind} 
+                                    onKeyDown={handleKeyDown} 
+                                    onChange={event => finderChanged(event.target.value)}
+                                />
+                                <p type='submit' className='pointer'
+                                    onClick={() => submitHandler(toFind)}>
+                                    <i className="fa fa-search"/>
+                                </p>
+                            </div>
                         </div>
+                        {finded ? <DataList></DataList> : null}
                         <Link className='menu-link menu-link-bot' to='/all'>
                             Home
                         </Link> 

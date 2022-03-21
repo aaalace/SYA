@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { connectAdvanced, useSelector } from "react-redux"
 import Axios from "axios"
 import { useEffect } from "react"
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import { addFollower } from "../../../store/followers/actions"
 import { addInitialFollowerAvatar } from "../../../store/followers/actions"
+import { FolSubContext } from "../../../routes/ProfilePage"
 
 function SocialInfo(props) {
     const [showState, setShowState] = useState(false)
@@ -48,12 +49,10 @@ function SocialInfo(props) {
 
     
     const loged_user_id = useSelector(state => state.user.profile_id)
-    const loged_user_username = useSelector(state => state.user.profileName)
     let opened_user_id = useSelector(state => state.opened_profile.profile_id)
     if(!opened_user_id){
         opened_user_id = loged_user_id
     }
-    const opened_user_username = useSelector(state => state.opened_profile.profileName)
 
     const [followers_onpage, setFollowersOnpage] = useState([])
     const [followers_media, setFollowersMedia] = useState({});
@@ -170,6 +169,8 @@ function SocialInfo(props) {
         navigate(`/profile/${username}`)
     }
 
+    const ContextInfo = useContext(FolSubContext)
+
     return (
         <div style={container}>
             <div style={user_rel_container}>
@@ -194,7 +195,8 @@ function SocialInfo(props) {
                         return(
                             <div key={fol.id} className="user-line">
                                 <div className="user-line-left" onClick={() => openProfile(fol.username)}>
-                                    {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <img className="user-line-img" src={null}></img>}
+                                    {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
+                                    {followers_media[fol.id] && fol.id !== loged_user_id ? <img className="user-line-img" src={followers_media[fol.id]}></img> : null}
                                     <p className="user-line-name">{fol.username}</p>
                                 </div>
                                 {fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}

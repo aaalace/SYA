@@ -79,7 +79,7 @@ export const OpenedPost = (props) => {
             'user_id': user_id
         })
     }
-
+    
     return (
         <div>
             {post.open ? 
@@ -106,8 +106,8 @@ export const OpenedPost = (props) => {
                             </div>
                         : null}
                         {props.loged ?
-                            <div className="post-social-interact">
-                                {
+                            <div className="post-social-interact" style={props.from_main ? {backgroundColor: 'transparent'} : null}>
+                                {props.from_main ? <div style={{padding: '15px', backgroundColor: 'transparent'}}></div> : 
                                     liked_posts.includes(post.id) ?
                                     <p onClick={() => changeLikeX(post.id)} className="post-icon">
                                         <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
@@ -119,7 +119,7 @@ export const OpenedPost = (props) => {
                             </div>
                         :
                         <div className="post-social-interact">
-                            <p onClick={() => navigate('/login')} className="post-icon">Sign in</p>
+                            <p onClick={() => navigate('/login')} className="post-icon">Log in</p>
                         </div>
                         }
                     </div>

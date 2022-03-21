@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import {useMediaQuery} from 'react-responsive'
@@ -11,6 +11,8 @@ import { useState } from 'react'
 import SocialInfo from '../../components/ProfileComponents/SocialInfo';
 import MessagePanel from '../../components/ProfileComponents/MessagePanel';
 
+export const FolSubContext = createContext({})
+
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
     const dispatch = useDispatch()
@@ -18,12 +20,6 @@ export const ProfilePage = () => {
     const [MainInfo, setMainInfo] = useState({})
     const [OwnState, setOwnState] = useState(true)
     const [posts_count, setPostsCount] = useState(0)
-
-    const followers = useSelector(state => state.fols_subs.followers)
-    const [followers_count, setFollowersCount] = useState(0)
-
-    const subscriptors = useSelector(state => state.fols_subs.subscriptors)
-    const [subscriptors_count, setSubscriptorsCount] = useState(0)
 
     function getUserData(par) {
         Axios.get('/get_oth/', {
@@ -57,7 +53,6 @@ export const ProfilePage = () => {
             setPostsCount(Own.posts_id.length)
             setMainInfo(Own)
             setOwnState(true)
-
         }
     }, [params['*'], Own])
 
@@ -66,6 +61,12 @@ export const ProfilePage = () => {
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
         med = "small"
         med_soc = "small-main-info-social-data"
+    }
+
+    const [socialMobile, setSocialMobile] = useState(false)
+
+    const openSocialMobile = (param) => {
+        setSocialMobile(true)
     }
 
     return (
@@ -77,9 +78,11 @@ export const ProfilePage = () => {
                         <div className='container-profile'>
                             <div style={{display: 'flex', width: '100%'}}>
                                 <div>
-                                    <AvatarContainer owner={OwnState} />
-                                    {OwnState ? null : <MessagePanel></MessagePanel>}
-                                    <SocialInfo id={MainInfo.profile_id} />
+                                    <FolSubContext.Provider value={{avatar: Own.avatar}}>
+                                        <AvatarContainer owner={OwnState} />
+                                        {OwnState ? null : <MessagePanel></MessagePanel>}
+                                        <SocialInfo id={MainInfo.profile_id} />
+                                    </FolSubContext.Provider>
                                 </div>
                                 <div className='info-container'>
                                     <div className='main-info-container'>
@@ -114,8 +117,8 @@ export const ProfilePage = () => {
                             </div>
                             <div className={med_soc}>
                                     <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
-                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
-                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
+                                    <div onClick={() => openSocialMobile('subscriptions')} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                    <div onClick={() => openSocialMobile('followers')} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
                             </div>
                             <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>
