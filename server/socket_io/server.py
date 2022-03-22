@@ -23,8 +23,6 @@ def on_join(data):
     userId = str(data['userId'])
     roomId = str(data['roomId'])
     join_room(roomId)
-    emit('sid', request.sid)
-    # emit('add', [1, 2],  to=roomId)  # broadcast=True
 
 
 @socketIo.on('message')

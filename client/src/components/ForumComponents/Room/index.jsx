@@ -8,6 +8,7 @@ import { UserMessage } from "../../UserMessage";
 
 export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id, setNewMessage}) => {
     const RoomName = room.name;
+    let prevMessageId = null;
 
     if (!RoomName) {
         return <div></div>
@@ -17,14 +18,22 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
     const [roomMessages, setRoomMessages] = useState(room.messages);
     const [message, setMessage] = useState("");
 
-    if (socket && roomId) {
-        socket.emit("join", {roomId: roomId, userId: user_id});
-    }
+    useEffect(() => {
+        if (socket && roomId) {
+            socket.emit("join", {roomId: roomId, userId: user_id});
+        }
 
-    socket.on('newMessage', data => {
-        // setNewMessage(data)
-        setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
-    })
+        socket.on('newMessage', data => {
+            console.log(data)
+            if (data.id !== prevMessageId) {
+                prevMessageId = data.id
+                setNewMessage(data)
+                setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
+            }
+        })
+
+        // return () => props.socket.off('console')
+    }, [])
 
     useEffect(() => {
         if (!checkRoomMsgs) {
