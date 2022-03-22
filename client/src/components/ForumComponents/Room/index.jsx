@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid";
-// import io from "socket.io-client";
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 
 
-export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
+export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id, setNewMessage}) => {
     const RoomName = room.name;
 
     if (!RoomName) {
@@ -16,9 +15,16 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
 
     const checkRoomMsgs = room.messages
     const [roomMessages, setRoomMessages] = useState(room.messages);
-    // let endPoint = "http://localhost:5001";
-    // let socket = io.connect(`${endPoint}`);
     const [message, setMessage] = useState("");
+
+    if (socket && roomId) {
+        socket.emit("join", {roomId: roomId, userId: user_id});
+    }
+
+    socket.on('newMessage', data => {
+        // setNewMessage(data)
+        setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
+    })
 
     useEffect(() => {
         if (!checkRoomMsgs) {
@@ -26,6 +32,9 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
         } else {
             setRoomMessages(room.messages)
         }
+        // return () => {
+        //     socket.disconnect()
+        // }
     }, [roomId]);
 
     const getMessages = () => {
@@ -33,30 +42,32 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
             setRoom({roomId, data: res.data})
             setRoomMessages({...res.data})
         })
-        // socket.on("message", msg => {
-        //     setMessages([...messages, msg]);
-        // });
     };
 
     const handleMessage = () => {
         if (message !== "" && user_id) {
+            const messageId = nanoid(8)
             const msgObject = {
                 user_id: user_id,
                 room_id: roomId,
                 message: message,
-                id: nanoid(8),
+                id: messageId,
             }
             setNewMessage(msgObject)
             setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
             Axios.post('/add_forum_message', msgObject
         ).then((response) => {
-            console.log(response)
             if (response.data === 1) {
+                socket.emit("message", {
+                    room_id: roomId,
+                    message: message,
+                    user_id: user_id,
+                    id: messageId,
+                });
                 // setMessages(prevState => [...prevState, msgObject])
             }
         })
-            // socket.emit("message", message);
-            setMessage("");
+        setMessage("");
         } else {
             if (!user_id) {
                 alert("Вы не вошли в аккаунт");
@@ -94,10 +105,10 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
     )
 })
 
-export const Room = ({user_id}) => {
+export const Room = ({user_id, socket}) => {
     let {roomId} = useParams()
     
     return (
-        <RoomCon roomId={roomId} user_id={user_id}/>
+        <RoomCon roomId={roomId} socket={socket} user_id={user_id}/>
     )
 }
