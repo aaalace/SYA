@@ -5,7 +5,7 @@ from flask import request
 import json
 
 
-def get_posts_by_tags(userTags, postIds, count=2):
+def get_posts_by_tags(userTags, postIds, count=4):
     # if request.method == 'GET':
     #     try:
     # f = open('C:/Users/Артём/Desktop/Артём/Web/socket_io/1.txt', 'w')
@@ -30,38 +30,46 @@ def get_posts_by_tags(userTags, postIds, count=2):
     for tag in set(tags):
         need_count = tags.count(tag)
         posts_with_tag = Posts.query.filter(Posts.tags.like('%' + tag + '%')).all()
-        if need_count >= len(posts_with_tag):
+        id_set = set()
+        for p in posts_with_tag:
+            id_set.add(p.id) 
+        available_count = len(id_set - set(map(int, postIds)))
+        # f.write(';'.join(set(map(str, id_set))))
+        # f.write('\n')
+        # f.write(str(available_count))
+        # f.write('\n')
+        if need_count <= available_count:
             for _ in range(need_count):
                 pot_post = chc(posts_with_tag)[0]
                 # f.write(str(pot_post.id))
                 # f.write('\n')
-                i = 0
+                # i = 0
                 while pot_post.id in postIds:
                     pot_post = chc(posts_with_tag)[0]
                     # f.write(str(pot_post.id))
                     # f.write('\n')
-                    i += 1
-                    if i >= 1000:
-                        break
-                if i >= 1000:
-                    break # костыль на случай, если постов еще не показанных пользователю мало
+                #     i += 1
+                #     if i >= 1000:
+                #         break
+                # if i >= 1000:
+                #     break # костыль на случай, если постов еще не показанных пользователю мало
                 posts_n.append(pot_post)
                 postIds.append(pot_post.id)
         else:
-            for _ in range(len(posts_with_tag)):
+            for _ in range(available_count):
                 pot_post = chc(posts_with_tag)[0]
                 # f.write(str(pot_post.id))
                 # f.write('\n')
-                i = 0
+                # i = 0
                 while pot_post.id in postIds:
                     pot_post = chc(posts_with_tag)[0]
                     # f.write(str(pot_post.id))
                     # f.write('\n')
-                    i += 1
-                    if i >= 1000:
-                        break
-                if i >= 1000:
-                    break
+                #     i += 1
+                #     if i >= 1000:
+                #         break
+                # if i >= 1000:
+                #     break
                 posts_n.append(pot_post)
                 postIds.append(pot_post.id)
             # Можно вызывать функцию заново для числа недостающих постов
