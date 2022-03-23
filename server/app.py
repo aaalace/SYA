@@ -99,8 +99,7 @@ def change_like_state():
 
 @app.route("/get_posts_by_tags", methods=['GET', 'POST'])
 def get_posts_by_t():
-    return get_posts_by_tags() # сюда я помещал аргументы снизу
-    # 'SYA`UwU`SYA`SYA`UwU', [153, 158]
+    return get_posts_by_tags()
 
 
 # USERS
