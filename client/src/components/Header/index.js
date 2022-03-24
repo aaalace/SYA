@@ -289,7 +289,7 @@ export const Header = () => {
                         <Link className='menu-link menu-link-bot' to='/all'>
                             Home
                         </Link> 
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>
+                        <Link className='menu-link menu-link-bot' to='/forum' onClick={openMenu}>
                             Forum
                         </Link>  
                         <p className='menu-link menu-link-bot' 
