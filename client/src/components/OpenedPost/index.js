@@ -10,6 +10,7 @@ import { changeLikesPost } from "../../store/profilePosts/actions";
 import { setLikesCurrentPost } from "../../store/currentPost/actions";
 import { rollMedia } from "../../store/rolledMedia/actions";
 import { useNavigate } from 'react-router-dom';
+import { PostComments } from "../PostComments";
 
 export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
@@ -123,6 +124,7 @@ export const OpenedPost = (props) => {
                         </div>
                         }
                     </div>
+                    <PostComments post_id={post.id}></PostComments>
                 </div>
             </div> : null}
         </div>

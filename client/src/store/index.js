@@ -9,6 +9,7 @@ import { rolledMediaRuducer } from './rolledMedia/reducer';
 import { followersReducer } from './followers/redux';
 import { ForumReducer } from './Forum';
 import { UsersReducer } from './usersData';
+import { commentsPostsReducer } from './commentsPosts/reducer';
 import thunk from 'redux-thunk';
 // import storage from 'redux-persist/lib/storage';
 // import persistReducer from "redux-persist/es/persistReducer";
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
     rolledMedia: rolledMediaRuducer,
     fols_subs: followersReducer,
     forum: ForumReducer,
-    users: UsersReducer
+    users: UsersReducer,
+    comments: commentsPostsReducer
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)

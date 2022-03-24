@@ -1,0 +1,116 @@
+.comments_container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.comment-write_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+    color: #AC80C1;
+    background-color: #f4f4f486;
+    border-radius: 15px;
+}
+
+.comment-write_button{
+    display: flex;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .comment-write_button:hover{
+        color: #ddd4e0;
+    }
+}
+
+.comment-write_input {
+    background-color: transparent;
+    font-size: 15px;
+    border-radius: 15px;
+    padding: 15px
+}
+
+.comment_container {
+    margin-bottom: 30px;
+}
+
+.author_data {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.author-comment-avatar {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px 20px 0;
+    border-radius: 20px;
+}
+
+.author-comment-pers-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10px 20px 0;
+}
+
+.author-comment-pers-nickname {
+    color: rgba(172, 128, 193, 1);
+    font-size: 13px;
+    margin-bottom: 1px;
+}
+
+.author-comment-datatime {
+    color: rgba(172, 128, 193, 0.6);
+    font-size: 10px;
+    word-spacing: -1px;
+}
+
+.author-comment-icons_container {
+    display: flex;
+    align-items: center;
+    margin: 0 10px 20px 0;
+    border-radius: 20px;
+    color: rgba(172, 128, 193, 1);
+}
+
+.comment-data {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px 10px 10px;
+    font-size: 13px;
+}
+
+.comment-loaded-media {
+    object-fit: cover;
+    max-width: 100px;
+    max-height: 100px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.comment-media {
+    object-fit: cover;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+.comment-text {
+    word-wrap: break-word;
+}
+
+.comment-reply-cancel {
+    position: relative;
+    float: right;
+    margin: 5px 20px 0 0;
+    font-size: 12px;
+    cursor: pointer;
+    color: #000000;
+}
