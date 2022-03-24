@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react"
 import Axios from 'axios';
 import "./style.css";
+import io from "socket.io-client";
 import { Routes, Route } from 'react-router-dom';
 import { Room } from "../../components/ForumComponents/Room";
 import { ForumConnect } from "../../connect/Forum";
 import { RoomsList } from "../../components/ForumComponents/RoomsList";
 import { MyLoader } from "../../components/Loaders/rooms";
 import { useSelector } from "react-redux";
+
+
+let endPoint = "http://localhost:5001";
+let socket = io.connect(`${endPoint}`);
 
 
 export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
@@ -27,7 +32,12 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
     }
 
     return (
-        <div style={{display: 'grid', gridTemplateColumns: 'minmax(200px, 300px) 1fr', margin: '2%'}}>
+        <>
+        <div className="background">
+        </div>
+        <div style={{ position: 'absolute', top: '64px',
+            display: 'grid', gridTemplateColumns: 'minmax(150px, 300px) 1fr', margin: '2%', width: '95%'
+        }}>
             <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                 <h3 style={{marginTop: '12px'}}>Комнаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', margin: '8px'}}>
@@ -39,9 +49,14 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
             </div>
             <div style={{marginLeft: '2%', width: '100%', maxWidth: '1024px'}}>
                 <Routes>
-                    <Route path="/room/:roomId" element={<Room user_id={user_id}/>} />
+                    <Route path="/room/:roomId" element={
+                        <Room 
+                            user_id={user_id} socket={socket}
+                        />} 
+                    />
                 </Routes>
             </div>
         </div>
+        </>
     )
 })
