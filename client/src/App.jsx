@@ -18,7 +18,11 @@ export const App = () => {
       <Header/>
       <Routes>
         <Route path="/all" element={<AllPostsPage/>} />
-        <Route path="/forum/*" element={<ForumPage/>} />
+        <Route path="/forum/*" element={
+          <PrivateRoute authed={userIsLoged}>
+            <ForumPage/>
+          </PrivateRoute>
+        } />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/profile/*" element={
