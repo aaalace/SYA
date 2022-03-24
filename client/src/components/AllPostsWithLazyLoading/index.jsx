@@ -35,8 +35,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
     }
 
     useEffect(() => {
-        console.log(postsConnect)
-        console.log(mediaConnect)
+        
     }, [])
 
     useEffect(() => {

@@ -16,7 +16,7 @@ def get_posts_by_tags():
             if postIds[0] == '':
                 postIds = []
             else:
-                postIds = list(map(int, postIds))
+                postIds = list(map(lambda x: int(x[:-1]), postIds))
             posts_n = []
             poss = dict()
             for tag in set(u_t):
@@ -49,7 +49,7 @@ def get_posts_by_tags():
                     # Можно вызывать функцию заново для числа недостающих постов
             shf(posts_n)
             for post in posts_n:
-                res[post.id] = {
+                res[f'{post.id}i'] = {
                     'user_id': post.user_id,
                     'type': post.type,
                     'media_id': post.media_id,
