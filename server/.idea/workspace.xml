@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/src/components/ForumComponents/Room/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/ForumComponents/Room/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/create_post.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socket_io/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/socket_io/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
