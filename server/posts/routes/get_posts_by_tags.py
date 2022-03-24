@@ -50,6 +50,7 @@ def get_posts_by_tags():
             shf(posts_n)
             for post in posts_n:
                 res[f'{post.id}i'] = {
+                    "id": f'{post.id}i',
                     'user_id': post.user_id,
                     'type': post.type,
                     'media_id': post.media_id,

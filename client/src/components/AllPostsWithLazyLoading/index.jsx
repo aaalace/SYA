@@ -5,28 +5,28 @@ import { allPagePostsConnect } from '../../connect/allPagePosts';
 import { nanoid } from 'nanoid';
 import { ButtonOpenPost } from '../../components/ButtonPost';
 
+const onLoadingStatement = [];
 
 export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     let borderColor = '#9979d4';
     const [postIds, setPostIds] = useState([])
     const userTags = useSelector(state => state.user.tags);
 
-    const getMedia = (mediaIds) => {
-        for (const id in mediaIds) {
-            Axios.get(`/get_media//${id}`).then((res) => {
-                updateMedia({[id]: res.data})
+    const getMedia = (mediaId) => {
+        Axios.get(`/get_media//${mediaId}`)
+            .then((res) => {
+                updateMedia({[mediaId]: res.data})
             })
         }
-    }
 
     const getPosts = () => {
         Axios.get(`/get_posts_by_tags`, {params: {
             userTags: userTags,
             postIds: postIds.join('`'),
-            count: 6
+            count: 9
         }}).then((res) => {
+            setPostIds(prevState => [...prevState, ...Object.keys(res.data.body)])
             setPosts(res.data);
-            getMedia(res.data.media_ids);
         })
     }
 
@@ -34,15 +34,26 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
         console.log('still not opened')
     }
 
+    const handleScroll = (e) => {
+        if (window.innerHeight + e.target.documentElement.scrollTop + 300 >= 
+            e.target.documentElement.scrollHeight) 
+        {
+            getPosts()
+        }
+    }
+
     useEffect(() => {
-        
+        getPosts()
+        window.addEventListener('scroll', handleScroll)
     }, [])
 
-    useEffect(() => {
-        setPostIds(Object.keys(postsConnect))
-    }, [postsConnect])
-
     const switchType = (type, media_id, proportion=0, middle_color) => {
+        if (!mediaConnect[media_id] && !onLoadingStatement.includes(media_id)) {
+            console.log(media_id)
+            console.log(onLoadingStatement)
+            onLoadingStatement.push(media_id)
+            getMedia(media_id)
+        }
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
@@ -70,7 +81,8 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                 return (
                     <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {mediaConnect[media_id] ? 
-                            <img src={mediaConnect[media_id]} alt="картинка" className="hoverBrightness"
+                            <img src={mediaConnect[media_id]} 
+                                alt="картинка" className="hoverBrightness"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '15px'}}/>
                             : 
                             <div className="hoverBrightness"
@@ -87,7 +99,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>
-                            {mediaConnect[media_id]}
+                            {mediaConnect[media_id] ? mediaConnect[media_id] : 'Loading...'}
                         </div>
                     </div>
                 )
@@ -97,21 +109,18 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
     }
 
     return (
-        <>
-        <div>
-            <button onClick={() => {getPosts()}}>load posts</button>
-        </div>
+        <div style={{marginBottom: '64px'}}>
         <div className='posts-box'>
-                {
-                    Object.values(postsConnect).map((post) => 
-                        <div className='posts' key={nanoid(8)}>
-                            <div className='post homepage-box'>
-                                {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
-                            </div>
+            {
+                postsConnect.map((post) => 
+                    <div className='posts' key={nanoid(8)}>
+                        <div className='post homepage-box'>
+                            {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
                         </div>
-                    )
-                }
-                </div>
-        </>
+                    </div>
+                )
+            }
+            </div>
+        </div>
     )
 })
