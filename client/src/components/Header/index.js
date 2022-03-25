@@ -43,7 +43,7 @@ const Burger = styled.div`
 
 const MenuOpened = styled.div`
     position: absolute;
-    width: ${props => (props.open ? "280px" : "0px")};
+    width: ${props => (props.open ? "50%" : "0px")};
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;

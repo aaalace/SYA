@@ -15,10 +15,6 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.app {
-    font-size: 15px;
-}
-
 body {
     background-color: #F4F4F4;
     margin-top: 64px;
