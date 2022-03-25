@@ -5,6 +5,7 @@ import { currentPostReduser } from './currentPost/reducer';
 import { openedProfileReducer } from './openedProfile/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { mainPagePostsReducer } from './MainPagePosts';
+import { AllPagePostsReducer } from './AllPostsPage/reducer';
 import { rolledMediaRuducer } from './rolledMedia/reducer';
 import { ForumReducer } from './Forum';
 import { UsersReducer } from './usersData';
@@ -25,9 +26,10 @@ const rootReducer = combineReducers({
     current_post: currentPostReduser,
     opened_profile: openedProfileReducer,
     mainPagePosts: mainPagePostsReducer,
+    allPagePosts: AllPagePostsReducer,
     rolledMedia: rolledMediaRuducer,
     forum: ForumReducer,
-    users: UsersReducer
+    users: UsersReducer,
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -10,12 +10,14 @@ def get_posts_by_tags():
         try:
             res = {}
             media_ids = {}
-            data = json.loads(request.data)
-            userTags = data['userTags']
-            postIds = data['postIds']
-            count = 5
+            u_t = request.args.get('userTags', 'SYA').split('`')
+            postIds = request.args.get('postIds', '1`2').split('`')
+            count = int(request.args.get('count', 6))
+            if postIds[0] == '':
+                postIds = []
+            else:
+                postIds = list(map(lambda x: int(x[:-1]), postIds))
             posts_n = []
-            u_t = userTags.split('`')
             poss = dict()
             for tag in set(u_t):
                 poss[tag] = u_t.count(tag)
@@ -47,7 +49,8 @@ def get_posts_by_tags():
                     # Можно вызывать функцию заново для числа недостающих постов
             shf(posts_n)
             for post in posts_n:
-                res[post.id] = {
+                res[f'{post.id}i'] = {
+                    "id": f'{post.id}i',
                     'user_id': post.user_id,
                     'type': post.type,
                     'media_id': post.media_id,

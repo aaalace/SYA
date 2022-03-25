@@ -2,6 +2,7 @@ import './style.css';
 import './inputTags.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { ButtonPost } from '../ButtonPost/index';
 import Axios from 'axios';
@@ -153,9 +154,9 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             // add post to userReducer
             dispatch(addUserPost(response.data.post_id))
             if (response.data.state === 'correct') {
-                setCreatePost(false)
             }
         })
+        setCreatePost(false)
     }
 
     return (
