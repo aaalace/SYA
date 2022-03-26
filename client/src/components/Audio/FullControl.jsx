@@ -156,7 +156,7 @@ class FullControl extends React.Component {
             <label style={{width: '100%', display: 'flex', alignItems: 'center'}}>
                 <input value={this.state.volume} min="0" max="1" step='.01' id="range" 
                     oninput="rangenumber.value=value" type="range"
-                    style={{marginRight: '12px', flexGrow: 1}} 
+                    style={{marginRight: '8px', flexGrow: 1}} 
                     onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
                 />
                 <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900}}>
@@ -165,7 +165,8 @@ class FullControl extends React.Component {
             </label>
         </div>
         <div className='seek'>
-          <label style={{display: 'flex', alignItems: 'center'}}>
+          <label style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
             {this.state.playing ?
             <i className="fa-solid fa-pause audio-icon" onClick={this.handleToggle}
                 style={{ cursor: 'pointer',
@@ -176,21 +177,24 @@ class FullControl extends React.Component {
                 style={{ cursor: 'pointer',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
             }}/> }
-            <p style={{width: '50px', color: '#6A5ACD', fontWeight: 900}}>
+            <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
                 {this.convertSeconds(this.state.seek.toFixed())}
             </p>
+            </div>
+            <div style={{display: 'flex', alignItems: 'center'}}>
             <input min="0" step='.01' id="range" 
                 oninput="rangenumber.value=value" type="range"
-                style={{marginRight: '12px', flexGrow: 1}} 
+                style={{marginRight: '8px', flexGrow: 1}} 
                 max={this.state.duration ? this.state.duration.toFixed(2) : 0}
                 value={this.state.seek}
                 onChange={this.handleSeekingChange}
                 onMouseDown={this.handleMouseDownSeek}
                 onMouseUp={this.handleMouseUpSeek}
             />
-            <p style={{color: '#6A5ACD', fontWeight: 900}}>
+            <p style={{color: '#6A5ACD', fontWeight: 900, width: '38px'}}>
                 {(this.state.duration) ? this.convertSeconds(this.state.duration.toFixed()) : '00:00'}
             </p>
+            </div>
           </label>
         </div>
       </div>

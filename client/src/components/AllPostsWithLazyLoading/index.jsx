@@ -5,6 +5,7 @@ import { allPagePostsConnect } from '../../connect/allPagePosts';
 import Masonry from 'react-masonry-css';
 import './masonry.css';
 import { AudioPost } from '../Audio/audio';
+import Video from '../Video/component';
 
 const onLoadingStatement = [];
 let postIds = [];
@@ -95,9 +96,9 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
             case 2:
                 return (
                     <div onClick={() => openPost()} style={{
-                        marginTop: '2%',
-                        borderRadius: '15px'
+                        marginTop: '2%'
                     }}>
+                        {/* <Video src={mediaConnect[media_id]}/> */}
                         <video controls className="hoverBrightness"
                             src={mediaConnect[media_id]}
                             style={{width: '100%', borderRadius: '15px'}}>
