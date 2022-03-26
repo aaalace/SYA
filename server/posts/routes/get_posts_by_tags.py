@@ -60,7 +60,6 @@ def get_posts_by_tags():
                         posts_n.append(pot_post)
                         postIds.append(pot_post.id)
                     # Можно вызывать функцию заново для числа недостающих постов
-            print(posts_n)
             shf(posts_n)
             for post in posts_n:
                 res[f'{post.id}i'] = {
