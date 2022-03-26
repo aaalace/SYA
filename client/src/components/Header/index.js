@@ -209,7 +209,7 @@ export const Header = () => {
                                 {audioState ? 
                                         <i className="fa-solid fa-pause" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>
                                     : <i className="fa-solid fa-play" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>}
-                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i class="fa-solid fa-xmark"></i></i>
+                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i className="fa-solid fa-xmark"></i></i>
                             </div>
                         </a> 
                     : null}

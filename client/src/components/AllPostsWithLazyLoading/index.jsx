@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { allPagePostsConnect } from '../../connect/allPagePosts';
 import Masonry from 'react-masonry-css';
 import './masonry.css';
+import { AudioPost } from '../Audio/audio';
 
 const onLoadingStatement = [];
 let postIds = [];
@@ -75,16 +76,10 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
             case 1:
                 return (
                     <div onClick={() => openPost()} style={{
-                        marginTop: '2%', aspectRatio: '1 / 1', 
+                        marginTop: '2%', border: `2px solid ${borderColor}`, borderRadius: '15px',
                         display: 'flex', flexDirection: 'column'
                     }}>
-                        <audio src={mediaConnect[media_id]} 
-                            controls className='audio-player' 
-                            style={{
-                                width: '100%', flexGrow: 1, 
-                                border: `2px solid ${borderColor}`, borderRadius: '15px'
-                            }}>
-                        </audio>
+                        <AudioPost src={mediaConnect[media_id]} />
                         <button className="cta" style={{
                             width: '100%', alignItems: 'center', marginTop: '6px',
                             display: 'flex', justifyContent: 'flex-start'

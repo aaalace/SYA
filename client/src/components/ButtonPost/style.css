@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     display: block;
-    border-radius: 50px;
+    border-radius: 15px;
     background: inherit;
     width: 45px;
     height: 45px;
@@ -34,7 +34,7 @@
     top: 0;
     left: 0;
     display: block;
-    border-radius: 50px;
+    border-radius: 15px;
     background: inherit;
     width: 45px;
     height: 45px;
