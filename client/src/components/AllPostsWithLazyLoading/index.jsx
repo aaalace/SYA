@@ -20,6 +20,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
         }
 
     const getPosts = () => {
+        console.log(postIds.join('`'))
         Axios.get(`/get_posts_by_tags`, {params: {
             userTags: userTags,
             postIds: postIds.join('`'),
