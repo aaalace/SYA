@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/src/components/AllPostsWithLazyLoading/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/AllPostsWithLazyLoading/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/ForumComponents/Room/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/ForumComponents/Room/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/routes/Forum/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/Forum/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socket_io/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/socket_io/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

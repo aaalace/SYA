@@ -1,8 +1,7 @@
 import Axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { allPagePostsConnect } from '../../connect/allPagePosts';
-import { nanoid } from 'nanoid';
 import Masonry from 'react-masonry-css';
 import './masonry.css';
 
@@ -36,7 +35,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
             count: 18
         }}).then((res) => {
             loadPosts = true;
-            postIds = [...postIds, ...Object.keys(res.data.body)]
+            postIds = [...postIds, ...res.data.post_ids]
             setPosts(res.data);
         })
     }
@@ -159,7 +158,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                 columnClassName="my-masonry-grid_column">
                 {
                     postsConnect.map((post) => 
-                        <div key={nanoid(8)}>
+                        <div key={post.id}>
                             {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
                         </div>
                     )

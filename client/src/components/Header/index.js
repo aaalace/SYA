@@ -51,22 +51,25 @@ const MenuOpened = styled.div`
     right: 0;
 `;
 
-const Rect1 = styled.rect`
+export const Rect1 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
-const Rect2 = styled.rect`
+export const Rect2 = styled.rect`
     width: 100px;
     height: 13px;
     opacity: ${props => (props.open ? "0%" : "100%")};
+    fill: #AC80C1;
 `
 
-const Rect3 = styled.rect`
+export const Rect3 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
 // const CastomP = styled.p`

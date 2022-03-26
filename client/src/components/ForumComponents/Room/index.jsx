@@ -6,7 +6,7 @@ import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 
 
-export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id, setNewMessage}) => {
+export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => { // socket
     const RoomName = room.name;
     let prevMessageId = null;
 
@@ -19,18 +19,18 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        if (socket && roomId) {
-            socket.emit("join", {roomId: roomId, userId: user_id});
-        }
+        // if (socket && roomId) {
+        //     socket.emit("join", {roomId: roomId, userId: user_id});
+        // }
 
-        socket.on('newMessage', data => {
-            console.log(data)
-            if (data.id !== prevMessageId) {
-                prevMessageId = data.id
-                setNewMessage(data)
-                setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
-            }
-        })
+        // socket.on('newMessage', data => {
+        //     console.log(data)
+        //     if (data.id !== prevMessageId) {
+        //         prevMessageId = data.id
+        //         setNewMessage(data)
+        //         setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
+        //     }
+        // })
 
         // return () => props.socket.off('console')
     }, [])
@@ -67,12 +67,12 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
             Axios.post('/add_forum_message', msgObject
         ).then((response) => {
             if (response.data === 1) {
-                socket.emit("message", {
-                    room_id: roomId,
-                    message: message,
-                    user_id: user_id,
-                    id: messageId,
-                });
+                // socket.emit("message", {
+                //     room_id: roomId,
+                //     message: message,
+                //     user_id: user_id,
+                //     id: messageId,
+                // });
                 // setMessages(prevState => [...prevState, msgObject])
             }
         })

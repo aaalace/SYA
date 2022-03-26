@@ -16,7 +16,7 @@ app.host = 'localhost'
 def handleConnection():
     pass
     # print(request.args.get('roomId'))
-2
+
 
 @socketIo.on('join')
 def on_join(data):

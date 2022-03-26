@@ -1,8 +1,6 @@
 import './style.css';
 import './inputTags.css';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { ButtonPost } from '../ButtonPost/index';
 import Axios from 'axios';
@@ -17,6 +15,9 @@ import { useDispatch } from 'react-redux';
 
 import { addNewPost } from '../../store/profilePosts/actions';
 import { addUserPost } from '../../store/user/actions';
+import { Rect1 } from '../Header';
+import { Rect2 } from '../Header';
+import { Rect3 } from '../Header';
 
 
 const initialFormats = [
@@ -59,7 +60,6 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
     const [textData, setTextData] = useState(false);
     const [contentLoaded, setContentLoaded] = useState(false);
     const dispatch = useDispatch()
-    const navigate = useNavigate();
     const [postProportion, setPostProportion] = useState(0);
     const [tags, setTags] = useState('');
     const [error, setError] = useState('')
@@ -161,14 +161,18 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
 
     return (
         <div className='create-post-box'>
-            <div className='create-post-box__close' onClick={closeCreatingPage}>
-                <i className="create-post-box__close-icon fa-solid fa-xmark"/>
-            </div>
             <div className='create-post-content'>
-                <div className='create-post-content__title'>
+                <div className='create-post-content__title' 
+                    style={{
+                        display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+                    }}>
                     <h4 className='create-post__title'>Опубликовать</h4>
+                    <svg viewBox="0 0 100 80" width="40" height="40" onClick={closeCreatingPage}>
+                        <Rect1 rx="7" ry="7" open={true}/>
+                        <Rect2 y="30" rx="7" ry="7" open={true}/>
+                        <Rect3 y="60" rx="7" ry="7" open={true}/>
+                    </svg>
                 </div>
-                <hr/>
                 <div className={contentFormatClass}>
                     {renderFormats}
                 </div>

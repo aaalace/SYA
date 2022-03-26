@@ -11,7 +11,7 @@ export const AllPagePostsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_ALL_PAGE_POSTS: {
             return { ...state, 
-                posts: [...state.posts, ...Object.values(action.payload.body)],
+                posts: [...state.posts, ...action.payload.body],
                 media: {...state.media, ...action.payload.media_ids},
             }
         }

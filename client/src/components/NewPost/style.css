@@ -35,6 +35,7 @@
     position: relative;
     font-size: 52px;
     left: 100%;
+    top: 10px;
 }
 
 .create-post-content__title {
@@ -101,6 +102,10 @@
 
 .video-player {
     flex-grow: 1;
+}
+
+.format-audio {
+    margin-top: 12px;
 }
 
 @keyframes selected-format {
