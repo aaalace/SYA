@@ -49,6 +49,8 @@ function SocialInfo(props) {
 
     
     const loged_user_id = useSelector(state => state.user.profile_id)
+    const loged_user_username = useSelector(state => state.user.profileName)
+    const loged_user_avatar = useSelector(state => state.user.avatar)
     let opened_user_id = useSelector(state => state.opened_profile.profile_id)
     if(!opened_user_id){
         opened_user_id = loged_user_id
@@ -87,6 +89,7 @@ function SocialInfo(props) {
             for (let key in response.data.result){
                 res.push(response.data.result[key])
             }
+
             setFollowersOnpage(res)
             dispatch(addInitialInfoFollowers({userId: props.id, data: res}))
             getFollowersAvatars(response.data.avatar_ids)
@@ -116,6 +119,7 @@ function SocialInfo(props) {
             for (let key in response.data.result){
                 res.push(response.data.result[key])
             }
+
             setSubscriptionsOnpage(res)
             dispatch(addInitialInfoSubscriptions({userId: props.id, data: res}))
             getSubscriptionsAvatars(response.data.avatar_ids)
@@ -126,6 +130,14 @@ function SocialInfo(props) {
         if(props.id){
             if(Object.keys(followers).includes(props.id.toString())){
                 if(followers[props.id]){
+                    console.log('asd')
+                    followers[props.id].sort(function(a, b) {
+                        let keyA = a.username,
+                        keyB = b.username;
+                        if (keyA < keyB) return -1;
+                        if (keyA > keyB) return 1;
+                        return 0;
+                    });
                     setFollowersOnpage(followers[props.id])
                     let res = {}
                     for(const el of followers[props.id]){
@@ -144,6 +156,13 @@ function SocialInfo(props) {
         if(props.id){
             if(Object.keys(subscriptions).includes(props.id.toString())){
                 if(subscriptions[props.id]){
+                    subscriptions[props.id].sort(function(a, b) {
+                        let keyA = a.username,
+                        keyB = b.username;
+                        if (keyA < keyB) return -1;
+                        if (keyA > keyB) return 1;
+                        return 0;
+                    });
                     setSubscriptionsOnpage(subscriptions[props.id])
                     let res = {}
                     for(const el of subscriptions[props.id]){
@@ -167,6 +186,24 @@ function SocialInfo(props) {
 
     const openProfile = (username) => {
         navigate(`/profile/${username}`)
+    }
+
+    const follow = (obj) => {
+        console.log('un_follow')
+        Axios.post('un_follow/', {
+            follower_id: loged_user_id,
+            user_id: obj.follower_id,
+            follow: true
+        }).then((response) => {
+            if(response.data !== 'error'){
+                dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, avatar: loged_user_avatar},
+                                        subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, avatar: obj.user_avatar}}))
+                setSubscriptionsIds(subscriptions_ids.concat([obj.follower_id]))
+                let res = {...subscriptions_media}
+                res[obj.follower_id] = obj.user_avatar
+                setSubscriptionsMedia(res)
+            }
+        })
     }
 
     const ContextInfo = useContext(FolSubContext)
@@ -196,10 +233,13 @@ function SocialInfo(props) {
                             <div key={fol.id} className="user-line">
                                 <div className="user-line-left" onClick={() => openProfile(fol.username)}>
                                     {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
-                                    {followers_media[fol.id] && fol.id !== loged_user_id ? <img className="user-line-img" src={followers_media[fol.id]}></img> : null}
+                                    {fol.id !== loged_user_id ? 
+                                    <div>
+                                        {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <img className="user-line-img" src={null}></img>}
+                                    </div> : null}
                                     <p className="user-line-name">{fol.username}</p>
                                 </div>
-                                {fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
+                                {followers_media[fol.id] && fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub" onClick={() => follow({follower_id: fol.id, user_username: fol.username, user_avatar: followers_media[fol.id]})}><i className="fa fa-user-plus"></i></a> : null}
                             </div>
                         )
                     }) 

@@ -4,6 +4,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     background: rgba(0,0,0,.5);
@@ -33,6 +34,7 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {

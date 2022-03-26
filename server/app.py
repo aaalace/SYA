@@ -144,3 +144,15 @@ def get_room_messages(roomId):
 @app.route("/add_forum_message", methods=['GET', 'POST'])
 def add_room_messages():
     return add_room_new_message()
+
+# COMMENTS AND REPLIES
+from Comments_replies.routes.add_comment import add_comment
+from Comments_replies.routes.add_reply import add_reply
+
+@app.route("/addComment", methods=['POST'])
+def add_com():
+    return add_comment()
+
+@app.route("/addReply", methods=['POST'])
+def add_rep():
+    return add_reply()

@@ -12,6 +12,7 @@ def get_posts_main(count):
         user = Users.query.filter(Users.id == post.user_id).first()
         img = UsersImages.query.filter(UsersImages.user_id == post.user_id).first()
         res[post.id] = {
+            'id': post.id,
             'user_id': post.user_id,
             'user_name': user.profile_name,
             'user_avatar': img.image,

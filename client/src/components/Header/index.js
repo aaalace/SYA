@@ -78,6 +78,7 @@ const Rect3 = styled.rect`
 
 export const Header = () => {
     const loged = useSelector(state => state.user.loged);
+    const loged_username = useSelector(state => state.user.profileName);
     const rolled_media = useSelector(state => state.rolledMedia.media)
 
     const navigate = useNavigate();
@@ -235,7 +236,7 @@ export const Header = () => {
                         <div className="find_over_container">
                             <div className="find_over_form">
                                 <input list='names' className="find_over" 
-                                    type="text" placeholder="Find" value={toFind} 
+                                    type="text" placeholder="Find people" value={toFind} 
                                     onKeyDown={handleKeyDown} 
                                     onChange={event => finderChanged(event.target.value)}
                                 />
@@ -275,7 +276,7 @@ export const Header = () => {
                         <div className="find_over_container">
                             <div className="find_over_form">
                                 <input list='names' className="find_over" 
-                                    type="text" placeholder="Find" value={toFind} 
+                                    type="text" placeholder="Find people" value={toFind} 
                                     onKeyDown={handleKeyDown} 
                                     onChange={event => finderChanged(event.target.value)}
                                 />

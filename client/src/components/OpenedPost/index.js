@@ -124,7 +124,7 @@ export const OpenedPost = (props) => {
                         </div>
                         }
                     </div>
-                    <PostComments post_id={post.id}></PostComments>
+                    {props.loged ? <PostComments post_id={post.id}></PostComments> : null}
                 </div>
             </div> : null}
         </div>
