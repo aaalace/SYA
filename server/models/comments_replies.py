@@ -11,3 +11,4 @@ class CommentsReplies(db.Model):
     text = db.Column(db.Text)
     proportion = db.Column(db.Float)
     middle_color = db.Column(db.Text)
+    type = db.Column(db.Integer)

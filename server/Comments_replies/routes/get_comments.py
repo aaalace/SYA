@@ -22,6 +22,7 @@ def get_comments(post_id):
                 reply_res['replyDate'] = reply.date
                 reply_res['proportion'] = reply.proportion
                 reply_res['middle_color'] = reply.middle_color
+                reply_res['type'] = reply.type
                 reply_res['authorData'] = {
                     'authorId': reply.user_id,
                     'authorNickname': reply_author_nickname
@@ -45,6 +46,8 @@ def get_comments(post_id):
             comment_res['replyComments'] = reply_comments_res
             comment_res['proportion'] = comment.proportion
             comment_res['middle_color'] = comment.middle_color
+            comment_res['likes_count'] = comment.likes_count
+            comment_res['type'] = comment.type
 
             media_ids.append(comment.media_id)
             comments_res.append(comment_res)

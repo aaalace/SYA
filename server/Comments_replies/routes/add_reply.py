@@ -16,11 +16,12 @@ def add_reply():
             media_body = data['media']
             text = data['text']
             proportion = data['proportion']
+            typeX = data['type']
             
             dt = datetime.datetime.now()
             
             media = Media(
-                type = 3,
+                type = typeX,
                 user_id = user_id,
                 media_body = media_body
             )
@@ -29,7 +30,9 @@ def add_reply():
             
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
 
-            mid_col = middle_color(media_body)
+            mid_col = ''
+            if typeX == 3:
+                mid_col = middle_color(media_body)
 
             reply = CommentsReplies(
                 user_id = user_id,
@@ -38,7 +41,8 @@ def add_reply():
                 date = dt,
                 text = text,
                 proportion = proportion,
-                middle_color = ';'.join(mid_col)
+                middle_color = ';'.join(mid_col),
+                type = typeX
             )
             db.session.add(reply)
             db.session.commit()

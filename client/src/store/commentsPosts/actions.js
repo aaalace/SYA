@@ -5,6 +5,7 @@ export const ADD_INITIAL_COMMENTS = 'ADD_INITIAL_COMMENTS'
 export const ADD_INITIAL_COMMENT_MEDIA = 'ADD_INITIAL_COMMENT_MEDIA'
 export const ADD_INITIAL_REPLY_MEDIA = 'ADD_INITIAL_REPLY_MEDIA'
 export const CHANGE_REPLIES_OPENED = 'CHANGE_REPLIES_OPENED'
+export const CHANGE_COMMENT_LIKE = 'CHANGE_COMMENT_LIKE'
 
 export const addComment = (data) => ({
     type: ADD_COMMENT,
@@ -38,5 +39,10 @@ export const addInitialReplyMedia = (data) => ({
 
 export const changeRepliesOpened = (data) => ({
     type: CHANGE_REPLIES_OPENED,
+    payload: data,
+})
+
+export const changeCommentLike = (data) => ({
+    type: CHANGE_COMMENT_LIKE,
     payload: data,
 })

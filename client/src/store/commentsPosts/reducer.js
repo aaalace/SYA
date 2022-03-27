@@ -5,19 +5,20 @@ import { ADD_INITIAL_COMMENTS } from "./actions"
 import { ADD_INITIAL_COMMENT_MEDIA } from "./actions"
 import { ADD_INITIAL_REPLY_MEDIA } from "./actions"
 import { CHANGE_REPLIES_OPENED } from "./actions"
+import { CHANGE_COMMENT_LIKE } from "./actions"
 
 // commentsPosts = {
 //      avatars: {userId: userAvatar},   
 //      postId: [
 //           {
-//              commentId: commentId, text: commentText, media: commentMedia, commentDate: commentDate, 
+//              commentId: commentId, text: commentText, media: commentMedia, commentDate: commentDate, proportion, middle_color, likes_count
 //              authorData: {
 //              authorId: authorId, 
 //              authorNickname: authorNickname
 //              }
 //              replyComments: [
 //              {
-//                 replyid: replyId, text: commentText, media: commentMedia, replyDate: replyDate, 
+//                 replyid: replyId, text: commentText, media: commentMedia, replyDate: replyDate, middle_color, proportion
 //                 authorData: {
 //                 authorId: authorId, 
 //                 authorNickname: authorNickname
@@ -90,6 +91,17 @@ export const commentsPostsReducer = (state = initialState, action) => {
             let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
             let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
             finded_comment[0]['repliesOpened'] = action.payload.opened
+            cleared_comments.push(finded_comment[0])
+            stateCopy[action.payload.post_id] = cleared_comments
+            return stateCopy
+        }
+        case CHANGE_COMMENT_LIKE: {
+            const stateCopy = {...state}
+            console.log(stateCopy)
+            console.log(action.payload)
+            let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
+            let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
+            finded_comment[0]['likes_count'] += action.payload.like
             cleared_comments.push(finded_comment[0])
             stateCopy[action.payload.post_id] = cleared_comments
             return stateCopy

@@ -153,6 +153,7 @@ from Comments_replies.routes.get_commentator_avatar import get_commentator_avata
 from Comments_replies.routes.get_comment_media import get_comment_media
 from Comments_replies.routes.get_reply_media import get_reply_media
 from Comments_replies.routes.get_replier_avatar import get_replier_avatar
+from Comments_replies.routes.change_like import change_comment_like
 
 @app.route("/addComment", methods=['POST'])
 def add_com():
@@ -181,3 +182,7 @@ def get_rep_media(reply_id):
 @app.route("/getReplierAvatar/<reply_id>", methods=['GET'])
 def get_repl_avatar(reply_id):
     return get_replier_avatar(reply_id)
+
+@app.route("/changeCommentLike/", methods=['POST'])
+def change_com_like():
+    return change_comment_like()

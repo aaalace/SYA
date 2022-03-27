@@ -8,6 +8,7 @@ from models.users import Users
 from models.users_images import UsersImages
 from models.posts_liked import PostsLiked
 from models.posts import Posts
+from models.comments_liked import CommentsLiked
 
 def check_loged():
     if request.method == 'POST':
@@ -28,6 +29,11 @@ def check_loged():
             for el in liked_posts:
                 liked_res.append(el.post_id)
 
+            liked_comments = CommentsLiked.query.filter(CommentsLiked.user_id == user.id).all()
+            liked_comm_res = []
+            for el in liked_comments:
+                liked_comm_res.append(el.comment_id)
+
             posts = Posts.query.filter(Posts.user_id == user.id).all()
             posts_id = []
             for el in posts:
@@ -44,7 +50,8 @@ def check_loged():
                     "avatar": image.image,
                     "liked_posts": liked_res,
                     "posts_id": posts_id,
-                    "tags": user.tags
+                    "tags": user.tags,
+                    "liked_comments": liked_comm_res
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}
