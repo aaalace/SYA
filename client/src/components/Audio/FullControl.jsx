@@ -140,60 +140,60 @@ class FullControl extends React.Component {
                 }}/>
             </label>
             <label>
-                    {this.state.mute ? 
-                        <i className="fa-solid fa-volume-xmark audio-icon" style={{
-                            margin: '8px', fontSize: '26px', color: '#AC80C1', width: '40px'
-                        }}/>
-                        : <i className="fa-solid fa-volume-high audio-icon" style={{
-                            margin: '8px', fontSize: '26px', color: '#AC80C1', width: '40px'
-                        }}/>
-                    }
-                    <input type='checkbox' checked={this.state.mute} 
-                        onChange={this.handleMuteToggle} style={{
-                            display: 'none'
-                    }}/>
-                </label>
-            <label style={{width: '100%', display: 'flex', alignItems: 'center'}}>
+              {this.state.mute ? 
+                <i className="fa-solid fa-volume-xmark audio-icon" style={{
+                  margin: '8px', fontSize: '26px', color: '#AC80C1'
+                }}/>
+                : <i className="fa-solid fa-volume-high audio-icon" style={{
+                  margin: '8px', fontSize: '26px', color: '#AC80C1'
+                }}/>
+              }
+              <input type='checkbox' checked={this.state.mute} 
+                onChange={this.handleMuteToggle} style={{
+                  display: 'none'
+              }}/>
+            </label>
+            <div style={{display: 'flex', alignItems: 'center'}}>
                 <input value={this.state.volume} min="0" max="1" step='.01' id="range" 
                     oninput="rangenumber.value=value" type="range"
-                    style={{marginRight: '8px', flexGrow: 1}} 
+                    style={{marginRight: '8px', width: '100%'}} 
                     onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
                 />
-                <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900}}>
+                <p style={{color: '#6A5ACD', fontWeight: 900}}>
                     {(this.state.volume * 100).toFixed()}
                 </p>
-            </label>
+            </div>
         </div>
         <div className='seek'>
-          <label style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <label style={{display: 'flex', alignItems: 'center'}}>
             <div style={{display: 'flex', alignItems: 'center'}}>
-            {this.state.playing ?
-            <i className="fa-solid fa-pause audio-icon" onClick={this.handleToggle}
-                style={{ cursor: 'pointer',
+              {this.state.playing ?
+                <i className="fa-solid fa-pause audio-icon" onClick={this.handleToggle}
+                  style={{ cursor: 'pointer',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
-            }}/> 
-            : <i className="fa-solid fa-play audio-icon" 
-                onClick={this.handleToggle}
-                style={{ cursor: 'pointer',
+                }}/> 
+                : <i className="fa-solid fa-play audio-icon" 
+                  onClick={this.handleToggle}
+                  style={{ cursor: 'pointer',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
-            }}/> }
-            <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
+              }}/> }
+              <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
                 {this.convertSeconds(this.state.seek.toFixed())}
-            </p>
+              </p>
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
-            <input min="0" step='.01' id="range" 
+              <input min="0" step='.01' id="range" 
                 oninput="rangenumber.value=value" type="range"
-                style={{marginRight: '8px', flexGrow: 1}} 
+                style={{marginRight: '8px', width: '100%'}} 
                 max={this.state.duration ? this.state.duration.toFixed(2) : 0}
                 value={this.state.seek}
                 onChange={this.handleSeekingChange}
                 onMouseDown={this.handleMouseDownSeek}
                 onMouseUp={this.handleMouseUpSeek}
-            />
-            <p style={{color: '#6A5ACD', fontWeight: 900, width: '38px'}}>
+              />
+              <p style={{color: '#6A5ACD', fontWeight: 900, width: '38px'}}>
                 {(this.state.duration) ? this.convertSeconds(this.state.duration.toFixed()) : '00:00'}
-            </p>
+              </p>
             </div>
           </label>
         </div>

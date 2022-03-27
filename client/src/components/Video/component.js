@@ -5,12 +5,11 @@ export default function Video ({src}) {
   const playerRef = React.useRef(null);
 
   const videoJsOptions = {
-    autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
     sources: [{
-      src: src,
+      src: src
     }]
   }
 

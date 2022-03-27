@@ -10,6 +10,7 @@ import { rolledMediaRuducer } from './rolledMedia/reducer';
 import { ForumReducer } from './Forum';
 import { UsersReducer } from './usersData';
 import thunk from 'redux-thunk';
+
 // import storage from 'redux-persist/lib/storage';
 // import persistReducer from "redux-persist/es/persistReducer";
 // import persistStore from "redux-persist/es/persistStore";
