@@ -130,7 +130,6 @@ function SocialInfo(props) {
         if(props.id){
             if(Object.keys(followers).includes(props.id.toString())){
                 if(followers[props.id]){
-                    console.log('asd')
                     followers[props.id].sort(function(a, b) {
                         let keyA = a.username,
                         keyB = b.username;
@@ -220,7 +219,7 @@ function SocialInfo(props) {
                         return(
                             <div key={sub.id} className="user-line">
                                 <div className="user-line-left" onClick={() => openProfile(sub.username)}>
-                                    {subscriptions_media[sub.id] ? <img className="user-line-img" src={subscriptions_media[sub.id]}></img> : <img className="user-line-img" src={null}></img>}
+                                    {subscriptions_media[sub.id] ? <img className="user-line-img" src={subscriptions_media[sub.id]}></img> : <div className="user-line-img"/>}
                                     <p className="user-line-name">{sub.username}</p>
                                 </div>
                                 {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
@@ -235,7 +234,7 @@ function SocialInfo(props) {
                                     {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
                                     {fol.id !== loged_user_id ? 
                                     <div>
-                                        {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <img className="user-line-img" src={null}></img>}
+                                        {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <div className="user-line-img"/>}
                                     </div> : null}
                                     <p className="user-line-name">{fol.username}</p>
                                 </div>

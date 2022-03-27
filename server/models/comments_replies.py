@@ -9,3 +9,5 @@ class CommentsReplies(db.Model):
     media_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime)
     text = db.Column(db.Text)
+    proportion = db.Column(db.Float)
+    middle_color = db.Column(db.Text)

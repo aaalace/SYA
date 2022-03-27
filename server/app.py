@@ -148,6 +148,11 @@ def add_room_messages():
 # COMMENTS AND REPLIES
 from Comments_replies.routes.add_comment import add_comment
 from Comments_replies.routes.add_reply import add_reply
+from Comments_replies.routes.get_comments import get_comments
+from Comments_replies.routes.get_commentator_avatar import get_commentator_avatar
+from Comments_replies.routes.get_comment_media import get_comment_media
+from Comments_replies.routes.get_reply_media import get_reply_media
+from Comments_replies.routes.get_replier_avatar import get_replier_avatar
 
 @app.route("/addComment", methods=['POST'])
 def add_com():
@@ -156,3 +161,23 @@ def add_com():
 @app.route("/addReply", methods=['POST'])
 def add_rep():
     return add_reply()
+
+@app.route("/getComments/<post_id>", methods=['GET'])
+def get_comm(post_id):
+    return get_comments(post_id)
+
+@app.route("/getCommentatorAvatar/<media_id>", methods=['GET'])
+def get_com_ava(media_id):
+    return get_commentator_avatar(media_id)
+
+@app.route("/getCommentMedia/<media_id>", methods=['GET'])
+def get_com_med(media_id):
+    return get_comment_media(media_id)
+
+@app.route("/getReplyMedia/<reply_id>", methods=['GET'])
+def get_rep_media(reply_id):
+    return get_reply_media(reply_id)
+
+@app.route("/getReplierAvatar/<reply_id>", methods=['GET'])
+def get_repl_avatar(reply_id):
+    return get_replier_avatar(reply_id)

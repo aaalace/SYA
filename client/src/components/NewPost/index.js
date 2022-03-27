@@ -145,12 +145,10 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                 ...prevState,
                 loading: false,
             }));
-            // add post to profilePostsReducer
             dispatch(addNewPost({
                 userId: response.data.userId, post_id: response.data.post_id, data: {...response.data.data, user_name: user.profileName, 
                 user_avatar: user.avatar}
             }))
-            // add post to userReducer
             dispatch(addUserPost(response.data.post_id))
             if (response.data.state === 'correct') {
                 setCreatePost(false)

@@ -1,19 +1,23 @@
 import { ADD_COMMENT } from "./actions"
 import { ADD_AVATAR_COMMENT } from "./actions"
 import { ADD_REPLY } from "./actions"
+import { ADD_INITIAL_COMMENTS } from "./actions"
+import { ADD_INITIAL_COMMENT_MEDIA } from "./actions"
+import { ADD_INITIAL_REPLY_MEDIA } from "./actions"
+import { CHANGE_REPLIES_OPENED } from "./actions"
 
 // commentsPosts = {
 //      avatars: {userId: userAvatar},   
 //      postId: [
 //           {
-//              commentid: commentId, text: commentText, media: commentMedia, commentDate: commentDate, 
+//              commentId: commentId, text: commentText, media: commentMedia, commentDate: commentDate, 
 //              authorData: {
 //              authorId: authorId, 
 //              authorNickname: authorNickname
 //              }
 //              replyComments: [
 //              {
-//                 replyid: replyId, text: commentText, media: commentMedia, commentDate: commentDate, 
+//                 replyid: replyId, text: commentText, media: commentMedia, replyDate: replyDate, 
 //                 authorData: {
 //                 authorId: authorId, 
 //                 authorNickname: authorNickname
@@ -27,7 +31,6 @@ import { ADD_REPLY } from "./actions"
 const initialState = {avatars: {}}
 
 export const commentsPostsReducer = (state = initialState, action) => {
-    console.log(state)
     switch (action.type) {
         case ADD_COMMENT: {
             const stateCopy = {...state}
@@ -51,6 +54,42 @@ export const commentsPostsReducer = (state = initialState, action) => {
             let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
             let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
             finded_comment[0]['replyComments'].push(action.payload.reply)
+            cleared_comments.push(finded_comment[0])
+            stateCopy[action.payload.post_id] = cleared_comments
+            return stateCopy
+        }
+        case ADD_INITIAL_COMMENTS: {
+            const stateCopy = {...state}
+            stateCopy[action.payload.post_id] = action.payload.comments
+            return stateCopy
+        }
+        case ADD_INITIAL_COMMENT_MEDIA: {
+            const stateCopy = {...state}
+            let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
+            let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
+            finded_comment[0]['media'] = action.payload.media
+            cleared_comments.push(finded_comment[0])
+            stateCopy[action.payload.post_id] = cleared_comments
+            return stateCopy
+        }
+        case ADD_INITIAL_REPLY_MEDIA: {
+            const stateCopy = {...state}
+            let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
+            let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
+            let finded_reply = finded_comment[0]['replyComments'].filter(rep => rep.replyid === action.payload.replyId)
+            let cleared_replies = finded_comment[0]['replyComments'].filter(rep => rep.replyid !== action.payload.replyId)
+            finded_reply[0]['media'] = action.payload.media
+            cleared_replies.push(finded_reply[0])
+            finded_comment[0]['replyComments'] = cleared_replies
+            cleared_comments.push(finded_comment[0])
+            stateCopy[action.payload.post_id] = cleared_comments
+            return stateCopy
+        }
+        case CHANGE_REPLIES_OPENED: {
+            const stateCopy = {...state}
+            let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
+            let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
+            finded_comment[0]['repliesOpened'] = action.payload.opened
             cleared_comments.push(finded_comment[0])
             stateCopy[action.payload.post_id] = cleared_comments
             return stateCopy

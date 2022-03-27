@@ -133,7 +133,8 @@
 }
 
 .post-social-interact-container {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .post-social-interact {
@@ -141,10 +142,10 @@
     float: right;
     width: max-content;
     border-radius: 20px;
-    background-color: rgba(172, 128, 193, 0.2);
+    background-color: rgb(245, 239, 245);
     font-size: 20px;
     justify-content: center;
-    margin-right: 10px;
+    margin-left: 10px;
     margin-bottom: 10px;
     cursor: pointer;
 }
