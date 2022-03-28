@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import {useMediaQuery} from 'react-responsive'
@@ -8,7 +8,10 @@ import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
-import SocialInform from '../../components/ProfileComponents/SocalInfo';
+import SocialInfo from '../../components/ProfileComponents/SocialInfo';
+import MessagePanel from '../../components/ProfileComponents/MessagePanel';
+
+export const FolSubContext = createContext({})
 
 export const ProfilePage = () => {
     let Own = useSelector(state => state.user)
@@ -60,6 +63,12 @@ export const ProfilePage = () => {
         med_soc = "small-main-info-social-data"
     }
 
+    const [socialMobile, setSocialMobile] = useState(false)
+
+    const openSocialMobile = (param) => {
+        setSocialMobile(true)
+    }
+
     return (
         <div style={{position: 'relative'}}>
             <div className="background-prof"/>
@@ -69,8 +78,11 @@ export const ProfilePage = () => {
                         <div className='container-profile'>
                             <div style={{display: 'flex', width: '100%'}}>
                                 <div>
-                                    <AvatarContainer owner={OwnState} />
-                                    <SocialInform></SocialInform>
+                                    <FolSubContext.Provider value={{avatar: Own.avatar}}>
+                                        <AvatarContainer owner={OwnState} />
+                                        {OwnState ? null : <MessagePanel></MessagePanel>}
+                                        <SocialInfo id={MainInfo.profile_id} />
+                                    </FolSubContext.Provider>
                                 </div>
                                 <div className='info-container'>
                                     <div className='main-info-container'>
@@ -105,8 +117,8 @@ export const ProfilePage = () => {
                             </div>
                             <div className={med_soc}>
                                     <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{posts_count}</b> публикаций</div>
-                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
-                                    <div className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
+                                    <div onClick={() => openSocialMobile('subscriptions')} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписок</div>
+                                    <div onClick={() => openSocialMobile('followers')} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>0</b> подписчиков</div>
                             </div>
                             <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>

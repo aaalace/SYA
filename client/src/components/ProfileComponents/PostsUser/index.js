@@ -49,6 +49,7 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
+        console.log(usersPosts)
         if(props.id){
             if(Object.keys(usersPosts).includes(props.id.toString())){
                 const posts = []
@@ -73,7 +74,7 @@ const PostsUser = (props) => {
 
     return (
         <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
-            <OpenedPost></OpenedPost>
+            <OpenedPost loged={true}></OpenedPost>
             <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {

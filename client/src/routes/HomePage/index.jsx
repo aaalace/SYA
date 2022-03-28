@@ -6,6 +6,9 @@ import Axios from 'axios';
 import { mainPagePostsConnect } from '../../connect/mainPagePosts';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
+import { setOpenPost } from '../../store/currentPost/actions';
+import { useDispatch } from 'react-redux';
+import { OpenedPost } from '../../components/OpenedPost';
 import { FullControl } from '../../components/Audio/FullControl'
 
 
@@ -13,6 +16,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     const post_limit = 5;
     let borderColor = '#9979d4';
     const loged = useSelector(state => state.user.loged)
+    const dispatch = useDispatch()
 
     const getMedia = (mediaIds) => {
         for (const id in mediaIds) {
@@ -35,14 +39,29 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         }
     }, [])
 
-    const openPost = (id) => {
-        console.log('still not opened')
+    const openPost = (post, media_id) => {
+        let CurrentMedia = null
+        if(mediaConnect[media_id]){
+            CurrentMedia = mediaConnect[media_id]
+        }
+        dispatch(setOpenPost({
+            open: true,
+            id: post.id,
+            user_id: post.user_id,
+            user_name: post.user_name,
+            user_avatar: post.user_avatar,
+            media: CurrentMedia,
+            media_type: post.type,
+            likes_count: post.likes_count,
+            post_time: post.post_time
+        }))
     }
 
-    const switchType = (type, media_id, proportion=0, middle_color) => {
+    const switchType = (type, media_id, proportion=0, middle_color, post) => {
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
+        const from_main = true
         switch(type) {
             case 1:
                 return (
@@ -64,7 +83,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 2:
                 return (
-                    <div onClick={() => openPost()} style={{marginTop: '2%'}}>
+                    <div onClick={() => openPost(post, media_id)} style={{marginTop: '2%'}}>
                         <video controls className="hoverBrightness"
                             src={mediaConnect[media_id]}
                             style={{width: '100%', maxHeight: '60vh', borderRadius: '15px'}}>
@@ -73,7 +92,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 3:
                 return (
-                    <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
+                    <div onClick={() => openPost(post, media_id)} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {mediaConnect[media_id] ? 
                             <img src={mediaConnect[media_id]} alt="картинка" className="hoverBrightness"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '15px'}}/>
@@ -88,7 +107,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 4:
                 return (
-                    <div onClick={() => openPost()} className="hoverBrightness__text"
+                    <div onClick={() => openPost(post, media_id)} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>
@@ -106,6 +125,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             <div className="background">
             </div>
             <div  className='main'>
+                <OpenedPost loged={loged} from_main={true}></OpenedPost>
                 <div className='sec'>
                     <h1 className='main__title'>A social network<br/>of associations</h1>
                     {!loged ? <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
@@ -127,7 +147,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                                 <div className='post__top'>
                                     <h2 className='homepage-box__title'>SYA daily {index + 1}</h2>
                                 </div>
-                                {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
+                                {switchType(post.type, post.media_id, post.proportion, post.middle_color, post)}
                             </div>
                         </div>
                     )
