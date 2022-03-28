@@ -155,7 +155,7 @@ export class FullControl extends React.Component {
                   display: 'none'
               }}/>
             </label>
-            <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
                 <input value={this.state.volume} min="0" max="1" step='.01' id="range" 
                     oninput="rangenumber.value=value" type="range"
                     style={{marginRight: '8px', width: '100%'}} 
@@ -183,7 +183,7 @@ export class FullControl extends React.Component {
                 {this.convertSeconds(this.state.seek.toFixed())}
               </p>
             </div>
-            <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
               <input min="0" step='.01' id="range" 
                 oninput="rangenumber.value=value" type="range"
                 style={{marginRight: '8px', width: '100%'}} 

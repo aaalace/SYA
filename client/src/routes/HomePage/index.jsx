@@ -46,9 +46,8 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div onClick={() => openPost()} style={{
-                        border: `2px solid ${borderColor}`, borderRadius: '15px', marginTop: '2%',
-                        width: 'fit-content'
+                    <div onClick={() => openPost()} className="audio-post-homepage" style={{
+                        border: `2px solid ${borderColor}`
                     }}>
                         <FullControl src={mediaConnect[media_id]} />
                         <button className="cta" style={{
@@ -127,18 +126,6 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                             <div className='post homepage-box'>
                                 <div className='post__top'>
                                     <h2 className='homepage-box__title'>SYA daily {index + 1}</h2>
-                                    {/* {userLoged ? 
-                                        <a href={index < post_limit - 1 ? `#sec-${index + 3}` : "#sec-1"} 
-                                            className='next-link'
-                                        ><span style={{fontSize: '22px'}}>G</span>O!
-                                        </a>
-                                        : <Link to="/login" 
-                                            className='next-link'
-                                        ><span style={{fontSize: '22px'}}>G</span>O!
-                                        </Link>
-                                    } */}
-                                </div>
-                                <div>
                                 </div>
                                 {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
                             </div>
