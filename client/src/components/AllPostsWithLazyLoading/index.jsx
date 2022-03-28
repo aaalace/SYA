@@ -138,7 +138,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                     <div onClick={() => openPost()} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
-                        <div style={{margin: '12px'}}>
+                        <div style={{margin: '12px', aspectRatio: '1 / 1', overflow: 'hidden'}}>
                             {mediaConnect[media_id] ? mediaConnect[media_id] : 'Loading...'}
                         </div>
                     </div>
