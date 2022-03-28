@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { mainPagePostsConnect } from '../../connect/mainPagePosts';
 import { nanoid } from 'nanoid';
-import { ButtonOpenPost } from '../../components/ButtonPost';
 import { useSelector } from 'react-redux';
-import { AudioPost } from '../../components/Audio/audio';
+import { FullControl } from '../../components/Audio/FullControl'
 
 
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
@@ -51,7 +50,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                         border: `2px solid ${borderColor}`, borderRadius: '15px', marginTop: '2%',
                         width: 'fit-content'
                     }}>
-                        <AudioPost src={mediaConnect[media_id]} />
+                        <FullControl src={mediaConnect[media_id]} />
                         <button className="cta" style={{
                             width: '100%', alignItems: 'center', marginTop: '6px',
                             display: 'flex', justifyContent: 'flex-start'

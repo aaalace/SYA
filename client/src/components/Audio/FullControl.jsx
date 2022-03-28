@@ -3,7 +3,7 @@ import ReactHowler from 'react-howler/lib/ReactHowler';
 import raf from 'raf'; // requestAnimationFrame polyfill
 import './style.css'
 
-class FullControl extends React.Component {
+export class FullControl extends React.Component {
   constructor (props) {
     super(props)
 
@@ -201,5 +201,3 @@ class FullControl extends React.Component {
     )
   }
 }
-
-export default FullControl
