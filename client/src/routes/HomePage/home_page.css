@@ -4,6 +4,7 @@ html {
 
 .hoverBrightness {
     cursor: pointer;
+    transition: all 220ms;
 }
 
 .hoverBrightness:hover {

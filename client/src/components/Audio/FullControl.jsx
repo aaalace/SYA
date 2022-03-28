@@ -157,7 +157,7 @@ export class FullControl extends React.Component {
             </label>
             <div style={{display: 'flex', alignItems: 'center'}}>
                 <input value={this.state.volume} min="0" max="1" step='.01' id="range" 
-                    onInput="rangenumber.value=value" type="range"
+                    oninput="rangenumber.value=value" type="range"
                     style={{marginRight: '8px', width: '100%'}} 
                     onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
                 />
@@ -185,7 +185,7 @@ export class FullControl extends React.Component {
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
               <input min="0" step='.01' id="range" 
-                onInput="rangenumber.value=value" type="range"
+                oninput="rangenumber.value=value" type="range"
                 style={{marginRight: '8px', width: '100%'}} 
                 max={this.state.duration ? this.state.duration.toFixed(2) : 0}
                 value={this.state.seek}
