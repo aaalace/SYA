@@ -43,7 +43,7 @@ const Burger = styled.div`
 
 const MenuOpened = styled.div`
     position: absolute;
-    width: ${props => (props.open ? "280px" : "0px")};
+    width: ${props => (props.open ? "50%" : "0px")};
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;
@@ -51,22 +51,25 @@ const MenuOpened = styled.div`
     right: 0;
 `;
 
-const Rect1 = styled.rect`
+export const Rect1 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
-const Rect2 = styled.rect`
+export const Rect2 = styled.rect`
     width: 100px;
     height: 13px;
     opacity: ${props => (props.open ? "0%" : "100%")};
+    fill: #AC80C1;
 `
 
-const Rect3 = styled.rect`
+export const Rect3 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
 // const CastomP = styled.p`
@@ -78,6 +81,7 @@ const Rect3 = styled.rect`
 
 export const Header = () => {
     const loged = useSelector(state => state.user.loged);
+    const loged_username = useSelector(state => state.user.profileName);
     const rolled_media = useSelector(state => state.rolledMedia.media)
 
     const navigate = useNavigate();
@@ -145,6 +149,7 @@ export const Header = () => {
         }
         else{
             setFinded(null)
+            setFindedIds([])
         }
     }
 
@@ -164,16 +169,17 @@ export const Header = () => {
     }
 
     const openProfile = (username) => {
+        setFindedIds([])
         navigate(`/profile/${username}`)
     }
 
     const DataList = () => {
         return(
-            <datalist id="names">
-                {finded_ids.map((id) => <option key={id} id={id}>
+            <div className='dropdown-search' id="names">
+                {finded_ids.slice(0, 3).map((id) => <div className='dropdown-item' key={id} id={id} onClick={() => submitHandler(finded[id])}>
                                             {finded[id]}
-                                        </option>)}
-            </datalist>
+                                        </div>)}
+            </div>
         )
     }
 
@@ -199,14 +205,14 @@ export const Header = () => {
             <div className='container'>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
                     <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
-                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
-                    {rolled_media && loged ? 
+                    {rolled_media ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
+                    {rolled_media ? 
                         <a className='menu-link-audio'>
                             <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#ac80c1ad', padding: '7px 15px', borderRadius: '10px'}}>
                                 {audioState ? 
                                         <i className="fa-solid fa-pause" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>
                                     : <i className="fa-solid fa-play" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>}
-                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i class="fa-solid fa-xmark"></i></i>
+                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i className="fa-solid fa-xmark"></i></i>
                             </div>
                         </a> 
                     : null}
@@ -230,17 +236,19 @@ export const Header = () => {
                         <p className='menu-link' onClick={logOutHeader}>
                             <i className="fas fa-sign-out-alt"/>
                         </p> 
-                        <div className="find_over_form">
-                            <input list='names' className="find_over" 
-                                type="text" placeholder="Find" value={toFind} 
-                                onKeyDown={handleKeyDown} 
-                                onChange={event => finderChanged(event.target.value)}
-                            />
+                        <div className="find_over_container">
+                            <div className="find_over_form">
+                                <input list='names' className="find_over" 
+                                    type="text" placeholder="Find people" value={toFind} 
+                                    onKeyDown={handleKeyDown} 
+                                    onChange={event => finderChanged(event.target.value)}
+                                />
+                                <p type='submit' className='pointer'
+                                    onClick={() => submitHandler(toFind)}>
+                                    <i className="fa fa-search"/>
+                                </p>
+                            </div>
                             {finded ? <DataList></DataList> : null}
-                            <p type='submit' className='pointer'
-                                onClick={() => submitHandler(toFind)}>
-                                <i className="fa fa-search"/>
-                            </p>
                         </div>
                     </div>    
                 </Menu>
@@ -252,7 +260,7 @@ export const Header = () => {
                     </svg>
                 </Burger>
                 </div>
-                : null}
+                : <Link className='header-link' style={{fontSize: '17px', whiteSpace: 'nowrap'}} to='/login'>Log in</Link>}
             </div>
             {loged ? 
             <MenuOpened open={open} className="tabletBar">
@@ -268,20 +276,24 @@ export const Header = () => {
                                 <i className="fas fa-sign-out-alt"/>
                             </Link>
                         </div>
-                        <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} 
-                                onKeyDown={handleKeyDown} 
-                                onChange={event => finderChanged(event.target.value)}
-                            />
-                            <p type='submit' className='pointer'
-                                onClick={submitHandler}>
-                                <i className="fa fa-search"/>
-                            </p>
+                        <div className="find_over_container">
+                            <div className="find_over_form">
+                                <input list='names' className="find_over" 
+                                    type="text" placeholder="Find people" value={toFind} 
+                                    onKeyDown={handleKeyDown} 
+                                    onChange={event => finderChanged(event.target.value)}
+                                />
+                                <p type='submit' className='pointer'
+                                    onClick={() => submitHandler(toFind)}>
+                                    <i className="fa fa-search"/>
+                                </p>
+                            </div>
                         </div>
+                        {finded ? <DataList></DataList> : null}
                         <Link className='menu-link menu-link-bot' to='/all'>
                             Home
                         </Link> 
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>
+                        <Link className='menu-link menu-link-bot' to='/forum' onClick={openMenu}>
                             Forum
                         </Link>  
                         <p className='menu-link menu-link-bot' 

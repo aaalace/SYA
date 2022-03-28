@@ -5,6 +5,7 @@ import datetime
 
 from models.posts import Posts
 from models.media import Media
+from models.users import Users
 from models.post_tags import Post_tags
 from posts.utils.get_mid_color import middle_color
 
@@ -89,7 +90,7 @@ def create_post():
             'state': 'correct',
             'userId': user_id,
             'post_id': post.id,
-            'data':{
+            'data': {
                     'id': post.id,
                     'user_id': user_id,
                     'type': post_type,

@@ -49,6 +49,7 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
+        console.log(usersPosts)
         if(props.id){
             if(Object.keys(usersPosts).includes(props.id.toString())){
                 const posts = []
@@ -73,7 +74,7 @@ const PostsUser = (props) => {
 
     return (
         <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
-            <OpenedPost></OpenedPost>
+            <OpenedPost loged={true}></OpenedPost>
             <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {
@@ -107,8 +108,11 @@ const OnePost = (props) => {
         padding: '0',
         marginRight: '0',
         marginBottom: '10px',
-        backgroundColor: mid_col,
-        aspectRatio: `1 / ${post.proportion ? post.proportion : 1}`,
+        backgroundColor: mid_col
+    }
+
+    if (post.proportion) {
+        post_block_style.aspectRatio = `1 / ${post.proportion}`
     }
 
     

@@ -77,24 +77,6 @@ const AvatarContainer = (props) => {
             btn_change.display = 'inline-flex'
             btn_delete.display = 'inline-flex'
         }
-        // else{
-        //     ava_style.position = 'absolute'
-        //     ava_style.borderRadius = '20px'
-        //     btn_change.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-        //     btn_delete.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-        //     btn_delete.color = 'rgba(172, 128, 193, 1)'
-        //     btn_delete.position = 'relative'
-        //     btn_change.position = 'relative'
-        //     btn_delete.height = '30px'
-        //     btn_change.height = '30px'
-        //     btn_change.alignItems = 'flex-end'
-        //     btn_change.justifyContent = 'left'
-        //     btn_change.borderRadius = '0 0 0 18px'
-        //     btn_delete.borderRadius = '0 0 18px 0'
-        //     btn_delete.fontSize = '18px'
-        //     btn_change.fontSize = '18px'
-        //     icon.margin = '7px'
-        // }
     }
 
 

@@ -8,6 +8,6 @@ def find_users():
         text = data.get('text')
         users = Users.query.filter(Users.profile_name.contains(text)).all()
         res = {}
-        for user in users:
+        for user in users[:3]:
             res[user.id] = user.profile_name
         return res

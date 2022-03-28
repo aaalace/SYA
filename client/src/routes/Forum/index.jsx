@@ -44,7 +44,11 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
             </div>
             <div style={{marginLeft: '2%', width: '100%', maxWidth: '1024px'}}>
                 <Routes>
-                    <Route path="/room/:roomId" element={<Room user_id={user_id}/>} />
+                    <Route path="/room/:roomId" element={
+                        <Room 
+                            user_id={user_id} 
+                        />} 
+                    />
                 </Routes>
             </div>
         </div>

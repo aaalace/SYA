@@ -6,6 +6,8 @@ export const DELETE_USER_POST = 'DELETE_USER_POST'
 export const DELETE_AVATAR = 'DELETE_AVATAR'
 export const CHANGE_LIKES = 'CHANGE_LIKES'
 export const REMOVE_LIKES = 'REMOVE_LIKES'
+export const CHANGE_COMMENT_LIKES = 'CHANGE_COMMENT_LIKES'
+export const REMOVE_COMMENT_LIKES = 'REMOVE_COMMENT_LIKES'
  
 export const setUserDataReducer = (data) => ({
     type: SET_USER_DATA,
@@ -36,6 +38,16 @@ export const changeLikes = (data) => ({
 
 export const removeLikes = (data) => ({
     type: REMOVE_LIKES,
+    payload: data,
+})
+
+export const changeCommentUserLikes = (data) => ({
+    type: CHANGE_COMMENT_LIKES,
+    payload: data,
+})
+
+export const removeCommentUserLikes = (data) => ({
+    type: REMOVE_COMMENT_LIKES,
     payload: data,
 })
 

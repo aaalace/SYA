@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid";
-// import io from "socket.io-client";
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
+import io from "socket.io-client";
 
 
 export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
+    let endPoint = "http://localhost:5001";
+    let socket = io.connect(`${endPoint}`);
     const RoomName = room.name;
+    let prevMessageId = null;
 
     if (!RoomName) {
         return <div></div>
@@ -16,11 +19,32 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
 
     const checkRoomMsgs = room.messages
     const [roomMessages, setRoomMessages] = useState(room.messages);
-    // let endPoint = "http://localhost:5001";
-    // let socket = io.connect(`${endPoint}`);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
+        console.log(socket)
+
+        if (socket && roomId) {
+            socket.emit("join", {roomId: roomId});
+        }
+
+        socket.on('newMessage', data => {
+            console.log(data)
+            if (data.id !== prevMessageId) {
+                prevMessageId = data.id
+                setNewMessage(data)
+                setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
+            }
+        })
+
+        return () => {
+            socket.emit("leave", {roomId: roomId})
+            socket.disconnect()
+        }
+    }, [])
+
+    useEffect(() => {
+        
         if (!checkRoomMsgs) {
             getMessages();
         } else {
@@ -33,30 +57,31 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
             setRoom({roomId, data: res.data})
             setRoomMessages({...res.data})
         })
-        // socket.on("message", msg => {
-        //     setMessages([...messages, msg]);
-        // });
     };
 
     const handleMessage = () => {
         if (message !== "" && user_id) {
+            const messageId = nanoid(8)
             const msgObject = {
                 user_id: user_id,
                 room_id: roomId,
                 message: message,
-                id: nanoid(8),
+                id: messageId,
             }
             setNewMessage(msgObject)
             setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
             Axios.post('/add_forum_message', msgObject
         ).then((response) => {
-            console.log(response)
             if (response.data === 1) {
-                // setMessages(prevState => [...prevState, msgObject])
+                socket.emit("message", {
+                    room_id: roomId,
+                    message: message,
+                    user_id: user_id,
+                    id: messageId,
+                });
             }
         })
-            // socket.emit("message", message);
-            setMessage("");
+        setMessage("");
         } else {
             if (!user_id) {
                 alert("Вы не вошли в аккаунт");

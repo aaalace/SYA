@@ -9,12 +9,16 @@ import { removeLikes } from "../../store/user/actions";
 import { changeLikesPost } from "../../store/profilePosts/actions";
 import { setLikesCurrentPost } from "../../store/currentPost/actions";
 import { rollMedia } from "../../store/rolledMedia/actions";
+import { useNavigate } from 'react-router-dom';
+import { PostComments } from "../PostComments";
 
-export const OpenedPost = () => {
+export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)
+
+    const navigate = useNavigate();
 
     const closePostPage = () => {
         dispatch(setClosePost())
@@ -61,7 +65,7 @@ export const OpenedPost = () => {
     }
 
     const changeLikeX = (post_id) => {
-        if(liked_posts.includes(post_id)) {
+        if(liked_posts.includes(post_id)){
             dispatch(removeLikes(post_id))
             dispatch(changeLikesPost({'data': -1, 'userId': post.user_id, 'post_id': post_id}))
             dispatch(setLikesCurrentPost(-1))
@@ -73,12 +77,13 @@ export const OpenedPost = () => {
         }
         Axios.post('/change_like', {
             post_id,
-            user_id
+            user_id,
+            post_tags: [1, 2, 3].join('`')
         }).then((response) => {
             console.log(response)
         })
     }
-
+    
     return (
         <div>
             {post.open ? 
@@ -104,18 +109,25 @@ export const OpenedPost = () => {
                                 <p className="post-icon" onClick={rollUp}><i className="fa-solid fa-down-left-and-up-right-to-center"></i></p>
                             </div>
                         : null}
+                        {props.loged ?
+                            <div className="post-social-interact" style={props.from_main ? {backgroundColor: 'transparent'} : null}>
+                                {props.from_main ? <div style={{padding: '15px', backgroundColor: 'transparent'}}></div> : 
+                                    liked_posts.includes(post.id) ?
+                                    <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                        <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                    </p> :
+                                    <p onClick={() => changeLikeX(post.id)} className="post-icon">
+                                        <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                    </p>
+                                }
+                            </div>
+                        :
                         <div className="post-social-interact">
-                            {
-                                liked_posts.includes(post.id) ?
-                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                    <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
-                                </p> :
-                                <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                    <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
-                                </p>
-                            }
+                            <p onClick={() => navigate('/login')} className="post-icon">Log in</p>
                         </div>
+                        }
                     </div>
+                    {props.loged ? <PostComments post_id={post.id}></PostComments> : null}
                 </div>
             </div> : null}
         </div>
