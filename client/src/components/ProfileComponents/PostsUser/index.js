@@ -108,8 +108,11 @@ const OnePost = (props) => {
         padding: '0',
         marginRight: '0',
         marginBottom: '10px',
-        backgroundColor: mid_col,
-        aspectRatio: `1 / ${post.proportion ? post.proportion : 1}`,
+        backgroundColor: mid_col
+    }
+
+    if (post.proportion) {
+        post_block_style.aspectRatio = `1 / ${post.proportion}`
     }
 
     

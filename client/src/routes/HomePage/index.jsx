@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { mainPagePostsConnect } from '../../connect/mainPagePosts';
 import { nanoid } from 'nanoid';
-import { ButtonOpenPost } from '../../components/ButtonPost';
 import { useSelector } from 'react-redux';
 import { setOpenPost } from '../../store/currentPost/actions';
 import { useDispatch } from 'react-redux';
 import { OpenedPost } from '../../components/OpenedPost';
+import { FullControl } from '../../components/Audio/FullControl'
 
 
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
@@ -65,12 +65,21 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div onClick={() => openPost(post, media_id)} style={{marginTop: '2%'}}>
-                        <audio src={mediaConnect[media_id]} 
-                            controls className='audio-player' 
-                            style={{width: '100%'}}>
-                        </audio> 
-                        <ButtonOpenPost text={"Перейти"}/>
+                    <div onClick={() => openPost(post, media_id)} style={{
+                        border: `2px solid ${borderColor}`, borderRadius: '15px', marginTop: '2%',
+                        width: 'fit-content'
+                    }}>
+                        <FullControl src={mediaConnect[media_id]} />
+                        <button className="cta" style={{
+                            width: '100%', alignItems: 'center', marginTop: '6px',
+                            display: 'flex', justifyContent: 'flex-start'
+                        }}>
+                            <span>Перейти</span>
+                            <svg width="15px" height="10px" viewBox="0 0 13 10">
+                                <path d="M1,5 L11,5"></path>
+                                <polyline points="8 1 12 5 8 9"></polyline>
+                            </svg>
+                        </button>
                     </div>
                 )
             case 2:

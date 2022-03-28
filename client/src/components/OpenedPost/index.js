@@ -76,8 +76,11 @@ export const OpenedPost = (props) => {
             dispatch(setLikesCurrentPost(1))
         }
         Axios.post('/change_like', {
-            'post_id': post_id,
-            'user_id': user_id
+            post_id,
+            user_id,
+            post_tags: [1, 2, 3].join('`')
+        }).then((response) => {
+            console.log(response)
         })
     }
     

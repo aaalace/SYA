@@ -74,6 +74,7 @@ from posts.routes.get_media import get_media
 from posts.routes.get_posts import get_posts_main
 from posts.routes.get_post_by_media import get_post_by_media
 from posts.routes.change_like import change_like
+from posts.routes.get_posts_by_tags import get_posts_by_tags
 
 
 @app.route("/get_media/<via_id>", methods=['GET', 'POST'])
@@ -91,6 +92,12 @@ def get_posts_box(count):
 @app.route("/change_like/", methods=['GET', 'POST'])
 def change_like_state():
     return change_like()
+
+
+@app.route("/get_posts_by_tags", methods=['GET', 'POST'])
+def get_posts_by_t():
+    return get_posts_by_tags()
+
 
 # USERS
 from users.routes.find_user import find_users
