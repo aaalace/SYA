@@ -7,6 +7,11 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostPro
     const imageUploadedRef = useRef(null);
 
     const handleUploadedFileImage = (e, drag=false) => {
+        if (!drag) {
+            if (!e.target.files.length) {
+                return
+            }
+        }
         const check = checkFileTypeAndSize(e, 'image', drag);
         if (check) {
             if (drag) {
@@ -35,9 +40,13 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostPro
     }
 
     const onDropHandler = (e) => {
+        if (!e.dataTransfer.files.length) {
+            return
+        }
         e.preventDefault();
         setDrag(false);
         let file = [...e.dataTransfer.files][0];
+        console.log(e.dataTransfer.files)
         handleUploadedFileImage(file, true);
     }
 

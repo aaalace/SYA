@@ -17,7 +17,11 @@ export const App = () => {
     <div className="app">
       <Header/>
       <Routes>
-        <Route path="/all" element={<AllPostsPage/>} />
+        <Route path="/all" element={
+          <PrivateRoute authed={userIsLoged}>
+            <AllPostsPage/>
+          </PrivateRoute>
+        } />
         <Route path="/forum/*" element={
           <PrivateRoute authed={userIsLoged}>
             <ForumPage/>

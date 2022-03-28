@@ -4,9 +4,12 @@ import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
+import io from "socket.io-client";
 
 
-export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id, setNewMessage}) => {
+export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
+    let endPoint = "http://localhost:5001";
+    let socket = io.connect(`${endPoint}`);
     const RoomName = room.name;
     let prevMessageId = null;
 
@@ -19,8 +22,10 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
     const [message, setMessage] = useState("");
 
     useEffect(() => {
+        console.log(socket)
+
         if (socket && roomId) {
-            socket.emit("join", {roomId: roomId, userId: user_id});
+            socket.emit("join", {roomId: roomId});
         }
 
         socket.on('newMessage', data => {
@@ -32,18 +37,19 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
             }
         })
 
-        // return () => props.socket.off('console')
+        return () => {
+            socket.emit("leave", {roomId: roomId})
+            socket.disconnect()
+        }
     }, [])
 
     useEffect(() => {
+        
         if (!checkRoomMsgs) {
             getMessages();
         } else {
             setRoomMessages(room.messages)
         }
-        // return () => {
-        //     socket.disconnect()
-        // }
     }, [roomId]);
 
     const getMessages = () => {
@@ -73,7 +79,6 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
                     user_id: user_id,
                     id: messageId,
                 });
-                // setMessages(prevState => [...prevState, msgObject])
             }
         })
         setMessage("");
@@ -114,10 +119,10 @@ export const RoomCon = ForumRoomConnect(({socket, room, roomId, setRoom, user_id
     )
 })
 
-export const Room = ({user_id, socket}) => {
+export const Room = ({user_id}) => {
     let {roomId} = useParams()
     
     return (
-        <RoomCon roomId={roomId} socket={socket} user_id={user_id}/>
+        <RoomCon roomId={roomId} user_id={user_id}/>
     )
 }

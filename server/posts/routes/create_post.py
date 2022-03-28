@@ -90,7 +90,7 @@ def create_post():
             'state': 'correct',
             'userId': user_id,
             'post_id': post.id,
-            'data':{
+            'data': {
                     'id': post.id,
                     'user_id': user_id,
                     'type': post_type,
