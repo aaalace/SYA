@@ -9,7 +9,15 @@ import io from "socket.io-client";
 let endPoint = "http://localhost:5001";
 let socket = io.connect(`${endPoint}`);
 
-export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
+export const Room = ({user_id, setSelectedId}) => {
+    const {roomId} = useParams()
+    
+    return (
+        <RoomCon setSelectedId={setSelectedId} roomId={roomId} user_id={user_id}/>
+    )
+}
+
+export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage, setSelectedId}) => {
     const RoomName = room.name;
     let prevMessageId = null;
 
@@ -31,6 +39,7 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
     })
 
     useEffect(() => {
+        setSelectedId({type: 'room', id: roomId})
         console.log(socket)
 
         if (socket && roomId) {
@@ -118,11 +127,3 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
         </>
     )
 })
-
-export const Room = ({user_id}) => {
-    let {roomId} = useParams()
-    
-    return (
-        <RoomCon roomId={roomId} user_id={user_id}/>
-    )
-}

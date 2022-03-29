@@ -6,17 +6,17 @@ import { IconLoader } from '../../Loaders/icons';
 import { TextLoader } from '../../Loaders/text';
 
 
-export const ChatsList = ({chats, setSelectedId, selectedId}) => {
-    const handleLink = (obj) => {
-        setSelectedId(obj)
+export const ChatsList = ({chats, selectedId, setSelectedId}) => {
+    const handleClick = (id) => {
+        setSelectedId({type: 'chat', id})
     }
 
     return (
         <>
             {
                 Object.values(chats).map(chat => (
-                    <Link className='chat-link' to={`/forum/chat/${chat.id}`} 
-                        onClick={() => {handleLink({type: 'chat', id: chat.id})}} key={nanoid(8)}
+                    <Link className='chat-link' to={`/forum/chat/${chat.id}`} key={nanoid(8)}
+                        onClick={() => {handleClick(chat.id)}}
                         style={{backgroundColor: 
                             chat.id === selectedId.id && selectedId.type === 'chat' ? '#e7e4e4' : null
                     }}>

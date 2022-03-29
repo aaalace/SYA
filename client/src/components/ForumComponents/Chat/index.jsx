@@ -5,15 +5,15 @@ import Axios from 'axios';
 import { nanoid } from "nanoid";
 import { UserMessage } from "../../UserMessage";
 
-export const Chat = ({user_id}) => {
+export const Chat = ({user_id, setSelectedId}) => {
     const {chatId} = useParams()
     
     return (
-        <ChatCon chatId={chatId} user_id={user_id}/>
+        <ChatCon setSelectedId={setSelectedId} chatId={chatId} user_id={user_id}/>
     )
 }
 
-const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage}) => {
+const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId}) => {
     const ChatId = chat.id
     let prevMessageId = null;
 
@@ -24,6 +24,10 @@ const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage}) => {
     const checkChatMsgs = chat.messages
     const [chatMessages, setChatMessages] = useState(chat.messages);
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        setSelectedId({type: 'chat', id: ChatId})
+    }, [])
 
     useEffect(() => {
         if (!checkChatMsgs) {

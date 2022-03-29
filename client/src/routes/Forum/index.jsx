@@ -52,7 +52,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                 <h3 style={{paddingTop: '12px'}}>Комнаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px', marginBottom: '16px'}}>
                     {Object.values(roomsConnect).length > 0 || roomsLoaded ?
-                        <RoomsList selectedId={selectedId} setSelectedId={setSelectedId} rooms={roomsConnect}/> : 
+                        <RoomsList setSelectedId={setSelectedId} selectedId={selectedId} rooms={roomsConnect}/> : 
                         <MyLoader/>
                     }
                 </div>
@@ -61,7 +61,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                 <h3 style={{paddingTop: '12px'}}>Чаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
                     {Object.values(chatsConnect).length > 0 || chatsLoaded ?
-                        <ChatsList selectedId={selectedId} setSelectedId={setSelectedId} chats={chatsConnect}/> : 
+                        <ChatsList setSelectedId={setSelectedId} selectedId={selectedId} chats={chatsConnect}/> : 
                         <MyLoader/>
                     }
                     {Object.values(chatsConnect).length === 0 && chatsLoaded ?
@@ -74,12 +74,14 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
             <div style={{marginLeft: '2%', width: '100%', maxWidth: '1024px'}}>
                 <Routes>
                     <Route path="/room/:roomId" element={
-                        <Room 
+                        <Room
+                            setSelectedId={setSelectedId}
                             user_id={user_id} 
                         />} 
                     />
                     <Route path="/chat/:chatId" element={
-                        <Chat 
+                        <Chat
+                            setSelectedId={setSelectedId}
                             user_id={user_id} 
                         />} 
                     />

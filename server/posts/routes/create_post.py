@@ -41,7 +41,7 @@ def create_post():
             return 'ошибка базы'
 
         try:
-            media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
+            media_id = media.id
         except Exception as e:
             print(e)
             return 'ошибка запроса'
@@ -69,7 +69,7 @@ def create_post():
             return 'server error'
 
         try:
-            post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
+            post_id = post.id
         except Exception as e:
             print(e)
             return 'ошибка запроса'
