@@ -2,7 +2,8 @@ import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA } from "./actions"
 
 
 const initialState = {
-    rooms: {}
+    rooms: {},
+    user_chats: {}
 }
 
 export const ForumReducer = (state = initialState, action) => {

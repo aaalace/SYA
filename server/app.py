@@ -57,6 +57,8 @@ def getUserSPosts():
 # PROFILE
 from profilePage.routes.change_avatar import change_avatar
 from profilePage.routes.delete_avatar import delete_avatar
+from profilePage.routes.check_chat_exist import check_chat_exist
+from profilePage.routes.create_new_chat import create_new_chat
 
 
 @app.route("/changeAvatar", methods=['POST'])
@@ -67,6 +69,16 @@ def change_ava():
 @app.route("/deleteAvatar", methods=['POST'])
 def delete_ava():
     return delete_avatar()
+
+
+@app.route("/check_chat_exist", methods=['GET'])
+def check_chat():
+    return check_chat_exist()
+
+
+@app.route("/create_chat", methods=['POST'])
+def create_chat():
+    return create_new_chat()
 
 
 # POSTS
@@ -80,6 +92,7 @@ from posts.routes.get_posts_by_tags import get_posts_by_tags
 @app.route("/get_media/<via_id>", methods=['GET', 'POST'])
 def get_media_via_id(via_id):
     return get_media(via_id)
+
 
 @app.route("/get_post_by_media/<med>", methods=['GET'])
 def get_post_by_med(med):
@@ -136,6 +149,7 @@ def get_sub():
 from Forum.routes.get_forum_rooms import get_forum_rooms_
 from Forum.routes.get_room_data import get_room_data
 from Forum.routes.add_room_new_message import add_room_new_message
+from Forum.routes.get_user_chats import get_user_chats
 
 
 @app.route("/get_forum_rooms", methods=['GET'])
@@ -151,6 +165,12 @@ def get_room_messages(roomId):
 @app.route("/add_forum_message", methods=['GET', 'POST'])
 def add_room_messages():
     return add_room_new_message()
+
+
+@app.route("/get_user_chats/<user_id>", methods=['GET'])
+def user_chats(user_id):
+    return get_user_chats(user_id)
+
 
 # COMMENTS AND REPLIES
 from Comments_replies.routes.add_comment import add_comment

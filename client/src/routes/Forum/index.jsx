@@ -9,13 +9,17 @@ import { MyLoader } from "../../components/Loaders/rooms";
 import { useSelector } from "react-redux";
 
 
-export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
+export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect, setChatsCon}) => {
     const [roomsLoaded, setRoomsLoaded] = useState(Object.values(roomsConnect).length)
+    const [chatsLoaded, setChatsLoaded] = useState(Object.values(chatsConnect).length)
     const user_id = useSelector(state => state.user.profile_id)
 
     useEffect(() => {
         if (!roomsLoaded) {
             getRooms()
+        }
+        if (!chatsLoaded) {
+            getChats()
         }
     }, [])
 
@@ -26,6 +30,14 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
         })
     }
 
+    const getChats = () => {
+        Axios.get(`/get_user_chats//${user_id}`).then((res) => {
+            console.log(res)
+            // setChatsCon(res.data)
+            // setChatsLoaded(true);
+        })
+    }
+
     return (
         <>
         <div className="background">
@@ -33,14 +45,25 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon}) => {
         <div style={{ position: 'absolute', top: '64px',
             display: 'grid', gridTemplateColumns: 'minmax(150px, 300px) 1fr', margin: '2%', width: '95%'
         }}>
+            <div>
             <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
-                <h3 style={{marginTop: '12px'}}>Комнаты</h3>
-                <div style={{display: 'flex', flexDirection: 'column', margin: '8px'}}>
+                <h3 style={{paddingTop: '12px'}}>Комнаты</h3>
+                <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px', marginBottom: '16px'}}>
                     {Object.values(roomsConnect).length > 0 ?
                         <RoomsList rooms={roomsConnect}/> : 
                         <MyLoader/>
                     }
                 </div>
+            </div>
+            <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
+                <h3 style={{paddingTop: '12px'}}>Чаты</h3>
+                <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
+                    {Object.values(roomsConnect).length > 0 ?
+                        <RoomsList rooms={roomsConnect}/> : 
+                        <MyLoader/>
+                    }
+                </div>
+            </div>
             </div>
             <div style={{marginLeft: '2%', width: '100%', maxWidth: '1024px'}}>
                 <Routes>

@@ -99,7 +99,8 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                             : 
                             <div className="hoverBrightness"
                                 style={{width: '100%', borderRadius: '15px', maxHeight: '60vh',
-                                    backgroundColor: middle_color, aspectRatio: `1 / ${proportion}`
+                                    backgroundColor: middle_color, aspectRatio: `1 / ${proportion}`,
+                                    marginLeft: 'auto', marginRight: 'auto'
                             }}>
                             </div>
                         }

@@ -5,6 +5,7 @@ import './style.css'
 import { addFollower, deleteFollower } from '../../../store/followers/actions'
 import { useDispatch } from 'react-redux'
 import { FolSubContext } from "../../../routes/ProfilePage"
+import { useNavigate } from 'react-router-dom';;
 
 function MessagePanel() {
     const followStyle = {
@@ -30,6 +31,7 @@ function MessagePanel() {
     }
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const follower_id = useSelector(state => state.user.profile_id)
     const follower_avatar = useSelector(state => state.user.avatar)
@@ -42,6 +44,24 @@ function MessagePanel() {
     const conn_user_subscriptions = useSelector(state => state.fols_subs['subscriptions'][follower_id])
     const conn_user_subscriptions_ids = conn_user_subscriptions.map((subs) => subs.id)
     const [followState, setFollowState] = useState(false)
+
+    const handleMessage = () => {
+        Axios.get('/check_chat_exist', {params: {
+            user_id1: follower_id,
+            user_id2: user_id
+        }}).then(res => {
+            if (res.data.checked) {
+                navigate('/forum')
+            } else {
+                Axios.post('/create_chat', {
+                    user_id1: follower_id,
+                    user_id2: user_id
+                }).then(() => {
+                    navigate('/forum')
+                })
+            }
+        })
+    }
 
     useEffect(() => {
         if(conn_user_subscriptions_ids.includes(user_id)){
@@ -77,7 +97,7 @@ function MessagePanel() {
 
     return (
         <div className='message-panel-container' style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gridGap: '13px', marginTop: '20px', backgroundColor: 'white', padding: '10px', borderRadius: '5px'}}>
-            <button style={{...unfollowStyle}}>Сообщение</button>
+            <button style={{...unfollowStyle}} onClick={handleMessage}>Сообщение</button>
             <button onClick={followChange} style={!followState ? {...followStyle} : {...unfollowStyle}}>
                 {!followState ? <i className="fa fa-user-plus"></i> : <i className="fa-solid fa-user-check"></i>}
             </button>

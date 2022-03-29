@@ -6,10 +6,10 @@ import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 import io from "socket.io-client";
 
+let endPoint = "http://localhost:5001";
+let socket = io.connect(`${endPoint}`);
 
 export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage}) => {
-    let endPoint = "http://localhost:5001";
-    let socket = io.connect(`${endPoint}`);
     const RoomName = room.name;
     let prevMessageId = null;
 
@@ -21,21 +21,21 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
     const [roomMessages, setRoomMessages] = useState(room.messages);
     const [message, setMessage] = useState("");
 
+    socket.on('newMessage', data => {
+        console.log(data)
+        if (data.id !== prevMessageId) {
+            prevMessageId = data.id
+            setNewMessage(data)
+            setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
+        }
+    })
+
     useEffect(() => {
         console.log(socket)
 
         if (socket && roomId) {
             socket.emit("join", {roomId: roomId});
         }
-
-        socket.on('newMessage', data => {
-            console.log(data)
-            if (data.id !== prevMessageId) {
-                prevMessageId = data.id
-                setNewMessage(data)
-                setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
-            }
-        })
 
         return () => {
             socket.emit("leave", {roomId: roomId})
