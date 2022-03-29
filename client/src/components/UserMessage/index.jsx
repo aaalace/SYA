@@ -32,6 +32,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
             <div style={{marginTop: '14px', display: 'flex', flexDirection: 'column', 
                 alignItems: current_user_id === msg.user_id ? 'flex-end' : 'flex-start'
             }}>
+                <span style={{fontSize: '12px', color: '#AC80C1'}}>{msg.message_time}</span>
                 <b>{user.profileName}</b>
                 <p style={{marginTop: '7px'}}>{msg.message}</p>
             </div>

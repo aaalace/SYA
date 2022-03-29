@@ -10,6 +10,7 @@ import { changeUser } from '../../store/openedProfile/actions';
 import { useState } from 'react'
 import SocialInfo from '../../components/ProfileComponents/SocialInfo';
 import MessagePanel from '../../components/ProfileComponents/MessagePanel';
+import { nanoid } from 'nanoid';
 
 export const FolSubContext = createContext({})
 

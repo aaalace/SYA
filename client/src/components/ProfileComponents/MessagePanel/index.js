@@ -1,5 +1,7 @@
 import { React, useEffect, useState, useContext } from 'react'
 import { useSelector } from 'react-redux'
+import { nanoid } from 'nanoid';
+import { setChats } from '../../../store/Forum/actions';
 import Axios from 'axios'
 import './style.css'
 import { addFollower, deleteFollower } from '../../../store/followers/actions'
@@ -51,13 +53,19 @@ function MessagePanel() {
             user_id2: user_id
         }}).then(res => {
             if (res.data.checked) {
-                navigate('/forum')
+                navigate(`/forum/chat/${res.data.chat_id}`)
             } else {
                 Axios.post('/create_chat', {
                     user_id1: follower_id,
                     user_id2: user_id
-                }).then(() => {
-                    navigate('/forum')
+                }).then(res => {
+                    dispatch(setChats({[res.data.chat_id]: {
+                        current_user_id: follower_id,
+                        id: res.data.chat_id,
+                        messages: false,
+                        user_id: user_id,
+                    }}))
+                    navigate(`/forum/chat/${res.data.chat_id}`)
                 })
             }
         })

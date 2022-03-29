@@ -150,6 +150,8 @@ from Forum.routes.get_forum_rooms import get_forum_rooms_
 from Forum.routes.get_room_data import get_room_data
 from Forum.routes.add_room_new_message import add_room_new_message
 from Forum.routes.get_user_chats import get_user_chats
+from Forum.routes.get_chat_data import get_chat_data
+from Forum.routes.add_chat_new_message import add_chat_new_message
 
 
 @app.route("/get_forum_rooms", methods=['GET'])
@@ -162,9 +164,19 @@ def get_room_messages(roomId):
     return get_room_data(roomId)
 
 
+@app.route("/get_chat_messages/<chatId>", methods=['GET'])
+def get_chat_messages(chatId):
+    return get_chat_data(chatId)
+
+
 @app.route("/add_forum_message", methods=['GET', 'POST'])
 def add_room_messages():
     return add_room_new_message()
+
+
+@app.route("/add_chat_message", methods=['GET', 'POST'])
+def add_chat_message():
+    return add_chat_new_message()
 
 
 @app.route("/get_user_chats/<user_id>", methods=['GET'])

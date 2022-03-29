@@ -14,4 +14,4 @@ def create_new_chat():
             user_id2=user_id2)
         db.session.add(user_chat)
         db.session.commit()
-        return 'added'
+        return {'chat_id': user_chat.id}

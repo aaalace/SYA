@@ -13,6 +13,6 @@ def check_chat_exist():
         ).first()
         try:
             if user_chats.id:
-                return {'checked': True}
+                return {'checked': True, 'chat_id': user_chats.id}
         except Exception:
             return {'checked': False}

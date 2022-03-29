@@ -7,9 +7,12 @@ import { ForumConnect } from "../../connect/Forum";
 import { RoomsList } from "../../components/ForumComponents/RoomsList";
 import { MyLoader } from "../../components/Loaders/rooms";
 import { useSelector } from "react-redux";
+import { ChatsList } from "../../components/ForumComponents/Chats";
+import { Chat } from "../../components/ForumComponents/Chat";
 
 
 export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect, setChatsCon}) => {
+    const [selectedId, setSelectedId] = useState({type: '', id: 0});
     const [roomsLoaded, setRoomsLoaded] = useState(Object.values(roomsConnect).length)
     const [chatsLoaded, setChatsLoaded] = useState(Object.values(chatsConnect).length)
     const user_id = useSelector(state => state.user.profile_id)
@@ -32,9 +35,8 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
 
     const getChats = () => {
         Axios.get(`/get_user_chats//${user_id}`).then((res) => {
-            console.log(res)
-            // setChatsCon(res.data)
-            // setChatsLoaded(true);
+            setChatsCon(res.data)
+            setChatsLoaded(true);
         })
     }
 
@@ -49,8 +51,8 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
             <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                 <h3 style={{paddingTop: '12px'}}>Комнаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px', marginBottom: '16px'}}>
-                    {Object.values(roomsConnect).length > 0 ?
-                        <RoomsList rooms={roomsConnect}/> : 
+                    {Object.values(roomsConnect).length > 0 || roomsLoaded ?
+                        <RoomsList selectedId={selectedId} setSelectedId={setSelectedId} rooms={roomsConnect}/> : 
                         <MyLoader/>
                     }
                 </div>
@@ -58,9 +60,13 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
             <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                 <h3 style={{paddingTop: '12px'}}>Чаты</h3>
                 <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
-                    {Object.values(roomsConnect).length > 0 ?
-                        <RoomsList rooms={roomsConnect}/> : 
+                    {Object.values(chatsConnect).length > 0 || chatsLoaded ?
+                        <ChatsList selectedId={selectedId} setSelectedId={setSelectedId} chats={chatsConnect}/> : 
                         <MyLoader/>
+                    }
+                    {Object.values(chatsConnect).length === 0 && chatsLoaded ?
+                        <p style={{margin: '16px auto'}}>Пусто</p> : 
+                        null
                     }
                 </div>
             </div>
@@ -69,6 +75,11 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                 <Routes>
                     <Route path="/room/:roomId" element={
                         <Room 
+                            user_id={user_id} 
+                        />} 
+                    />
+                    <Route path="/chat/:chatId" element={
+                        <Chat 
                             user_id={user_id} 
                         />} 
                     />

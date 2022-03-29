@@ -10,6 +10,7 @@ import { NewPostPage } from '../NewPost';
 import Axios from 'axios';
 import { useRef } from 'react';
 import { rollMedia } from '../../store/rolledMedia/actions';
+import { cleanChats } from '../../store/Forum/actions';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -124,6 +125,7 @@ export const Header = () => {
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
+        dispatch(cleanChats())
         dispatch(logOut())
     }
 

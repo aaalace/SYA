@@ -14,12 +14,14 @@ def get_user_chats(user_id):
                     "id": chat.id,
                     "current_user_id": user_id,
                     "user_id": chat.user_id2,
+                    "messages": False
                 }
             else:
                 res[chat.id] = {
                     "id": chat.id,
                     "current_user_id": user_id,
                     "user_id": chat.user_id1,
+                    "messages": False
                 }
         return res
     return ""
