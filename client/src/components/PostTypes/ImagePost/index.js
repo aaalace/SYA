@@ -51,7 +51,7 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostPro
     }
 
     const onLoadImageHandler = () => {
-        setPostProportion(imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth);
+        setPostProportion(imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth);
     }
     
     return (

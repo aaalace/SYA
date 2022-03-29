@@ -49,7 +49,7 @@ export class FullControl extends React.Component {
   handleOnLoad () {
     this.setState({
       loaded: true,
-      duration: this.player.duration()
+      duration: this.player.duration() || 0
     })
   }
 

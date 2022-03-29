@@ -65,13 +65,14 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         switch(type) {
             case 1:
                 return (
-                    <div onClick={() => openPost()} className="audio-post-homepage" style={{
+                    <div className="audio-post-homepage" style={{
                         border: `2px solid ${borderColor}`
                     }}>
                         <FullControl src={mediaConnect[media_id]} />
-                        <button className="cta" style={{
-                            width: '100%', alignItems: 'center', marginTop: '6px',
-                            display: 'flex', justifyContent: 'flex-start'
+                        <button className="cta" 
+                            onClick={() => openPost(post, media_id)}
+                            style={{ width: '100%', alignItems: 'center', marginTop: '6px',
+                                display: 'flex', justifyContent: 'flex-start'
                         }}>
                             <span>Перейти</span>
                             <svg width="15px" height="10px" viewBox="0 0 13 10">

@@ -145,7 +145,7 @@ const OneComment = (props) => {
     }
 
     const sendReply = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(replyMedia){
             setnewCommentLoadingState(true)
             setReplyState(false)
@@ -324,7 +324,7 @@ export const PostComments = (props) => {
     }
 
     const sendComment = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(newCommentMedia && newCommentType){
             setnewCommentLoadingState(true)
             const new_text = newComment
