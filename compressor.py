@@ -2,6 +2,7 @@ from base64 import b64decode, b64encode
 from PIL import Image
 import os
 import moviepy.editor as moviepy
+from pydub import AudioSegment
 
 
 def compressor(content, type):
@@ -31,8 +32,15 @@ def compressor(content, type):
         os.remove(path1)
         os.remove(path2)
         return out_content
-
-
-with open('C:/Users/Артём/PycharmProjects/pythonProject1/Desktop 2022.03.06 - 10.31.43.01.mp4', 'rb') as f:
-    b_64 = b64encode(bytes(f.read()))
-compressor(b_64, 2)
+    if type == 1:
+        path1 = os.getcwd() + '/this_file_will_be_deleted1.mp3'
+        path2 = os.getcwd() + '/this_file_will_be_deleted2.mp3'
+        with open(path1, 'wb') as aud:
+            aud.write(d_content)
+        sound = AudioSegment.from_file(path1)
+        sound.export(path2, format="mp3", bitrate="128k")
+        with open(path2, 'rb') as aud:
+            out_content = b64encode(aud.read())
+        os.remove(path1)
+        os.remove(path2)
+        return out_content
