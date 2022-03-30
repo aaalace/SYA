@@ -30,7 +30,6 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
     const [message, setMessage] = useState("");
 
     socket.on('newMessage', data => {
-        console.log(data)
         if (data.id !== prevMessageId) {
             prevMessageId = data.id
             setNewMessage(data)

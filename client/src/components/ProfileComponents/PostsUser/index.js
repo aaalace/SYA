@@ -49,7 +49,6 @@ const PostsUser = (props) => {
     }
 
     useEffect(() => {
-        console.log(usersPosts)
         if(props.id){
             if(Object.keys(usersPosts).includes(props.id.toString())){
                 const posts = []
@@ -155,7 +154,6 @@ const OnePost = (props) => {
         if(media[post.media_id]){
             CurrentMedia = media[post.media_id]
         }
-        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,

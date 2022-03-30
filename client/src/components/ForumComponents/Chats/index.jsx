@@ -4,10 +4,14 @@ import { UsersConnect } from '../../../connect/Users';
 import Axios from 'axios';
 import { IconLoader } from '../../Loaders/icons';
 import { TextLoader } from '../../Loaders/text';
+import { useDispatch } from 'react-redux';
+import { toggleChatList } from '../../../store/currentPage/actions';
 
 
 export const ChatsList = ({chats, selectedId, setSelectedId}) => {
+    const dispatch = useDispatch()
     const handleClick = (id) => {
+        dispatch(toggleChatList())
         setSelectedId({type: 'chat', id})
     }
 
@@ -43,6 +47,7 @@ const ListEl = UsersConnect(({user, chat, setUserN}) => {
                 style={{
                     objectFit: 'cover',
                     width: '50px',
+                    aspectRatio: '1 / 1',
                     height: '50px',
                     borderRadius: '18px',
                     margin: '0 10px 0 0'

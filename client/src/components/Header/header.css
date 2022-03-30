@@ -1,6 +1,52 @@
 .audio-header::-webkit-media-controls-mute-button {
     display: none !important;
     }
+
+.forum-icon-tablet {
+    transition: color .07s;
+    color: #AC80C1;
+    top: 8px;
+    left: 48px;
+}
+
+.appearing-animation-forum-icon-tablet {
+    display: block;
+    animation-name: forumIconTabletAppearing;
+    animation-duration: .4s;
+}
+
+.disappearing-animation-forum-icon-tablet {
+    visibility: hidden;
+    animation-name: forumIconTabletDisappearing;
+    animation-duration: .4s;
+}
+
+@keyframes forumIconTabletDisappearing {
+    0% {
+        top: 8px;
+        left: 48px;
+    }
+    100%   {
+        top: -64px;
+        left: -48px;
+        visibility: hidden;
+    }
+}
+
+@keyframes forumIconTabletAppearing {
+    0%   {
+        top: -64px;
+        left: -48px;
+    }
+    100% {
+        top: 8px;
+        left: 48px;
+    }
+}
+
+.forum-icon-tablet:hover {
+    color: #826092;
+}
     
 .audio-header::-webkit-media-controls-volume-slider {
     display: none !important;

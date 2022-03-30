@@ -1,3 +1,7 @@
+.audio-icon {
+  transition: transform .1s;
+}
+
 .audio-icon:active {
     transform: scale(0.9);
 }

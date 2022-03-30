@@ -97,8 +97,6 @@ export const commentsPostsReducer = (state = initialState, action) => {
         }
         case CHANGE_COMMENT_LIKE: {
             const stateCopy = {...state}
-            console.log(stateCopy)
-            console.log(action.payload)
             let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
             let cleared_comments = stateCopy[action.payload.post_id].filter(com => com.commentId !== action.payload.commentId)
             finded_comment[0]['likes_count'] += action.payload.like

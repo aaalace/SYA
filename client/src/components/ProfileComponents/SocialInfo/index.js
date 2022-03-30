@@ -188,7 +188,6 @@ function SocialInfo(props) {
     }
 
     const follow = (obj) => {
-        console.log('un_follow')
         Axios.post('un_follow/', {
             follower_id: loged_user_id,
             user_id: obj.follower_id,

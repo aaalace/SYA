@@ -39,7 +39,6 @@ export const ForumReducer = (state = initialState, action) => {
             return copyState
         }
         case SET_CHATS: {
-            console.log(action.payload)
             return {...state, user_chats: {...state.user_chats, ...action.payload}};
         }
         case SET_CHAT_DATA: {

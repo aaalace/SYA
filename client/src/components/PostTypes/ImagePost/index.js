@@ -46,7 +46,6 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostPro
         e.preventDefault();
         setDrag(false);
         let file = [...e.dataTransfer.files][0];
-        console.log(e.dataTransfer.files)
         handleUploadedFileImage(file, true);
     }
 

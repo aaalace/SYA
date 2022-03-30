@@ -44,11 +44,9 @@ export const userReducer = (state = initialState, action) => {
             return {...state, liked_posts: state.liked_posts.filter(post => post !== action.payload)}
         }
         case CHANGE_COMMENT_LIKES: {
-            console.log(action.payload)
             return {...state, liked_comments: state.liked_comments.concat(action.payload)}
         }
         case REMOVE_COMMENT_LIKES: {
-            console.log(action.payload)
             return {...state, liked_comments: state.liked_comments.filter(comm => comm !== action.payload)}
         }
         default: {
