@@ -44,6 +44,59 @@
     }
 }
 
+.left-appearing-animation-reload-icon-tablet {
+    display: block;
+    animation-name: reloadIconTabletAppearing;
+    animation-duration: .4s;
+}
+
+.left-disappearing-animation-reload-icon-tablet {
+    visibility: hidden;
+    animation-name: reloadIconTabletDisappearing;
+    animation-duration: .4s;
+}
+
+@keyframes reloadIconTabletDisappearing {
+    0% {
+        left: 48px;
+    }
+    100%   {
+        left: -48px;
+        visibility: hidden;
+    }
+}
+
+@keyframes reloadIconTabletAppearing {
+    0%   {
+        left: -48px;
+    }
+    100% {
+        left: 48px;
+    }
+}
+
+.reload-focus {
+    animation-name: rotation;
+    animation-duration: .4s;
+}
+
+@keyframes rotation {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.reload-focus-back {
+    animation-name: rotationBack;
+    animation-duration: .4s;
+}
+
+@keyframes rotationBack {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
 .forum-icon-tablet:hover {
     color: #826092;
 }

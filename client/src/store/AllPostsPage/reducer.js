@@ -1,5 +1,4 @@
-import { SET_ALL_PAGE_POSTS } from "./actions"
-import { UPDATE_ALL_PAGE_MEDIA } from "./actions"
+import { SET_ALL_PAGE_POSTS, CLEAN_UP_RELOAD, UPDATE_ALL_PAGE_MEDIA } from "./actions"
 
 
 const initialState = {
@@ -19,6 +18,9 @@ export const AllPagePostsReducer = (state = initialState, action) => {
             return { ...state, 
                 media: {...state.media, ...action.payload},
             }
+        }
+        case CLEAN_UP_RELOAD: {
+            return { ...state, media: {}, posts: [] }
         }
         default: {
             return state

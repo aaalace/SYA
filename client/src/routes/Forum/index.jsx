@@ -27,7 +27,8 @@ const ChatListOpened = styled.div`
     top: 64px;
     left: 0;
     borderRadius: 0 0 15px 0;
-    border: 2px solid #e7e4e4;
+    border-right: 2px solid #e7e4e4;
+    border-bottom: 2px solid #e7e4e4;
 `;
 
 
