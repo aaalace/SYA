@@ -179,7 +179,7 @@ export class FullControl extends React.Component {
                   style={{ cursor: 'pointer', width: '33px',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
               }}/> }
-              <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
+              <p style={{width: '55px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
                 {this.convertSeconds(this.state.seek.toFixed())}
               </p>
             </div>
@@ -193,7 +193,7 @@ export class FullControl extends React.Component {
                 onMouseDown={this.handleMouseDownSeek}
                 onMouseUp={this.handleMouseUpSeek}
               />
-              <p style={{color: '#6A5ACD', fontWeight: 900, width: '38px'}}>
+              <p style={{color: '#6A5ACD', fontWeight: 900, width: '55px'}}>
                 {(this.state.duration) ? this.convertSeconds(this.state.duration.toFixed()) : '00:00'}
               </p>
             </div>

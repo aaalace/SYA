@@ -4,12 +4,26 @@ import { useState, useEffect } from "react"
 import Axios from 'axios';
 import { nanoid } from "nanoid";
 import { UserMessage } from "../../UserMessage";
+import { useDispatch } from "react-redux";
+import { changeMessage } from "../../../store/Forum/actions";
 
 export const Chat = ({user_id, setSelectedId}) => {
     const {chatId} = useParams()
+    const dispatch = useDispatch()
+
+    const handleClick = () => {
+        console.log('clicked')
+        dispatch(changeMessage({
+            user_chat_id: 1,
+            message_id: 1,
+            message: 'from clicked'
+        }))
+    }
     
     return (
+        <>
         <ChatCon setSelectedId={setSelectedId} chatId={chatId} user_id={user_id}/>
+        </>
     )
 }
 

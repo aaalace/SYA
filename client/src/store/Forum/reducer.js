@@ -1,4 +1,4 @@
-import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA, SET_CHATS, SET_CHAT_DATA, CLEAN_USER_CHATS } from "./actions"
+import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA, SET_CHATS, SET_CHAT_DATA, CLEAN_USER_CHATS, CHANGE_MESSAGE_BY_ID } from "./actions"
 
 
 const initialState = {
@@ -51,6 +51,19 @@ export const ForumReducer = (state = initialState, action) => {
         }
         case CLEAN_USER_CHATS: {
             return {...state, user_chats: {}}
+        }
+        case CHANGE_MESSAGE_BY_ID: {
+            return {...state, user_chats: {
+                ...state.user_chats, [action.payload.user_chat_id]: {
+                    ...state.user_chats[action.payload.user_chat_id], messages: {
+                        ...state.user_chats[action.payload.user_chat_id].messages, 
+                        [action.payload.message_id]: {
+                            ...state.user_chats[action.payload.user_chat_id].messages[action.payload.message_id],
+                            message: action.payload.message
+                        }
+                    }
+                }
+            }}
         }
         default: {
             return state

@@ -4,6 +4,7 @@ export const SET_ROOM_DATA = 'SET_ROOM_DATA';
 export const SET_NEW_MESSAGE_DATA = 'SET_NEWMESSAGE_DATA';
 export const SET_CHAT_DATA = 'SET_CHAT_DATA';
 export const CLEAN_USER_CHATS = 'CLEAN_USER_CHATS';
+export const CHANGE_MESSAGE_BY_ID = 'CHANGE_MESSAGE_BY_ID'
 
 export const setRooms = (payload) => ({
     type: SET_ROOMS, payload
@@ -27,4 +28,8 @@ export const setChatData = (payload) => ({
 
 export const cleanChats = () => ({
     type: CLEAN_USER_CHATS
+})
+
+export const changeMessage = (payload) => ({
+    type: CHANGE_MESSAGE_BY_ID, payload
 })
