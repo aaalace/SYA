@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_file
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,8 +9,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['listen_addresses'] = ''
+app.debug = True
 db = SQLAlchemy(app)
 CORS(app)
+
+
+@app.route("/get_post_media/<name>", methods=['GET'])
+def send_media(name):
+    return send_file(f'./images/upload/posts/{name}')
+
 
 # SIGNUP and LOGIN
 from signupLogin.routes.create_user import create_user

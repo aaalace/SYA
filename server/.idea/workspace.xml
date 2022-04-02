@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/posts/routes/compressor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/media.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/media.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/posts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/create_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/get_media.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_media.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/get_posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_posts.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +25,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="26WmJroELVn1CwTKwsbYcNJV1G7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

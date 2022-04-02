@@ -10,7 +10,7 @@ import { setOpenPost } from '../../store/currentPost/actions';
 import { useDispatch } from 'react-redux';
 import { OpenedPost } from '../../components/OpenedPost';
 import { FullControl } from '../../components/Audio/FullControl'
-
+import Video from '../../components/Video/component';
 
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     const post_limit = 5;
@@ -19,9 +19,9 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     const dispatch = useDispatch()
 
     const getMedia = (mediaIds) => {
-        for (const id in mediaIds) {
-            Axios.get(`/get_media//${id}`).then((res) => {
-                updateMedia({[id]: res.data})
+        for (let mediaId in mediaIds) {
+            Axios.get(`/get_media/${mediaId}`).then((res) => {
+                updateMedia({[mediaId]: res.data})
             })
         }
     }
@@ -29,7 +29,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         Axios.get(`/get_posts//${post_limit}`)
             .then((res) => {
                 setPosts(res.data);
-                getMedia(res.data.media_ids);
+                getMedia(res.data.media_ids)
         })
     }
 
@@ -61,6 +61,10 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
+        if (!mediaConnect[media_id]) {
+            getMedia(media_id)
+        }
+
         const from_main = true
         switch(type) {
             case 1:
@@ -68,7 +72,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                     <div className="audio-post-homepage" style={{
                         border: `2px solid ${borderColor}`
                     }}>
-                        <FullControl src={mediaConnect[media_id]} />
+                        <FullControl src={mediaConnect[media_id] ? `/get_post_media/${mediaConnect[media_id]}` : null} />
                         <button className="cta" 
                             onClick={() => openPost(post, media_id)}
                             style={{ width: '100%', alignItems: 'center', marginTop: '6px',
@@ -84,18 +88,29 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                 )
             case 2:
                 return (
-                    <div onClick={() => openPost(post, media_id)} style={{marginTop: '2%'}}>
-                        <video controls className="hoverBrightness"
-                            src={mediaConnect[media_id]}
-                            style={{width: '100%', maxHeight: '60vh', borderRadius: '15px'}}>
-                        </video>
+                    <div style={{marginTop: '2%'}}>
+                        <Video src={mediaConnect[media_id] ? `/get_post_media/${mediaConnect[media_id]}` : null} style={{width: '100%'}} onLoadEnd={() => {console.log('loaded')}}/>
+                        {/* <video controls className="hoverBrightness"
+                            src={`/get_post_media/${mediaConnect[media_id]}`}
+                            style={{width: '100%', borderRadius: '15px', aspectRatio: '1 / 1'}}>
+                        </video> */}
+                        <button className="cta" onClick={() => openPost(post, media_id)} style={{
+                            width: '100%', alignItems: 'center', marginTop: '6px',
+                            display: 'flex', justifyContent: 'flex-start'
+                        }}>
+                            <span>Перейти</span>
+                            <svg width="15px" height="10px" viewBox="0 0 13 10">
+                                <path d="M1,5 L11,5"></path>
+                                <polyline points="8 1 12 5 8 9"></polyline>
+                            </svg>
+                        </button>
                     </div>
                 )
             case 3:
                 return (
                     <div onClick={() => openPost(post, media_id)} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {mediaConnect[media_id] ? 
-                            <img src={mediaConnect[media_id]} alt="картинка" className="hoverBrightness"
+                            <img src={mediaConnect[media_id] ? `/get_post_media/${mediaConnect[media_id]}` : null} alt="картинка" className="hoverBrightness"
                                 style={{maxWidth: '100%', maxHeight: '60vh', borderRadius: '15px'}}/>
                             : 
                             <div className="hoverBrightness"
@@ -113,7 +128,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>
-                            {mediaConnect[media_id]}
+                            {mediaConnect[media_id] ? mediaConnect[media_id] : 'Loading...'}
                         </div>
                     </div>
                 )
@@ -137,7 +152,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                     </div> : null}
                 </div>
                 <div className='posts-box'>
-                {
+                {!Object.values(mediaConnect).filter(item => item ===  '').length ?
                     Object.values(postsConnect).sort(function (post1, post2){
                         if (post1.likes_count > post2.likes_count) {
                             return -1;
@@ -153,7 +168,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                             </div>
                         </div>
                     )
-                }
+                : null}
                 </div>
             </div>
         </div>
