@@ -71,7 +71,7 @@ export const ProfilePage = () => {
 
     return (
         <div style={{position: 'relative'}}>
-            <div className="background-prof"/>
+            <div className="background"/>
             {MainInfo ?
             <div className='main-prof'>
                     {med === 'large' ? 

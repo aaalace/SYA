@@ -7,8 +7,9 @@ import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import { RegLogError } from '../../components/RegLogError';
-import { Link } from 'react-router-dom';
 import { addProfilePhoto } from '../../store/user/actions';
+import { addInitialInfoFollowers } from "../../store/followers/actions"
+import { addInitialInfoSubscriptions } from "../../store/followers/actions"
 
 const BoxStyles = {
     width: '80%',
@@ -53,6 +54,32 @@ export const LoginPage = () => {
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ logging, setLogging ] = useState(false)
 
+
+    const getFollowers = (id) => {
+        Axios.get('/profile/get_followers/', {
+            params: {id: id}
+        }).then((response) => {
+            let res = []
+            for (let key in response.data.result){
+                res.push(response.data.result[key])
+            }
+            dispatch(addInitialInfoFollowers({userId: id, data: res}))
+        })
+    }
+
+    const getSubscriptions = (id) => {
+        Axios.get('/profile/get_subscriptions/', {
+            params: {id: id}
+        }).then((response) => {
+            let res = []
+            for (let key in response.data.result){
+                res.push(response.data.result[key])
+            }
+            dispatch(addInitialInfoSubscriptions({userId: id, data: res}))
+        })
+    }
+
+
     const handlerLog = (arg) => {
         setLogging(true)
         if(arg === 'home'){
@@ -83,6 +110,8 @@ export const LoginPage = () => {
                     setLogging(false)
                     setProfileName('')
                     setProfilePassword('')
+                    getSubscriptions(response.data.id)
+                    getFollowers(response.data.id)
                 }
                 else{
                     setErrorWindowInfo(response.data.exc)

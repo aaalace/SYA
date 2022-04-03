@@ -89,10 +89,9 @@ def get_post_by_med(med):
 def get_posts_box(count):
     return get_posts_main(count)
 
-@app.route("/change_like/", methods=['GET', 'POST'])
+@app.route("/change_like/", methods=['POST'])
 def change_like_state():
     return change_like()
-
 
 @app.route("/get_posts_by_tags", methods=['GET', 'POST'])
 def get_posts_by_t():

@@ -23,11 +23,9 @@ const PostsUser = (props) => {
                     ...prevState,
                     [id]: res.data
                 }))
-                Axios.get(`/get_post_by_media//${id}`).then((result) => {
                 dispatch(addPostMedia({
-                    userId: props.id, post_id: result.data, id, data: res.data
+                    [id]: res.data
                 }))
-            })
             })
         }
     }
@@ -56,7 +54,7 @@ const PostsUser = (props) => {
                 const media = {}
                 for (let key in usersPosts[props.id]){
                     posts.push(usersPosts[props.id][key])
-                    media[usersPosts[props.id][key]['media_id']] = usersPosts[props.id][key]['media']
+                    media[usersPosts[props.id][key]['media_id']] = usersPosts.media[usersPosts[props.id][key]['media_id']]
                 }
                 setUserPosts(posts)
                 setMedia(media)

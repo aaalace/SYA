@@ -18,7 +18,7 @@ def get_comments(post_id):
                 reply_res = {}
                 reply_res['replyid'] = reply.id
                 reply_res['text'] = reply.text
-                reply_res['media'] = None
+                reply_res['media_id'] = reply.media_id
                 reply_res['replyDate'] = reply.date
                 reply_res['proportion'] = reply.proportion
                 reply_res['middle_color'] = reply.middle_color
@@ -40,7 +40,7 @@ def get_comments(post_id):
 
             comment_res['commentId'] = comment.id
             comment_res['text'] = comment.text
-            comment_res['media'] = None
+            comment_res['media_id'] = comment.media_id
             comment_res['commentDate'] = comment.date
             comment_res['authorData'] = author_data
             comment_res['replyComments'] = reply_comments_res

@@ -25,9 +25,6 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
     const getMedia = (mediaId) => {
         Axios.get(`/get_media//${mediaId}`)
             .then((res) => {
-                // fetch(res.data)
-                //     .then(result => result.blob())
-                //     .then(blob => console.log(blob))
                 updateMedia({[mediaId]: res.data})
             })
         }

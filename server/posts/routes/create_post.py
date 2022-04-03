@@ -98,7 +98,7 @@ def create_post():
                     'likes_count': post.likes_count,
                     'post_time': post.post_time,
                     'middle_color': post.middle_color,
-                    'proportion': post.height_width_proportion,
-                    'media': content
-                }
+                    'proportion': post.height_width_proportion
+                },
+            'media': content
         }

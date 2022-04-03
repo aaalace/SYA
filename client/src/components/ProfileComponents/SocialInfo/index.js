@@ -89,7 +89,6 @@ function SocialInfo(props) {
             for (let key in response.data.result){
                 res.push(response.data.result[key])
             }
-
             setFollowersOnpage(res)
             dispatch(addInitialInfoFollowers({userId: props.id, data: res}))
             getFollowersAvatars(response.data.avatar_ids)
@@ -206,6 +205,7 @@ function SocialInfo(props) {
     }
 
     const ContextInfo = useContext(FolSubContext)
+    console.log(props.id)
 
     return (
         <div style={container}>
