@@ -59,6 +59,7 @@ def create_post():
 
         try:
             media_id = media.id
+            path_to_media = media.path_to_image
         except Exception as e:
             print(e)
             return 'ошибка запроса'
@@ -78,7 +79,8 @@ def create_post():
                 post_time=dt,
                 middle_color=';'.join(mid_col),
                 height_width_proportion=proportion,
-                tags="`".join(tags) + '`'
+                tags="`".join(tags) + '`',
+                path_to_media=path_to_media
             )
             db.session.add(post)
             db.session.commit()

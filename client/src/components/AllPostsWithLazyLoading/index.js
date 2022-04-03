@@ -5,6 +5,7 @@ import { allPagePostsConnect } from '../../connect/allPagePosts';
 import Masonry from 'react-masonry-css';
 import './masonry.css';
 import { FullControl } from '../Audio/FullControl'
+import Video from '../Video/component'
 
 export const handleText = (text) => {
     if (text.length < 500) {
@@ -24,21 +25,11 @@ const breakpointColumnsObj = {
     767: 2
 };
 
-export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
+export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
     let borderColor = '#9979d4';
     const userTags = useSelector(state => state.user.tags);
     let loadPosts = false;
     const postsRef = useRef(null)
-
-    const getMedia = (mediaId) => {
-        Axios.get(`/get_media//${mediaId}`)
-            .then((res) => {
-                // fetch(res.data)
-                //     .then(result => result.blob())
-                //     .then(blob => console.log(blob))
-                updateMedia({[mediaId]: res.data})
-            })
-        }
 
     const getPosts = () => {
         Axios.get(`/get_posts_by_tags`, {params: {
@@ -75,11 +66,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
         window.addEventListener('scroll', handleScroll)
     }, [])
 
-    const switchType = (type, media_id, proportion=0, middle_color) => {
-        if (!mediaConnect[media_id] && !onLoadingStatement.includes(media_id)) {
-            onLoadingStatement.push(media_id)
-            getMedia(media_id)
-        }
+    const switchType = (type, middle_color, media_path, proportion=0,) => {
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
@@ -90,7 +77,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                         marginTop: '2%', border: `2px solid ${borderColor}`, borderRadius: '15px',
                         display: 'flex', flexDirection: 'column'
                     }}>
-                        <FullControl src={mediaConnect[media_id]} />
+                        <FullControl src={`/get_post_media/${media_path}`} />
                         <button className="cta" style={{
                             width: '100%', alignItems: 'center', marginTop: '6px',
                             display: 'flex', justifyContent: 'flex-start'
@@ -108,11 +95,11 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                     <div onClick={() => openPost()} style={{
                         marginTop: '2%'
                     }}>
-                        {/* <Video src={mediaConnect[media_id]}/> */}
-                        <video controls className="hoverBrightness"
-                            src={mediaConnect[media_id]}
+                        <Video src={`/get_post_media/${media_path}`}/>
+                        {/* <video controls className="hoverBrightness"
+                            src={mediaConnect[media_id] ? `/get_post_media/${mediaConnect[media_id]}` : null}
                             style={{width: '100%', borderRadius: '15px'}}>
-                        </video>
+                        </video> */}
                         <button className="cta" style={{
                             width: '100%', alignItems: 'center', marginTop: '6px',
                             display: 'flex', justifyContent: 'flex-start'
@@ -128,8 +115,8 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
             case 3:
                 return (
                     <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
-                        {mediaConnect[media_id] ? 
-                            <img src={mediaConnect[media_id]} 
+                        {media_path ? 
+                            <img src={`/get_post_media/${media_path}`} 
                                 alt="картинка" className="hoverBrightness"
                                 style={{width: '100%', borderRadius: '15px'}}/>
                             : 
@@ -147,7 +134,7 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px', textAlign: 'justify', overflow: 'hidden'}}>
-                            {mediaConnect[media_id] ? handleText(mediaConnect[media_id]) : 'Loading...'}
+                            {media_path ? handleText(media_path) : 'Loading...'}
                         </div>
                     </div>
                 )
@@ -163,9 +150,9 @@ export const Posts = allPagePostsConnect(({postsConnect, mediaConnect, setPosts,
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">
                 {
-                    postsConnect.map((post) => 
+                    postsConnect.map((post, index) => 
                         <div key={post.id}>
-                            {switchType(post.type, post.media_id, post.proportion, post.middle_color)}
+                            {switchType(post.type, post.middle_color, post.path_to_media, post.proportion)}
                         </div>
                     )
                 }

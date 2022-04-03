@@ -6,10 +6,6 @@ export const setAllPagePosts = (payload) => ({
     type: SET_ALL_PAGE_POSTS, payload
 })
 
-export const updateAllPagePostsMedia = (payload) => ({
-    type: UPDATE_ALL_PAGE_MEDIA, payload
-})
-
 export const cleanPostsAndMediaState = () => ({
     type: CLEAN_UP_RELOAD
 })

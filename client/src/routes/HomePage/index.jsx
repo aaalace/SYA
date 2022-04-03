@@ -12,6 +12,7 @@ import { OpenedPost } from '../../components/OpenedPost';
 import { FullControl } from '../../components/Audio/FullControl'
 import Video from '../../components/Video/component';
 
+
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     const post_limit = 5;
     let borderColor = '#9979d4';
@@ -26,7 +27,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         }
     }
     const getPosts = () => {
-        Axios.get(`/get_posts//${post_limit}`)
+        Axios.get(`/get_posts/${post_limit}`)
             .then((res) => {
                 setPosts(res.data);
                 getMedia(res.data.media_ids)
@@ -37,6 +38,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if (Object.keys(postsConnect).length === 0) {
             getPosts();
         }
+
     }, [])
 
     const openPost = (post, media_id) => {

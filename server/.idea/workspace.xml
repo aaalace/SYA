@@ -2,14 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/posts/routes/compressor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/media.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/media.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/326.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/327.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/330.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/331.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/332.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/333.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/334.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/335.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/336.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/337.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/338.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/339.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/340.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/341.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/342.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/343.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/344.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/345.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/347.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/348.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/349.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/350.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/351.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/352.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/353.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/355.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/356.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/357.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/358.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/359.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/360.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/361.mp4" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/models/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/posts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/compressor.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/compressor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts/routes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/create_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/get_media.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_media.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/get_posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_posts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

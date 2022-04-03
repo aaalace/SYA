@@ -12,4 +12,5 @@ class Posts(db.Model):
     middle_color = db.Column(db.Text)
     height_width_proportion = db.Column(db.Float, nullable=True)
     tags = db.Column(db.Text, nullable=True)
+    path_to_media = db.Column(db.Text, nullable=True)
 

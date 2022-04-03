@@ -20,11 +20,16 @@ def compressor(content, type, id):
     if type == 2:
         name = f'{id}.mp4'
         path_from_cwd = f'/images/upload/posts/{id}.mp4'
-        path1 = os.getcwd() + path_from_cwd
+        path2 = os.getcwd() + path_from_cwd
+        path1 = os.getcwd() + '/this_file_will_be_deleted1.mp4'
         with open(path1, 'wb') as vid:
             vid.write(d_content)
         # clip = moviepy.VideoFileClip(path1)
         # clip.write_videofile(path1)
+        clip = moviepy.VideoFileClip(path1)
+        clip.write_videofile(path2)
+        os.remove(path1)
+
         return {'status': True, 'name': name}
     if type == 1:
         name = f'{id}.mp3'
