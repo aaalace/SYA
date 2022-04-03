@@ -5,6 +5,7 @@ import './style.css'
 
 function TagsContainer(props) {
     const own_tags = useSelector(state => state.user.tags)
+    console.log(own_tags)
     const oth_tags = useSelector(state => state.opened_profile.tags)
     let tags = oth_tags
     if(props.owner){

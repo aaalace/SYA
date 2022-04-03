@@ -21,7 +21,7 @@ const initialState = {
     email: '',
     liked_posts: [],
     liked_comments: [],
-    tags: [],
+    tags: ['SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA', 'SYA'],
     followers_count: 0,
     subscriptions_count: 0
 }

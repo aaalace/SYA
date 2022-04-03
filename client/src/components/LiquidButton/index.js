@@ -6,7 +6,7 @@ export const Button = ({text}) => {
         <button className="button__sign browse-posts" 
             style={{verticalAlign: 'middle'
         }}>
-            <span>Sign in</span>
+            <span>Sign up</span>
         </button>
         // <LiquidButton className="browse-posts" name={text} background="#AC80C1" 
         // firstcolor="#AC80C1" secondcolor="#483D8B" />
