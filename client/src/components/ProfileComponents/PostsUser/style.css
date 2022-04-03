@@ -20,7 +20,6 @@
 
 .post-block {
     break-inside: avoid-column;
-    max-width: 200px;
     border-radius: 20px;
 }
 

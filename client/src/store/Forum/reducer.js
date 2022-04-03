@@ -1,16 +1,15 @@
-import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA } from "./actions"
+import { SET_ROOMS, SET_ROOM_DATA, SET_NEW_MESSAGE_DATA, SET_CHATS, SET_CHAT_DATA, CLEAN_USER_CHATS, CHANGE_MESSAGE_BY_ID } from "./actions"
 
 
 const initialState = {
-    rooms: {}
+    rooms: {},
+    user_chats: {}
 }
 
 export const ForumReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_ROOMS: {
-            const copyState = {...state}
-            copyState.rooms = {...action.payload}
-            return copyState;
+            return {...state, rooms: {...action.payload}};
         }
         case SET_ROOM_DATA: {
             const roomId = action.payload.roomId;
@@ -21,6 +20,15 @@ export const ForumReducer = (state = initialState, action) => {
         case SET_NEW_MESSAGE_DATA: {
             const data = action.payload
             const copyState = {...state}
+            if (data.chat_id) {
+                const chatCopy = copyState.user_chats[data.chat_id]
+                copyState.user_chats = {
+                ...copyState.user_chats,
+                [data.chat_id]: {
+                    ...chatCopy, messages: {...chatCopy.messages, [data.id]: {...data}} 
+                }}
+                return copyState
+            }
             const roomCopy = copyState.rooms[data.room_id]
             copyState.rooms = {
                 ...copyState.rooms,
@@ -29,6 +37,33 @@ export const ForumReducer = (state = initialState, action) => {
                 }
             }
             return copyState
+        }
+        case SET_CHATS: {
+            return {...state, user_chats: {...state.user_chats, ...action.payload}};
+        }
+        case SET_CHAT_DATA: {
+            const ChatId = action.payload.ChatId;
+            const copyState = {...state}
+            copyState.user_chats[ChatId].messages = {
+                ...copyState.user_chats[ChatId].messages, ...action.payload.data
+            }
+            return copyState;
+        }
+        case CLEAN_USER_CHATS: {
+            return {...state, user_chats: {}}
+        }
+        case CHANGE_MESSAGE_BY_ID: {
+            return {...state, user_chats: {
+                ...state.user_chats, [action.payload.user_chat_id]: {
+                    ...state.user_chats[action.payload.user_chat_id], messages: {
+                        ...state.user_chats[action.payload.user_chat_id].messages, 
+                        [action.payload.message_id]: {
+                            ...state.user_chats[action.payload.user_chat_id].messages[action.payload.message_id],
+                            message: action.payload.message
+                        }
+                    }
+                }
+            }}
         }
         default: {
             return state

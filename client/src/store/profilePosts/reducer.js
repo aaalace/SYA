@@ -58,30 +58,6 @@ export const postsReducer = (state = initialState, action) => {
             stateCopy[action.payload.userId][action.payload.post_id]['media'] = action.payload.data;
             return stateCopy;
         }
-        // case ADD_POST_USERNAME: {
-        //     const stateCopy = {...state}
-        //     if (stateCopy.hasOwnProperty(action.payload.userId)) {
-        //         if(stateCopy[action.payload.userId].hasOwnProperty(action.payload.post_id)){
-        //             stateCopy[action.payload.userId][action.payload.post_id]['username'] = action.payload.data;
-        //             return stateCopy;
-        //         }
-        //     }
-        //     stateCopy[action.payload.userId] = {}
-        //     stateCopy[action.payload.userId][action.payload.post_id]['username'] = action.payload.data;
-        //     return stateCopy;
-        // }
-        // case ADD_POST_AVATAR: {
-        //     const stateCopy = {...state}
-        //     if (stateCopy.hasOwnProperty(action.payload.userId)) {
-        //         if(stateCopy[action.payload.userId].hasOwnProperty(action.payload.post_id)){
-        //             stateCopy[action.payload.userId][action.payload.post_id]['avatar'] = action.payload.data;
-        //             return stateCopy;
-        //         }
-        //     }
-        //     stateCopy[action.payload.userId] = {}
-        //     stateCopy[action.payload.userId][action.payload.post_id]['avatar'] = action.payload.data;
-        //     return stateCopy;
-        // }
         default: {
             return state
         }

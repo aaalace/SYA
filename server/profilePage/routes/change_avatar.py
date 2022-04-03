@@ -5,6 +5,7 @@ from app import db
 from models.users_images import UsersImages
 from models.users import Users
 
+
 def change_avatar():
     if request.method == 'POST':
         data = json.loads(request.data)

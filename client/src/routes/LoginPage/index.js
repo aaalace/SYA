@@ -73,7 +73,8 @@ export const LoginPage = () => {
                         email: response.data.email,
                         liked_posts: response.data.liked_posts,
                         posts_id: response.data.posts_id,
-                        tags: response.data.tags
+                        tags: response.data.tags,
+                        liked_comments: response.data.liked_comments
                     }));
                     if (response.data.avatar){
                         dispatch(addProfilePhoto({avatar: response.data.avatar}))

@@ -77,14 +77,11 @@ def create_user():
             )
             db.session.add(user)
             db.session.commit()
-
-            # GETTING NEW USER ID
-            user = Users.query.filter(Users.profile_name == prof_name).first()
             
             # CREATING USER AVATAR
             userImage = UsersImages(
-                user_id = user.id,
-                image = default_image
+                user_id=user.id,
+                image=default_image
             )
             db.session.add(userImage)
             db.session.commit()

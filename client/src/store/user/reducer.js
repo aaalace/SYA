@@ -4,6 +4,8 @@ import { ADD_AVATAR } from "./actions"
 import { ADD_USER_POST } from "./actions"
 import { CHANGE_LIKES } from "./actions"
 import { REMOVE_LIKES } from "./actions"
+import { CHANGE_COMMENT_LIKES } from "./actions"
+import { REMOVE_COMMENT_LIKES } from "./actions"
 
 const initialState = {
     loged: false,
@@ -16,7 +18,9 @@ const initialState = {
     avatar: null,
     posts_id: [],
     email: '',
-    liked_posts: []
+    liked_posts: [],
+    liked_comments: [],
+    tags: []
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -38,6 +42,12 @@ export const userReducer = (state = initialState, action) => {
         }
         case REMOVE_LIKES: {
             return {...state, liked_posts: state.liked_posts.filter(post => post !== action.payload)}
+        }
+        case CHANGE_COMMENT_LIKES: {
+            return {...state, liked_comments: state.liked_comments.concat(action.payload)}
+        }
+        case REMOVE_COMMENT_LIKES: {
+            return {...state, liked_comments: state.liked_comments.filter(comm => comm !== action.payload)}
         }
         default: {
             return state

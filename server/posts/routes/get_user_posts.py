@@ -4,7 +4,6 @@ from models.posts import Posts
 from models.users import Users
 from models.users_images import UsersImages
 
-
 def get_user_posts():
     if request.method == 'GET':
         data = request.args

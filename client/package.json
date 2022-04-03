@@ -2,11 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/auth/google": {
-      "target": "http://127.0.0.1:5000"
-    }
-  },
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -20,6 +16,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
+    "emoji-picker-react": "^3.5.1",
     "fontawesome-free": "^1.0.4",
     "http-proxy-middleware": "^2.0.4",
     "nanoid": "^3.3.1",

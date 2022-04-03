@@ -73,7 +73,7 @@ const PostsUser = (props) => {
 
     return (
         <div style={cont === 'posts-container' ? {marginLeft: '20px'} : {}}>            
-            <OpenedPost></OpenedPost>
+            <OpenedPost loged={true}></OpenedPost>
             <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {
@@ -154,7 +154,6 @@ const OnePost = (props) => {
         if(media[post.media_id]){
             CurrentMedia = media[post.media_id]
         }
-        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,

@@ -4,6 +4,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     background: rgba(0,0,0,.5);
@@ -27,11 +28,13 @@
     background-color: #FFFFFF;
     position: absolute;
     width: 50%;
+    height: 90%;
     margin: 50px;
     height: fit-content;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {
@@ -74,7 +77,7 @@
     width: 50px;
     height: 50px;
     margin: 20px;
-    border-radius: 18px;
+    border-radius: 30px;
 }
 
 .post-pers-data {
@@ -130,7 +133,8 @@
 }
 
 .post-social-interact-container {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .post-social-interact {
@@ -138,11 +142,12 @@
     float: right;
     width: max-content;
     border-radius: 20px;
-    background-color: rgba(172, 128, 193, 0.2);
+    background-color: rgb(245, 239, 245);
     font-size: 20px;
     justify-content: center;
-    margin-right: 10px;
+    margin-left: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .post-icon {

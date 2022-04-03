@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_file
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,8 +9,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['listen_addresses'] = ''
+app.debug = True
 db = SQLAlchemy(app)
 CORS(app)
+
+
+@app.route("/get_post_media/<name>", methods=['GET'])
+def send_media(name):
+    return send_file(f'./images/upload/posts/{name}')
+
 
 # SIGNUP and LOGIN
 from signupLogin.routes.create_user import create_user
@@ -57,6 +64,8 @@ def getUserSPosts():
 # PROFILE
 from profilePage.routes.change_avatar import change_avatar
 from profilePage.routes.delete_avatar import delete_avatar
+from profilePage.routes.check_chat_exist import check_chat_exist
+from profilePage.routes.create_new_chat import create_new_chat
 
 
 @app.route("/changeAvatar", methods=['POST'])
@@ -67,6 +76,16 @@ def change_ava():
 @app.route("/deleteAvatar", methods=['POST'])
 def delete_ava():
     return delete_avatar()
+
+
+@app.route("/check_chat_exist", methods=['GET'])
+def check_chat():
+    return check_chat_exist()
+
+
+@app.route("/create_chat", methods=['POST'])
+def create_chat():
+    return create_new_chat()
 
 
 # POSTS
@@ -86,13 +105,11 @@ def get_media_via_id(via_id):
 def get_post_by_med(med):
     return get_post_by_media(med)
 
-
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
 
-
-@app.route("/change_like", methods=['GET', 'POST'])
+@app.route("/change_like/", methods=['GET', 'POST'])
 def change_like_state():
     return change_like()
 
@@ -105,22 +122,43 @@ def get_posts_by_t():
 # USERS
 from users.routes.find_user import find_users
 from users.routes.get_oth_user_info import get_oth_user
+from users.routes.un_follow import un_follow
+from users.routes.get_followers import get_fols
+from users.routes.get_subscriptions import get_subs
+from users.routes.get_person_avatar import get_person_avatar
 
 
 @app.route("/find_users/", methods=['GET'])
 def find_us():
     return find_users()
 
-
 @app.route("/get_oth/", methods=['GET'])
 def get_us():
     return get_oth_user()
 
+@app.route("/profile/un_follow/", methods=['POST'])
+def un_fol():
+    return un_follow()
+
+@app.route("/profile/get_followers/", methods=['GET'])
+def get_fol():
+    return get_fols()
+    
+@app.route("/profile/get_person_avatar/", methods=['GET'])
+def get_pers_avatar():
+    return get_person_avatar()
+
+@app.route("/profile/get_subscriptions/", methods=['GET'])
+def get_sub():
+    return get_subs()
 
 # Forum
 from Forum.routes.get_forum_rooms import get_forum_rooms_
 from Forum.routes.get_room_data import get_room_data
 from Forum.routes.add_room_new_message import add_room_new_message
+from Forum.routes.get_user_chats import get_user_chats
+from Forum.routes.get_chat_data import get_chat_data
+from Forum.routes.add_chat_new_message import add_chat_new_message
 
 
 @app.route("/get_forum_rooms", methods=['GET'])
@@ -133,6 +171,64 @@ def get_room_messages(roomId):
     return get_room_data(roomId)
 
 
+@app.route("/get_chat_messages/<chatId>", methods=['GET'])
+def get_chat_messages(chatId):
+    return get_chat_data(chatId)
+
+
 @app.route("/add_forum_message", methods=['GET', 'POST'])
 def add_room_messages():
     return add_room_new_message()
+
+
+@app.route("/add_chat_message", methods=['GET', 'POST'])
+def add_chat_message():
+    return add_chat_new_message()
+
+
+@app.route("/get_user_chats/<user_id>", methods=['GET'])
+def user_chats(user_id):
+    return get_user_chats(user_id)
+
+
+# COMMENTS AND REPLIES
+from Comments_replies.routes.add_comment import add_comment
+from Comments_replies.routes.add_reply import add_reply
+from Comments_replies.routes.get_comments import get_comments
+from Comments_replies.routes.get_commentator_avatar import get_commentator_avatar
+from Comments_replies.routes.get_comment_media import get_comment_media
+from Comments_replies.routes.get_reply_media import get_reply_media
+from Comments_replies.routes.get_replier_avatar import get_replier_avatar
+from Comments_replies.routes.change_like import change_comment_like
+
+@app.route("/addComment", methods=['POST'])
+def add_com():
+    return add_comment()
+
+@app.route("/addReply", methods=['POST'])
+def add_rep():
+    return add_reply()
+
+@app.route("/getComments/<post_id>", methods=['GET'])
+def get_comm(post_id):
+    return get_comments(post_id)
+
+@app.route("/getCommentatorAvatar/<media_id>", methods=['GET'])
+def get_com_ava(media_id):
+    return get_commentator_avatar(media_id)
+
+@app.route("/getCommentMedia/<media_id>", methods=['GET'])
+def get_com_med(media_id):
+    return get_comment_media(media_id)
+
+@app.route("/getReplyMedia/<reply_id>", methods=['GET'])
+def get_rep_media(reply_id):
+    return get_reply_media(reply_id)
+
+@app.route("/getReplierAvatar/<reply_id>", methods=['GET'])
+def get_repl_avatar(reply_id):
+    return get_replier_avatar(reply_id)
+
+@app.route("/changeCommentLike/", methods=['POST'])
+def change_com_like():
+    return change_comment_like()
