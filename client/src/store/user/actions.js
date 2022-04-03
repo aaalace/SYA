@@ -8,6 +8,7 @@ export const CHANGE_LIKES = 'CHANGE_LIKES'
 export const REMOVE_LIKES = 'REMOVE_LIKES'
 export const CHANGE_COMMENT_LIKES = 'CHANGE_COMMENT_LIKES'
 export const REMOVE_COMMENT_LIKES = 'REMOVE_COMMENT_LIKES'
+export const CHANGE_FOL_SUBS_LOGED_USER = 'CHANGE_FOL_SUBS_LOGED_USER'
  
 export const setUserDataReducer = (data) => ({
     type: SET_USER_DATA,
@@ -51,3 +52,7 @@ export const removeCommentUserLikes = (data) => ({
     payload: data,
 })
 
+export const changeFolSubsLogedUser = (data) => ({
+    type: CHANGE_FOL_SUBS_LOGED_USER,
+    payload: data,
+})

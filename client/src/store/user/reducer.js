@@ -6,6 +6,7 @@ import { CHANGE_LIKES } from "./actions"
 import { REMOVE_LIKES } from "./actions"
 import { CHANGE_COMMENT_LIKES } from "./actions"
 import { REMOVE_COMMENT_LIKES } from "./actions"
+import { CHANGE_FOL_SUBS_LOGED_USER } from "./actions"
 
 const initialState = {
     loged: false,
@@ -20,7 +21,9 @@ const initialState = {
     email: '',
     liked_posts: [],
     liked_comments: [],
-    tags: []
+    tags: [],
+    followers_count: 0,
+    subscriptions_count: 0
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -44,12 +47,14 @@ export const userReducer = (state = initialState, action) => {
             return {...state, liked_posts: state.liked_posts.filter(post => post !== action.payload)}
         }
         case CHANGE_COMMENT_LIKES: {
-            console.log(action.payload)
             return {...state, liked_comments: state.liked_comments.concat(action.payload)}
         }
         case REMOVE_COMMENT_LIKES: {
-            console.log(action.payload)
             return {...state, liked_comments: state.liked_comments.filter(comm => comm !== action.payload)}
+        }
+        case CHANGE_FOL_SUBS_LOGED_USER: {
+            return {...state, followers_count: state.followers_count + action.payload.follow, 
+                subscriptions_count: state.subscriptions_count + action.payload.subscription}
         }
         default: {
             return state

@@ -1,6 +1,7 @@
 import React from "react";
 import VideoJS from './videoJS';
 
+
 export default function Video ({src}) {
   const playerRef = React.useRef(null);
 
@@ -9,7 +10,8 @@ export default function Video ({src}) {
     responsive: true,
     fluid: true,
     sources: [{
-      src: src
+      src: src,
+      type: 'video/mp4'
     }]
   }
 

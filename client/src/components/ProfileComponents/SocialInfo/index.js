@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { connectAdvanced, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import Axios from "axios"
 import { useEffect } from "react"
 import './style.css'
@@ -10,31 +10,39 @@ import { useNavigate } from 'react-router-dom';
 import { addFollower } from "../../../store/followers/actions"
 import { addInitialFollowerAvatar } from "../../../store/followers/actions"
 import { FolSubContext } from "../../../routes/ProfilePage"
+import { useMediaQuery } from "react-responsive"
+import { changeFolSubsLogedUser } from "../../../store/user/actions"
 
 function SocialInfo(props) {
-    const [showState, setShowState] = useState(false)
+    const [showState, setShowState] = useState(props.state)
     const navigate = useNavigate()
 
     let left_b = 'closing-button'
     let right_b = 'work-button'
+    let left_b_style = {display: 'block'}
+    let right_b_style =  {display: 'block'}
     if(showState){
         left_b = 'work-button'
         right_b = 'closing-button'
     }
 
-    const container = {
+    let container = {
         width: '100%',
         backgroundColor: 'white',
-        margin: '20px 0 40px 0',
+        margin: '10px 0 40px 0',
         borderRadius: '5px 5px 5px 15px'
     }
 
-    const user_rel_container = {
+    let close_button = {
+        display: 'none'
+    }
+
+    let user_rel_container = {
         width: '90%',
         margin: '0 auto'
     }
 
-    const data_switcher = {
+    let data_switcher = {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -45,9 +53,40 @@ function SocialInfo(props) {
         color: '#AC80C1'
     }
 
+    if (useMediaQuery({ query: '(max-width: 1200px)' })){
+        close_button = {
+            display: 'flex',
+            position: 'absolute',
+            right: '0',
+            margin: '10px',
+            height: '20px',
+            width: '20px',
+            color: 'rgba(172, 128, 193, 1)',
+            cursor: 'pointer'
+        }
+        container = {
+            width: '100vw',
+            minHeight: '100vh',
+            position: 'fixed',
+            top: '0px',
+            left: '0px',
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            overflow: 'auto',
+            zIndex: 4,
+            backgroundColor: 'white'
+        }
+        data_switcher = {
+            dispplay: 'none'
+        }
+        left_b_style = {display: 'none'}
+        right_b_style =  {display: 'none'}
+        user_rel_container = {...user_rel_container, marginTop: '40px', width: '80%'}
+    }
+
     const dispatch = useDispatch()
 
-    
     const loged_user_id = useSelector(state => state.user.profile_id)
     const loged_user_username = useSelector(state => state.user.profileName)
     const loged_user_avatar = useSelector(state => state.user.avatar)
@@ -64,6 +103,8 @@ function SocialInfo(props) {
 
     const followers = useSelector(state => state.fols_subs.followers)
     const subscriptions = useSelector(state => state.fols_subs.subscriptions)
+
+    const [toFind, setToFind] = useState('')
     
     let [subscriptions_ids, setSubscriptionsIds] = useState([])
 
@@ -118,7 +159,6 @@ function SocialInfo(props) {
             for (let key in response.data.result){
                 res.push(response.data.result[key])
             }
-
             setSubscriptionsOnpage(res)
             dispatch(addInitialInfoSubscriptions({userId: props.id, data: res}))
             getSubscriptionsAvatars(response.data.avatar_ids)
@@ -184,16 +224,21 @@ function SocialInfo(props) {
 
     const openProfile = (username) => {
         navigate(`/profile/${username}`)
+        props.close(false)
+    }
+
+    const finderChanged = (e) => {
+        setToFind(e)
     }
 
     const follow = (obj) => {
-        console.log('un_follow')
         Axios.post('un_follow/', {
             follower_id: loged_user_id,
             user_id: obj.follower_id,
             follow: true
         }).then((response) => {
             if(response.data !== 'error'){
+                dispatch(changeFolSubsLogedUser({follow: 0, subscription: 1}))
                 dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, avatar: loged_user_avatar},
                                         subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, avatar: obj.user_avatar}}))
                 setSubscriptionsIds(subscriptions_ids.concat([obj.follower_id]))
@@ -205,46 +250,56 @@ function SocialInfo(props) {
     }
 
     const ContextInfo = useContext(FolSubContext)
-    console.log(props.id)
 
     return (
         <div style={container}>
+            <span onClick={() => props.close(false)} style={close_button}>&#10006;</span>
             <div style={user_rel_container}>
                 <div style={data_switcher}>
-                    <a onClick={showState ? switchUserRel : null} className={right_b}><span>подписчики</span></a>
-                    <a onClick={!showState ? switchUserRel : null} className={left_b}><span>подписки</span></a>
+                    <a style={right_b_style} onClick={showState ? switchUserRel : null} className={right_b}><span>подписчики</span></a>
+                    <a style={left_b_style} onClick={!showState ? switchUserRel : null} className={left_b}><span>подписки</span></a>
+                </div>
+                <div className="find_over_container-folsubs">
+                    <input list='names' className="find_over-folsubs" 
+                        type="text" placeholder="Find people" value={toFind} 
+                        onChange={event => finderChanged(event.target.value)}
+                    />
                 </div>
                 {showState ?
                     subscriptions_onpage.map((sub) => {
-                        return(
-                            <div key={sub.id} className="user-line">
-                                <div className="user-line-left" onClick={() => openProfile(sub.username)}>
-                                    {subscriptions_media[sub.id] ? <img className="user-line-img" src={subscriptions_media[sub.id]}></img> : <div className="user-line-img"/>}
-                                    <p className="user-line-name">{sub.username}</p>
+                        if(sub.username.includes(toFind)){
+                            return(
+                                <div key={sub.id} className="user-line">
+                                    <div className="user-line-left" onClick={() => openProfile(sub.username)}>
+                                        {subscriptions_media[sub.id] ? <img className="user-line-img" src={subscriptions_media[sub.id]}></img> : <div className="user-line-img"/>}
+                                        <p className="user-line-name">{sub.username}</p>
+                                    </div>
+                                    {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
-                                {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
-                            </div>
-                        )
+                            )
+                        }
+                        return null
                     }) 
                 :
                     followers_onpage.map((fol) => {
-                        return(
-                            <div key={fol.id} className="user-line">
-                                <div className="user-line-left" onClick={() => openProfile(fol.username)}>
-                                    {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
-                                    {fol.id !== loged_user_id ? 
-                                    <div>
-                                        {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <div className="user-line-img"/>}
-                                    </div> : null}
-                                    <p className="user-line-name">{fol.username}</p>
+                        if(fol.username.includes(toFind)){
+                            return(
+                                <div key={fol.id} className="user-line">
+                                    <div className="user-line-left" onClick={() => openProfile(fol.username)}>
+                                        {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
+                                        {fol.id !== loged_user_id ? 
+                                        <div>
+                                            {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <div className="user-line-img"/>}
+                                        </div> : null}
+                                        <p className="user-line-name">{fol.username}</p>
+                                    </div>
+                                    {followers_media[fol.id] && fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub" onClick={() => follow({follower_id: fol.id, user_username: fol.username, user_avatar: followers_media[fol.id]})}><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
-                                {followers_media[fol.id] && fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub" onClick={() => follow({follower_id: fol.id, user_username: fol.username, user_avatar: followers_media[fol.id]})}><i className="fa fa-user-plus"></i></a> : null}
-                            </div>
-                        )
+                            )
+                        }
+                        return null
                     }) 
                 }
-            </div>
-            <div className="tags-prof-container">
             </div>
         </div>
     )

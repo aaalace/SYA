@@ -49,6 +49,7 @@ const AvatarContainer = (props) => {
     }
     let icon_d   = {
         margin: '10px',
+        fontSize: '12px'
     }
 
     if (med_cont === 'image-prof-container-small'){
@@ -125,7 +126,7 @@ const AvatarContainer = (props) => {
             <div className={med_cont}>
                 <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
                 {owner ? <button onClick={changeAva} style={btn_change}><i style={icon_с} className="fa fa-paperclip"></i></button>: null} 
-                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} className="fa fa-close"></i></button>: null}     
+                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} class="fa fa-trash" aria-hidden="true"></i></button>: null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             </div> 
     )

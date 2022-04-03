@@ -7,3 +7,4 @@ class Media(db.Model):
     type = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     media_body = db.Column(db.Text)
+    path_to_image = db.Column(db.Text, nullable=True)

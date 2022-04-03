@@ -32,11 +32,10 @@ def get_user_posts():
                     'proportion': post.height_width_proportion,
                     'user_name': user_name,
                     'user_avatar': user_avatar,
-                    'tags': post.tags
+                    'tags': post.tags,
+                    'path_to_media': post.path_to_media
                 }
-            media_ids.append(post.media_id)
 
         return {
-            "body": result,
-            'media_ids': media_ids
+            "body": result
         }

@@ -10,6 +10,10 @@ import { NewPostPage } from '../NewPost';
 import Axios from 'axios';
 import { useRef } from 'react';
 import { rollMedia } from '../../store/rolledMedia/actions';
+import { cleanChats } from '../../store/Forum/actions';
+import { useMediaQuery } from 'react-responsive';
+import { toggleChatList } from '../../store/currentPage/actions';
+import { cleanPostsAndMediaState } from '../../store/AllPostsPage';
 
 const HeaderBox = styled.div`
     display: flex;
@@ -80,9 +84,12 @@ export const Rect3 = styled.rect`
 // `
 
 export const Header = () => {
+    let prevPage = null;
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' })
+    const page = useSelector((state) => state.currentPage.page)
     const loged = useSelector(state => state.user.loged);
-    const loged_username = useSelector(state => state.user.profileName);
-    const rolled_media = useSelector(state => state.rolledMedia.media)
+    const rolled_media = useSelector(state => state.rolledMedia.media);
+    const chatListOpened = useSelector(state => state.currentPage.chatsListOpened);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -115,7 +122,12 @@ export const Header = () => {
         : document.body.style.overflow = "scroll"
     }, [createPost])
 
-    const openMenu = () => {setOpen(prevState => !prevState)}
+    const openMenu = () => {
+        if (chatListOpened) {
+            dispatch(toggleChatList())
+        }
+        setOpen(prevState => !prevState)
+    }
 
     const createNewPost = () => {
         setCreatePost(prevState => !prevState);
@@ -124,6 +136,7 @@ export const Header = () => {
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
+        dispatch(cleanChats())
         dispatch(logOut())
     }
 
@@ -173,12 +186,24 @@ export const Header = () => {
         navigate(`/profile/${username}`)
     }
 
+    const openChatsList = () => {
+        if (open) {
+            setOpen(prevState => !prevState)
+        }
+        dispatch(toggleChatList())
+    }
+
+    const reloadAllPosts = () => {
+        dispatch(cleanPostsAndMediaState())
+    }
+
     const DataList = () => {
         return(
             <div className='dropdown-search' id="names">
-                {finded_ids.slice(0, 3).map((id) => <div className='dropdown-item' key={id} id={id} onClick={() => submitHandler(finded[id])}>
-                                            {finded[id]}
-                                        </div>)}
+                {finded_ids.slice(0, 3).map((id) => <div className='dropdown-item' 
+                    key={id} id={id} onClick={() => submitHandler(finded[id])}>
+                        {finded[id]}
+                </div>)}
             </div>
         )
     }
@@ -201,10 +226,56 @@ export const Header = () => {
 
     return (
         <>
-        <HeaderBox id='header' open={open}>
+        <HeaderBox id='header' open={open}> 
             <div className='container'>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
-                    <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
+                    {
+                        page === 'forum' && isTabletOrMobile ?
+                        <div className='forum-icon-tablet appearing-animation-forum-icon-tablet audio-icon' 
+                            onClick={openChatsList}
+                            style={{height: '48px', width: '48px',
+                                position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                                borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-brands fa-facebook-messenger" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div> :
+                        <div className='forum-icon-tablet disappearing-animation-forum-icon-tablet audio-icon' style={{height: '48px', width: '48px',
+                            position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                            borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-brands fa-facebook-messenger" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div>
+                    }
+                    {
+                        page === 'all-posts-page' && isTabletOrMobile ?
+                        <div className='forum-icon-tablet left-appearing-animation-reload-icon-tablet audio-icon' 
+                            onClick={reloadAllPosts}
+                            style={{height: '48px', width: '48px',
+                                position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                                borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-solid fa-arrow-rotate-right reload-focus" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div> :
+                        <div className='forum-icon-tablet left-disappearing-animation-reload-icon-tablet audio-icon' style={{height: '48px', width: '48px',
+                            position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                            borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-solid fa-arrow-rotate-right reload-focus-back" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div>
+                    }
+                    <Link className='header-link header-link-SYA' style={{
+                        marginLeft: (page === 'forum' || page === 'all-posts-page') && isTabletOrMobile ? '78px' : null
+                    }} to='/' onClick={() => {if (open) {openMenu()}}}>
+                        SYA
+                    </Link>
                     {rolled_media ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
                     {rolled_media ? 
                         <a className='menu-link-audio'>

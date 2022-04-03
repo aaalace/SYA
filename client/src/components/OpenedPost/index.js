@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import './style.css'
 import { setClosePost } from "../../store/currentPost/actions"
@@ -11,16 +11,20 @@ import { setLikesCurrentPost } from "../../store/currentPost/actions";
 import { rollMedia } from "../../store/rolledMedia/actions";
 import { useNavigate } from 'react-router-dom';
 import { PostComments } from "../PostComments";
+import { FullControl } from '../Audio/FullControl'
+import Video from '../Video/component'
 
 export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)
+    const [mediaText, setMediaText] = useState('')
 
     const navigate = useNavigate();
 
     const closePostPage = () => {
+        setMediaText('')
         dispatch(setClosePost())
     }
 
@@ -30,32 +34,36 @@ export const OpenedPost = (props) => {
     }
 
     const switchType = (type) => {
+        if(type === 4){
+            Axios.get(`/get_media/${post.media_id}`).then((res) => {
+                console.log(res.data)
+                setMediaText(res.data)
+            })
+        }
         switch(type) {
             case 1:
                 return (
                     <div className="post-image-container">
-                        <audio src={post.media} loop controls style={{display: 'block', width: '70%', margin: '0 auto'}}></audio>
+                        <FullControl src={`/get_post_media/${post.path_to_media}`} style={{display: 'block', width: '70%', margin: '0 auto'}}></FullControl>
                     </div>
                 )
             case 2:
                 return (
                     <div className="post-image-container">
-                        <video className="post-image" controls>
-                            <source src={post.media}/>
-                        </video>
+                        <Video src={`/get_post_media/${post.path_to_media}`}></Video>
                     </div>
                 )
             case 3:
                 return (
                     <div className="post-image-container">
-                        <img src={post.media} className="post-image" alt="картинка"/>
+                        <img src={`/get_post_media/${post.path_to_media}`} className="post-image" alt="картинка"/>
                     </div>
                 )
             case 4:
                 return (
                     <div className="post-textarea">
                         <div className="post-text">
-                            {post.media}
+                            {mediaText}
                         </div>
                     </div>
                 )
@@ -99,7 +107,7 @@ export const OpenedPost = (props) => {
                         </div>
                         <span onClick={closePostPage} className="post-delete_button">&#10006;</span>
                     </div>
-                    {post.media ? switchType(post.media_type) : 
+                    {post.path_to_media || post.type === 4 ? switchType(post.media_type) : 
                     <div style={{display: 'block', margin: '0 auto', marginBottom: '20px'}}>
                         <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={40} width={80}/>
                     </div>}
@@ -127,7 +135,7 @@ export const OpenedPost = (props) => {
                         </div>
                         }
                     </div>
-                    {props.loged ? <PostComments post_id={post.id}></PostComments> : null}
+                    <PostComments post_id={post.id} loged={props.loged}></PostComments>
                 </div>
             </div> : null}
         </div>

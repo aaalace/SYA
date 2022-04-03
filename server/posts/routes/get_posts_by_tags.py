@@ -4,12 +4,13 @@ from random import choices as chc
 from random import shuffle as shf
 from flask import request
 
+from posts.routes.get_media import get_media
+
 
 def get_posts_by_tags():
     if request.method == 'GET':
         try:
             res = []
-            media_ids = {}
             post_ids = []
             u_t = request.args.get('userTags', 'SYA').split('`')
             if len(u_t) == 0:
@@ -65,18 +66,32 @@ def get_posts_by_tags():
             shf(posts_n)
             for post in posts_n:
                 post_ids.append(post.id)
-                res.append({
-                    "id": post.id,
-                    'user_id': post.user_id,
-                    'type': post.type,
-                    'media_id': post.media_id,
-                    'likes_count': post.likes_count,
-                    'post_time': post.post_time,
-                    'middle_color': post.middle_color,
-                    'proportion': post.height_width_proportion,
-                    'tags': post.tags
-                })
-                media_ids[post.media_id] = ""
-            return {"body": res, 'media_ids': media_ids, 'post_ids': post_ids}
+                if post.path_to_media:
+                    res.append({
+                        "id": post.id,
+                        'user_id': post.user_id,
+                        'type': post.type,
+                        'media_id': post.media_id,
+                        'likes_count': post.likes_count,
+                        'post_time': post.post_time,
+                        'middle_color': post.middle_color,
+                        'proportion': post.height_width_proportion,
+                        'tags': post.tags,
+                        'path_to_media': post.path_to_media
+                    })
+                else:
+                    res.append({
+                        "id": post.id,
+                        'user_id': post.user_id,
+                        'type': post.type,
+                        'media_id': post.media_id,
+                        'likes_count': post.likes_count,
+                        'post_time': post.post_time,
+                        'middle_color': post.middle_color,
+                        'proportion': post.height_width_proportion,
+                        'tags': post.tags,
+                        'path_to_media': get_media(post.media_id)
+                    })
+            return {"body": res, 'post_ids': post_ids}
         except Exception as e:
             return 'ошибка запроса'

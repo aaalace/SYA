@@ -113,7 +113,6 @@ export const SignUpPage = () => {
     const [ profileRepeatedPassword, setProfileRepeatedPassword ] = useState('');
     const [ personName, setUserName ] = useState('');
     const [ personSurname, setUserSurname ] = useState('');
-    const [ userBirthDate, setUserBirthDate ] = useState('');
     const [ userEmail, setEmail ] = useState('')
     const [ captcha, setCaptcha ] = useState(true)
 
@@ -130,8 +129,7 @@ export const SignUpPage = () => {
                 profile_repeated_password: profileRepeatedPassword,
                 profile_email: userEmail,
                 person_name: personName,
-                person_surname: personSurname,
-                birth_date: userBirthDate,
+                person_surname: personSurname
             }
         )
         return response
@@ -151,8 +149,7 @@ export const SignUpPage = () => {
                             profile_id: response.data.id,
                             profileName: profileName, 
                             personName: personName,
-                            personSurname: personSurname, 
-                            userBirthDate: userBirthDate,
+                            personSurname: personSurname,
                             email: userEmail
                         }))
                         dispatch(addProfilePhoto({avatar: response.data.avatar}))
@@ -234,13 +231,6 @@ export const SignUpPage = () => {
                             onChange={e => setUserSurname(e.target.value)}
                         />
                     </div>
-                    <TextField
-                        type="date"
-                        variant="standard"
-                        value={userBirthDate ? userBirthDate : ''}
-                        style={erroredInput.includes(6) ? dateErrorStyles : dateStyles}
-                        onChange={e => setUserBirthDate(e.target.value)}
-                    ></TextField>
                     <div style={captcha_cont}>
                         <ReCAPTCHA
                             style={captcha_style}

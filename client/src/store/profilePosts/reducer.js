@@ -23,19 +23,12 @@ import { CHANGE_LIKES_POST } from "./actions"
 //     userid2: [posts]
 // }
 
-const initialState = {
-    media: {}
-}
+const initialState = {}
 
 export const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_USER_POSTS: {
             return {...state, ...action.payload}
-        }
-        case ADD_POST_MEDIA: {
-            return { ...state, 
-                media: {...state.media, ...action.payload},
-            }
         }
         case CHANGE_LIKES_POST: {
             const stateCopy = {...state}
@@ -51,12 +44,10 @@ export const postsReducer = (state = initialState, action) => {
             const stateCopy = {...state}
             if (stateCopy.hasOwnProperty(action.payload.userId)) {
                 stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
-                stateCopy.media = {...state.media, ...action.payload.media}
                 return stateCopy;
             }
             stateCopy[action.payload.userId] = {}
             stateCopy[action.payload.userId][action.payload.post_id] = action.payload.data;
-            stateCopy.media = {...state.media, ...action.payload.media}
             return stateCopy;
         }
         default: {

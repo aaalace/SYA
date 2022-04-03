@@ -145,7 +145,7 @@ const OneComment = (props) => {
     }
 
     const sendReply = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(replyMedia){
             setnewCommentLoadingState(true)
             setReplyState(false)
@@ -229,10 +229,10 @@ const OneComment = (props) => {
                 {comment.text !== '' ? <div className="comment-text" style={media ? {marginBottom: '1px'} : null}>{comment.text}</div> : null}
                 <CommentMedia comment={comment} media={media} mid_col={mid_col}></CommentMedia>
             </div>
-            {replies.length > 0 ?             
+            {replies.length > 0  ?             
                     <a className="comment-show-button" onClick={changeShowRepliesState}>{repliesOpened ? 'hide' : 'show'} replies</a>
             : null}
-            {replyState ? 
+            {replyState && props.loged ? 
                 <div>
                     <div className="comment-write_container">
                         <input className="comment-write_input"
@@ -260,15 +260,19 @@ const OneComment = (props) => {
                 </div>
             : 
                 <div className="comment-social-interact">
-                    <p className="comment-icon" onClick={changeLike}>
-                        {logedUser_liked_comments.includes(comment.commentId) ? 
-                        <i className="fas fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>
-                        :
-                        <i className="far fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>}
-                    </p>
-                    <div className="comment-icon-rep">
-                        {newReplyLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={10} width={20}/> : <i onClick={() => setReplyState(true)} className="fa fa-reply" aria-hidden="true"></i>}
+                    {props.loged ? 
+                    <div className="comment-social-interact">
+                        <p className="comment-icon" onClick={changeLike}>
+                            {logedUser_liked_comments.includes(comment.commentId) ? 
+                            <i className="fas fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>
+                            :
+                            <i className="far fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>}
+                        </p>
+                        <div className="comment-icon-rep">
+                            {newReplyLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={20} width={20}/> : <i onClick={() => setReplyState(true)} className="fa fa-reply" aria-hidden="true"></i>}
+                        </div> 
                     </div>
+                    : null}
                 </div>}
             {repliesOpened ? 
                 <div className="replies_container">
@@ -286,6 +290,8 @@ export const PostComments = (props) => {
     const imageUploadedRef = useRef(null);
     const dispatch = useDispatch()
 
+    const [openedPage, setOpenedPage] = useState('comments')
+
     const logedUserId = useSelector(state => state.user.profile_id)
     const logedUserNickname = useSelector(state => state.user.profileName)
     const logedUserAvatar = useSelector(state => state.user.avatar)
@@ -294,6 +300,7 @@ export const PostComments = (props) => {
 
     const all_comments = useSelector(state => state.comments)
     const [comments, setComments] = useState([])
+    const [topComments, setTopComments] = useState([])
 
     const [repliesCount, setRepliesCount] = useState(0)
 
@@ -324,7 +331,7 @@ export const PostComments = (props) => {
     }
 
     const sendComment = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(newCommentMedia && newCommentType){
             setnewCommentLoadingState(true)
             const new_text = newComment
@@ -358,6 +365,15 @@ export const PostComments = (props) => {
 
     useEffect(() => {
         if(Object.keys(all_comments).includes(post_id.toString())){
+            all_comments[post_id].sort(function(a, b) {
+                let keyA = new Date(a.likes_count),
+                keyB = new Date(b.likes_count);
+                if (keyA < keyB) return 1;
+                if (keyA > keyB) return -1;
+                return 0;
+            });
+            setTopComments(all_comments[post_id].slice(0, 3))
+
             all_comments[post_id].sort(function(a, b) {
                 let keyA = new Date(a.commentDate),
                 keyB = new Date(b.commentDate);
@@ -411,6 +427,7 @@ export const PostComments = (props) => {
     
     return (
         <div className="comments_container">
+            {props.loged ? 
             <div className="comment-write_container">
                 <input className="comment-write_input"
                         type="text" placeholder="Comment post" value={newComment}
@@ -426,8 +443,8 @@ export const PostComments = (props) => {
                 }
                 <input id="file-upload" type="file" className="file-uploader" ref={selectedFileRef} 
                 onChange={e => {fileWork(e)}}/>
-            </div>
-            {newCommentMedia ? 
+            </div> : null}
+            {newCommentMedia && props.loged ? 
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <i onClick={() => setnewCommentMedia(null)} style={{color: 'rgba(172, 128, 193, 1)'}} class="fa fa-times" aria-hidden="true"></i>
                     {
@@ -437,14 +454,26 @@ export const PostComments = (props) => {
                     }
                 </div> : null
             }
-            <div style={{display: 'flex', flexDirection: 'row', margin: '30px 0 10px 0'}}>
-                <a style={{fontSize: '17px', marginRight: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
-                {commentsLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={10} width={20}/> : null}
+            <div style={{display: 'flex', flexDirection: 'row', margin: '20px 0 10px 0', justifyContent: 'space-around'}}>
+                <div onClick={() => setOpenedPage('comments')} style={openedPage === 'comments' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
+                    <a style={{fontSize: '17px', padding: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
+                    {commentsLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={18} width={20}/> : null}
+                </div>
+                <div onClick={() => setOpenedPage('top')} style={openedPage === 'top' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
+                    <a style={{fontSize: '17px', padding: '10px'}}>Top comments</a>
+                </div>
             </div>
-            {comments ?
+            {comments && openedPage === 'comments' ?
                 <div className="comments-data_container">
                     {comments.map((comment) => {
-                        return <OneComment key={nanoid(8)} comment={comment} post_id={post_id}/>
+                        return <OneComment key={nanoid(8)} loged={props.loged} comment={comment} post_id={post_id}/>
+                    })}
+                </div>
+            : null }
+            {topComments && openedPage === 'top' ?
+                <div className="comments-data_container">
+                    {topComments.slice(0, 3).map((comment) => {
+                        return <OneComment key={nanoid(8)} loged={props.loged} comment={comment} post_id={post_id}/>
                     })}
                 </div>
             : null }
