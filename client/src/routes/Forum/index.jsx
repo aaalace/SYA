@@ -18,8 +18,8 @@ import { useMediaQuery } from 'react-responsive';
 const ChatListOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "60%" : "0px")};
-    max-width: '70%'
-    overflow-x: ${props => (props.open ? "none" : "hidden")};
+    max-width: 70%;
+    overflow-x: ${props => (props.open ? "scroll" : "hidden")};
     overflow-y: scroll;
     height: calc(100vh - 64px);
     background-color: white;

@@ -107,19 +107,19 @@ export const Header = () => {
     }, [rolled_media])
 
     useEffect(() => {
-        document.body.style.overflow = "scroll"
+        document.body.style.overflow = "auto"
     }, [])
 
     useEffect(() => {
         open ? 
             document.body.style.overflow = "hidden" 
-        : document.body.style.overflow = "scroll"
+        : document.body.style.overflow = "auto"
     }, [open])
 
     useEffect(() => {
         createPost ? 
             document.body.style.overflow = "hidden"
-        : document.body.style.overflow = "scroll"
+        : document.body.style.overflow = "auto"
     }, [createPost])
 
     const openMenu = () => {
