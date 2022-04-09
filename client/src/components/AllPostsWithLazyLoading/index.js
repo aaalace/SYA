@@ -15,7 +15,6 @@ export const handleText = (text) => {
     }
 }
 
-const onLoadingStatement = [];
 let postIds = [];
 
 const breakpointColumnsObj = {
@@ -83,10 +82,10 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
                             display: 'flex', justifyContent: 'flex-start'
                         }}>
                             <span>Перейти</span>
-                            <svg width="15px" height="10px" viewBox="0 0 13 10">
+                            <sv width="15px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
-                            </svg>
+                            </sv>
                         </button>
                     </div>
                 )
