@@ -42,20 +42,18 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     }, [])
 
     const openPost = (post, media_id) => {
-        let CurrentMedia = null
-        if(mediaConnect[media_id]){
-            CurrentMedia = mediaConnect[media_id]
-        }
         dispatch(setOpenPost({
             open: true,
             id: post.id,
             user_id: post.user_id,
             user_name: post.user_name,
             user_avatar: post.user_avatar,
-            media: CurrentMedia,
+            path_to_media: post.path_to_media,
             media_type: post.type,
             likes_count: post.likes_count,
-            post_time: post.post_time
+            post_time: post.post_time,
+            type: post.type,
+            media_id: post.media_id
         }))
     }
 
@@ -66,8 +64,6 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if (!mediaConnect[media_id]) {
             getMedia(media_id)
         }
-
-        const from_main = true
         switch(type) {
             case 1:
                 return (

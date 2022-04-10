@@ -144,11 +144,8 @@
     float: right;
     width: max-content;
     border-radius: 20px;
-    background-color: rgb(245, 239, 245);
     font-size: 20px;
     justify-content: center;
-    margin-left: 10px;
-    margin-bottom: 10px;
     cursor: pointer;
 }
 

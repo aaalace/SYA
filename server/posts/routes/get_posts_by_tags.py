@@ -5,7 +5,7 @@ from random import shuffle as shf
 from flask import request
 
 from posts.routes.get_media import get_media
-
+from models.users import Users
 
 def get_posts_by_tags():
     if request.method == 'GET':
@@ -66,10 +66,12 @@ def get_posts_by_tags():
             shf(posts_n)
             for post in posts_n:
                 post_ids.append(post.id)
+                user = Users.query.filter(Users.id == post.user_id).first().profile_name
                 if post.path_to_media:
                     res.append({
                         "id": post.id,
                         'user_id': post.user_id,
+                        'user_name': user,
                         'type': post.type,
                         'media_id': post.media_id,
                         'likes_count': post.likes_count,
@@ -83,6 +85,7 @@ def get_posts_by_tags():
                     res.append({
                         "id": post.id,
                         'user_id': post.user_id,
+                        'user_name': user,
                         'type': post.type,
                         'media_id': post.media_id,
                         'likes_count': post.likes_count,

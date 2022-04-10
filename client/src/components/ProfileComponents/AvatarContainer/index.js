@@ -49,7 +49,7 @@ const AvatarContainer = (props) => {
     }
     let icon_d   = {
         margin: '10px',
-        fontSize: '12px'
+        fontSize: '14px'
     }
 
     if (med_cont === 'image-prof-container-small'){

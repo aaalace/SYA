@@ -454,7 +454,7 @@ export const PostComments = (props) => {
                     }
                 </div> : null
             }
-            <div style={{display: 'flex', flexDirection: 'row', margin: '20px 0 10px 0', justifyContent: 'space-around'}}>
+            <div style={{display: 'flex', flexDirection: 'row', margin: '0 0 10px 0', justifyContent: 'space-around'}}>
                 <div onClick={() => setOpenedPage('comments')} style={openedPage === 'comments' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
                     <a style={{fontSize: '17px', padding: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
                     {commentsLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={18} width={20}/> : null}

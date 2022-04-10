@@ -1,11 +1,13 @@
 import Axios from 'axios';
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { allPagePostsConnect } from '../../connect/allPagePosts';
 import Masonry from 'react-masonry-css';
 import './masonry.css';
 import { FullControl } from '../Audio/FullControl'
 import Video from '../Video/component'
+import { setOpenPost } from '../../store/currentPost/actions';
+import { OpenedPost } from '../OpenedPost';
 
 export const handleText = (text) => {
     if (text.length < 500) {
@@ -15,7 +17,6 @@ export const handleText = (text) => {
     }
 }
 
-const onLoadingStatement = [];
 let postIds = [];
 
 const breakpointColumnsObj = {
@@ -30,6 +31,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
     const userTags = useSelector(state => state.user.tags);
     let loadPosts = false;
     const postsRef = useRef(null)
+    const dispatch = useDispatch()
 
     const getPosts = () => {
         Axios.get(`/get_posts_by_tags`, {params: {
@@ -43,8 +45,20 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
         })
     }
 
-    const openPost = (id) => {
-        console.log('still not opened')
+    const openPost = (post) => {
+        dispatch(setOpenPost({
+            open: true,
+            id: post.id,
+            user_id: post.user_id,
+            user_name: post.user_name,
+            user_avatar: null,
+            path_to_media: post.path_to_media,
+            media_type: post.type,
+            likes_count: post.likes_count,
+            post_time: post.post_time,
+            type: post.type,
+            media_id: post.media_id
+        }))
     }
 
     const handleScroll = (e) => {
@@ -66,14 +80,14 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
         window.addEventListener('scroll', handleScroll)
     }, [])
 
-    const switchType = (type, middle_color, media_path, proportion=0,) => {
+    const switchType = (post, type, middle_color, media_path, proportion=0,) => {
         if(middle_color){
             middle_color = 'rgb(' + middle_color.split(';').join(', ') + ')'
         }
         switch(type) {
             case 1:
                 return (
-                    <div onClick={() => openPost()} style={{
+                    <div onClick={() => openPost(post)} style={{
                         marginTop: '2%', border: `2px solid ${borderColor}`, borderRadius: '15px',
                         display: 'flex', flexDirection: 'column'
                     }}>
@@ -92,7 +106,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
                 )
             case 2:
                 return (
-                    <div onClick={() => openPost()} style={{
+                    <div onClick={() => openPost(post)} style={{
                         marginTop: '2%'
                     }}>
                         <Video src={`/get_post_media/${media_path}`}/>
@@ -114,7 +128,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
                 )
             case 3:
                 return (
-                    <div onClick={() => openPost()} style={{marginTop: '2%', boxSizing: 'inherit'}}>
+                    <div onClick={() => openPost(post)} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                         {media_path ? 
                             <img src={`/get_post_media/${media_path}`} 
                                 alt="картинка" className="hoverBrightness"
@@ -130,7 +144,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
                 )
             case 4:
                 return (
-                    <div onClick={() => openPost()} className="hoverBrightness__text"
+                    <div onClick={() => openPost(post)} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px', textAlign: 'justify', overflow: 'hidden'}}>
@@ -145,6 +159,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
 
     return (
         <div style={{marginBottom: '64px', padding: '1%'}} ref={postsRef}>
+            <OpenedPost loged={true}></OpenedPost>
             <Masonry ref={postsRef}
                 breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
@@ -152,7 +167,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
                 {
                     postsConnect.map((post, index) => 
                         <div key={post.id}>
-                            {switchType(post.type, post.middle_color, post.path_to_media, post.proportion)}
+                            {switchType(post, post.type, post.middle_color, post.path_to_media, post.proportion)}
                         </div>
                     )
                 }

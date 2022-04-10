@@ -12,6 +12,7 @@ import { rollMedia } from "../../store/rolledMedia/actions";
 import { useNavigate } from 'react-router-dom';
 import { PostComments } from "../PostComments";
 import { FullControl } from '../Audio/FullControl'
+import { setOpenPost } from '../../store/currentPost/actions';
 import Video from '../Video/component'
 
 export const OpenedPost = (props) => {
@@ -99,7 +100,7 @@ export const OpenedPost = (props) => {
                 <div className='openpost-box_content'>
                     <div className="post-header">
                         <div className="post-left">
-                            <img src={post.user_avatar} className="post-avatar" alt="avatar"/>
+                            {post.user_avatar ? <img src={post.user_avatar} className="post-avatar" alt="avatar"/> : <div className="post-avatar" style={{backgroundColor: '#ac80c181'}}/>}
                             <div className="post-pers-data">
                                 <p className="post-pers-nickname">{post.user_name}</p>
                                 <p className="post-datatime">{post.post_time}</p>
