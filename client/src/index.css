@@ -14,6 +14,7 @@ html[data-theme='light'] {
     --text-black-to-purple-color: black;
     --chat-focus-color: #e7e4e4;
     --chat-hover-color: #f5eaea;
+    --find-input-bg-color: white;
 }
 
 html[data-theme='dark'] {
@@ -29,6 +30,7 @@ html[data-theme='dark'] {
     --text-black-to-purple-color: #9979d4;
     --chat-focus-color: #21153a;
     --chat-hover-color: #372160;
+    --find-input-bg-color: #1b1123;
 }
 
 @keyframes bg-light {

@@ -14,6 +14,8 @@ import { cleanChats } from '../../store/Forum/actions';
 import { useMediaQuery } from 'react-responsive';
 import { toggleChatList } from '../../store/currentPage/actions';
 import { cleanPostsAndMediaState } from '../../store/AllPostsPage';
+import {DarkModeSwitch} from "react-toggle-dark-mode";
+import {useTheme} from "../../hooks/use-theme";
 
 const HeaderBox = styled.div`
     display: flex;
@@ -49,7 +51,7 @@ const MenuOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "50%" : "0px")};
     height: calc(100vh - 64px);
-    background-color: white;
+    background-color: var(--forum-items-bg-color);
     z-index: 1;
     top: 64px;
     right: 0;
@@ -84,6 +86,7 @@ export const Rect3 = styled.rect`
 // `
 
 export const Header = () => {
+    const {theme, setTheme} = useTheme()
     let prevPage = null;
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' })
     const page = useSelector((state) => state.currentPage.page)
@@ -276,6 +279,14 @@ export const Header = () => {
                     }} to='/' onClick={() => {if (open) {openMenu()}}}>
                         SYA
                     </Link>
+                    <DarkModeSwitch
+                        moonColor="#9979d4"
+                        sunColor="#9979d4"
+                        style={{marginLeft: '24px'}}
+                        checked={theme}
+                        onChange={setTheme}
+                        size={38}
+                    />
                     {rolled_media ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
                     {rolled_media ? 
                         <a className='menu-link-audio'>
