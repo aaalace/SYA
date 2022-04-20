@@ -16,7 +16,11 @@ html {
 }
 
 body {
-    background-color: #F4F4F4;
+    background-color: var(--body-color);
     margin-top: 64px;
     min-height: calc(100vh - 64px);
+}
+
+h3 {
+    color: var(--text-color);
 }

@@ -1,0 +1,48 @@
+html[data-theme='light'] {
+    --purple-border-light-color: #9979d4;
+    --default-app-color: #AC80C1;
+
+    --header-color: #FFFFFF;
+    --body-color: #F4F4F4;
+    --background-colors-animations: bg-light 15s infinite;
+    --title-color: #3b3535;
+    --text-color: black;
+    --opened-menu-border-color: 2px solid #e7e4e4;
+    --forum-items-bg-color: white;
+    --text-white-to-purple-color: white;
+    --text-black-to-purple2-color: black;
+    --text-black-to-purple-color: black;
+    --chat-focus-color: #e7e4e4;
+    --chat-hover-color: #f5eaea;
+}
+
+html[data-theme='dark'] {
+    --header-color: #1b1123;
+    --body-color: #1b1421;
+    --background-colors-animations: bg-dark 15s infinite;
+    --title-color: #AC80C1;
+    --text-color: #AC80C1;
+    --opened-menu-border-color: 2px solid #2e1c3a;
+    --forum-items-bg-color: #1b1123;
+    --text-white-to-purple-color: #AC80C1;
+    --text-black-to-purple2-color: #AC80C1;
+    --text-black-to-purple-color: #9979d4;
+    --chat-focus-color: #21153a;
+    --chat-hover-color: #372160;
+}
+
+@keyframes bg-light {
+    0%   { background: #fbd6ff; }
+    25% { background: #a695b6; }
+    60% { background: #969ba4; }
+    75% { background: #a291a9; }
+    100%   { background: #fbd6ff; }
+}
+
+@keyframes bg-dark {
+    0%   { background: #2f0d46; }
+    25% { background: #4b1972; }
+    50% { background: #2d1a52; }
+    75% { background: #361642; }
+    100%   { background: #2f0d46; }
+}

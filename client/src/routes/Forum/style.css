@@ -1,5 +1,10 @@
 .forum__input::placeholder {
     font-size: 0.7em;
+    color: var(--text-white-to-purple-color);
+}
+
+.forum__input {
+    background-color: var(--forum-items-bg-color);
 }
 
 .button_send {
@@ -11,7 +16,7 @@
     padding: 0.8em 1.3em 0.8em 0.9em;
     color: black;
     border: none;
-    background-color: white;
+    background-color: var(--forum-items-bg-color);
 }
 
 .button_send:hover i {
@@ -29,8 +34,7 @@
 }
 
 .chat-link:hover {
-    background-color: #f5eaea;
-    color: #43314b;
+    background-color: var(--chat-hover-color);
 }
 
 .forum-main-block {

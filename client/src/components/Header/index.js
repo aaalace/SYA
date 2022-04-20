@@ -19,7 +19,7 @@ const HeaderBox = styled.div`
     display: flex;
     height: 64px;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: var(--header-color);
     align-items: center;
     position: fixed;
     top: 0;

@@ -30,6 +30,7 @@ html {
     -webkit-filter: blur(250px);
     -moz-filter: blur(250px);
     filter: blur(250px);
+    animation: var(--background-colors-animations);
 }
 
 .main {
@@ -43,7 +44,6 @@ html {
 @media screen and (max-width: 1000px) {
     .background {
         background-image: none;
-        background-color: #e2ccec;
         filter: blur(60px);
     }
 }
@@ -59,7 +59,7 @@ html {
     font-size: 72px;
     line-height: 84px;
     letter-spacing: 0.07em;
-    color: #3b3535;
+    color: var(--title-color);
     margin: 72px 10% 0 10%;
 }
 
@@ -83,6 +83,7 @@ html {
 }
 
 .homepage-box__title {
+    color: var(--text-color);
     font-weight: normal;
     font-size: 48px;
 }
@@ -123,7 +124,8 @@ html {
 }
 
 .audio-post-homepage {
-    width: 'fit-content';
+    width: fit-content;
+    /**/
     border-radius: 15px;
     margin-top: 2%;
     max-width: 500px;

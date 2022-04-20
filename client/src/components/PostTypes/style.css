@@ -37,14 +37,13 @@
 
 .audio-player-trash {
     font-size: 24px;
-    margin: 8px;
-    margin-left: 16px;
+    margin: 8px 8px 8px 16px;
     color: #9274a0;
 }
 
-.custom-file-upload-container__title {
-    font-size: large;
-}
+/*.custom-file-upload-container__title {*/
+/*    font-size: large;*/
+/*}*/
 
 .player-container__content {
     max-width: 80%;

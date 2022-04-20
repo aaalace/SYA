@@ -55,8 +55,6 @@ export const VideoPost = ({videoData, setVideoData, setContentLoaded}) => {
             >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите видео или загрузите</span>
-                    <br/>
-                    <span>Если возникли проблемы с загрузкой попробуйте сконвертировать в mp4</span>
                 </div>
                 <label htmlFor="file-upload" className="custom-file-upload">Загрузить</label>
             </div>

@@ -83,7 +83,7 @@ const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId})
         <>
             <div style={{
                 height: 'fit-content', 
-                backgroundColor: "white", borderRadius: '10px', padding: '0 8px 8px'
+                backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px 8px'
             }}>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
@@ -92,10 +92,10 @@ const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId})
                         onChange={e => {setMessage(e.target.value)}}
                     />
                     <button className="button_send" style={{color: '#AC80C1'}} onClick={() => {handleMessage()}}>
-                        <i className="fa-solid fa-paper-plane"></i>
+                        <i className="fa-solid fa-paper-plane"/>
                     </button>
                 </div>
-                <hr/>
+                <hr style={{borderColor: 'var(--text-white-to-purple-color)'}}/>
                 {Object.values(chatMessages).length > 0 ?
                     Object.values(chatMessages).reverse().map(msg => (
                         <UserMessage msg={msg} key={nanoid(8)} userId={msg.user_id} current_user_id={chat.current_user_id}/>

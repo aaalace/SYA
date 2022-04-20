@@ -99,10 +99,9 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
 
     return (
         <>
-            <h2 style={{margin: '1%'}}>{RoomName}</h2>
-            <div style={{
-                height: 'fit-content', 
-                backgroundColor: "white", borderRadius: '10px', padding: '0 8px 8px'
+            <h2 style={{margin: '1%', color: 'var(--text-black-to-purple-color)'}}>{RoomName}</h2>
+            <div style={{height: 'fit-content',
+                backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px 8px'
             }}>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
@@ -110,12 +109,12 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
                         style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '1.25em'}}
                         onChange={e => {setMessage(e.target.value)}}
                     />
-                    <button className="button_send" onClick={() => {handleMessage()}}>
-                        <i className="fa-solid fa-paper-plane"></i>
+                    <button className="button_send" style={{color: 'var(--text-black-to-purple2-color)'}} onClick={() => {handleMessage()}}>
+                        <i className="fa-solid fa-paper-plane"/>
                     </button>
                 </div>
-                <hr/>
-                <div style={{marginTop: '8px'}}>
+                <hr style={{borderColor: 'var(--text-white-to-purple-color)'}}/>
+                <div style={{marginTop: '8px', color: 'var(--text-black-to-purple-color)'}}>
                     <p>#Hello And Welcome</p>
                 </div>
                 {Object.values(roomMessages).length > 0 ?

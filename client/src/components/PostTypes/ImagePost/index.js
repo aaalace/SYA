@@ -68,8 +68,6 @@ export const ImagePost = ({imageData, setImageData, setContentLoaded, setPostPro
             >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите изображение или загрузите</span>
-                    <br/>
-                    <span>Поддерживаемые форматы: JPG, PNG, GIF, WebP, SVG or BMP</span>
                 </div>
                 <label htmlFor="file-upload" className="custom-file-upload">Загрузить</label>
             </div>

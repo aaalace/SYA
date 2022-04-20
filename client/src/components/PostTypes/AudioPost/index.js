@@ -55,8 +55,6 @@ export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
             >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите аудио или загрузите</span>
-                    <br/>
-                    <span>Если возникли проблемы с загрузкой попробуйте сконвертировать в mp3</span>
                 </div>
                 <label htmlFor="file-upload" className="custom-file-upload">Загрузить</label>
             </div>
