@@ -186,10 +186,12 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
                                 <div className="page" style={{width: '49%'}}>
                                     <label className="field field_v3" style={{width: '100%'}}>
                                         <input className="field__input" placeholder="SYA1 SYA2 SYA3" 
-                                            style={{width: '100%'}} onChange={e => handleTagInput(e)}
+                                            style={{width: '100%', color: 'var(--text-black-to-purple-color)'}} onChange={e => handleTagInput(e)}
                                         />
                                         <span className="field__label-wrap">
-                                            <span className="field__label">
+                                            <span className="field__label" style={{
+                                                color: 'var(--text-black-to-purple-color)'
+                                            }}>
                                                 Добавьте до 4 тегов
                                             </span>
                                         </span>

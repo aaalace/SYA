@@ -47,11 +47,11 @@ export const AudioBox = ({audioData, setAudioData, setContentLoaded}) => {
             onDragOver={e => dragStartHandler(e)}
             onDrop={e => onDropHandler(e)}
         >
-            <div className="custom-file-upload-container" 
-                style={{
-                    border: drag ? '2px solid purple' : "2px dashed #ddd9d9",
-                    backgroundColor: drag ? '#ddd9d9' : null
-                }}
+            <div className="custom-file-upload-container"
+                 style={{
+                     border: drag ? '2px solid var(--text-black-to-purple-color)' : "2px dashed var(--text-black-to-purple-color)",
+                     backgroundColor: drag ? '#ddd9d9' : null
+                 }}
             >
                 <div>
                     <span className='custom-file-upload-container__title'>Перетащите аудио или загрузите</span>

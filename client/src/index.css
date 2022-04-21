@@ -15,6 +15,9 @@ html[data-theme='light'] {
     --chat-focus-color: #e7e4e4;
     --chat-hover-color: #f5eaea;
     --find-input-bg-color: white;
+    --new-post-bg-white-to-purple-color: white;
+    --text-post-bg-color-textarea: #f8f8f8;
+    --text-black-to-white: #000000;
 }
 
 html[data-theme='dark'] {
@@ -31,6 +34,9 @@ html[data-theme='dark'] {
     --chat-focus-color: #21153a;
     --chat-hover-color: #372160;
     --find-input-bg-color: #1b1123;
+    --new-post-bg-white-to-purple-color: #21153a;
+    --text-post-bg-color-textarea: #21153a;
+    --text-black-to-white: #FFFFFF;
 }
 
 @keyframes bg-light {

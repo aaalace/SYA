@@ -130,7 +130,8 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
             case 4:
                 return (
                     <div onClick={() => openPost()} className="hoverBrightness__text"
-                        style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
+                        style={{marginTop: '2%', color: 'var(--text-black-to-white)',
+                            borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px', textAlign: 'justify', overflow: 'hidden'}}>
                             {media_path ? handleText(media_path) : 'Loading...'}

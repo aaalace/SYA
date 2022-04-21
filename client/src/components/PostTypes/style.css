@@ -5,7 +5,7 @@
 .custom-file-upload-container {
     padding: 5%;
     border-radius: 5px;
-    border: 2px dashed #ddd9d9;
+    border: 2px dashed var(--text-white-to-purple-color);
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
@@ -41,9 +41,10 @@
     color: #9274a0;
 }
 
-/*.custom-file-upload-container__title {*/
-/*    font-size: large;*/
-/*}*/
+.custom-file-upload-container__title {
+    color: var(--text-black-to-purple2-color);
+    /*font-size: large;*/
+}
 
 .player-container__content {
     max-width: 80%;
@@ -60,7 +61,8 @@
     padding: 12px 20px;
     border: 2px solid #ccc;
     border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
+    color: var(--text-black-to-white);
+    background-color: var(--text-post-bg-color-textarea);
+    font-size: medium;
     resize: none;
 }
