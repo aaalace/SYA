@@ -12,7 +12,6 @@ import { OpenedPost } from '../../components/OpenedPost';
 import { FullControl } from '../../components/Audio/FullControl'
 import Video from '../../components/Video/component';
 
-
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     const post_limit = 5;
     let borderColor = '#9979d4';
@@ -47,13 +46,14 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             id: post.id,
             user_id: post.user_id,
             user_name: post.user_name,
-            user_avatar: post.user_avatar,
+            path_to_avatar: post.path_to_avatar,
             path_to_media: post.path_to_media,
             media_type: post.type,
             likes_count: post.likes_count,
             post_time: post.post_time,
             type: post.type,
-            media_id: post.media_id
+            media_id: post.media_id,
+            tags: post.tags
         }))
     }
 

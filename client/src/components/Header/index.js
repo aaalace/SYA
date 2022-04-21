@@ -310,7 +310,7 @@ export const Header = () => {
                         <div className="find_over_container">
                             <div className="find_over_form">
                                 <input list='names' className="find_over" 
-                                    type="text" placeholder="Find people" value={toFind} 
+                                    type="text" placeholder="Search users" value={toFind} 
                                     onKeyDown={handleKeyDown} 
                                     onChange={event => finderChanged(event.target.value)}
                                 />
@@ -350,7 +350,7 @@ export const Header = () => {
                         <div className="find_over_container">
                             <div className="find_over_form">
                                 <input list='names' className="find_over" 
-                                    type="text" placeholder="Find people" value={toFind} 
+                                    type="text" placeholder="Search users" value={toFind} 
                                     onKeyDown={handleKeyDown} 
                                     onChange={event => finderChanged(event.target.value)}
                                 />

@@ -2,6 +2,7 @@ from models.posts_comments import PostsComments
 from models.comments_replies import CommentsReplies
 from models.users import Users
 from models.media import Media
+from models.users_images import UsersImages
 
 def get_comments(post_id):
     try:
@@ -10,6 +11,7 @@ def get_comments(post_id):
         media_ids = []
         for comment in comments:
             reply_comments = CommentsReplies.query.filter(CommentsReplies.comment_id == comment.id).all()
+
             reply_comments_res = []
             for reply in reply_comments:
                 
@@ -23,10 +25,15 @@ def get_comments(post_id):
                 reply_res['proportion'] = reply.proportion
                 reply_res['middle_color'] = reply.middle_color
                 reply_res['type'] = reply.type
+                reply_res['path_to_media'] = reply.path_to_media
                 reply_res['authorData'] = {
                     'authorId': reply.user_id,
                     'authorNickname': reply_author_nickname
                 }
+
+                path = UsersImages.query.filter(UsersImages.user_id == reply.user_id).first().path_to_media
+
+                reply_res['path_to_avatar'] = path
 
                 reply_comments_res.append(reply_res)
 
@@ -48,12 +55,15 @@ def get_comments(post_id):
             comment_res['middle_color'] = comment.middle_color
             comment_res['likes_count'] = comment.likes_count
             comment_res['type'] = comment.type
+            comment_res['path_to_media'] = comment.path_to_media
 
-            media_ids.append(comment.media_id)
+            path = UsersImages.query.filter(UsersImages.user_id == comment.user_id).first().path_to_media
+            comment_res['path_to_avatar'] = path
+
             comments_res.append(comment_res)
 
     except Exception as e:
         print(e)
     
-    return {"comments": comments_res, 'media_ids': media_ids}
+    return {"comments": comments_res}
 

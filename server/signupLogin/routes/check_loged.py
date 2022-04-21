@@ -51,13 +51,13 @@ def check_loged():
                     "surname": user.person_surname,
                     "birth_date": user.birth_date,
                     "email": user.email,
-                    "avatar": image.image,
                     "liked_posts": liked_res,
                     "posts_id": posts_id,
                     "tags": user.tags.split('`'),
                     "liked_comments": liked_comm_res,
                     "followers_count": len(followers),
-                    "subscriptions_count": len(subscriptions)
+                    "subscriptions_count": len(subscriptions),
+                    "path_to_media": image.path_to_media
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}

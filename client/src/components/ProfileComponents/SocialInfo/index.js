@@ -3,12 +3,11 @@ import { useSelector } from "react-redux"
 import Axios from "axios"
 import { useEffect } from "react"
 import './style.css'
-import { addInitialInfoFollowers, addInitialSubscriptorAvatar } from "../../../store/followers/actions"
 import { addInitialInfoSubscriptions } from "../../../store/followers/actions"
+import { addInitialInfoFollowers } from "../../../store/followers/actions"
 import { useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import { addFollower } from "../../../store/followers/actions"
-import { addInitialFollowerAvatar } from "../../../store/followers/actions"
 import { FolSubContext } from "../../../routes/ProfilePage"
 import { useMediaQuery } from "react-responsive"
 import { changeFolSubsLogedUser } from "../../../store/user/actions"
@@ -89,7 +88,7 @@ function SocialInfo(props) {
 
     const loged_user_id = useSelector(state => state.user.profile_id)
     const loged_user_username = useSelector(state => state.user.profileName)
-    const loged_user_avatar = useSelector(state => state.user.avatar)
+    const loged_user_path = useSelector(state => state.user.path_to_media)
     let opened_user_id = useSelector(state => state.opened_profile.profile_id)
     if(!opened_user_id){
         opened_user_id = loged_user_id
@@ -108,20 +107,6 @@ function SocialInfo(props) {
     
     let [subscriptions_ids, setSubscriptionsIds] = useState([])
 
-    const getFollowersAvatars = (avatarIds) => {
-        for (const id of avatarIds) {
-            Axios.get('get_person_avatar/', {
-                params: {id}
-            }).then((res) => {
-                setFollowersMedia(prevState => ({
-                    ...prevState,
-                    [id]: res.data
-                }))
-                dispatch(addInitialFollowerAvatar({userId: props.id, follower_id: id, data: res.data}))
-            })
-        }
-    }
-
     const getFollowers = () => {
         Axios.get('get_followers/', {
             params: {id: props.id}
@@ -132,23 +117,7 @@ function SocialInfo(props) {
             }
             setFollowersOnpage(res)
             dispatch(addInitialInfoFollowers({userId: props.id, data: res}))
-            getFollowersAvatars(response.data.avatar_ids)
         })
-    }
-
-    const getSubscriptionsAvatars = (avatarIds) => {
-        for (const id of avatarIds) {
-            Axios.get('get_person_avatar/', {
-                params: {id}
-            }).then((res) => {
-                setSubscriptionsMedia(prevState => ({
-                    ...prevState,
-                    [id]: res.data
-                }))
-                dispatch(addInitialSubscriptorAvatar({userId: props.id, subscriptor_id: id, data: res.data}))
-                setSubscriptionsIds(subscriptions[loged_user_id].map(sub => sub.id))
-            })
-        }
     }
 
     const getSubscriptions = () => {
@@ -161,7 +130,6 @@ function SocialInfo(props) {
             }
             setSubscriptionsOnpage(res)
             dispatch(addInitialInfoSubscriptions({userId: props.id, data: res}))
-            getSubscriptionsAvatars(response.data.avatar_ids)
         })
     }
 
@@ -239,17 +207,14 @@ function SocialInfo(props) {
         }).then((response) => {
             if(response.data !== 'error'){
                 dispatch(changeFolSubsLogedUser({follow: 0, subscription: 1}))
-                dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, avatar: loged_user_avatar},
-                                        subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, avatar: obj.user_avatar}}))
+                dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, path_to_media: loged_user_path},
+                                        subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, path_to_media: obj.path_to_media}}))
                 setSubscriptionsIds(subscriptions_ids.concat([obj.follower_id]))
                 let res = {...subscriptions_media}
                 res[obj.follower_id] = obj.user_avatar
-                setSubscriptionsMedia(res)
             }
         })
     }
-
-    const ContextInfo = useContext(FolSubContext)
 
     return (
         <div style={container}>
@@ -271,7 +236,7 @@ function SocialInfo(props) {
                             return(
                                 <div key={sub.id} className="user-line">
                                     <div className="user-line-left" onClick={() => openProfile(sub.username)}>
-                                        {subscriptions_media[sub.id] ? <img className="user-line-img" src={subscriptions_media[sub.id]}></img> : <div className="user-line-img"/>}
+                                        <img className="user-line-img" src={`/get_post_media/${sub.path_to_media}`}></img>
                                         <p className="user-line-name">{sub.username}</p>
                                     </div>
                                     {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
@@ -286,10 +251,10 @@ function SocialInfo(props) {
                             return(
                                 <div key={fol.id} className="user-line">
                                     <div className="user-line-left" onClick={() => openProfile(fol.username)}>
-                                        {fol.id === loged_user_id ? <img className="user-line-img" src={ContextInfo.avatar}></img> : null}
+                                        {fol.id === loged_user_id ? <img className="user-line-img" src={`/get_post_media/${loged_user_path}`}></img> : null}
                                         {fol.id !== loged_user_id ? 
                                         <div>
-                                            {followers_media[fol.id] ? <img className="user-line-img" src={followers_media[fol.id]}></img> : <div className="user-line-img"/>}
+                                            <img className="user-line-img" src={`/get_post_media/${fol.path_to_media}`}></img>
                                         </div> : null}
                                         <p className="user-line-name">{fol.username}</p>
                                     </div>

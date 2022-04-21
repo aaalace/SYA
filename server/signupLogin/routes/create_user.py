@@ -77,7 +77,7 @@ def create_user():
             # CREATING USER AVATAR
             userImage = UsersImages(
                 user_id=user.id,
-                image=default_image
+                path_to_media='366.jpg'
             )
             db.session.add(userImage)
             db.session.commit()
@@ -86,7 +86,7 @@ def create_user():
 
             return {"registered": True,
                     "id": user.id,
-                    "avatar": image.image}
+                    "avatar": image.path_to_media}
         except Exception as e:
             return {"registered": None,
                     "exception": str(e),

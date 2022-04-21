@@ -12,11 +12,12 @@ import { rollMedia } from "../../store/rolledMedia/actions";
 import { useNavigate } from 'react-router-dom';
 import { PostComments } from "../PostComments";
 import { FullControl } from '../Audio/FullControl'
-import { setOpenPost } from '../../store/currentPost/actions';
+import { setNewTags } from "../../store/user/actions";
 import Video from '../Video/component'
 
 export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
+    console.log(post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)
@@ -83,13 +84,12 @@ export const OpenedPost = (props) => {
             dispatch(changeLikes(post_id))
             dispatch(changeLikesPost({'data': 1, 'userId': post.user_id, 'post_id': post_id}))
             dispatch(setLikesCurrentPost(1))
+            dispatch(setNewTags(post.tags))
         }
         Axios.post('/change_like', {
             post_id,
             user_id,
-            post_tags: [1, 2, 3].join('`')
-        }).then((response) => {
-            console.log(response)
+            post_tags: post.tags
         })
     }
     
@@ -100,7 +100,7 @@ export const OpenedPost = (props) => {
                 <div className='openpost-box_content'>
                     <div className="post-header">
                         <div className="post-left">
-                            {post.user_avatar ? <img src={post.user_avatar} className="post-avatar" alt="avatar"/> : <div className="post-avatar" style={{backgroundColor: '#ac80c181'}}/>}
+                            <img src={`/get_post_media/${post.path_to_avatar}`} className="post-avatar" alt="avatar"/>
                             <div className="post-pers-data">
                                 <p className="post-pers-nickname">{post.user_name}</p>
                                 <p className="post-datatime">{post.post_time}</p>

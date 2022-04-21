@@ -6,6 +6,7 @@ import datetime
 from models.comments_replies import CommentsReplies
 from models.media import Media
 from Comments_replies.utils.get_mid_color import middle_color
+from posts.routes.compressor import compressor
 
 def add_reply():
     if request.method == 'POST':
@@ -25,14 +26,25 @@ def add_reply():
                 user_id = user_id,
                 media_body = media_body
             )
+
             db.session.add(media)
             db.session.commit()
             
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
 
+            result = compressor(media_body.split(',')[1].encode("ascii"), typeX, media_id)
+            if result['status']:
+                media.path_to_image = result['name']
+            else:
+                media.media_body = content
+
+            db.session.commit()
+
             mid_col = ''
             if typeX == 3:
                 mid_col = middle_color(media_body)
+
+            path_to_media = media.path_to_image
 
             reply = CommentsReplies(
                 user_id = user_id,
@@ -42,7 +54,8 @@ def add_reply():
                 text = text,
                 proportion = proportion,
                 middle_color = ';'.join(mid_col),
-                type = typeX
+                type = typeX,
+                path_to_media=path_to_media
             )
             db.session.add(reply)
             db.session.commit()
@@ -51,7 +64,8 @@ def add_reply():
 
             return {
                 'replyId': reply_id,
-                'replyDate': dt
+                'replyDate': dt,
+                'replyPath': path_to_media
             }
 
         except Exception as e:

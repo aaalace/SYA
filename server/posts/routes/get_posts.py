@@ -17,7 +17,7 @@ def get_posts_main(count):
             'id': post.id,
             'user_id': post.user_id,
             'user_name': user.profile_name,
-            'user_avatar': img.image,
+            'path_to_avatar': img.path_to_media,
             'type': post.type,
             'media_id': post.media_id,
             'likes_count': post.likes_count,

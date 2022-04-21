@@ -51,13 +51,14 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
             id: post.id,
             user_id: post.user_id,
             user_name: post.user_name,
-            user_avatar: null,
+            path_to_avatar: post.path_to_avatar,
             path_to_media: post.path_to_media,
             media_type: post.type,
             likes_count: post.likes_count,
             post_time: post.post_time,
             type: post.type,
-            media_id: post.media_id
+            media_id: post.media_id,
+            tags: post.tags
         }))
     }
 

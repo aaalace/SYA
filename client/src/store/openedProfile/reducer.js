@@ -7,11 +7,11 @@ const initialState = {
     personName: '',
     personSurname: '',
     userBirthDate: '',
-    avatar: null,
     posts_id: [],
     followers_count: 0,
     subscriptions_count: 0,
-    tags: []
+    tags: [],
+    path_to_media: null,
 }
 
 export const openedProfileReducer = (state = initialState, action) => {
