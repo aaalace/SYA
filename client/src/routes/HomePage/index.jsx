@@ -145,7 +145,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             <div className="background">
             </div>
             <div  className='main'>
-                <OpenedPost loged={loged} from_main={true}></OpenedPost>
+                <OpenedPost loged={loged} from_main={true}/>
                 <div className='sec'>
                     <h1 className='main__title'>A social network<br/>of associations</h1>
                     {!loged ? <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
