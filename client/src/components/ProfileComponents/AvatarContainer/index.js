@@ -7,6 +7,7 @@ import Axios from 'axios';
 
 const AvatarContainer = (props) => {
     const owner = props.owner
+    const dispatch = useDispatch()
 
     let med_cont = 'image-prof-container' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
@@ -101,7 +102,7 @@ const AvatarContainer = (props) => {
                 dispatch(addProfilePhoto({avatar: reader.result}))
                 Axios.post('/changeAvatar', {
                     base: reader.result,
-                    id: user_id 
+                    media_id: ava
                 })
             }
             reader.readAsDataURL(img);

@@ -18,7 +18,7 @@ def get_oth_user():
                 "personName": user.person_name,
                 "personSurame": user.person_surname,
                 "profileName": user.profile_name,
-                "avatar": image.image,
+                "path_to_media": image.path_to_media
             }
 
         name = data.get('username')

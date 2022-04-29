@@ -52,7 +52,7 @@ const ListEl = UsersConnect(({user, chat, setUserN}) => {
                     borderRadius: '18px',
                     margin: '0 10px 0 0'
                 }}
-                src={user.avatar}
+                src={`/get_post_media/${user.path_to_media}`}
             /> : <IconLoader style={{margin: '0 10px 0 0'}} />}
             <div>
                 {user ? 
