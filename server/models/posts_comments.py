@@ -13,3 +13,4 @@ class PostsComments(db.Model):
     middle_color = db.Column(db.Text)
     likes_count = db.Column(db.Text)
     type = db.Column(db.Integer)
+    path_to_media = db.Column(db.Text)

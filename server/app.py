@@ -16,6 +16,7 @@ CORS(app)
 
 @app.route("/get_post_media/<name>", methods=['GET'])
 def send_media(name):
+    print(name)
     return send_file(f'./images/upload/posts/{name}')
 
 

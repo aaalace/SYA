@@ -6,6 +6,7 @@ import datetime
 from models.posts_comments import PostsComments
 from models.media import Media
 from Comments_replies.utils.get_mid_color import middle_color
+from posts.routes.compressor import compressor
 
 def add_comment():
     if request.method == 'POST':
@@ -25,14 +26,25 @@ def add_comment():
                 user_id = user_id,
                 media_body = media_body
             )
+
             db.session.add(media)
             db.session.commit()
-            
+
             media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
+
+            result = compressor(media_body.split(',')[1].encode("ascii"), typeX, media_id)
+            if result['status']:
+                media.path_to_image = result['name']
+            else:
+                media.media_body = content
+
+            db.session.commit()
 
             mid_col = ''
             if typeX == 3:
                 mid_col = middle_color(media_body)
+
+            path_to_media = media.path_to_image
 
             comment = PostsComments(
                 user_id = user_id,
@@ -43,8 +55,10 @@ def add_comment():
                 proportion = proportion,
                 middle_color = ';'.join(mid_col),
                 likes_count = 0,
-                type = typeX
+                type = typeX,
+                path_to_media=path_to_media
             )
+
             db.session.add(comment)
             db.session.commit()
 
@@ -52,7 +66,8 @@ def add_comment():
 
             return {
                 'commentId': comment_id,
-                'commentDate': dt
+                'commentDate': dt,
+                'commentPath': path_to_media
             }
 
         except Exception as e:

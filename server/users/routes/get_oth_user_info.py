@@ -39,9 +39,9 @@ def get_oth_user():
             "personName": user.person_name,
             "personSurame": user.person_surname,
             "profileName": user.profile_name,
-            "avatar": image.image,
+            "path_to_media": image.path_to_media,
             "posts_id": res,
             "followers_count": len(followers),
             "subscriptions_count": len(subscriptions),
-            "tags": user.tags.split('`')
+            "tags": user.tags.split('`'),
         }

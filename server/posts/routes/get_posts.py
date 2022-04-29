@@ -17,7 +17,7 @@ def get_posts_main(count):
             'id': post.id,
             'user_id': post.user_id,
             'user_name': user.profile_name,
-            'user_avatar': img.image,
+            'path_to_avatar': img.path_to_media,
             'type': post.type,
             'media_id': post.media_id,
             'likes_count': post.likes_count,
@@ -25,6 +25,7 @@ def get_posts_main(count):
             'middle_color': post.middle_color,
             'proportion': post.height_width_proportion,
             'tags': post.tags,
+            'path_to_media': post.path_to_media
         }
         media_ids[post.media_id] = ""
     return {"body": res, 'media_ids': media_ids}

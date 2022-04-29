@@ -5,7 +5,8 @@ from random import shuffle as shf
 from flask import request
 
 from posts.routes.get_media import get_media
-
+from models.users import Users
+from models.users_images import UsersImages
 
 def get_posts_by_tags():
     if request.method == 'GET':
@@ -66,10 +67,15 @@ def get_posts_by_tags():
             shf(posts_n)
             for post in posts_n:
                 post_ids.append(post.id)
+                user = Users.query.filter(Users.id == post.user_id).first().profile_name
+                
+                image = UsersImages.query.filter(UsersImages.user_id == post.user_id).first()
+                path = image.path_to_media
                 if post.path_to_media:
                     res.append({
                         "id": post.id,
                         'user_id': post.user_id,
+                        'user_name': user,
                         'type': post.type,
                         'media_id': post.media_id,
                         'likes_count': post.likes_count,
@@ -77,12 +83,14 @@ def get_posts_by_tags():
                         'middle_color': post.middle_color,
                         'proportion': post.height_width_proportion,
                         'tags': post.tags,
+                        'path_to_avatar': path,
                         'path_to_media': post.path_to_media
                     })
                 else:
                     res.append({
                         "id": post.id,
                         'user_id': post.user_id,
+                        'user_name': user,
                         'type': post.type,
                         'media_id': post.media_id,
                         'likes_count': post.likes_count,
@@ -90,6 +98,7 @@ def get_posts_by_tags():
                         'middle_color': post.middle_color,
                         'proportion': post.height_width_proportion,
                         'tags': post.tags,
+                        'path_to_avatar': path,
                         'path_to_media': get_media(post.media_id)
                     })
             return {"body": res, 'post_ids': post_ids}
