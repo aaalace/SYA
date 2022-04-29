@@ -7,6 +7,7 @@ from pydub import AudioSegment
 
 def compressor(content, type, id):
     d_content = b64decode(content)
+    print(content)
     if type == 3:
         name = f'{id}.jpg'
         path_from_cwd = f'/images/upload/posts/{id}.jpg'

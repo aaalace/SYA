@@ -17,7 +17,6 @@ import Video from '../Video/component'
 
 export const OpenedPost = (props) => {
     const post = useSelector(state => state.current_post)
-    console.log(post)
     const user_id = useSelector(state => state.user.profile_id)
     const dispatch = useDispatch()
     const liked_posts = useSelector(state => state.user.liked_posts)

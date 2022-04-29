@@ -28,7 +28,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
                     borderRadius: '18px',
                     margin: '0 10px'
                 }}
-                src={user.avatar}
+                src={`/get_post_media/${user.path_to_media}`}
             /> : <IconLoader style={{margin: '0 10px'}} />}
             <div style={{marginTop: '14px', display: 'flex', flexDirection: 'column', 
                 alignItems: current_user_id === msg.user_id ? 'flex-end' : 'flex-start'
