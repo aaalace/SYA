@@ -52,7 +52,7 @@ const AvatarContainer = (props) => {
         margin: '10px',
         fontSize: '12px'
     }
-
+/1
     if (med_cont === 'image-prof-container-small'){
         ava_style.borderRadius = '15px 15px 15px 15px'
         ava_style.width = '120px'
@@ -83,7 +83,6 @@ const AvatarContainer = (props) => {
 
 
     const selectedFileRef = useRef(null)
-    const dispatch = useDispatch()
     const avaOwn = useSelector(state => state.user.avatar)
     const avaGuest = useSelector(state => state.opened_profile.avatar)
     const user_id = useSelector(state => state.user.profile_id)
@@ -126,8 +125,16 @@ const AvatarContainer = (props) => {
     return (
             <div className={med_cont}>
                 <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
-                {owner ? <button onClick={changeAva} style={btn_change}><i style={icon_с} className="fa fa-paperclip"></i></button>: null} 
-                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} class="fa fa-trash" aria-hidden="true"></i></button>: null}     
+                {owner ? 
+                    <button onClick={changeAva} style={btn_change}>
+                        <i style={icon_с || {}} className="fa fa-paperclip"/>
+                    </button>
+                : null} 
+                {owner ? 
+                    <button onClick={deleteAva} style={btn_delete}>
+                        <i style={icon_d || {}} className="fa fa-trash" aria-hidden="true"/>
+                    </button>
+                : null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             </div> 
     )

@@ -2,8 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/366.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/367.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/368.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/369.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/370.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/371.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/373.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/375.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/376.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/378.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/379.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/380.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/381.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/382.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/383.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/384.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/385.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/386.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/388.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/389.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/390.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/393.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/394.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/395.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/396.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/397.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/398.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/404.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/404.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/406.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/409.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/409.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/419.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/420.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -9,6 +9,7 @@ import { SignUpPage } from "./routes/SignUpPage";
 import { ProfilePage } from "./routes/ProfilePage";
 import { AllPostsPage } from "./routes/AllPostsPage";
 import { ForumPage } from "./routes/Forum";
+// import {SocketContext, socket} from './context/socket';
 
 export const App = () => {
   const userIsLoged = useSelector((state) => state.user.loged)

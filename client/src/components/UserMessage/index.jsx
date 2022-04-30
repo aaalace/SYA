@@ -6,7 +6,6 @@ import Axios from 'axios';
 
 
 export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id}) => {
-    console.log('user message comp')
     if (!user) {
         Axios.get('/get_oth/', {
             params: {user_id: msg.user_id}

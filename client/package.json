@@ -16,6 +16,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
+    "emoji-mart": "^5.0.0",
     "emoji-picker-react": "^3.5.1",
     "fontawesome-free": "^1.0.4",
     "http-proxy-middleware": "^2.0.4",

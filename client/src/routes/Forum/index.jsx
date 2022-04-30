@@ -83,6 +83,10 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                             <RoomsList dispatch={dispatch} setSelectedId={setSelectedId} selectedId={selectedId} rooms={roomsConnect}/> : 
                             <MyLoader/>
                         }
+                        {Object.values(roomsConnect).length === 0 && roomsLoaded ?
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
+                            null
+                        }
                     </div>
                 </div>
                 <div style={{width: '100%', height: 'fit-content', backgroundColor: "var(--body-color)", padding: '0 8px'}}>
@@ -93,7 +97,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                             <MyLoader/>
                         }
                         {Object.values(chatsConnect).length === 0 && chatsLoaded ?
-                            <p style={{margin: '16px auto'}}>Пусто</p> : 
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
                             null
                         }
                     </div>
@@ -130,6 +134,10 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                             <RoomsList setSelectedId={setSelectedId} selectedId={selectedId} rooms={roomsConnect}/> : 
                             <MyLoader/>
                         }
+                        {Object.values(roomsConnect).length === 0 && roomsLoaded ?
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
+                            null
+                        }
                     </div>
                 </div>
                 <div style={{width: '100%', backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
@@ -140,7 +148,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                             <MyLoader/>
                         }
                         {Object.values(chatsConnect).length === 0 && chatsLoaded ?
-                            <p style={{margin: '16px auto'}}>Пусто</p> : 
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
                             null
                         }
                     </div>

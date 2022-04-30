@@ -446,7 +446,7 @@ export const PostComments = (props) => {
             </div> : null}
             {newCommentMedia && props.loged ? 
                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <i onClick={() => setnewCommentMedia(null)} style={{color: 'rgba(172, 128, 193, 1)'}} class="fa fa-times" aria-hidden="true"></i>
+                    <i onClick={() => setnewCommentMedia(null)} style={{color: 'rgba(172, 128, 193, 1)'}} className="fa fa-times" aria-hidden="true"/>
                     {
                         newCommentType === 1 ? <audio className="comment-loaded-audio" controls ref={imageUploadedRef} src={newCommentMedia}></audio> : 
                         newCommentType === 2 ? <video className="comment-loaded-video" controls ref={imageUploadedRef}><source src={newCommentMedia}/></video> :

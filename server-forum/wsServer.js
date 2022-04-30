@@ -1,0 +1,56 @@
+const ws = require('ws');
+const wss = new ws.Server({
+    port: 3001,
+}, () => console.log('server started at 3001'))
+
+wss.on('connection', function connection(ws) {
+    ws.on('message', function (message) {
+        message = JSON.parse(message);
+        switch (message.type) {
+            case 'room':
+                switch (message.event) {
+                    case 'message':
+                        broadCastMessageToRoom(message);
+                        break;
+                    case 'connection':
+                        ws.id = 'room/' + message.room_id;
+                        break;
+                    case 'disconnect':
+                        ws.close();
+                        break;
+                }
+                break;
+            case 'chat':
+                switch (message.event) {
+                    case 'message':
+                        broadCastMessageToChat(message);
+                        break;
+                    case 'connection':
+                        ws.id = 'chat/' + message.chat_id;
+                        break;
+                    case 'disconnect':
+                        ws.close();
+                        break;
+                }
+                break;
+        }
+    })
+})
+
+function broadCastMessageToRoom(message) {
+    const roomId = 'room/' + message.room_id;
+    wss.clients.forEach(client => {
+        if (client.id === roomId) {
+            client.send(JSON.stringify(message))
+        }
+    })
+}
+
+function broadCastMessageToChat(message) {
+    const chatId = 'chat/' + message.chat_id;
+    wss.clients.forEach(client => {
+        if (client.id === chatId) {
+            client.send(JSON.stringify(message))
+        }
+    })
+}

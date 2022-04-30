@@ -1,33 +1,66 @@
 import { useParams } from "react-router-dom";
 import { ForumChatConnect } from "../../../connect/Forum/chatMessagesCon";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Axios from 'axios';
-import { nanoid } from "nanoid";
 import { UserMessage } from "../../UserMessage";
 import { useDispatch } from "react-redux";
 import { changeMessage } from "../../../store/Forum/actions";
+import { nanoid } from "nanoid";
+
+
+let SERVER_URL = "ws://localhost:3001";
 
 export const Chat = ({user_id, setSelectedId}) => {
     const {chatId} = useParams()
-    const dispatch = useDispatch()
+    const socket = useRef()
+    const childRef = useRef();
 
-    const handleClick = () => {
-        console.log('clicked')
-        dispatch(changeMessage({
-            user_chat_id: 1,
-            message_id: 1,
-            message: 'from clicked'
-        }))
+    useEffect(() => {
+        socket.current = new WebSocket(SERVER_URL)
+
+        socket.current.onopen = () => {
+            const message = {
+                type: 'chat',
+                event: 'connection',
+                user_id,
+                chat_id: chatId
+            }
+            socket.current.send(JSON.stringify(message))
+        }
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            childRef.current(message)
+        }
+        socket.current.onclose= () => {
+            console.log('Socket закрыт')
+        }
+        socket.current.onerror = () => {
+            console.log('Socket произошла ошибка')
+        }
+
+        return () => {
+            socket.current.send(JSON.stringify({
+                type: 'chat',
+                event: 'disconnect'
+            }));
+            socket.current = null;
+        }
+    }, [chatId, user_id])
+    
+    const sendMessage = async (message) => {
+        socket.current.send(JSON.stringify(message));
     }
     
     return (
-        <>
-        <ChatCon setSelectedId={setSelectedId} chatId={chatId} user_id={user_id}/>
-        </>
+        <ChatCon childRef={childRef}
+            setSelectedId={setSelectedId} 
+            chatId={chatId} user_id={user_id} 
+            sendMessage={sendMessage}
+        />
     )
 }
 
-const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId}) => {
+const ChatCon = ForumChatConnect(({childRef, chat, setChat, setNewMessage, setSelectedId, sendMessage}) => {
     const ChatId = chat.id
     let prevMessageId = null;
 
@@ -39,16 +72,24 @@ const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId})
     const [chatMessages, setChatMessages] = useState(chat.messages);
     const [message, setMessage] = useState("");
 
+    const sendMsgObject = (msgObject) => {
+        console.log(msgObject)
+        setNewMessage(msgObject)
+        setChatMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
+    }
+
     useEffect(() => {
+        childRef.current = sendMsgObject
         setSelectedId({type: 'chat', id: ChatId})
     }, [])
 
     useEffect(() => {
-        if (!checkChatMsgs) {
-            getMessages();
-        } else {
-            setChatMessages(chat.messages)
-        }
+        getMessages();
+        // if (!checkChatMsgs) {
+        //     getMessages();
+        // } else {
+        //     setChatMessages(chat.messages)
+        // }
     }, [ChatId])
 
     const getMessages = () => {
@@ -62,17 +103,18 @@ const ChatCon = ForumChatConnect(({chat, setChat, setNewMessage, setSelectedId})
         if (message !== "") {
             const messageId = nanoid(8)
             const msgObject = {
+                type: 'chat',
+                event: 'message',
                 user_id: chat.current_user_id,
                 chat_id: ChatId,
                 message: message,
                 id: messageId,
             }
-            setNewMessage(msgObject)
-            setChatMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
+            sendMsgObject(msgObject);
             Axios.post('/add_chat_message', msgObject)
                 .then((response) => {
                     if (response.data === 1) {
-                        
+                        sendMessage(msgObject)
                 }
         })
         setMessage("");
