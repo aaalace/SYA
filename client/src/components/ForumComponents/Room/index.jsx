@@ -1,39 +1,28 @@
-import { useState, useEffect, useRef, useImperativeHandle } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 import { nanoid } from "nanoid";
-
-
-let SERVER_URL = "ws://localhost:3001";
+import { SocketContext } from "../../../context";
 
 export const Room = ({user_id, setSelectedId}) => {
     const childRef = useRef();
-    const socket = useRef();
     const {roomId} = useParams();
+    const {socket, sendMessage} = useContext(SocketContext);
 
     useEffect(() => {
-        socket.current = new WebSocket(SERVER_URL)
-
-        socket.current.onopen = () => {
-            const message = {
-                type: 'room',
-                event: 'connection',
-                user_id,
-                room_id: roomId
-            }
-            socket.current.send(JSON.stringify(message))
+        const message = {
+            type: 'room',
+            event: 'connection',
+            user_id,
+            room_id: roomId
         }
+        socket.current.send(JSON.stringify(message))
+
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
             childRef.current(message)
-        }
-        socket.current.onclose= () => {
-            console.log('Socket закрыт')
-        }
-        socket.current.onerror = () => {
-            console.log('Socket произошла ошибка')
         }
 
         return () => {
@@ -41,13 +30,8 @@ export const Room = ({user_id, setSelectedId}) => {
                 type: 'room',
                 event: 'disconnect'
             }));
-            socket.current = null;
         }
-    }, [roomId, user_id])
-    
-    const sendMessage = async (message) => {
-        socket.current.send(JSON.stringify(message));
-    }
+    }, [roomId])
     
     return (
         <RoomCon childRef={childRef}
@@ -132,7 +116,7 @@ export const RoomCon = ForumRoomConnect(({childRef, room, roomId, setRoom, user_
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
                         type="text" placeholder="Type message" value={message}
-                        style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '1.25em'}}
+                        style={{color: 'var(--text-black-to-purple-color)', width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '18px'}}
                         onChange={e => {setMessage(e.target.value)}}
                     />
                     <button className="button_send" style={{color: 'var(--text-black-to-purple2-color)'}} onClick={() => {handleMessage()}}>

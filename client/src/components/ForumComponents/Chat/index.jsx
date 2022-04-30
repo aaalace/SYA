@@ -1,41 +1,29 @@
 import { useParams } from "react-router-dom";
 import { ForumChatConnect } from "../../../connect/Forum/chatMessagesCon";
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import Axios from 'axios';
 import { UserMessage } from "../../UserMessage";
-import { useDispatch } from "react-redux";
-import { changeMessage } from "../../../store/Forum/actions";
 import { nanoid } from "nanoid";
+import { SocketContext } from "../../../context";
 
-
-let SERVER_URL = "ws://localhost:3001";
 
 export const Chat = ({user_id, setSelectedId}) => {
-    const {chatId} = useParams()
-    const socket = useRef()
+    const {chatId} = useParams();
+    const {socket, sendMessage} = useContext(SocketContext);
     const childRef = useRef();
 
     useEffect(() => {
-        socket.current = new WebSocket(SERVER_URL)
-
-        socket.current.onopen = () => {
-            const message = {
-                type: 'chat',
-                event: 'connection',
-                user_id,
-                chat_id: chatId
-            }
-            socket.current.send(JSON.stringify(message))
+        const message = {
+            type: 'chat',
+            event: 'connection',
+            user_id,
+            chat_id: chatId
         }
+        socket.current.send(JSON.stringify(message))
+
         socket.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
             childRef.current(message)
-        }
-        socket.current.onclose= () => {
-            console.log('Socket закрыт')
-        }
-        socket.current.onerror = () => {
-            console.log('Socket произошла ошибка')
         }
 
         return () => {
@@ -43,13 +31,8 @@ export const Chat = ({user_id, setSelectedId}) => {
                 type: 'chat',
                 event: 'disconnect'
             }));
-            socket.current = null;
         }
-    }, [chatId, user_id])
-    
-    const sendMessage = async (message) => {
-        socket.current.send(JSON.stringify(message));
-    }
+    }, [chatId])
     
     return (
         <ChatCon childRef={childRef}
@@ -130,7 +113,7 @@ const ChatCon = ForumChatConnect(({childRef, chat, setChat, setNewMessage, setSe
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
                         type="text" placeholder="Type message" value={message}
-                        style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '1.25em'}}
+                        style={{color: 'var(--text-black-to-purple-color)', width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '18px'}}
                         onChange={e => {setMessage(e.target.value)}}
                     />
                     <button className="button_send" style={{color: '#AC80C1'}} onClick={() => {handleMessage()}}>

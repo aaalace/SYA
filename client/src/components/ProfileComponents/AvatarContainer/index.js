@@ -45,14 +45,13 @@ const AvatarContainer = (props) => {
         color: 'rgba(255, 255, 255, 0.9)',
         fontSize: '20px'
     }
-    let icon_с = {
-        margin: '10px',
-    }
-    let icon_d   = {
-        margin: '10px',
-        fontSize: '12px'
-    }
-/1
+    let icon_с = {}
+    icon_с.margin = '10px'
+
+    let icon_d   = {}
+    icon_d.margin = '10px'
+    icon_d.fontSize = '12px'
+
     if (med_cont === 'image-prof-container-small'){
         ava_style.borderRadius = '15px 15px 15px 15px'
         ava_style.width = '120px'
@@ -127,12 +126,12 @@ const AvatarContainer = (props) => {
                 <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
                 {owner ? 
                     <button onClick={changeAva} style={btn_change}>
-                        <i style={icon_с || {}} className="fa fa-paperclip"/>
+                        <i style={icon_с} className="fa fa-paperclip"/>
                     </button>
                 : null} 
                 {owner ? 
                     <button onClick={deleteAva} style={btn_delete}>
-                        <i style={icon_d || {}} className="fa fa-trash" aria-hidden="true"/>
+                        <i style={icon_d} className="fa fa-trash" aria-hidden="true"/>
                     </button>
                 : null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>

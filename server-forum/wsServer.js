@@ -7,6 +7,16 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function (message) {
         message = JSON.parse(message);
         switch (message.type) {
+            case 'zero':
+                switch (message.event) {
+                    case 'connection':
+                        ws.user_id = message.user_id;
+                        break;
+                    case 'disconnect':
+                        ws.user_id = false;
+                        break;
+                }
+                break;
             case 'room':
                 switch (message.event) {
                     case 'message':
@@ -16,7 +26,7 @@ wss.on('connection', function connection(ws) {
                         ws.id = 'room/' + message.room_id;
                         break;
                     case 'disconnect':
-                        ws.close();
+                        ws.id = -1;
                         break;
                 }
                 break;
@@ -29,7 +39,7 @@ wss.on('connection', function connection(ws) {
                         ws.id = 'chat/' + message.chat_id;
                         break;
                     case 'disconnect':
-                        ws.close();
+                        ws.id = -1;
                         break;
                 }
                 break;

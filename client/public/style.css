@@ -10,7 +10,7 @@ html {
     padding: 0;
     box-sizing: border-box;
     outline: none;
-    transition: all 0.3s;
+    transition: all 0.25s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
