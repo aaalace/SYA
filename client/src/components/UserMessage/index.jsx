@@ -15,13 +15,13 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
             setUserN({user_id: msg.user_id, data: response.data})
         })
     }
-
+    
     return (
         <div className="user-message-block" style={{display: 'flex', margin: '10px',
             flexDirection: current_user_id === msg.user_id ? 'row-reverse' : 'row',
             justifyContent: current_user_id === msg.user_id ? 'end' : 'start',
         }}>
-            {/* {user ? <img alt="avatar"
+            {user ? <img alt="avatar"
                 style={{
                     objectFit: 'cover',
                     width: '50px',
@@ -30,7 +30,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
                     margin: '0 10px'
                 }}
                 src={`/get_post_media/${user.path_to_media}`}
-            /> : <IconLoader style={{margin: '0 10px'}} />} */}
+            /> : <IconLoader style={{margin: '0 10px'}} />}
             <div style={{ display: 'flex', flexDirection: 'column', 
                 alignItems: current_user_id === msg.user_id ? 'flex-end' : 'flex-start'
             }}>

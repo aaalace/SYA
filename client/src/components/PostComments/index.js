@@ -287,18 +287,18 @@ export const PostComments = (props) => {
 
     const [newCommentLoadingState, setnewCommentLoadingState] = useState(false)
 
-    const getComments = () => {
-        Axios.get(`/getComments//${post_id}`).then((response) => {
+    async function getComments() {
+        await Axios.get(`/getComments//${post_id}`).then((response) => {
             dispatch(addInitialComments({post_id, comments: response.data.comments}))
             setComments(response.data.comments)
-            response.data.comments[post_id].sort(function(a, b) {
+            response.data.comments.sort(function(a, b) {
                 let keyA = new Date(a.likes_count),
                 keyB = new Date(b.likes_count);
                 if (keyA < keyB) return 1;
                 if (keyA > keyB) return -1;
                 return 0;
             });
-            setTopComments(response.data.comments[post_id].slice(0, 3))
+            setTopComments(response.data.comments.slice(0, 3))
         })
     }
 
@@ -325,12 +325,6 @@ export const PostComments = (props) => {
                         }, 
                         replyComments: []
                     }}))
-                    setComments([...comments, {commentId: response.data.commentId, type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, commentDate: response.data.commentDate, path_to_media: response.data.commentPath, path_to_avatar: logedUserPath,
-                        authorData: {
-                            authorId: logedUserId, authorNickname: logedUserNickname
-                        }, 
-                        replyComments: []
-                    }])
                 }
                 else{
                     console.log('error')
@@ -430,12 +424,12 @@ export const PostComments = (props) => {
                     }
                 </div> : null
             }
-            <div style={{display: 'flex', flexDirection: 'row', margin: '0 0 10px 0', justifyContent: 'space-around'}}>
-                <div onClick={() => setOpenedPage('comments')} style={openedPage === 'comments' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
-                    <a style={{fontSize: '17px', padding: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
+            <div className="choose-cont" style={{display: 'flex', flexDirection: 'row', margin: '0 0 10px 0', justifyContent: 'space-around'}}>
+                <div onClick={() => setOpenedPage('comments')} style={openedPage === 'comments' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid transparent', cursor: 'pointer'}}>
+                    <a className="choose-text" style={{fontSize: '17px', padding: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
                 </div>
-                <div onClick={() => setOpenedPage('top')} style={openedPage === 'top' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
-                    <a style={{fontSize: '17px', padding: '10px'}}>Top comments</a>
+                <div onClick={() => setOpenedPage('top')} style={openedPage === 'top' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid transparent', cursor: 'pointer'}}>
+                    <a className="choose-text" style={{fontSize: '17px', padding: '10px'}}>Top comments</a>
                 </div>
             </div>
             {comments && openedPage === 'comments' ?

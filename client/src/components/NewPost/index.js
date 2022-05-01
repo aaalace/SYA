@@ -148,7 +148,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             }));
             dispatch(addNewPost({
                 userId: response.data.userId, post_id: response.data.post_id, data: {...response.data.data, user_name: user.profileName, 
-                user_avatar: user.avatar}, media: {[response.data.data.media_id]: response.data.media}
+                path_to_avatar: user.path_to_media}, media: {[response.data.data.media_id]: response.data.media}
             }))
             dispatch(addUserPost(response.data.post_id))
         })

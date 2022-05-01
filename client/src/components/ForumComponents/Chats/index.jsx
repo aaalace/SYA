@@ -43,7 +43,7 @@ const ListEl = UsersConnect(({user, chat, setUserN}) => {
 
     return (
         <div style={{display: 'flex', alignItems: 'center'}}>
-            {/* {user ? <img alt="avatar"
+            {user ? <img alt="avatar"
                 style={{
                     objectFit: 'cover',
                     width: '50px',
@@ -53,7 +53,7 @@ const ListEl = UsersConnect(({user, chat, setUserN}) => {
                     margin: '0 10px 0 0'
                 }}
                 src={`/get_post_media/${user.path_to_media}`}
-            /> : <IconLoader style={{margin: '0 10px 0 0'}} />} */}
+            /> : <IconLoader style={{margin: '0 10px 0 0'}} />}
             <div>
                 {user ? 
                     <b>{user.profileName}</b> 

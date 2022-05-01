@@ -99,9 +99,15 @@ const AvatarContainer = (props) => {
             let reader = new FileReader();
             reader.onloadend = function() {
                 Axios.post('/changeAvatar', {
-                    base: reader.result,
-                    media_id: ava
-                })
+                    base: reader.result.split(',')[1],
+                    prev_media: ava,
+                    user_id
+                }).then((res) => {
+                    if(res.data.changed){
+                        dispatch(addProfilePhoto({path_to_media: res.data.name})) 
+                    }
+                }
+                )   
             }
             reader.readAsDataURL(img);
         }
@@ -116,6 +122,7 @@ const AvatarContainer = (props) => {
         Axios.post('/deleteAvatar', {
             id: user_id 
         })
+        dispatch(addProfilePhoto({path_to_media: '1.jpg'}))
         setChoice(false)
     }
 

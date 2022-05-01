@@ -12,9 +12,8 @@ import { useNavigate } from 'react-router-dom';;
 
 function MessagePanel() {
     const followStyle = {
-        background: '#ac80c1bd',
         borderRadius: '5px',
-        color: '#fff',
+        color: '#ac80c1bd',
         padding: '4%',
         border: '1px solid rgba(175, 175, 175, 0.1)',
         fontSize: '0.8em',
@@ -23,7 +22,6 @@ function MessagePanel() {
     }
 
     const unfollowStyle = {
-        background: '#fff',
         borderRadius: '5px',
         color: '#ac80c1bd',
         padding: '4%',
@@ -109,9 +107,9 @@ function MessagePanel() {
     }
 
     return (
-        <div className='message-panel-container' style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gridGap: '13px', marginTop: '10px', backgroundColor: 'white', padding: '10px', borderRadius: '5px'}}>
-            <button style={{...unfollowStyle}} onClick={handleMessage}>Сообщение</button>
-            <button onClick={followChange} style={!followState ? {...followStyle} : {...unfollowStyle}}>
+        <div className='message-panel-container' style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gridGap: '13px', marginTop: '10px', padding: '10px', borderRadius: '5px'}}>
+            <button className='message-panel-message' style={{...unfollowStyle}} onClick={handleMessage}>Сообщение</button>
+            <button className='message-panel-follow' onClick={followChange} style={!followState ? {...followStyle} : {...unfollowStyle}}>
                 {!followState ? <i className="fa fa-user-plus"></i> : <i className="fa-solid fa-user-check"></i>}
             </button>
         </div>

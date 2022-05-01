@@ -77,7 +77,7 @@ def create_user():
             # CREATING USER AVATAR
             userImage = UsersImages(
                 user_id=user.id,
-                path_to_media='366.jpg'
+                path_to_media='1.jpg'
             )
             db.session.add(userImage)
             db.session.commit()

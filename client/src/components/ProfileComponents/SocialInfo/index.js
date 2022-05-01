@@ -27,7 +27,6 @@ function SocialInfo(props) {
 
     let container = {
         width: '100%',
-        backgroundColor: 'white',
         margin: '10px 0 40px 0',
         borderRadius: '5px 5px 5px 15px'
     }
@@ -73,8 +72,7 @@ function SocialInfo(props) {
             alignItems: 'center',
             flexDirection: 'column',
             overflow: 'auto',
-            zIndex: 4,
-            backgroundColor: 'white'
+            zIndex: 4
         }
         data_switcher = {
             dispplay: 'none'
@@ -217,7 +215,7 @@ function SocialInfo(props) {
     }
 
     return (
-        <div style={container}>
+        <div style={container} className="container-soc-info">
             <span onClick={() => props.close(false)} style={close_button}>&#10006;</span>
             <div style={user_rel_container}>
                 <div style={data_switcher}>
@@ -239,7 +237,6 @@ function SocialInfo(props) {
                                         <img className="user-line-img" src={`/get_post_media/${sub.path_to_media}`}></img>
                                         <p className="user-line-name">{sub.username}</p>
                                     </div>
-                                    {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
                             )
                         }
@@ -258,7 +255,6 @@ function SocialInfo(props) {
                                         </div> : null}
                                         <p className="user-line-name">{fol.username}</p>
                                     </div>
-                                    {followers_media[fol.id] && fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub" onClick={() => follow({follower_id: fol.id, user_username: fol.username, user_avatar: followers_media[fol.id]})}><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
                             )
                         }
