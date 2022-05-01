@@ -78,17 +78,21 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
         case 3:
             return (
                 <div onClick={() => openPost(post)} style={{marginTop: '2%', boxSizing: 'inherit'}}>
-                    {path_to_media ? 
-                        <img src={`/get_post_media/${path_to_media}`} alt="картинка" className="hoverBrightness"
-                            style={{width: '100%', borderRadius: '15px'}}/>
-                        : 
-                        <div className="hoverBrightness"
-                            style={{width: '100%', borderRadius: '15px', maxHeight: '60vh',
-                                backgroundColor: middle_color, aspectRatio: `1 / ${proportion}`,
-                                marginLeft: 'auto', marginRight: 'auto'
-                        }}>
-                        </div>
-                    }
+                    <div className="hoverBrightness"
+                        style={{width: '100%', borderRadius: '15px', maxHeight: '60vh',
+                            aspectRatio: `1 / ${proportion}`,
+                            marginLeft: 'auto', marginRight: 'auto'
+                    }}>
+                        <img alt=""
+                            src={`/get_post_media/${path_to_media}`} 
+                            className="hoverBrightness" 
+                            style={{width: '100%', borderRadius: '15px'}} 
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.parentElement.style.backgroundColor = middle_color;
+                            }}
+                        />
+                    </div>
                 </div>
             )
         case 4:
@@ -96,7 +100,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
                 <div onClick={() => openPost(post)} className="hoverBrightness__text"
                     style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                 }}>
-                    <div style={{margin: '12px'}}>
+                    <div style={{margin: '12px', color: 'var(--text-black-to-white)'}}>
                         {path_to_media}
                     </div>
                 </div>
