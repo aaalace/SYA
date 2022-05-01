@@ -12,7 +12,6 @@ import { OpenedPost } from '../../components/OpenedPost';
 import { FullControl } from '../../components/Audio/FullControl'
 import Video from '../../components/Video/component';
 
-
 export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPosts, updateMedia}) => {
     const post_limit = 5;
     let borderColor = '#9979d4';
@@ -42,20 +41,19 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     }, [])
 
     const openPost = (post, media_id) => {
-        let CurrentMedia = null
-        if(mediaConnect[media_id]){
-            CurrentMedia = mediaConnect[media_id]
-        }
         dispatch(setOpenPost({
             open: true,
             id: post.id,
             user_id: post.user_id,
             user_name: post.user_name,
-            user_avatar: post.user_avatar,
-            media: CurrentMedia,
+            path_to_avatar: post.path_to_avatar,
+            path_to_media: post.path_to_media,
             media_type: post.type,
             likes_count: post.likes_count,
-            post_time: post.post_time
+            post_time: post.post_time,
+            type: post.type,
+            media_id: post.media_id,
+            tags: post.tags
         }))
     }
 
@@ -66,8 +64,6 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if (!mediaConnect[media_id]) {
             getMedia(media_id)
         }
-
-        const from_main = true
         switch(type) {
             case 1:
                 return (
@@ -127,8 +123,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             case 4:
                 return (
                     <div onClick={() => openPost(post, media_id)} className="hoverBrightness__text"
-                        style={{marginTop: '2%', color: 'var(--text-black-to-white)',
-                            borderRadius: '15px', border: `2px solid ${borderColor}`
+                        style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
                         <div style={{margin: '12px'}}>
                             {mediaConnect[media_id] ? mediaConnect[media_id] : 'Loading...'}
@@ -145,7 +140,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
             <div className="background">
             </div>
             <div  className='main'>
-                <OpenedPost loged={loged} from_main={true}/>
+                <OpenedPost loged={loged} from_main={true}></OpenedPost>
                 <div className='sec'>
                     <h1 className='main__title'>A social network<br/>of associations</h1>
                     {!loged ? <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '10%', marginTop: '10%'}}>
