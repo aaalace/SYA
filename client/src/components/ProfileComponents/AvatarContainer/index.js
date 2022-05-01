@@ -40,7 +40,7 @@ const AvatarContainer = (props) => {
         alignItems: 'flex-end',
         justifyContent: 'right',
         border: '0',
-        borderRadius: '0 20px 20px 0',
+        borderRadius: '0 15px 15px 0',
         backgroundColor: 'rgba(172, 128, 193, 0.7)',
         color: 'rgba(255, 255, 255, 0.9)',
         fontSize: '20px'

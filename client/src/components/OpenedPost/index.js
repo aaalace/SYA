@@ -112,11 +112,6 @@ export const OpenedPost = (props) => {
                         <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={40} width={80}/>
                     </div>}
                     <div className="post-social-interact-container">
-                        {post.media_type === 1 ? 
-                            <div className="post-social-interact">
-                                <p className="post-icon" onClick={rollUp}><i className="fa-solid fa-down-left-and-up-right-to-center"></i></p>
-                            </div>
-                        : null}
                         {props.loged ?
                             <div className="post-social-interact" style={props.from_main ? {backgroundColor: 'transparent'} : null}>
                                 {props.from_main ? <div style={{padding: '15px', backgroundColor: 'transparent'}}></div> : 

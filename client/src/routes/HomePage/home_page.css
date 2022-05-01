@@ -274,3 +274,7 @@ html {
    .cta:active {
     transform: scale(0.95);
    }
+
+.text-main-posts {
+    color: var(--text-black-to-white);
+}

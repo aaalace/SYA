@@ -197,22 +197,6 @@ function SocialInfo(props) {
         setToFind(e)
     }
 
-    const follow = (obj) => {
-        Axios.post('un_follow/', {
-            follower_id: loged_user_id,
-            user_id: obj.follower_id,
-            follow: true
-        }).then((response) => {
-            if(response.data !== 'error'){
-                dispatch(changeFolSubsLogedUser({follow: 0, subscription: 1}))
-                dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, path_to_media: loged_user_path},
-                                        subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, path_to_media: obj.path_to_media}}))
-                setSubscriptionsIds(subscriptions_ids.concat([obj.follower_id]))
-                let res = {...subscriptions_media}
-                res[obj.follower_id] = obj.user_avatar
-            }
-        })
-    }
 
     return (
         <div style={container} className="container-soc-info">

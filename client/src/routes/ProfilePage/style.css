@@ -110,7 +110,7 @@
     margin-bottom: 10px;
     background-color: var(--new-post-bg-white-to-purple-color);
     color: var(--text-black-to-white);
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .social-data-small {
@@ -154,7 +154,7 @@
     display: flex;
     background-color: var(--new-post-bg-white-to-purple-color);
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     width: 100%;
     align-items: center;
 }

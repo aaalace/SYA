@@ -125,7 +125,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                     <div onClick={() => openPost(post, media_id)} className="hoverBrightness__text"
                         style={{marginTop: '2%', borderRadius: '15px', border: `2px solid ${borderColor}`
                     }}>
-                        <div style={{margin: '12px'}}>
+                        <div className='text-main-posts' style={{margin: '12px'}}>
                             {mediaConnect[media_id] ? mediaConnect[media_id] : 'Loading...'}
                         </div>
                     </div>
