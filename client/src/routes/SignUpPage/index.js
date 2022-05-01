@@ -150,9 +150,9 @@ export const SignUpPage = () => {
                             profileName: profileName, 
                             personName: personName,
                             personSurname: personSurname,
-                            email: userEmail
+                            email: userEmail,
+                            path_to_media: '1.jpg'
                         }))
-                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
                         navigate('/')
                         resetInfo()
                     }

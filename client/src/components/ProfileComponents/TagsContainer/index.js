@@ -53,7 +53,7 @@ function TagsContainer(props) {
         if (active) {
             return (
                 <div style={tooltipStyle}>
-                    <label>{`${payload[0].name} : ${Math.round(payload[0].value)}%`}</label>
+                    <label className="tooltip-pie">{`${payload[0].name} : ${Math.round(payload[0].value)}%`}</label>
                 </div>
             );
         }
@@ -63,13 +63,11 @@ function TagsContainer(props) {
     function CustomLegend() {
         return (
             <div className="legend_container">
-                {pieData.slice(0, sliceValue).map(part => <p>{part.name.length > 10 ? part.name.slice(0, 10) + '...' : part.name}</p>)}
+                {pieData.slice(0, sliceValue).map(part => <p >{part.name.length > 12 ? part.name.slice(0, 12) + '...' : part.name}</p>)}
                 {pieData.length > 5 ? <a onClick={changeSliceValue} style={{cursor: 'pointer', fontSize: '11px', color: '#AC80C1'}}>{sliceValue <= 5 ? 'others...' : 'hide'}</a> : null}
             </div>
         )
     };
-
-    console.log(pieData)
     return (
         <div className="pie_container">
             <CustomLegend/>

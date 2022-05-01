@@ -4,17 +4,30 @@ import os
 
 from app import db
 from posts.routes.compressor import compressor
+from models.media import Media
+from models.users_images import UsersImages
 
 def change_avatar():
     if request.method == 'POST':
         try:
             data = json.loads(request.data)
-            name = data['media_id']
-            path_from_cwd = f'/images/upload/posts/{name}'
-            path1 = os.getcwd() + path_from_cwd
-            os.remove(path1)
-            compressor(data['base'], 3, name.split('.')[0])
-            return {'changed': True}
+            prev_media = data['prev_media']
+
+            media = Media(
+                    type=3,
+                    user_id=data['user_id']
+                )
+            db.session.add(media)
+            db.session.commit()
+
+            res = compressor(data['base'], 3, media.id)
+
+            user_image = UsersImages.query.filter(UsersImages.user_id == data['user_id']).first()
+            if user_image:
+                user_image.path_to_media = res['name']
+                db.session.commit()
+            
+            return {'changed': True, 'name': res['name']}
         except Exception as e:
             print(e)
             return {'changed': False}
