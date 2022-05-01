@@ -66,6 +66,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
         if (!mediaConnect[media_id]) {
             getMedia(media_id)
         }
+        console.log(post)
 
         const from_main = true
         switch(type) {
