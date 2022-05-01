@@ -1,3 +1,5 @@
+from base64 import b64encode
+
 from flask import request
 import json
 from app import db
@@ -8,6 +10,7 @@ from models.media import Media
 from models.users import Users
 from models.post_tags import Post_tags
 from posts.utils.get_mid_color import middle_color
+from posts.routes.compressor import compressor
 
 
 def create_post():
@@ -29,19 +32,34 @@ def create_post():
             return 'не верный формат данных'
 
         try:
-            media = Media(
-                type=post_type,
-                user_id=user_id,
-                media_body=content
-            )
-            db.session.add(media)
-            db.session.commit()
+            if post_type == 4:
+                media = Media(
+                    type=post_type,
+                    user_id=user_id,
+                    media_body=content
+                )
+                db.session.add(media)
+                db.session.commit()
+            else:
+                media = Media(
+                    type=post_type,
+                    user_id=user_id
+                )
+                db.session.add(media)
+                db.session.commit()
+                result = compressor(content.split(',')[1].encode("ascii"), post_type, media.id)
+                if result['status']:
+                    media.path_to_image = result['name']
+                else:
+                    media.media_body = content
+                db.session.commit()
         except Exception as e:
             print(e)
             return 'ошибка базы'
 
         try:
-            media_id = Media.query.filter_by(user_id=user_id).all()[-1].id
+            media_id = media.id
+            path_to_media = media.path_to_image
         except Exception as e:
             print(e)
             return 'ошибка запроса'
@@ -61,7 +79,8 @@ def create_post():
                 post_time=dt,
                 middle_color=';'.join(mid_col),
                 height_width_proportion=proportion,
-                tags="`".join(tags) + '`'
+                tags="`".join(tags) + '`',
+                path_to_media=path_to_media
             )
             db.session.add(post)
             db.session.commit()
@@ -69,7 +88,7 @@ def create_post():
             return 'server error'
 
         try:
-            post_id = Posts.query.filter_by(user_id=user_id).all()[-1].id
+            post_id = post.id
         except Exception as e:
             print(e)
             return 'ошибка запроса'
@@ -99,6 +118,7 @@ def create_post():
                     'post_time': post.post_time,
                     'middle_color': post.middle_color,
                     'proportion': post.height_width_proportion,
-                    'media': content
-                }
+                    'path_to_media': post.path_to_media
+                },
+            'media': content
         }

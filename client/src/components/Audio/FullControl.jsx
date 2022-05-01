@@ -49,7 +49,7 @@ export class FullControl extends React.Component {
   handleOnLoad () {
     this.setState({
       loaded: true,
-      duration: this.player.duration()
+      duration: this.player.duration() || 0
     })
   }
 
@@ -144,10 +144,10 @@ export class FullControl extends React.Component {
             <label>
               {this.state.mute ? 
                 <i className="fa-solid fa-volume-xmark audio-icon" style={{
-                  margin: '8px', fontSize: '26px', color: '#AC80C1'
+                  margin: '8px', fontSize: '26px', color: '#AC80C1', width: '33px'
                 }}/>
                 : <i className="fa-solid fa-volume-high audio-icon" style={{
-                  margin: '8px', fontSize: '26px', color: '#AC80C1'
+                  margin: '8px', fontSize: '26px', color: '#AC80C1', width: '33px'
                 }}/>
               }
               <input type='checkbox' checked={this.state.mute} 
@@ -155,9 +155,9 @@ export class FullControl extends React.Component {
                   display: 'none'
               }}/>
             </label>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-                <input value={this.state.volume} min="0" max="1" step='.01' id="range" 
-                    oninput="rangenumber.value=value" type="range"
+            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
+                <input value={this.state.volume} min="0" max="1" step='.01' id="range" type="range"
+                    oninput="rangenumber.value=value"
                     style={{marginRight: '8px', width: '100%'}} 
                     onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
                 />
@@ -171,21 +171,21 @@ export class FullControl extends React.Component {
             <div style={{display: 'flex', alignItems: 'center'}}>
               {this.state.playing ?
                 <i className="fa-solid fa-pause audio-icon" onClick={this.handleToggle}
-                  style={{ cursor: 'pointer',
+                  style={{ cursor: 'pointer', width: '33px',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
                 }}/> 
                 : <i className="fa-solid fa-play audio-icon" 
                   onClick={this.handleToggle}
-                  style={{ cursor: 'pointer',
+                  style={{ cursor: 'pointer', width: '33px',
                     margin: '8px', fontSize: '26px', color: '#AC80C1'
               }}/> }
-              <p style={{width: '38px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
+              <p style={{width: '55px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
                 {this.convertSeconds(this.state.seek.toFixed())}
               </p>
             </div>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <input min="0" step='.01' id="range" 
-                oninput="rangenumber.value=value" type="range"
+            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
+              <input min="0" step='.01' id="range" type="range"
+                oninput="rangenumber.value=value"
                 style={{marginRight: '8px', width: '100%'}} 
                 max={this.state.duration ? this.state.duration.toFixed(2) : 0}
                 value={this.state.seek}
@@ -193,7 +193,7 @@ export class FullControl extends React.Component {
                 onMouseDown={this.handleMouseDownSeek}
                 onMouseUp={this.handleMouseUpSeek}
               />
-              <p style={{color: '#6A5ACD', fontWeight: 900, width: '38px'}}>
+              <p style={{color: '#6A5ACD', fontWeight: 900, width: '55px'}}>
                 {(this.state.duration) ? this.convertSeconds(this.state.duration.toFixed()) : '00:00'}
               </p>
             </div>

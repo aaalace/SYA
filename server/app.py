@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_file
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,8 +9,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql://vkyqaixpybbbzy:8f7dd03b8d39d629d33de145b4798af4fbb8ad394d546958160c1452f2fd4910@ec2-54-73-152-36.eu-west-1.compute.amazonaws.com:5432/dacq0j92a2rg7m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['listen_addresses'] = ''
+app.debug = True
 db = SQLAlchemy(app)
 CORS(app)
+
+
+@app.route("/get_post_media/<name>", methods=['GET'])
+def send_media(name):
+    print(name)
+    return send_file(f'./images/upload/posts/{name}')
+
 
 # SIGNUP and LOGIN
 from signupLogin.routes.create_user import create_user
@@ -57,6 +65,8 @@ def getUserSPosts():
 # PROFILE
 from profilePage.routes.change_avatar import change_avatar
 from profilePage.routes.delete_avatar import delete_avatar
+from profilePage.routes.check_chat_exist import check_chat_exist
+from profilePage.routes.create_new_chat import create_new_chat
 
 
 @app.route("/changeAvatar", methods=['POST'])
@@ -67,6 +77,16 @@ def change_ava():
 @app.route("/deleteAvatar", methods=['POST'])
 def delete_ava():
     return delete_avatar()
+
+
+@app.route("/check_chat_exist", methods=['GET'])
+def check_chat():
+    return check_chat_exist()
+
+
+@app.route("/create_chat", methods=['POST'])
+def create_chat():
+    return create_new_chat()
 
 
 # POSTS
@@ -81,6 +101,7 @@ from posts.routes.get_posts_by_tags import get_posts_by_tags
 def get_media_via_id(via_id):
     return get_media(via_id)
 
+
 @app.route("/get_post_by_media/<med>", methods=['GET'])
 def get_post_by_med(med):
     return get_post_by_media(med)
@@ -89,10 +110,9 @@ def get_post_by_med(med):
 def get_posts_box(count):
     return get_posts_main(count)
 
-@app.route("/change_like/", methods=['GET', 'POST'])
+@app.route("/change_like/", methods=['POST'])
 def change_like_state():
     return change_like()
-
 
 @app.route("/get_posts_by_tags", methods=['GET', 'POST'])
 def get_posts_by_t():
@@ -136,6 +156,9 @@ def get_sub():
 from Forum.routes.get_forum_rooms import get_forum_rooms_
 from Forum.routes.get_room_data import get_room_data
 from Forum.routes.add_room_new_message import add_room_new_message
+from Forum.routes.get_user_chats import get_user_chats
+from Forum.routes.get_chat_data import get_chat_data
+from Forum.routes.add_chat_new_message import add_chat_new_message
 
 
 @app.route("/get_forum_rooms", methods=['GET'])
@@ -148,9 +171,25 @@ def get_room_messages(roomId):
     return get_room_data(roomId)
 
 
+@app.route("/get_chat_messages/<chatId>", methods=['GET'])
+def get_chat_messages(chatId):
+    return get_chat_data(chatId)
+
+
 @app.route("/add_forum_message", methods=['GET', 'POST'])
 def add_room_messages():
     return add_room_new_message()
+
+
+@app.route("/add_chat_message", methods=['GET', 'POST'])
+def add_chat_message():
+    return add_chat_new_message()
+
+
+@app.route("/get_user_chats/<user_id>", methods=['GET'])
+def user_chats(user_id):
+    return get_user_chats(user_id)
+
 
 # COMMENTS AND REPLIES
 from Comments_replies.routes.add_comment import add_comment

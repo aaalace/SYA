@@ -32,3 +32,16 @@
     background-color: #f5eaea;
     color: #43314b;
 }
+
+.forum-main-block {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: minmax(150px, 300px) 1fr;
+    width: 100%;
+    padding: 2%;
+    margin: 0 auto;
+}

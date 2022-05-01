@@ -4,6 +4,7 @@ from flask import request
 from models.users import Users
 from models.users_images import UsersImages
 from models.posts import Posts
+from models.followers import Followers
 
 
 def get_oth_user():
@@ -17,7 +18,7 @@ def get_oth_user():
                 "personName": user.person_name,
                 "personSurame": user.person_surname,
                 "profileName": user.profile_name,
-                "avatar": image.image,
+                "path_to_media": image.path_to_media
             }
 
         name = data.get('username')
@@ -30,11 +31,17 @@ def get_oth_user():
         for el in posts:
             res.append(el.id)
 
+        followers = Followers.query.filter(Followers.user_id == user.id).all()
+        subscriptions = Followers.query.filter(Followers.follower_id == user.id).all()
+
         return {
             "id": user.id,
             "personName": user.person_name,
             "personSurame": user.person_surname,
             "profileName": user.profile_name,
-            "avatar": image.image,
-            "posts_id": res
+            "path_to_media": image.path_to_media,
+            "posts_id": res,
+            "followers_count": len(followers),
+            "subscriptions_count": len(subscriptions),
+            "tags": user.tags.split('`'),
         }

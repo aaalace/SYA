@@ -17,9 +17,8 @@ def get_user_posts():
         user_name = user.profile_name
 
         image = UsersImages.query.filter(UsersImages.user_id == user_id).first()
-        user_avatar = image.image
+        path = image.path_to_media
 
-        
         for post in posts:
             result[post.id] = {
                     'id': post.id,
@@ -31,12 +30,11 @@ def get_user_posts():
                     'middle_color': post.middle_color,
                     'proportion': post.height_width_proportion,
                     'user_name': user_name,
-                    'user_avatar': user_avatar,
-                    'tags': post.tags
+                    'path_to_avatar': path,
+                    'tags': post.tags,
+                    'path_to_media': post.path_to_media
                 }
-            media_ids.append(post.media_id)
 
         return {
-            "body": result,
-            'media_ids': media_ids
+            "body": result
         }

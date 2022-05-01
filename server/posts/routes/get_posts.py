@@ -2,6 +2,8 @@ from turtle import pos
 from models.posts import Posts
 from models.users import Users
 from models.users_images import UsersImages
+from posts.routes.get_media import get_media
+
 
 def get_posts_main(count):
     res = {}
@@ -15,14 +17,15 @@ def get_posts_main(count):
             'id': post.id,
             'user_id': post.user_id,
             'user_name': user.profile_name,
-            'user_avatar': img.image,
+            'path_to_avatar': img.path_to_media,
             'type': post.type,
             'media_id': post.media_id,
             'likes_count': post.likes_count,
             'post_time': post.post_time,
             'middle_color': post.middle_color,
             'proportion': post.height_width_proportion,
-            'tags': post.tags
+            'tags': post.tags,
+            'path_to_media': post.path_to_media
         }
         media_ids[post.media_id] = ""
     return {"body": res, 'media_ids': media_ids}

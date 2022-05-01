@@ -12,7 +12,8 @@ const initialState = {
     likes_count: 0,
     post_time: '',
     media: null,
-    media_type: null
+    media_type: null,
+    tags: null
 }
 
 export const currentPostReduser = (state = initialState, action) => {

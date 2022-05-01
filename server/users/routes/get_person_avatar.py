@@ -11,4 +11,4 @@ def get_person_avatar():
         
         avatar = UsersImages.query.filter(UsersImages.user_id == user_id).first()
 
-        return avatar.image
+        return avatar.path_to_image

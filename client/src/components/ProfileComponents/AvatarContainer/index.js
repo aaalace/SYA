@@ -7,6 +7,7 @@ import Axios from 'axios';
 
 const AvatarContainer = (props) => {
     const owner = props.owner
+    const dispatch = useDispatch()
 
     let med_cont = 'image-prof-container' 
     if (useMediaQuery({ query: '(max-width: 1200px)' })){
@@ -49,6 +50,7 @@ const AvatarContainer = (props) => {
     }
     let icon_d   = {
         margin: '10px',
+        fontSize: '14px'
     }
 
     if (med_cont === 'image-prof-container-small'){
@@ -81,9 +83,8 @@ const AvatarContainer = (props) => {
 
 
     const selectedFileRef = useRef(null)
-    const dispatch = useDispatch()
-    const avaOwn = useSelector(state => state.user.avatar)
-    const avaGuest = useSelector(state => state.opened_profile.avatar)
+    const avaOwn = useSelector(state => state.user.path_to_media)
+    const avaGuest = useSelector(state => state.opened_profile.path_to_media)
     const user_id = useSelector(state => state.user.profile_id)
     let ava = ''
     owner ? ava = avaOwn : ava = avaGuest
@@ -97,10 +98,9 @@ const AvatarContainer = (props) => {
             let img = event.target.files[0];
             let reader = new FileReader();
             reader.onloadend = function() {
-                dispatch(addProfilePhoto({avatar: reader.result}))
                 Axios.post('/changeAvatar', {
                     base: reader.result,
-                    id: user_id 
+                    media_id: ava
                 })
             }
             reader.readAsDataURL(img);
@@ -115,17 +115,15 @@ const AvatarContainer = (props) => {
     const deleteAva = () => {
         Axios.post('/deleteAvatar', {
             id: user_id 
-        }).then((response) => {
-            dispatch(addProfilePhoto({avatar: response.data.avatar}))
         })
         setChoice(false)
     }
 
     return (
             <div className={med_cont}>
-                <img style={ava_style} src={ava} onClick={owner ? giveClickChoice : null}></img>
+                <img style={ava_style} src={`/get_post_media/${ava}`} onClick={owner ? giveClickChoice : null}></img>
                 {owner ? <button onClick={changeAva} style={btn_change}><i style={icon_с} className="fa fa-paperclip"></i></button>: null} 
-                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} className="fa fa-close"></i></button>: null}     
+                {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} class="fa fa-trash" aria-hidden="true"></i></button>: null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>
             </div> 
     )

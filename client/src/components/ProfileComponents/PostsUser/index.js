@@ -7,30 +7,13 @@ import { OpenedPost } from "../../OpenedPost";
 import { useState } from "react";
 import { useEffect } from "react";
 import ReactLoading from 'react-loading';
-import { addUserPosts, addPostMedia } from "../../../store/profilePosts/actions";
+import { addUserPosts } from "../../../store/profilePosts/actions";
 import { useMediaQuery } from "react-responsive";
 
 const PostsUser = (props) => {
     const usersPosts = useSelector(state => state.profilePosts)
     const [userPosts, setUserPosts] = useState([])
-    const [media, setMedia] = useState({});
     const dispatch = useDispatch()
-
-    const getMedia = (mediaIds) => {
-        for (const id of mediaIds) {
-            Axios.get(`/get_media//${id}`).then((res) => {
-                setMedia(prevState => ({
-                    ...prevState,
-                    [id]: res.data
-                }))
-                Axios.get(`/get_post_by_media//${id}`).then((result) => {
-                dispatch(addPostMedia({
-                    userId: props.id, post_id: result.data, id, data: res.data
-                }))
-            })
-            })
-        }
-    }
 
     function getUserPosts(){
         Axios.get(`/get_user_posts/`, {
@@ -44,22 +27,17 @@ const PostsUser = (props) => {
                     posts.push(response.data.body[key])
                 }
                 setUserPosts(posts)
-                getMedia(response.data.media_ids)
         })
     }
 
     useEffect(() => {
-        console.log(usersPosts)
         if(props.id){
             if(Object.keys(usersPosts).includes(props.id.toString())){
                 const posts = []
-                const media = {}
                 for (let key in usersPosts[props.id]){
                     posts.push(usersPosts[props.id][key])
-                    media[usersPosts[props.id][key]['media_id']] = usersPosts[props.id][key]['media']
                 }
                 setUserPosts(posts)
-                setMedia(media)
             }
             else{
                 getUserPosts()
@@ -78,7 +56,7 @@ const PostsUser = (props) => {
             <section className={cont}>
                 {userPosts 
                 ? userPosts.map((post) => {
-                    return <OnePost key={post.id} post={post} media={media}/>
+                    return <OnePost key={post.id} post={post}/>
                 }) 
                 : []}
             </section>
@@ -88,16 +66,15 @@ const PostsUser = (props) => {
 
 const OnePost = (props) => {
     const post = props.post
-    const media = props.media
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
 
     let mid_col = 'transparent'
 
-    if (post.middle_color){
+    if(post.middle_color){
         mid_col = 'rgb(' + post.middle_color.split(';').join(', ') + ')'
     }
-    if(media[post.media_id]){
+    if(post.path_to_media){
         mid_col = 'transparent'
     }
     
@@ -115,7 +92,6 @@ const OnePost = (props) => {
         post_block_style.aspectRatio = `1 / ${post.proportion}`
     }
 
-    
     const switchType = () => {
         switch(post.type) {
             case 1:
@@ -128,14 +104,14 @@ const OnePost = (props) => {
             case 2:
                 return (
                     <figure className="post-image-prof">
-                        <video className='video-in-post' src={media[post.media_id]}/>
+                        <img className="image-in-post" src="../images/video-icon.jpg"/>
                         <i className="fa fa-play-circle video-icon" aria-hidden="true"></i>
                     </figure>
                 )
             case 3:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src={media[post.media_id]}></img>
+                        <img className="image-in-post" src={`/get_post_media/${post.path_to_media}`}></img>
                     </figure>
                 )
             case 4:
@@ -151,21 +127,19 @@ const OnePost = (props) => {
 
     const openPost = () => {
         setLoading(true)
-        let CurrentMedia = null
-        if(media[post.media_id]){
-            CurrentMedia = media[post.media_id]
-        }
-        console.log(post)
         dispatch(setOpenPost({
             open: true,
             id: post.id,
             user_id: post.user_id,
             user_name: post.user_name,
-            user_avatar: post.user_avatar,
-            media: CurrentMedia,
+            path_to_avatar: post.path_to_avatar,
+            path_to_media: post.path_to_media,
             media_type: post.type,
             likes_count: post.likes_count,
-            post_time: post.post_time
+            post_time: post.post_time,
+            type: post.type,
+            media_id: post.media_id,
+            tags: post.tags
         }))
         setLoading(false)
     }

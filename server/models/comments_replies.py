@@ -12,3 +12,4 @@ class CommentsReplies(db.Model):
     proportion = db.Column(db.Float)
     middle_color = db.Column(db.Text)
     type = db.Column(db.Integer)
+    path_to_media = db.Column(db.Text)

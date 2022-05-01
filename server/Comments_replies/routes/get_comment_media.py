@@ -10,5 +10,5 @@ def get_comment_media(media_id):
     except Exception as e:
         print(e)
     
-    return {"commentId": comment_id, "media": media}
+    return {"media": media}
 

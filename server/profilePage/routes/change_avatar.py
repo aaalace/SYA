@@ -1,21 +1,20 @@
 from flask import request
 import json
+import os
 
 from app import db
-from models.users_images import UsersImages
-from models.users import Users
+from posts.routes.compressor import compressor
 
 def change_avatar():
     if request.method == 'POST':
-        data = json.loads(request.data)
-        user = Users.query.filter(Users.id == data['id']).first()
-        if user:
-            user_image = UsersImages.query.filter(UsersImages.user_id == data['id']).first()
-            user_image.image = data['base']
-        else:
-            user_image = UsersImages(
-                user_id = data['id'],
-                image = data['base'])
-            db.session.add(user_image)
-        db.session.commit()
-        return {'changed': True}
+        try:
+            data = json.loads(request.data)
+            name = data['media_id']
+            path_from_cwd = f'/images/upload/posts/{name}'
+            path1 = os.getcwd() + path_from_cwd
+            os.remove(path1)
+            compressor(data['base'], 3, name.split('.')[0])
+            return {'changed': True}
+        except Exception as e:
+            print(e)
+            return {'changed': False}

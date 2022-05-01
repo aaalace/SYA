@@ -12,5 +12,5 @@ class Users(db.Model):
     registration_date = db.Column(db.DateTime)
     salt = db.Column(db.BINARY)
     profile_password = db.Column(db.BINARY)
-    tags = db.Column(db.Text, default='SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`')
+    tags = db.Column(db.Text, default='SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA`SYA')
     

@@ -7,14 +7,12 @@ import { addComment } from "../../store/commentsPosts/actions";
 import { addAvatarComment } from "../../store/commentsPosts/actions";
 import { addReplyComment } from "../../store/commentsPosts/actions";
 import { addInitialComments } from "../../store/commentsPosts/actions";
-import { addInitialCommentMedia } from "../../store/commentsPosts/actions";
-import { addInitialReplyMedia } from "../../store/commentsPosts/actions";
+import { FullControl } from "../Audio/FullControl";
 import { changeRepliesOpened } from "../../store/commentsPosts/actions";
 import { changeCommentLike } from "../../store/commentsPosts/actions";
 import { changeCommentUserLikes } from "../../store/user/actions";
 import { removeCommentUserLikes } from "../../store/user/actions";
 import { setClosePost } from "../../store/currentPost/actions";
-import { nanoid } from "nanoid";
 import Axios from "axios";
 import ReactLoading from 'react-loading';
 
@@ -24,18 +22,15 @@ const CommentMedia = (props) => {
     switch(comment.type) {
         case 1:
             return (
-                <audio className="comment-loaded-audio" controls src={comment.media}></audio>
+                <FullControl src={`/get_post_media/${comment.path_to_media}`}></FullControl>
             )
         case 2:
             return (
-                <video className="comment-loaded-video" controls><source src={comment.media}/></video>
+                <video className="comment-loaded-video" controls><source src={`/get_post_media/${comment.path_to_media}`}/></video>
             )
         case 3:
-            if(comment.media){
-                return(<img style={{aspectRatio: `1 / ${comment.proportion}`}} className="comment-media" src={comment.media}></img>)
-            }
             return (
-                <div className="comment-premedia" style={{aspectRatio: `1 / ${comment.proportion}`, backgroundColor: props.mid_col}}></div> 
+                <img style={{aspectRatio: `1 / ${comment.proportion}`}} className="comment-media" src={`/get_post_media/${comment.path_to_media}`}></img>
             )
         default:
             return 'error'
@@ -46,7 +41,6 @@ const OneReply = (props) => {
     const reply = props.reply
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const avatar = useSelector(state => state.comments['avatars'][reply.authorData.authorId])
 
     let mid_col = ''
     if (reply.middle_color){
@@ -61,7 +55,7 @@ const OneReply = (props) => {
     return(
         <div className="reply_container">
             <div className="author_data" onClick={() => moveProfile(reply.authorData.authorNickname)}>
-                {avatar ? <img src={avatar} className="author-comment-avatar" alt="avatar"/> : <div style={{backgroundColor: '#AC80C1'}} className="author-comment-avatar"/>}
+                <img src={`/get_post_media/${reply.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
                 <div className="author-comment-pers-data">
                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <p className="author-comment-pers-nickname">{reply.authorData.authorNickname}</p>
@@ -71,7 +65,7 @@ const OneReply = (props) => {
                 </div>
             </div>
             <div className="comment-data">
-                {reply.text !== '' ? <div className="comment-text" style={reply.media ? {marginBottom: '1px'} : null}>{reply.text}</div> : null}
+                {reply.text !== '' ? <div className="comment-text">{reply.text}</div> : null}
                 <CommentMedia comment={reply} mid_col={mid_col}></CommentMedia>
             </div>
         </div>
@@ -86,11 +80,10 @@ const OneComment = (props) => {
     
     const comment = props.comment
     const logedUser_liked_comments = useSelector(state => state.user.liked_comments)
-    const avatar = useSelector(state => state.comments['avatars'][comment.authorData.authorId])
 
     const logedUserId = useSelector(state => state.user.profile_id)
     const logedUserNickname = useSelector(state => state.user.profileName)
-    const logedUserAvatar = useSelector(state => state.user.avatar)
+    const logedUserPath = useSelector(state => state.user.path_to_media)
     
     const [replyState, setReplyState] = useState(false)
     const [replyText, setreplyText] = useState('');
@@ -126,26 +119,11 @@ const OneComment = (props) => {
         }
         else{
             dispatch(changeRepliesOpened({post_id: props.post_id, commentId: comment.commentId, opened: true}))
-            for(const reply of replies){
-                if(!reply.media){
-                    Axios.get(`/getReplyMedia//${reply.replyid}`).then(
-                    (response) => {
-                        dispatch(addInitialReplyMedia({post_id: props.post_id, 
-                                                        commentId: comment.commentId, 
-                                                        replyId: reply.replyid, 
-                                                        media: response.data.media}))
-                        }
-                    )
-                    Axios.get(`/getReplierAvatar//${reply.replyid}`).then((response) => {
-                        dispatch(addAvatarComment({id: response.data.userId, avatar: response.data.userAvatar}))
-                    })
-                }
-            }
         }
     }
 
     const sendReply = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(replyMedia){
             setnewCommentLoadingState(true)
             setReplyState(false)
@@ -160,12 +138,11 @@ const OneComment = (props) => {
                 type: newReplyType
             }).then((response) => {
                 if(response.data !== 'error'){
-                dispatch(addReplyComment({post_id: props.post_id, commentId: comment.commentId, reply: {replyId: response.data.replyId, type: newReplyType, text: replyText, media: replyMedia, replyDate: response.data.replyDate, 
+                dispatch(addReplyComment({post_id: props.post_id, commentId: comment.commentId, reply: {replyId: response.data.replyId, type: newReplyType, text: replyText, media: replyMedia, replyDate: response.data.replyDate, path_to_media: response.data.replyPath, path_to_avatar: logedUserPath,
                     authorData: {
                         authorId: logedUserId, authorNickname: logedUserNickname
                     }
                 }}))
-                dispatch(addAvatarComment({id: logedUserId, avatar: logedUserAvatar}))
                 setnewCommentLoadingState(false)
             }})
         }
@@ -219,20 +196,20 @@ const OneComment = (props) => {
     return(
         <div className="comment_container">
             <div className="author_data" onClick={() => moveProfile(comment.authorData.authorNickname)}>
-                {avatar ? <img src={avatar} className="author-comment-avatar" alt="avatar"/> : <div style={{backgroundColor: '#AC80C1'}} className="author-comment-avatar"/>}
+                <img src={`/get_post_media/${comment.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
                 <div className="author-comment-pers-data">
                     <p className="author-comment-pers-nickname">{comment.authorData.authorNickname}</p>
                     <p className="author-comment-datatime">{comment.commentDate}</p>
                 </div>
             </div>
             <div className="comment-data">
-                {comment.text !== '' ? <div className="comment-text" style={comment.media ? {marginBottom: '1px'} : null}>{comment.text}</div> : null}
+                {comment.text !== '' ? <div className="comment-text" >{comment.text}</div> : null}
                 <CommentMedia comment={comment} mid_col={mid_col}></CommentMedia>
             </div>
-            {replies.length > 0 ?             
+            {replies.length > 0  ?             
                     <a className="comment-show-button" onClick={changeShowRepliesState}>{repliesOpened ? 'hide' : 'show'} replies</a>
             : null}
-            {replyState ? 
+            {replyState && props.loged ? 
                 <div>
                     <div className="comment-write_container">
                         <input className="comment-write_input"
@@ -260,20 +237,24 @@ const OneComment = (props) => {
                 </div>
             : 
                 <div className="comment-social-interact">
-                    <p className="comment-icon" onClick={changeLike}>
-                        {logedUser_liked_comments.includes(comment.commentId) ? 
-                        <i className="fas fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>
-                        :
-                        <i className="far fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>}
-                    </p>
-                    <div className="comment-icon-rep">
-                        {newReplyLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={10} width={20}/> : <i onClick={() => setReplyState(true)} className="fa fa-reply" aria-hidden="true"></i>}
+                    {props.loged ? 
+                    <div className="comment-social-interact">
+                        <p className="comment-icon" onClick={changeLike}>
+                            {logedUser_liked_comments.includes(comment.commentId) ? 
+                            <i className="fas fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>
+                            :
+                            <i className="far fa-heart"><a style={{fontSize: '17px', margin: '2px 0 0 4px'}}>{comment.likes_count}</a></i>}
+                        </p>
+                        <div className="comment-icon-rep">
+                            {newReplyLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={20} width={20}/> : <i onClick={() => setReplyState(true)} className="fa fa-reply" aria-hidden="true"></i>}
+                        </div> 
                     </div>
+                    : null}
                 </div>}
             {repliesOpened ? 
                 <div className="replies_container">
                     {replies.map((reply) => {
-                        return <OneReply key={nanoid(8)} reply={reply} commentAuthorNickname={comment.authorData.authorNickname} post_id={props.post_id}/>
+                        return <OneReply key={reply.replyId} reply={reply} commentAuthorNickname={comment.authorData.authorNickname} post_id={props.post_id}/>
                     })}
                 </div> : 
             null}
@@ -286,14 +267,17 @@ export const PostComments = (props) => {
     const imageUploadedRef = useRef(null);
     const dispatch = useDispatch()
 
+    const [openedPage, setOpenedPage] = useState('comments')
+
     const logedUserId = useSelector(state => state.user.profile_id)
     const logedUserNickname = useSelector(state => state.user.profileName)
-    const logedUserAvatar = useSelector(state => state.user.avatar)
+    const logedUserPath = useSelector(state => state.user.path_to_media)
 
     const post_id = props.post_id
 
     const all_comments = useSelector(state => state.comments)
     const [comments, setComments] = useState([])
+    const [topComments, setTopComments] = useState([])
 
     const [repliesCount, setRepliesCount] = useState(0)
 
@@ -301,30 +285,25 @@ export const PostComments = (props) => {
     const [newCommentMedia, setnewCommentMedia] = useState(null)
     const [newCommentType, setnewCommentType] = useState('')
 
-    const [commentsLoadingState, setCommentsLoadingState] = useState(false)
     const [newCommentLoadingState, setnewCommentLoadingState] = useState(false)
-
-    const getCommentsMediaAndAvatars = (media_ids, post_id) => {
-        for (const id of media_ids) {
-                Axios.get(`/getCommentatorAvatar//${id}`).then((response) => {
-                    dispatch(addAvatarComment({id: response.data.userId, avatar: response.data.userAvatar}))
-                })
-                Axios.get(`/getCommentMedia//${id}`).then((response) => {
-                    dispatch(addInitialCommentMedia({post_id, commentId: response.data.commentId, media: response.data.media}))
-                })
-            }
-        }
 
     const getComments = () => {
         Axios.get(`/getComments//${post_id}`).then((response) => {
             dispatch(addInitialComments({post_id, comments: response.data.comments}))
-            setCommentsLoadingState(false)
-            getCommentsMediaAndAvatars(response.data.media_ids, post_id)
+            setComments(response.data.comments)
+            response.data.comments[post_id].sort(function(a, b) {
+                let keyA = new Date(a.likes_count),
+                keyB = new Date(b.likes_count);
+                if (keyA < keyB) return 1;
+                if (keyA > keyB) return -1;
+                return 0;
+            });
+            setTopComments(response.data.comments[post_id].slice(0, 3))
         })
     }
 
     const sendComment = () => {
-        const proportion = (imageUploadedRef.current.naturalHeight / imageUploadedRef.current.naturalWidth)
+        const proportion = (imageUploadedRef.current?.naturalHeight / imageUploadedRef.current?.naturalWidth)
         if(newCommentMedia && newCommentType){
             setnewCommentLoadingState(true)
             const new_text = newComment
@@ -340,13 +319,18 @@ export const PostComments = (props) => {
                 type: newCommentType
             }).then((response) => {
                 if(response.data !== 'error'){
-                    dispatch(addComment({post_id, commentId: response.data.commentId, comment: {commentId: response.data.commentId, type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, media: newCommentMedia, commentDate: response.data.commentDate, 
+                    dispatch(addComment({post_id, commentId: response.data.commentId, comment: {commentId: response.data.commentId, type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, commentDate: response.data.commentDate, path_to_media: response.data.commentPath, path_to_avatar: logedUserPath,
                         authorData: {
                             authorId: logedUserId, authorNickname: logedUserNickname
                         }, 
                         replyComments: []
                     }}))
-                    dispatch(addAvatarComment({id: logedUserId, avatar: logedUserAvatar}))
+                    setComments([...comments, {commentId: response.data.commentId, type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, commentDate: response.data.commentDate, path_to_media: response.data.commentPath, path_to_avatar: logedUserPath,
+                        authorData: {
+                            authorId: logedUserId, authorNickname: logedUserNickname
+                        }, 
+                        replyComments: []
+                    }])
                 }
                 else{
                     console.log('error')
@@ -358,6 +342,15 @@ export const PostComments = (props) => {
 
     useEffect(() => {
         if(Object.keys(all_comments).includes(post_id.toString())){
+            all_comments[post_id].sort(function(a, b) {
+                let keyA = new Date(a.likes_count),
+                keyB = new Date(b.likes_count);
+                if (keyA < keyB) return 1;
+                if (keyA > keyB) return -1;
+                return 0;
+            });
+            setTopComments(all_comments[post_id].slice(0, 3))
+
             all_comments[post_id].sort(function(a, b) {
                 let keyA = new Date(a.commentDate),
                 keyB = new Date(b.commentDate);
@@ -373,10 +366,9 @@ export const PostComments = (props) => {
             setComments(all_comments[post_id])
         }
         else{
-            setCommentsLoadingState(true)
             getComments()
         }
-    }, [post_id, all_comments])
+    }, [post_id])
 
     const addMediaComment = (e) => {
         selectedFileRef.current.click();
@@ -411,11 +403,12 @@ export const PostComments = (props) => {
     
     return (
         <div className="comments_container">
+            {props.loged ? 
             <div className="comment-write_container">
                 <input className="comment-write_input"
                         type="text" placeholder="Comment post" value={newComment}
                         style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px'}}
-                        onChange={e => {setNewComment(e.target.value)}}
+                        onChange={e => setNewComment(e.target.value)}
                         onKeyDown={handleKeyDown}
                 />
                 <a className="comment-write_button" onClick={addMediaComment}><i className="fa fa-paperclip"></i></a>
@@ -426,8 +419,8 @@ export const PostComments = (props) => {
                 }
                 <input id="file-upload" type="file" className="file-uploader" ref={selectedFileRef} 
                 onChange={e => {fileWork(e)}}/>
-            </div>
-            {newCommentMedia ? 
+            </div> : null}
+            {newCommentMedia && props.loged ? 
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <i onClick={() => setnewCommentMedia(null)} style={{color: 'rgba(172, 128, 193, 1)'}} class="fa fa-times" aria-hidden="true"></i>
                     {
@@ -437,14 +430,25 @@ export const PostComments = (props) => {
                     }
                 </div> : null
             }
-            <div style={{display: 'flex', flexDirection: 'row', margin: '30px 0 10px 0'}}>
-                <a style={{fontSize: '17px', marginRight: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
-                {commentsLoadingState ? <ReactLoading type={'bars'} color={'rgba(172, 128, 193, 1)'} height={10} width={20}/> : null}
+            <div style={{display: 'flex', flexDirection: 'row', margin: '0 0 10px 0', justifyContent: 'space-around'}}>
+                <div onClick={() => setOpenedPage('comments')} style={openedPage === 'comments' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', alignItems: 'center', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
+                    <a style={{fontSize: '17px', padding: '10px'}}>Comments ({comments ? comments.length + repliesCount : 0})</a>
+                </div>
+                <div onClick={() => setOpenedPage('top')} style={openedPage === 'top' ? {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid rgba(172, 128, 193, 1)', cursor: 'pointer'} : {display: 'flex', flexDirection: 'row', marginTop: '10px', borderTop: '1px solid white', cursor: 'pointer'}}>
+                    <a style={{fontSize: '17px', padding: '10px'}}>Top comments</a>
+                </div>
             </div>
-            {comments ?
+            {comments && openedPage === 'comments' ?
                 <div className="comments-data_container">
                     {comments.map((comment) => {
-                        return <OneComment key={nanoid(8)} comment={comment} post_id={post_id}/>
+                        return <OneComment key={comment.commentId} loged={props.loged} comment={comment} post_id={post_id}/>
+                    })}
+                </div>
+            : null }
+            {topComments && openedPage === 'top' ?
+                <div className="comments-data_container">
+                    {topComments.slice(0, 3).map((comment) => {
+                        return <OneComment key={comment.commentId} loged={props.loged} comment={comment} post_id={post_id}/>
                     })}
                 </div>
             : null }

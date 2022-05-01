@@ -7,8 +7,8 @@ import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import { RegLogError } from '../../components/RegLogError';
-import { Link } from 'react-router-dom';
-import { addProfilePhoto } from '../../store/user/actions';
+import { addInitialInfoFollowers } from "../../store/followers/actions"
+import { addInitialInfoSubscriptions } from "../../store/followers/actions"
 
 const BoxStyles = {
     width: '80%',
@@ -53,6 +53,31 @@ export const LoginPage = () => {
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ logging, setLogging ] = useState(false)
 
+    const getFollowers = (id) => {
+        Axios.get('/profile/get_followers/', {
+            params: {id: id}
+        }).then((response) => {
+            let res = []
+            for (let key in response.data.result){
+                res.push(response.data.result[key])
+            }
+            dispatch(addInitialInfoFollowers({userId: id, data: res}))
+        })
+    }
+
+    const getSubscriptions = (id) => {
+        Axios.get('/profile/get_subscriptions/', {
+            params: {id: id}
+        }).then((response) => {
+            let res = []
+            for (let key in response.data.result){
+                res.push(response.data.result[key])
+            }
+            dispatch(addInitialInfoSubscriptions({userId: id, data: res}))
+        })
+    }
+
+
     const handlerLog = (arg) => {
         setLogging(true)
         if(arg === 'home'){
@@ -74,15 +99,17 @@ export const LoginPage = () => {
                         liked_posts: response.data.liked_posts,
                         posts_id: response.data.posts_id,
                         tags: response.data.tags,
-                        liked_comments: response.data.liked_comments
+                        liked_comments: response.data.liked_comments,
+                        followers_count: response.data.followers_count,
+                        subscriptions_count: response.data.subscriptions_count,
+                        path_to_media: response.data.path_to_media
                     }));
-                    if (response.data.avatar){
-                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
-                    }
                     navigate('/')
                     setLogging(false)
                     setProfileName('')
                     setProfilePassword('')
+                    getSubscriptions(response.data.id)
+                    getFollowers(response.data.id)
                 }
                 else{
                     setErrorWindowInfo(response.data.exc)

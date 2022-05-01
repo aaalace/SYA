@@ -11,6 +11,7 @@ import { followersReducer } from './followers/redux';
 import { ForumReducer } from './Forum';
 import { UsersReducer } from './usersData';
 import { commentsPostsReducer } from './commentsPosts/reducer';
+import { CurrentPageReducer } from './currentPage/reducer';
 import thunk from 'redux-thunk';
 
 // import storage from 'redux-persist/lib/storage';
@@ -34,7 +35,8 @@ const rootReducer = combineReducers({
     fols_subs: followersReducer,
     forum: ForumReducer,
     users: UsersReducer,
-    comments: commentsPostsReducer
+    comments: commentsPostsReducer,
+    currentPage: CurrentPageReducer,
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)
