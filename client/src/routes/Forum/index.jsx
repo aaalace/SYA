@@ -93,7 +93,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                     <h3 style={{paddingTop: '12px'}}>Чаты</h3>
                     <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
                         {Object.values(chatsConnect).length > 0 || chatsLoaded ?
-                            <ChatsList dispatch={dispatch} setSelectedId={setSelectedId} selectedId={selectedId} chats={chatsConnect}/> : 
+                            <ChatsList setSelectedId={setSelectedId} selectedId={selectedId} chats={chatsConnect}/> : 
                             <MyLoader/>
                         }
                         {Object.values(chatsConnect).length === 0 && chatsLoaded ?

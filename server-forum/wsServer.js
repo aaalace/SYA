@@ -1,7 +1,7 @@
 const ws = require('ws');
 const wss = new ws.Server({
     port: 3001,
-}, () => console.log('server started at 3001'))
+}, () => console.log('server started at 3001'));
 
 wss.on('connection', function connection(ws) {
     ws.on('message', function (message) {

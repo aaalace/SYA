@@ -44,7 +44,7 @@ function MessagePanel() {
     const user_avatar = useSelector(state => state.opened_profile.avatar)
     const user_username = useSelector(state => state.opened_profile.profileName)
 
-    const conn_user_subscriptions = useSelector(state => state.fols_subs['subscriptions'][follower_id])
+    const conn_user_subscriptions = useSelector(state => state.fols_subs['subscriptions'][follower_id]) || []
     const conn_user_subscriptions_ids = conn_user_subscriptions.map((subs) => subs.id)
     const [followState, setFollowState] = useState(false)
 
