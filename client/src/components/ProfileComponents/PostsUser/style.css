@@ -5,13 +5,14 @@
     grid-gap: 1vw; */
     margin: 0 auto;
     width: 80%;
-    column-count: 3
+    column-count: 3;
 }
 
 .posts-container-small {
     margin: 0 auto;
     width: 100%;
-    column-count: 3
+    column-count: 3;
+    margin-top: 10px;
 }
 
 .post-image-prof {
@@ -52,8 +53,6 @@
 .post-block:hover .post-overlay{
     display: flex;
 }
-
-
 
 @media screen and (max-width: 768px) {
     .post-block:hover .post-overlay {

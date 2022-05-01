@@ -7,11 +7,8 @@ import Axios from 'axios';
 import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import { RegLogError } from '../../components/RegLogError';
-import { addProfilePhoto } from '../../store/user/actions';
 import { addInitialInfoFollowers } from "../../store/followers/actions"
 import { addInitialInfoSubscriptions } from "../../store/followers/actions"
-import { addInitialFollowerAvatar } from '../../store/followers/actions';
-import { addInitialSubscriptorAvatar } from '../../store/followers/actions';
 
 const BoxStyles = {
     width: '80%',
@@ -56,16 +53,6 @@ export const LoginPage = () => {
     const [ profilePassword, setProfilePassword ] = useState('');
     const [ logging, setLogging ] = useState(false)
 
-    const getFollowersAvatars = (userId, avatarIds) => {
-        for (const id of avatarIds) {
-            Axios.get('/profile/get_person_avatar/', {
-                params: {id}
-            }).then((res) => {
-                dispatch(addInitialFollowerAvatar({userId, follower_id: id, data: res.data}))
-            })
-        }
-    }
-
     const getFollowers = (id) => {
         Axios.get('/profile/get_followers/', {
             params: {id: id}
@@ -75,18 +62,7 @@ export const LoginPage = () => {
                 res.push(response.data.result[key])
             }
             dispatch(addInitialInfoFollowers({userId: id, data: res}))
-            getFollowersAvatars(id, response.data.avatar_ids)
         })
-    }
-
-    const getSubscriptionsAvatars = (userId, avatarIds) => {
-        for (const id of avatarIds) {
-            Axios.get('/profile/get_person_avatar/', {
-                params: {id}
-            }).then((res) => {
-                dispatch(addInitialSubscriptorAvatar({userId, subscriptor_id: id, data: res.data}))
-            })
-        }
     }
 
     const getSubscriptions = (id) => {
@@ -98,7 +74,6 @@ export const LoginPage = () => {
                 res.push(response.data.result[key])
             }
             dispatch(addInitialInfoSubscriptions({userId: id, data: res}))
-            getSubscriptionsAvatars(id, response.data.avatar_ids)
         })
     }
 
@@ -126,11 +101,9 @@ export const LoginPage = () => {
                         tags: response.data.tags,
                         liked_comments: response.data.liked_comments,
                         followers_count: response.data.followers_count,
-                        subscriptions_count: response.data.subscriptions_count
+                        subscriptions_count: response.data.subscriptions_count,
+                        path_to_media: response.data.path_to_media
                     }));
-                    if (response.data.avatar){
-                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
-                    }
                     navigate('/')
                     setLogging(false)
                     setProfileName('')

@@ -38,7 +38,7 @@ export const ProfilePage = () => {
                 profileName: response.data.profileName,
                 personName: response.data.personName,
                 personSurname: response.data.personSurname,
-                avatar: response.data.avatar,
+                path_to_media: response.data.path_to_media,
                 posts_id: response.data.posts_id,
                 followers_count: response.data.followers_count,
                 subscriptions_count: response.data.subscriptions_count,
@@ -147,6 +147,7 @@ export const ProfilePage = () => {
                                     <div onClick={() => openSocialMobile(true)} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{subscriptionsCount}</b> подписок</div>
                                     <div onClick={() => openSocialMobile(false)} className='social-data-small'><b style={{color: 'rgb(172, 128, 193)'}}>{followersCount}</b> подписчиков</div>
                             </div>
+                            <TagsContainer owner={OwnState} med={med} />
                             <PostsUser id={MainInfo.profile_id}></PostsUser>
                         </div>
                     }

@@ -4,7 +4,6 @@ html[data-theme='light'] {
 
     --header-color: #FFFFFF;
     --body-color: #F4F4F4;
-    --background-colors-animations: bg-light 15s infinite;
     --title-color: #3b3535;
     --text-color: black;
     --opened-menu-border-color: 2px solid #e7e4e4;

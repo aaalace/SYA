@@ -26,13 +26,3 @@ export const deleteFollower = (data) => ({
     type: DELETE_FOLLOWER,
     payload: data
 })
-
-export const addInitialFollowerAvatar = (data) => ({
-    type: ADD_INITIAL_FOLLOWER_AVATAR,
-    payload: data
-})
-
-export const addInitialSubscriptorAvatar = (data) => ({
-    type: ADD_INITIAL_SUBSCRIPTOR_AVATAR,
-    payload: data
-})

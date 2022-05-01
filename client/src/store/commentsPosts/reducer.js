@@ -7,18 +7,16 @@ import { ADD_INITIAL_REPLY_MEDIA } from "./actions"
 import { CHANGE_REPLIES_OPENED } from "./actions"
 import { CHANGE_COMMENT_LIKE } from "./actions"
 // commentsPosts = {
-//      avatars: {userId: userAvatar},
-//      media: {media_id: media}  
 //      postId: [
 //           {
-//              commentId: commentId, text: commentText, media_id: media_id, commentDate: commentDate, proportion, middle_color, likes_count
+//              commentId: commentId, text: commentText, media_id: media_id, commentDate: commentDate, proportion, middle_color, likes_count, path_to_media
 //              authorData: {
 //              authorId: authorId, 
 //              authorNickname: authorNickname
 //              }
 //              replyComments: [
 //              {
-//                 replyid: replyId, text: commentText, media_id: media_id, replyDate: replyDate, middle_color, proportion
+//                 replyid: replyId, text: commentText, media_id: media_id, replyDate: replyDate, middle_color, proportion, path_to_media
 //                 authorData: {
 //                 authorId: authorId, 
 //                 authorNickname: authorNickname
@@ -43,11 +41,6 @@ export const commentsPostsReducer = (state = initialState, action) => {
             stateCopy[action.payload.post_id].push(action.payload.comment)
             return stateCopy
         }
-        case ADD_AVATAR_COMMENT: {
-            return { ...state, 
-                avatars: {...state.avatars, ...action.payload},
-            }
-        }
         case ADD_REPLY: {
             const stateCopy = {...state}
             let finded_comment = stateCopy[action.payload.post_id].filter(com => com.commentId === action.payload.commentId)
@@ -61,16 +54,6 @@ export const commentsPostsReducer = (state = initialState, action) => {
             const stateCopy = {...state}
             stateCopy[action.payload.post_id] = action.payload.comments
             return stateCopy
-        }
-        case ADD_INITIAL_COMMENT_MEDIA: {
-            return { ...state, 
-                media: {...state.media, ...action.payload},
-            }
-        }
-        case ADD_INITIAL_REPLY_MEDIA: {
-            return { ...state, 
-                media: {...state.media, ...action.payload},
-            }
         }
         case CHANGE_REPLIES_OPENED: {
             const stateCopy = {...state}

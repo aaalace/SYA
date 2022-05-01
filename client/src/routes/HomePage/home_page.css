@@ -35,10 +35,15 @@ html {
 
 .main {
     min-width: 100%;
-    min-height: 200vh;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+@media screen and (min-width: 1441px) {
+    .masonry-posts-block {
+        margin: 0 10%;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -85,7 +90,7 @@ html {
 .homepage-box__title {
     color: var(--text-color);
     font-weight: normal;
-    font-size: 48px;
+    font-size: 40px;
 }
 
 .next-link {

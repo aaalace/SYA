@@ -66,4 +66,3 @@ def get_comments(post_id):
         print(e)
     
     return {"comments": comments_res}
-

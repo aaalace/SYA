@@ -106,16 +106,13 @@ def get_media_via_id(via_id):
 def get_post_by_med(med):
     return get_post_by_media(med)
 
-
 @app.route("/get_posts/<count>", methods=['GET', 'POST'])
 def get_posts_box(count):
     return get_posts_main(count)
 
-
 @app.route("/change_like/", methods=['POST'])
 def change_like_state():
     return change_like()
-
 
 @app.route("/get_posts_by_tags", methods=['GET', 'POST'])
 def get_posts_by_t():
@@ -135,31 +132,25 @@ from users.routes.get_person_avatar import get_person_avatar
 def find_us():
     return find_users()
 
-
 @app.route("/get_oth/", methods=['GET'])
 def get_us():
     return get_oth_user()
-
 
 @app.route("/profile/un_follow/", methods=['POST'])
 def un_fol():
     return un_follow()
 
-
 @app.route("/profile/get_followers/", methods=['GET'])
 def get_fol():
     return get_fols()
-
-
+    
 @app.route("/profile/get_person_avatar/", methods=['GET'])
 def get_pers_avatar():
     return get_person_avatar()
 
-
 @app.route("/profile/get_subscriptions/", methods=['GET'])
 def get_sub():
     return get_subs()
-
 
 # Forum
 from Forum.routes.get_forum_rooms import get_forum_rooms_
@@ -210,41 +201,33 @@ from Comments_replies.routes.get_reply_media import get_reply_media
 from Comments_replies.routes.get_replier_avatar import get_replier_avatar
 from Comments_replies.routes.change_like import change_comment_like
 
-
 @app.route("/addComment", methods=['POST'])
 def add_com():
     return add_comment()
-
 
 @app.route("/addReply", methods=['POST'])
 def add_rep():
     return add_reply()
 
-
 @app.route("/getComments/<post_id>", methods=['GET'])
 def get_comm(post_id):
     return get_comments(post_id)
-
 
 @app.route("/getCommentatorAvatar/<media_id>", methods=['GET'])
 def get_com_ava(media_id):
     return get_commentator_avatar(media_id)
 
-
 @app.route("/getCommentMedia/<media_id>", methods=['GET'])
 def get_com_med(media_id):
     return get_comment_media(media_id)
-
 
 @app.route("/getReplyMedia/<reply_id>", methods=['GET'])
 def get_rep_media(reply_id):
     return get_reply_media(reply_id)
 
-
 @app.route("/getReplierAvatar/<reply_id>", methods=['GET'])
 def get_repl_avatar(reply_id):
     return get_replier_avatar(reply_id)
-
 
 @app.route("/changeCommentLike/", methods=['POST'])
 def change_com_like():

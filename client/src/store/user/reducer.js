@@ -7,6 +7,7 @@ import { REMOVE_LIKES } from "./actions"
 import { CHANGE_COMMENT_LIKES } from "./actions"
 import { REMOVE_COMMENT_LIKES } from "./actions"
 import { CHANGE_FOL_SUBS_LOGED_USER } from "./actions"
+import { SET_NEW_TAGS } from "./actions"
 
 const initialState = {
     loged: false,
@@ -16,7 +17,7 @@ const initialState = {
     personName: '',
     personSurname: '',
     userBirthDate: '',
-    avatar: null,
+    path_to_media: null,
     posts_id: [],
     email: '',
     liked_posts: [],
@@ -55,6 +56,13 @@ export const userReducer = (state = initialState, action) => {
         case CHANGE_FOL_SUBS_LOGED_USER: {
             return {...state, followers_count: state.followers_count + action.payload.follow, 
                 subscriptions_count: state.subscriptions_count + action.payload.subscription}
+        }
+        case SET_NEW_TAGS: {
+            let new_tags = state.tags.slice(action.payload.split('`').length, state.tags.length)
+            for (const tag of action.payload.split('`')) {
+                new_tags.push(tag)
+            }
+            return {...state, tags: new_tags}
         }
         default: {
             return state
