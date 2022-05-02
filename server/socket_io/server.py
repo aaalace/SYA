@@ -16,7 +16,7 @@ app.host = 'localhost'
 def handleConnection():
     pass
     # print(request.args.get('roomId'))
-2
+
 
 @socketIo.on('join')
 def on_join(data):
@@ -33,7 +33,7 @@ def add_message(data):
 
 @socketIo.on('leave')
 def on_leave(data):
-    userId = str(data['userId'])
+    print(data)
     roomId = str(data['roomId'])
     leave_room(roomId)
 

@@ -26,7 +26,6 @@ def create_user():
             prof_email = data['profile_email']
             pers_name = data['person_name']
             pers_surname = data['person_surname']
-            birth_date = data['birth_date']
 
             user_exists = Users.query.filter(Users.profile_name == prof_name).first()
             if user_exists:
@@ -57,9 +56,6 @@ def create_user():
             if len(pers_surname) == 0:
                 raise NullSurnameException
 
-            if len(birth_date) == 0:
-                raise NullBirthException
-
             saltX = bcrypt.gensalt()
             hashed_password = bcrypt.hashpw(prof_pass.encode(), saltX)
 
@@ -69,7 +65,7 @@ def create_user():
                 profile_name=data['profile_name'],
                 profile_password=hashed_password,
                 email=data['profile_email'],
-                birth_date=data['birth_date'],
+                birth_date= '',
                 person_name=data['person_name'],
                 person_surname=data['person_surname'],
                 salt=saltX,
@@ -77,14 +73,11 @@ def create_user():
             )
             db.session.add(user)
             db.session.commit()
-
-            # GETTING NEW USER ID
-            user = Users.query.filter(Users.profile_name == prof_name).first()
             
             # CREATING USER AVATAR
             userImage = UsersImages(
-                user_id = user.id,
-                image = default_image
+                user_id=user.id,
+                path_to_media='1.jpg'
             )
             db.session.add(userImage)
             db.session.commit()
@@ -93,7 +86,7 @@ def create_user():
 
             return {"registered": True,
                     "id": user.id,
-                    "avatar": image.image}
+                    "avatar": image.path_to_media}
         except Exception as e:
             return {"registered": None,
                     "exception": str(e),

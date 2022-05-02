@@ -1,3 +1,4 @@
+import imp
 from flask import request
 from sqlalchemy import and_
 import json
@@ -7,7 +8,8 @@ from models.users import Users
 from models.users_images import UsersImages
 from models.posts_liked import PostsLiked
 from models.posts import Posts
-
+from models.comments_liked import CommentsLiked
+from models.followers import Followers
 
 def check_loged():
     if request.method == 'POST':
@@ -28,10 +30,18 @@ def check_loged():
             for el in liked_posts:
                 liked_res.append(el.post_id)
 
+            liked_comments = CommentsLiked.query.filter(CommentsLiked.user_id == user.id).all()
+            liked_comm_res = []
+            for el in liked_comments:
+                liked_comm_res.append(el.comment_id)
+
             posts = Posts.query.filter(Posts.user_id == user.id).all()
             posts_id = []
             for el in posts:
                 posts_id.append(el.id)
+
+            followers = Followers.query.filter(Followers.user_id == user.id).all()
+            subscriptions = Followers.query.filter(Followers.follower_id == user.id).all()
 
             if user:
                 return {
@@ -41,10 +51,13 @@ def check_loged():
                     "surname": user.person_surname,
                     "birth_date": user.birth_date,
                     "email": user.email,
-                    "avatar": image.image,
                     "liked_posts": liked_res,
                     "posts_id": posts_id,
-                    "tags": user.tags
+                    "tags": user.tags.split('`'),
+                    "liked_comments": liked_comm_res,
+                    "followers_count": len(followers),
+                    "subscriptions_count": len(subscriptions),
+                    "path_to_media": image.path_to_media
                 }
         return {"loged": None,
         "exc": 'Несуществующий пользователь'}

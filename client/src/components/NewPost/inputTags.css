@@ -23,9 +23,9 @@
   .field{
     --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
     --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
-    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);
     --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
-  
+
     display: var(--fieldDisplay, inline-flex);
     position: relative;
     font-size: var(--fieldFontSize, 1rem);
@@ -36,7 +36,7 @@
     width: var(--fieldWidth, 100%);
     height: var(--fieldHeight, 3rem);
     padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight) var(--fieldPaddingBottom, .5rem) var(--uiFieldPaddingLeft);
-    border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));  
+    border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));
   }
   
   .field__input:focus{
@@ -106,7 +106,7 @@
   .field__input:focus ~ .field__label-wrap .field__label,
   .field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
     --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
-  
+
     top: var(--fieldHintTopHover, .25rem);
   }
   
@@ -123,6 +123,6 @@
   
   
   .field{
-    --fieldBorderColor: #D1C4E9;
+    --fieldBorderColor: #673AB7;
     --fieldBorderColorActive: #673AB7;
   }

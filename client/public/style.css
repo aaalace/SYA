@@ -5,18 +5,22 @@ html {
 }
 
 * {
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa', serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     outline: none;
-    transition: all 0.3s;
+    transition: all 0.25s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    background-color: #F4F4F4;
+    background-color: var(--body-color);
     margin-top: 64px;
     min-height: calc(100vh - 64px);
+}
+
+h3 {
+    color: var(--text-color);
 }

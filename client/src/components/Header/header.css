@@ -1,29 +1,104 @@
 .audio-header::-webkit-media-controls-mute-button {
     display: none !important;
     }
-    
-.audio-header::-webkit-media-controls-volume-slider {
-    display: none !important;
+
+.forum-icon-tablet {
+    transition: color .07s;
+    color: #AC80C1;
+    top: 8px;
+    left: 48px;
 }
 
-.audio-header::-webkit-media-controls-volume-control-container.closed {
-    display: none !important;
+.appearing-animation-forum-icon-tablet {
+    display: block;
+    animation-name: forumIconTabletAppearing;
+    animation-duration: .4s;
 }
 
-.audio-header::-webkit-media-controls-volume-control-container{
-    display: none !important;
+.disappearing-animation-forum-icon-tablet {
+    visibility: hidden;
+    animation-name: forumIconTabletDisappearing;
+    animation-duration: .4s;
 }
 
-.audio-header::-webkit-media-controls-timeline{
-    display: none !important;
+@keyframes forumIconTabletDisappearing {
+    0% {
+        top: 8px;
+        left: 48px;
+    }
+    100%   {
+        top: -64px;
+        left: -48px;
+        visibility: hidden;
+    }
 }
 
-.audio-header::-webkit-media-controls-current-time-display{
-    display: none !important;
+@keyframes forumIconTabletAppearing {
+    0%   {
+        top: -64px;
+        left: -48px;
+    }
+    100% {
+        top: 8px;
+        left: 48px;
+    }
 }
 
-.audio-header::-webkit-media-controls-time-remaining-display{
-    display: none !important;
+.left-appearing-animation-reload-icon-tablet {
+    display: block;
+    animation-name: reloadIconTabletAppearing;
+    animation-duration: .4s;
+}
+
+.left-disappearing-animation-reload-icon-tablet {
+    visibility: hidden;
+    animation-name: reloadIconTabletDisappearing;
+    animation-duration: .4s;
+}
+
+@keyframes reloadIconTabletDisappearing {
+    0% {
+        left: 48px;
+    }
+    100%   {
+        left: -48px;
+        visibility: hidden;
+    }
+}
+
+@keyframes reloadIconTabletAppearing {
+    0%   {
+        left: -48px;
+    }
+    100% {
+        left: 48px;
+    }
+}
+
+.reload-focus {
+    animation-name: rotation;
+    animation-duration: .4s;
+}
+
+@keyframes rotation {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.reload-focus-back {
+    animation-name: rotationBack;
+    animation-duration: .4s;
+}
+
+@keyframes rotationBack {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.forum-icon-tablet:hover {
+    color: #826092;
 }
 
 .audio-header {
@@ -35,7 +110,7 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    width:  60%;
+    width:  70%;
     height: 100%;
     align-items: center;
 }
@@ -58,7 +133,7 @@
 .menu-link {
     text-decoration: none;
     color: #AC80C1;
-    padding: 5%;
+    padding: 3%;
     white-space: nowrap;
     font-size: 22px;
     cursor: pointer;
@@ -77,12 +152,15 @@
     cursor: pointer;
 }
 
-.menu-link:hover {
+.header-link:hover {
     color: #43314b;
 }
 
-.header-link:hover {
-    color: #43314b;
+.find_over_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .find_over_form {
@@ -93,10 +171,63 @@
     margin-left: 30px;
 }
 
+.dropdown-search {
+    margin-left: 5px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 34px;
+}
+
+.dropdown-item {
+    background-color: #bfa4cc;
+    padding: 5px 55px;
+    color: white;
+    width: 100%;
+    display: flex;
+    margin-bottom: 1px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+@media screen and (max-width: 769px) {
+    .dropdown-search {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    
+    .dropdown-item {
+        background-color: #bfa4cc;
+        padding: 5px 55px;
+        color: white;
+        width: 100%;
+        display: flex;
+        margin-bottom: 1px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
 .find_over {
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(175, 175, 175, 0.3)
+    border: 1px solid rgba(175, 175, 175, 0.3);
+    background-color: var(--find-input-bg-color);
+    color: var(--text-black-to-purple2-color);
+}
+
+.find_over::placeholder {
+    color: var(--text-black-to-purple2-color);
 }
 
 @media screen and (max-width: 1024px) {
@@ -115,7 +246,7 @@
 @media screen and (max-width: 768px) {
     .find_over_form {
         justify-content: space-between;
-        margin: 18px 0;
+        margin: 22px 0 15px 0;
     }
     .find_over {
         width: 100%;
@@ -126,7 +257,7 @@
         white-space: nowrap;
     }
     .menu-link-bot:hover {
-        background-color: #f5eaea;
+        background-color: var(--chat-hover-color);
     }
 }
 

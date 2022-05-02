@@ -4,6 +4,7 @@ html {
 
 .hoverBrightness {
     cursor: pointer;
+    transition: all 220ms;
 }
 
 .hoverBrightness:hover {
@@ -29,20 +30,25 @@ html {
     -webkit-filter: blur(250px);
     -moz-filter: blur(250px);
     filter: blur(250px);
+    animation: var(--background-colors-animations);
 }
 
 .main {
     min-width: 100%;
-    min-height: 200vh;
     position: absolute;
     top: 0;
     left: 0;
 }
 
+@media screen and (min-width: 1441px) {
+    .masonry-posts-block {
+        margin: 0 10%;
+    }
+}
+
 @media screen and (max-width: 1000px) {
     .background {
         background-image: none;
-        background-color: #e2ccec;
         filter: blur(60px);
     }
 }
@@ -58,7 +64,7 @@ html {
     font-size: 72px;
     line-height: 84px;
     letter-spacing: 0.07em;
-    color: #3b3535;
+    color: var(--title-color);
     margin: 72px 10% 0 10%;
 }
 
@@ -82,8 +88,9 @@ html {
 }
 
 .homepage-box__title {
+    color: var(--text-color);
     font-weight: normal;
-    font-size: 48px;
+    font-size: 40px;
 }
 
 .next-link {
@@ -119,6 +126,14 @@ html {
 .posts-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.audio-post-homepage {
+    width: fit-content;
+    /**/
+    border-radius: 15px;
+    margin-top: 2%;
+    max-width: 500px;
 }
 
 @media screen and (min-width: 1920px) {
@@ -181,6 +196,12 @@ html {
         display: grid;
         grid-template-columns: 1fr;
         margin: 0 3%;
+        text-align: center;
+    }
+
+    .audio-post-homepage {
+        width: 100%;
+        max-width: none;
     }
 }
 
@@ -258,3 +279,7 @@ html {
    .cta:active {
     transform: scale(0.95);
    }
+
+.text-main-posts {
+    color: var(--text-black-to-white);
+}

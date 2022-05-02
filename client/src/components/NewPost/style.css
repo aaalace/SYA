@@ -12,7 +12,7 @@
 }
 
 .create-post-content {
-    background-color: #FFFFFF;
+    background-color: var(--new-post-bg-white-to-purple-color);
     position: absolute;
     top: 15%;
     width: 50%;
@@ -35,6 +35,7 @@
     position: relative;
     font-size: 52px;
     left: 100%;
+    top: 10px;
 }
 
 .create-post-content__title {
@@ -69,7 +70,7 @@
 }
 
 .format:hover {
-    background-color: #f5eaea;
+    background-color: var(--chat-hover-color);
 }
 
 .test_class {
@@ -101,6 +102,10 @@
 
 .video-player {
     flex-grow: 1;
+}
+
+.format-audio {
+    margin-top: 12px;
 }
 
 @keyframes selected-format {

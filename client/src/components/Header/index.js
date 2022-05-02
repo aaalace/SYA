@@ -10,12 +10,18 @@ import { NewPostPage } from '../NewPost';
 import Axios from 'axios';
 import { useRef } from 'react';
 import { rollMedia } from '../../store/rolledMedia/actions';
+import { cleanChats } from '../../store/Forum/actions';
+import { useMediaQuery } from 'react-responsive';
+import { toggleChatList } from '../../store/currentPage/actions';
+import { cleanPostsAndMediaState } from '../../store/AllPostsPage';
+import {DarkModeSwitch} from "react-toggle-dark-mode";
+import {useTheme} from "../../hooks/use-theme";
 
 const HeaderBox = styled.div`
     display: flex;
     height: 64px;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: var(--header-color);
     align-items: center;
     position: fixed;
     top: 0;
@@ -45,28 +51,31 @@ const MenuOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "50%" : "0px")};
     height: calc(100vh - 64px);
-    background-color: white;
+    background-color: var(--forum-items-bg-color);
     z-index: 1;
     top: 64px;
     right: 0;
 `;
 
-const Rect1 = styled.rect`
+export const Rect1 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(45deg) translate(17px, -14px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
-const Rect2 = styled.rect`
+export const Rect2 = styled.rect`
     width: 100px;
     height: 13px;
     opacity: ${props => (props.open ? "0%" : "100%")};
+    fill: #AC80C1;
 `
 
-const Rect3 = styled.rect`
+export const Rect3 = styled.rect`
     width: 100px;
     height: 13px;
     transform: ${props => (props.open ? "rotate(-45deg) translate(-41px, -1px)" : "rotate(0deg)")};
+    fill: #AC80C1;
 `
 
 // const CastomP = styled.p`
@@ -77,8 +86,13 @@ const Rect3 = styled.rect`
 // `
 
 export const Header = () => {
+    const {theme, setTheme} = useTheme()
+    let prevPage = null;
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' })
+    const page = useSelector((state) => state.currentPage.page)
     const loged = useSelector(state => state.user.loged);
-    const rolled_media = useSelector(state => state.rolledMedia.media)
+    const rolled_media = useSelector(state => state.rolledMedia.media);
+    const chatListOpened = useSelector(state => state.currentPage.chatsListOpened);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -96,22 +110,27 @@ export const Header = () => {
     }, [rolled_media])
 
     useEffect(() => {
-        document.body.style.overflow = "scroll"
+        document.body.style.overflow = "auto"
     }, [])
 
     useEffect(() => {
         open ? 
             document.body.style.overflow = "hidden" 
-        : document.body.style.overflow = "scroll"
+        : document.body.style.overflow = "auto"
     }, [open])
 
     useEffect(() => {
         createPost ? 
             document.body.style.overflow = "hidden"
-        : document.body.style.overflow = "scroll"
+        : document.body.style.overflow = "auto"
     }, [createPost])
 
-    const openMenu = () => {setOpen(prevState => !prevState)}
+    const openMenu = () => {
+        if (chatListOpened) {
+            dispatch(toggleChatList())
+        }
+        setOpen(prevState => !prevState)
+    }
 
     const createNewPost = () => {
         setCreatePost(prevState => !prevState);
@@ -120,6 +139,7 @@ export const Header = () => {
     const logOutHeader = () => {
         openMenu()
         navigate('/login')
+        dispatch(cleanChats())
         dispatch(logOut())
     }
 
@@ -145,6 +165,7 @@ export const Header = () => {
         }
         else{
             setFinded(null)
+            setFindedIds([])
         }
     }
 
@@ -164,16 +185,29 @@ export const Header = () => {
     }
 
     const openProfile = (username) => {
+        setFindedIds([])
         navigate(`/profile/${username}`)
+    }
+
+    const openChatsList = () => {
+        if (open) {
+            setOpen(prevState => !prevState)
+        }
+        dispatch(toggleChatList())
+    }
+
+    const reloadAllPosts = () => {
+        dispatch(cleanPostsAndMediaState())
     }
 
     const DataList = () => {
         return(
-            <datalist id="names">
-                {finded_ids.map((id) => <option key={id} id={id}>
-                                            {finded[id]}
-                                        </option>)}
-            </datalist>
+            <div className='dropdown-search' id="names">
+                {finded_ids.slice(0, 3).map((id) => <div className='dropdown-item' 
+                    key={id} id={id} onClick={() => submitHandler(finded[id])}>
+                        {finded[id]}
+                </div>)}
+            </div>
         )
     }
 
@@ -195,18 +229,72 @@ export const Header = () => {
 
     return (
         <>
-        <HeaderBox id='header' open={open}>
+        <HeaderBox id='header' open={open}> 
             <div className='container'>
                 <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
-                    <Link className='header-link' to='/' onClick={() => {if (open) {openMenu()}}}>SYA</Link>
-                    {rolled_media && loged ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
-                    {rolled_media && loged ? 
+                    {
+                        page === 'forum' && isTabletOrMobile ?
+                        <div className='forum-icon-tablet appearing-animation-forum-icon-tablet audio-icon' 
+                            onClick={openChatsList}
+                            style={{height: '48px', width: '48px',
+                                position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                                borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-brands fa-facebook-messenger" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div> :
+                        <div className='forum-icon-tablet disappearing-animation-forum-icon-tablet audio-icon' style={{height: '48px', width: '48px',
+                            position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                            borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-brands fa-facebook-messenger" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div>
+                    }
+                    {
+                        page === 'all-posts-page' && isTabletOrMobile ?
+                        <div className='forum-icon-tablet left-appearing-animation-reload-icon-tablet audio-icon' 
+                            onClick={reloadAllPosts}
+                            style={{height: '48px', width: '48px',
+                                position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                                borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-solid fa-arrow-rotate-right reload-focus" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div> :
+                        <div className='forum-icon-tablet left-disappearing-animation-reload-icon-tablet audio-icon' style={{height: '48px', width: '48px',
+                            position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                            borderRadius: '15px', cursor: 'pointer', 
+                        }}>
+                            <i className="fa-solid fa-arrow-rotate-right reload-focus-back" style={{
+                                fontSize: '28px'
+                            }}/>
+                        </div>
+                    }
+                    <Link className='header-link header-link-SYA' style={{
+                        marginLeft: (page === 'forum' || page === 'all-posts-page') && isTabletOrMobile ? '78px' : null
+                    }} to='/' onClick={() => {if (open) {openMenu()}}}>
+                        SYA
+                    </Link>
+                    <DarkModeSwitch
+                        moonColor="#9979d4"
+                        sunColor="#9979d4"
+                        style={{marginLeft: '24px'}}
+                        checked={theme}
+                        onChange={setTheme}
+                        size={38}
+                    />
+                    {rolled_media ? <audio ref={selectedAudioRef} className='audio-header'autoPlay src={rolled_media} controls style={{display: 'none'}}></audio> : null}
+                    {rolled_media ? 
                         <a className='menu-link-audio'>
                             <div style={{display: 'flex', justifyContent: 'center', backgroundColor: '#ac80c1ad', padding: '7px 15px', borderRadius: '10px'}}>
                                 {audioState ? 
                                         <i className="fa-solid fa-pause" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>
                                     : <i className="fa-solid fa-play" style={{display: 'flex', alignItems: 'center'}} onClick={playAudio}></i>}
-                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i class="fa-solid fa-xmark"></i></i>
+                                <i style={{marginLeft: '15px'}} onClick={closeRolledMedia}><i className="fa-solid fa-xmark"></i></i>
                             </div>
                         </a> 
                     : null}
@@ -230,17 +318,19 @@ export const Header = () => {
                         <p className='menu-link' onClick={logOutHeader}>
                             <i className="fas fa-sign-out-alt"/>
                         </p> 
-                        <div className="find_over_form">
-                            <input list='names' className="find_over" 
-                                type="text" placeholder="Find" value={toFind} 
-                                onKeyDown={handleKeyDown} 
-                                onChange={event => finderChanged(event.target.value)}
-                            />
+                        <div className="find_over_container">
+                            <div className="find_over_form">
+                                <input list='names' className="find_over" 
+                                    type="text" placeholder="Find people" value={toFind} 
+                                    onKeyDown={handleKeyDown} 
+                                    onChange={event => finderChanged(event.target.value)}
+                                />
+                                <p type='submit' className='pointer'
+                                    onClick={() => submitHandler(toFind)}>
+                                    <i className="fa fa-search"/>
+                                </p>
+                            </div>
                             {finded ? <DataList></DataList> : null}
-                            <p type='submit' className='pointer'
-                                onClick={() => submitHandler(toFind)}>
-                                <i className="fa fa-search"/>
-                            </p>
                         </div>
                     </div>    
                 </Menu>
@@ -252,7 +342,7 @@ export const Header = () => {
                     </svg>
                 </Burger>
                 </div>
-                : null}
+                : <Link className='header-link' style={{fontSize: '17px', whiteSpace: 'nowrap'}} to='/login'>Log in</Link>}
             </div>
             {loged ? 
             <MenuOpened open={open} className="tabletBar">
@@ -268,20 +358,24 @@ export const Header = () => {
                                 <i className="fas fa-sign-out-alt"/>
                             </Link>
                         </div>
-                        <div className="find_over_form">
-                            <input className="find_over" type="text" placeholder="Find" value={toFind} 
-                                onKeyDown={handleKeyDown} 
-                                onChange={event => finderChanged(event.target.value)}
-                            />
-                            <p type='submit' className='pointer'
-                                onClick={submitHandler}>
-                                <i className="fa fa-search"/>
-                            </p>
+                        <div className="find_over_container">
+                            <div className="find_over_form">
+                                <input list='names' className="find_over" 
+                                    type="text" placeholder="Find people" value={toFind} 
+                                    onKeyDown={handleKeyDown} 
+                                    onChange={event => finderChanged(event.target.value)}
+                                />
+                                <p type='submit' className='pointer'
+                                    onClick={() => submitHandler(toFind)}>
+                                    <i className="fa fa-search"/>
+                                </p>
+                            </div>
                         </div>
+                        {finded ? <DataList></DataList> : null}
                         <Link className='menu-link menu-link-bot' to='/all'>
                             Home
                         </Link> 
-                        <Link className='menu-link menu-link-bot' to='/' onClick={openMenu}>
+                        <Link className='menu-link menu-link-bot' to='/forum' onClick={openMenu}>
                             Forum
                         </Link>  
                         <p className='menu-link menu-link-bot' 
