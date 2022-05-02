@@ -2,8 +2,8 @@
 
 ## how to start project:
 ### at server folder
->>> flask run
+> flask run
 ### at server-forum folder
->>> npm start
+> npm start
 ### at client folder
->>> npm start
+> npm start
