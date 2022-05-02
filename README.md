@@ -1,7 +1,9 @@
 # web_YLProject
 
 ## how to start project:
-### cd server
-### flask run
-### cd client
-### npm start
+### at server folder
+>>> flask run
+### at server-forum folder
+>>> npm start
+### at client folder
+>>> npm start
