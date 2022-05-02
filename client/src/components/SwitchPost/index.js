@@ -43,7 +43,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
         case 1:
             return (
                 <div className="audio-post-homepage" style={{
-                    border: `2px solid ${borderColor}`
+                    border: `2px solid ${borderColor}`, width: '100%'
                 }}>
                     <FullControl src={path_to_media ? `/get_post_media/${path_to_media}` : null} />
                     <button className="cta" 
@@ -62,7 +62,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
         case 2:
             return (
                 <div style={{marginTop: '2%'}}>
-                    <Video src={path_to_media ? `/get_post_media/${path_to_media}` : null} style={{width: '100%'}} onLoadEnd={() => {console.log('loaded')}}/>
+                    <Video src={path_to_media ? `/get_post_media/${path_to_media}` : null} style={{width: '100%'}} onLoadEnd={() => {}}/>
                     <button className="cta" onClick={() => openPost(post)} style={{
                         width: '100%', alignItems: 'center', marginTop: '6px',
                         display: 'flex', justifyContent: 'flex-start'
@@ -79,7 +79,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
             return (
                 <div onClick={() => openPost(post)} style={{marginTop: '2%', boxSizing: 'inherit'}}>
                     <div className="hoverBrightness"
-                        style={{width: '100%', borderRadius: '15px', maxHeight: '60vh',
+                        style={{width: '100%', borderRadius: '15px',
                             aspectRatio: `1 / ${proportion}`,
                             marginLeft: 'auto', marginRight: 'auto'
                     }}>

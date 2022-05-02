@@ -18,7 +18,6 @@ export const App = () => {
   const user = useSelector((state) => state.user);
   const userIsLoged = user.loged
   const user_id = user.profile_id
-  console.log(user_id)
 
   const socket = useRef();
 
@@ -32,17 +31,14 @@ export const App = () => {
             user_id
         }
         socket.current.send(JSON.stringify(message))
-        console.log('Socket открыт')
     }
     socket.current.onmessage = (event) => {
         const message = JSON.parse(event.data);
         console.log(message)
     }
     socket.current.onclose= () => {
-        console.log('Socket закрыт')
     }
     socket.current.onerror = () => {
-        console.log('Socket произошла ошибка')
     }
 
     return () => {

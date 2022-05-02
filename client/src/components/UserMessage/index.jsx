@@ -55,7 +55,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
                         </b>
                     </Link>
                 </p>
-                <p style={{margin: '0 8px', fontSize: '16px', fontFamily: '',
+                <p style={{margin: '0 8px', fontSize: '16px', fontFamily: "'Open Sans', sans-serif",
                     textAlign: current_user_id === msg.user_id ? 'right' : 'left',
                     marginTop: '7px', color: 'var(--text-black-to-purple-color)'
                 }}>{msg.message}</p>

@@ -18,7 +18,7 @@ export class FullControl extends React.Component {
       rate: 1,
       isSeeking: false,
       src: props.src,
-      onLoadHadler: this.handleOnLoad
+      onLoadHadler: this.handleOnLoad,
     }
     this.handleToggle = this.handleToggle.bind(this)
     this.handleOnLoad = this.handleOnLoad.bind(this)
@@ -132,54 +132,65 @@ export class FullControl extends React.Component {
         />
         {/* <h5 style={{position: 'absolute'}}>{(this.state.loaded) ? null : 'Loading...'}</h5> */}
 
-        <div className='toggles' style={{display: 'flex', alignItems: 'center'}}>
+        <div className='toggles'>
             <label>
-                <i className="fa-solid fa-repeat audio-icon" style={{
-                    margin: '8px', fontSize: '26px', color: this.state.loop ? '#43314b' : '#AC80C1'
+                <i className="fa-solid fa-repeat audio-icon-player" style={{
+                    color: this.state.loop ? '#43314b' : '#AC80C1'
                 }}/>
-                <input type='checkbox' checked={this.state.loop} onChange={this.handleLoopToggle} style={{
-                    display: 'none'
-                }}/>
+                <input 
+                  type='checkbox' 
+                  checked={this.state.loop} 
+                  onChange={this.handleLoopToggle} 
+                  style={{display: 'none'}}
+                />
             </label>
             <label>
               {this.state.mute ? 
-                <i className="fa-solid fa-volume-xmark audio-icon" style={{
-                  margin: '8px', fontSize: '26px', color: '#AC80C1', width: '33px'
-                }}/>
-                : <i className="fa-solid fa-volume-high audio-icon" style={{
-                  margin: '8px', fontSize: '26px', color: '#AC80C1', width: '33px'
-                }}/>
+                <i className="fa-solid fa-volume-xmark audio-icon-player"/>
+                : <i className="fa-solid fa-volume-high audio-icon-player"/>
               }
               <input type='checkbox' checked={this.state.mute} 
                 onChange={this.handleMuteToggle} style={{
                   display: 'none'
               }}/>
             </label>
-            <div style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                <input value={this.state.volume} min="0" max="1" step='.01' id="range" type="range"
+            <label className='phone-seek-play'>
+              {this.state.playing ?
+                <i className="fa-solid fa-pause audio-icon-player" onClick={this.handleToggle}/> 
+                : <i className="fa-solid fa-play audio-icon-player" onClick={this.handleToggle}/> 
+              }
+            </label>
+            <div className='volume'>
+                <input value={this.state.volume}
+                    className="volume-range"
+                    min="0" max="1" step='.01' id="range" type="range"
                     oninput="rangenumber.value=value"
-                    style={{marginRight: '8px', width: '100%'}} 
                     onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
                 />
-                <p style={{color: '#6A5ACD', fontWeight: 900}}>
+                <p className='volume-value'>
                     {(this.state.volume * 100).toFixed()}
                 </p>
             </div>
         </div>
+        <div className='volume-phone'>
+          <input value={this.state.volume}
+            className="volume-range " style={{display: 'block'}}
+            min="0" max="1" step='.01' id="range" type="range"
+            oninput="rangenumber.value=value"
+            onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
+          />
+          <p className='volume-value'>
+            {(this.state.volume * 100).toFixed()}
+          </p>
+        </div>
         <div className='seek'>
-          <label style={{display: 'flex', alignItems: 'center'}}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
+          <label className='seek-label'>
+            <div className='seek-div'>
               {this.state.playing ?
-                <i className="fa-solid fa-pause audio-icon" onClick={this.handleToggle}
-                  style={{ cursor: 'pointer', width: '33px',
-                    margin: '8px', fontSize: '26px', color: '#AC80C1'
-                }}/> 
-                : <i className="fa-solid fa-play audio-icon" 
-                  onClick={this.handleToggle}
-                  style={{ cursor: 'pointer', width: '33px',
-                    margin: '8px', fontSize: '26px', color: '#AC80C1'
-              }}/> }
-              <p style={{width: '55px', color: '#6A5ACD', fontWeight: 900, marginRight: '8px'}}>
+                <i className="fa-solid fa-pause audio-icon-player" onClick={this.handleToggle}/> 
+                : <i className="fa-solid fa-play audio-icon-player" onClick={this.handleToggle}/> 
+              }
+              <p className='seek-start'>
                 {this.convertSeconds(this.state.seek.toFixed())}
               </p>
             </div>
@@ -193,7 +204,7 @@ export class FullControl extends React.Component {
                 onMouseDown={this.handleMouseDownSeek}
                 onMouseUp={this.handleMouseUpSeek}
               />
-              <p style={{color: '#6A5ACD', fontWeight: 900, width: '55px'}}>
+              <p className='seek-end'>
                 {(this.state.duration) ? this.convertSeconds(this.state.duration.toFixed()) : '00:00'}
               </p>
             </div>

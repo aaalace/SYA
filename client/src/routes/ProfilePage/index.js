@@ -71,7 +71,6 @@ export const ProfilePage = () => {
         }
     }, [params['*'], Own])
 
-    console.log(openedUser)
     useEffect(() => {
         if(params['*'] !== Own.profileName){
             setFollowersCount(openedUser.followers_count)
@@ -92,7 +91,7 @@ export const ProfilePage = () => {
     }
 
     return (
-        <div style={{position: 'relative'}}>
+        <div style={{position: 'relative'}} id="sec">
             <div className="background"/>
             {MainInfo ?
             <div className='main-prof'>

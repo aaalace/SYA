@@ -69,7 +69,6 @@ export const RoomCon = ForumRoomConnect(({childRef, room, roomId, setRoom, user_
     }, [roomId]);
 
     const sendMsgObject = (msgObject) => {
-        console.log(msgObject)
         setNewMessage(msgObject)
         setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
     }
