@@ -2,44 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a18a214-720a-4c4d-a227-c86e716a2abb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/routes/HomePage/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/326.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/327.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/330.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/331.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/332.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/333.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/334.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/335.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/336.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/337.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/338.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/339.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/340.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/341.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/342.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/343.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/344.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/345.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/347.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/348.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/349.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/350.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/351.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/352.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/353.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/355.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/356.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/357.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/358.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/359.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/360.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/upload/posts/361.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/posts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/compressor.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/compressor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/create_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/routes/get_posts_by_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/366.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/367.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/368.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/369.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/370.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/371.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/373.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/375.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/376.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/378.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/379.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/380.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/381.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/382.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/383.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/384.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/385.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/386.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/388.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/389.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/390.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/393.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/394.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/395.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/396.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/397.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/398.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/404.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/404.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/406.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/409.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/409.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/419.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/upload/posts/420.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +51,17 @@
       </list>
     </option>
   </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -64,6 +73,7 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="JupyterTrust" id="b26a0b4d-9f5e-44b1-90a6-a0df08fbddfb" />
   <component name="ProjectId" id="26WmJroELVn1CwTKwsbYcNJV1G7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -73,8 +83,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="0d570cb2-96df-43cc-80da-7f777e6d0afe" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="ReaderModeSettings">
     <option name="showLigatures" value="true" />
@@ -92,6 +103,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -113,6 +125,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/socket_io/server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -137,8 +150,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647547647850</updated>
+      <workItem from="1649008334582" duration="58000" />
+      <workItem from="1649008479089" duration="347000" />
+      <workItem from="1649008857122" duration="28000" />
+      <workItem from="1649008911187" duration="12000" />
+      <workItem from="1649009466320" duration="346000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

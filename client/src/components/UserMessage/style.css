@@ -1,0 +1,11 @@
+.message_time {
+    opacity: 0;
+    user-select: none;
+}
+
+.user-message-block {
+}
+
+.user-message-block:hover .message_time {
+    opacity: 1;
+}

@@ -5,12 +5,12 @@ import './style.css'
 
 function TagsContainer(props) {
     const own_tags = useSelector(state => state.user.tags)
+    console.log(own_tags)
     const oth_tags = useSelector(state => state.opened_profile.tags)
     let tags = oth_tags
     if(props.owner){
         tags = own_tags
     }
-
     const [sliceValue, setSliceValue] = useState(5)
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#0010FE', '#43C49F', '#FFFB28', '#FAC042', '#AFFEFF'];
@@ -26,7 +26,7 @@ function TagsContainer(props) {
     let valueList = []
     const startedLength = tags.length
     for(let new_tag of tags){
-        let len = tags.filter(x => x === new_tag).length
+        let len = tags.filter(x => x == new_tag).length
         pieData.push({"name": new_tag, "value": len / startedLength * 100})
         valueList.push(new_tag)
         tags = tags.filter(value => !valueList.includes(value))
@@ -53,7 +53,7 @@ function TagsContainer(props) {
         if (active) {
             return (
                 <div style={tooltipStyle}>
-                    <label>{`${payload[0].name} : ${payload[0].value}%`}</label>
+                    <label className="tooltip-pie">{`${payload[0].name} : ${Math.round(payload[0].value)}%`}</label>
                 </div>
             );
         }
@@ -63,18 +63,16 @@ function TagsContainer(props) {
     function CustomLegend() {
         return (
             <div className="legend_container">
-                {pieData.slice(0, sliceValue).map(part => <p>{part.name.length > 10 ? part.name.slice(0, 10) + '...' : part.name}</p>)}
+                {pieData.slice(0, sliceValue).map(part => <p >{part.name.length > 12 ? part.name.slice(0, 12) + '...' : part.name}</p>)}
                 {pieData.length > 5 ? <a onClick={changeSliceValue} style={{cursor: 'pointer', fontSize: '11px', color: '#AC80C1'}}>{sliceValue <= 5 ? 'others...' : 'hide'}</a> : null}
             </div>
         )
     };
-
-    console.log(pieData)
     return (
         <div className="pie_container">
             <CustomLegend/>
             <PieChart width={120} height={150}>
-                <Pie style={{transition: 'none'}} data={pieData} color="#8884d8" dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} innerRadius={35}>
+                <Pie style={{transition: 'none'}} data={pieData} color="#000000" dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} innerRadius={35} fill="#8884d8" >
                     {
                         pieData.map((el, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }

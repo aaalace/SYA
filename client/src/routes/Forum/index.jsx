@@ -18,17 +18,18 @@ import { useMediaQuery } from 'react-responsive';
 const ChatListOpened = styled.div`
     position: absolute;
     width: ${props => (props.open ? "60%" : "0px")};
-    max-width: '70%'
-    overflow-x: ${props => (props.open ? "none" : "hidden")};
-    overflow-y: scroll;
+    max-width: 70%;
+    overflow-x: ${props => (props.open ? "auto" : "hidden")};
+    overflow-y: auto;
     height: calc(100vh - 64px);
     background-color: white;
     z-index: 1;
     top: 64px;
     left: 0;
     borderRadius: 0 0 15px 0;
-    border-right: 2px solid #e7e4e4;
-    border-bottom: 2px solid #e7e4e4;
+    border-right: ${props => (props.open ? "var(--opened-menu-border-color)" : "0px solid #e7e4e4")};
+    border-bottom: ${props => (props.open ? "var(--opened-menu-border-color)" : "0px solid #e7e4e4")};
+    background-color: var(--body-color);
 `;
 
 
@@ -75,24 +76,28 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
         {isTabletOrMobile ? 
         <div>
             <ChatListOpened open={chatListOpened}>
-                <div style={{width: '100%', height: 'fit-content', transition: 'none', padding: '0 8px', height: 'fit-content'}}>
+                <div style={{width: '100%', transition: 'none', padding: '0 8px', height: 'fit-content'}}>
                     <h3 style={{paddingTop: '12px'}}>Комнаты</h3>
                     <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 32px'}}>
                         {Object.values(roomsConnect).length > 0 || roomsLoaded ?
                             <RoomsList dispatch={dispatch} setSelectedId={setSelectedId} selectedId={selectedId} rooms={roomsConnect}/> : 
                             <MyLoader/>
                         }
+                        {Object.values(roomsConnect).length === 0 && roomsLoaded ?
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
+                            null
+                        }
                     </div>
                 </div>
-                <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", padding: '0 8px', height: '100%'}}>
+                <div style={{width: '100%', height: 'fit-content', backgroundColor: "var(--body-color)", padding: '0 8px'}}>
                     <h3 style={{paddingTop: '12px'}}>Чаты</h3>
                     <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
                         {Object.values(chatsConnect).length > 0 || chatsLoaded ?
-                            <ChatsList dispatch={dispatch} setSelectedId={setSelectedId} selectedId={selectedId} chats={chatsConnect}/> : 
+                            <ChatsList setSelectedId={setSelectedId} selectedId={selectedId} chats={chatsConnect}/> : 
                             <MyLoader/>
                         }
                         {Object.values(chatsConnect).length === 0 && chatsLoaded ?
-                            <p style={{margin: '16px auto'}}>Пусто</p> : 
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
                             null
                         }
                     </div>
@@ -122,16 +127,20 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
         </div>
         <div className="forum-main-block">
             <div>
-                <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
+                <div style={{width: '100%', backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                     <h3 style={{paddingTop: '12px'}}>Комнаты</h3>
                     <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px', marginBottom: '16px'}}>
                         {Object.values(roomsConnect).length > 0 || roomsLoaded ?
                             <RoomsList setSelectedId={setSelectedId} selectedId={selectedId} rooms={roomsConnect}/> : 
                             <MyLoader/>
                         }
+                        {Object.values(roomsConnect).length === 0 && roomsLoaded ?
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
+                            null
+                        }
                     </div>
                 </div>
-                <div style={{width: '100%', height: 'fit-content', backgroundColor: "white", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
+                <div style={{width: '100%', backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px', height: 'fit-content'}}>
                     <h3 style={{paddingTop: '12px'}}>Чаты</h3>
                     <div style={{display: 'flex', flexDirection: 'column', padding: '8px 8px 16px'}}>
                         {Object.values(chatsConnect).length > 0 || chatsLoaded ?
@@ -139,7 +148,7 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
                             <MyLoader/>
                         }
                         {Object.values(chatsConnect).length === 0 && chatsLoaded ?
-                            <p style={{margin: '16px auto'}}>Пусто</p> : 
+                            <p style={{margin: '16px auto', color: 'var(--text-black-to-purple-color)'}}>Пусто</p> : 
                             null
                         }
                     </div>

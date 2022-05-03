@@ -8,8 +8,7 @@ import LoadingIcon from '../../components/Loading';
 import TextField from '@mui/material/TextField';
 import ReCAPTCHA from 'react-google-recaptcha'
 import { RegLogError } from '../../components/RegLogError';
-import { Link } from 'react-router-dom';
-import { addProfilePhoto } from '../../store/user/actions';
+import { color } from '@mui/system';
 
 const BoxStyles = {
     width: '80%',
@@ -21,35 +20,18 @@ const BoxStyles = {
 }
 
 const inputStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
-    marginTop: '24px'
+    marginTop: '24px',
+    color: 'white'
 }
 
 const inputErrorStyles = {
-    background: 'rgba(172, 128, 193, 0.2)',
     border: '1px solid transparent',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     marginTop: '24px'
 }
-
-const dateStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
-    boxSizing: 'borderBox',
-    borderRadius: '5px',
-    marginTop: '36px'
-}
-
-const dateErrorStyles = {
-    background: 'rgba(172, 128, 193, 0.2)',
-    border: '1px solid transparent',
-    boxSizing: 'borderBox',
-    borderRadius: '5px',
-    marginTop: '36px'
-}
-
 
 const formStyles = {
     display: 'flex',
@@ -69,7 +51,6 @@ const buttonsStyles = {
 }
 
 const inputInfoStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     width: '100%',
@@ -78,7 +59,6 @@ const inputInfoStyles = {
 }
 
 const inputInfoErrorStyles = {
-    background: 'rgba(172, 128, 193, 0.2)',
     border: '1px solid transparent',
     boxSizing: 'borderBox',
     borderRadius: '5px',
@@ -150,9 +130,9 @@ export const SignUpPage = () => {
                             profileName: profileName, 
                             personName: personName,
                             personSurname: personSurname,
-                            email: userEmail
+                            email: userEmail,
+                            path_to_media: '1.jpg'
                         }))
-                        dispatch(addProfilePhoto({avatar: response.data.avatar}))
                         navigate('/')
                         resetInfo()
                     }
@@ -181,10 +161,9 @@ export const SignUpPage = () => {
         <div style={{display: 'flex'}}>
             {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
             {regging ? <LoadingIcon/> : 
-                <div style={BoxStyles}>
+                <div style={BoxStyles} className="box-reglog">
                 <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
-                    fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-                }}>Регистрация</h2>
+                    fontSize: '20px', lineHeight: '23px'}} className="reglog-name">Регистрация</h2>
                 <div style={formStyles}>
                     <TextField
                         label="Имя профиля"
@@ -229,13 +208,6 @@ export const SignUpPage = () => {
                             variant="standard"
                             style={erroredInput.includes(5) ? inputInfoErrorStyles : inputInfoStyles}
                             onChange={e => setUserSurname(e.target.value)}
-                        />
-                    </div>
-                    <div style={captcha_cont}>
-                        <ReCAPTCHA
-                            style={captcha_style}
-                            sitekey="6LfpJp0eAAAAAM0_wKPC5EHc4cgAxyYVRzae5lDl"
-                            onChange={captchaOnChange}
                         />
                     </div>
                     <div style={{display: 'grid', gridTemplateColumns: '3fr 2fr', gridGap: '13px', marginTop: '24px'}}>

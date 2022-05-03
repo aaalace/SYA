@@ -100,30 +100,6 @@
 .forum-icon-tablet:hover {
     color: #826092;
 }
-    
-.audio-header::-webkit-media-controls-volume-slider {
-    display: none !important;
-}
-
-.audio-header::-webkit-media-controls-volume-control-container.closed {
-    display: none !important;
-}
-
-.audio-header::-webkit-media-controls-volume-control-container{
-    display: none !important;
-}
-
-.audio-header::-webkit-media-controls-timeline{
-    display: none !important;
-}
-
-.audio-header::-webkit-media-controls-current-time-display{
-    display: none !important;
-}
-
-.audio-header::-webkit-media-controls-time-remaining-display{
-    display: none !important;
-}
 
 .audio-header {
     margin: 0;
@@ -134,7 +110,7 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    width:  60%;
+    width:  70%;
     height: 100%;
     align-items: center;
 }
@@ -174,10 +150,6 @@
 
 .pointer {
     cursor: pointer;
-}
-
-.menu-link:hover {
-    color: #43314b;
 }
 
 .header-link:hover {
@@ -249,7 +221,13 @@
 .find_over {
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(175, 175, 175, 0.3)
+    border: 1px solid rgba(175, 175, 175, 0.3);
+    background-color: var(--find-input-bg-color);
+    color: var(--text-black-to-purple2-color);
+}
+
+.find_over::placeholder {
+    color: var(--text-black-to-purple2-color);
 }
 
 @media screen and (max-width: 1024px) {
@@ -279,7 +257,7 @@
         white-space: nowrap;
     }
     .menu-link-bot:hover {
-        background-color: #f5eaea;
+        background-color: var(--chat-hover-color);
     }
 }
 

@@ -1,23 +1,48 @@
-import { useState, useEffect } from "react"
-import { nanoid } from "nanoid";
+import { useState, useEffect, useRef, useContext } from "react"
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
-import io from "socket.io-client";
-
-let endPoint = "http://localhost:5001";
-let socket = io.connect(`${endPoint}`);
+import { nanoid } from "nanoid";
+import { SocketContext } from "../../../context";
 
 export const Room = ({user_id, setSelectedId}) => {
-    const {roomId} = useParams()
+    const childRef = useRef();
+    const {roomId} = useParams();
+    const {socket, sendMessage} = useContext(SocketContext);
+
+    useEffect(() => {
+        const message = {
+            type: 'room',
+            event: 'connection',
+            user_id,
+            room_id: roomId
+        }
+        socket.current.send(JSON.stringify(message))
+
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            childRef.current(message)
+        }
+
+        return () => {
+            socket.current.send(JSON.stringify({
+                type: 'room',
+                event: 'disconnect'
+            }));
+        }
+    }, [roomId])
     
     return (
-        <RoomCon setSelectedId={setSelectedId} roomId={roomId} user_id={user_id}/>
+        <RoomCon childRef={childRef}
+            setSelectedId={setSelectedId} 
+            roomId={roomId} user_id={user_id} 
+            sendMessage={sendMessage}
+        />
     )
 }
 
-export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNewMessage, setSelectedId}) => {
+export const RoomCon = ForumRoomConnect(({childRef, room, roomId, setRoom, user_id, setNewMessage, setSelectedId, sendMessage}) => {
     const RoomName = room.name;
     let prevMessageId = null;
 
@@ -29,36 +54,25 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
     const [roomMessages, setRoomMessages] = useState(room.messages);
     const [message, setMessage] = useState("");
 
-    socket.on('newMessage', data => {
-        if (data.id !== prevMessageId) {
-            prevMessageId = data.id
-            setNewMessage(data)
-            setRoomMessages(prevState => ({...prevState, [data.id]: {...data}}))
-        }
-    })
-
     useEffect(() => {
+        childRef.current = sendMsgObject
         setSelectedId({type: 'room', id: roomId})
-        console.log(socket)
-
-        if (socket && roomId) {
-            socket.emit("join", {roomId: roomId});
-        }
-
-        return () => {
-            socket.emit("leave", {roomId: roomId})
-            socket.disconnect()
-        }
     }, [])
 
     useEffect(() => {
-        
-        if (!checkRoomMsgs) {
-            getMessages();
-        } else {
-            setRoomMessages(room.messages)
-        }
+        getMessages();
+        // if (!checkRoomMsgs) {
+        //     getMessages();
+        // } else {
+        //     setRoomMessages(room.messages)
+        // }
     }, [roomId]);
+
+    const sendMsgObject = (msgObject) => {
+        console.log(msgObject)
+        setNewMessage(msgObject)
+        setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
+    }
 
     const getMessages = () => {
         Axios.get(`/get_room_messages//${roomId}`).then((res) => {
@@ -71,22 +85,18 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
         if (message !== "" && user_id) {
             const messageId = nanoid(8)
             const msgObject = {
+                type: 'room',
+                event: 'message',
                 user_id: user_id,
                 room_id: roomId,
                 message: message,
                 id: messageId,
             }
-            setNewMessage(msgObject)
-            setRoomMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
             Axios.post('/add_forum_message', msgObject
         ).then((response) => {
             if (response.data === 1) {
-                socket.emit("message", {
-                    room_id: roomId,
-                    message: message,
-                    user_id: user_id,
-                    id: messageId,
-                });
+                sendMessage(msgObject)
+                sendMsgObject(msgObject)
             }
         })
         setMessage("");
@@ -99,23 +109,22 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
 
     return (
         <>
-            <h2 style={{margin: '1%'}}>{RoomName}</h2>
-            <div style={{
-                height: 'fit-content', 
-                backgroundColor: "white", borderRadius: '10px', padding: '0 8px 8px'
+            <h2 style={{margin: '1%', color: 'var(--text-black-to-purple-color)'}}>{RoomName}</h2>
+            <div style={{height: 'fit-content',
+                backgroundColor: "var(--forum-items-bg-color)", borderRadius: '10px', padding: '0 8px 8px'
             }}>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <input className="forum__input"
                         type="text" placeholder="Type message" value={message}
-                        style={{width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '1.25em'}}
+                        style={{color: 'var(--text-black-to-purple-color)', width: '100%', margin: '1%', border: 'none', outline: '0', height: '40px', fontSize: '18px'}}
                         onChange={e => {setMessage(e.target.value)}}
                     />
-                    <button className="button_send" onClick={() => {handleMessage()}}>
-                        <i className="fa-solid fa-paper-plane"></i>
+                    <button className="button_send" style={{color: 'var(--text-black-to-purple2-color)'}} onClick={() => {handleMessage()}}>
+                        <i className="fa-solid fa-paper-plane"/>
                     </button>
                 </div>
-                <hr/>
-                <div style={{marginTop: '8px'}}>
+                <hr style={{borderColor: 'var(--text-white-to-purple-color)'}}/>
+                <div style={{marginTop: '8px', color: 'var(--text-black-to-purple-color)'}}>
                     <p>#Hello And Welcome</p>
                 </div>
                 {Object.values(roomMessages).length > 0 ?
@@ -126,3 +135,25 @@ export const RoomCon = ForumRoomConnect(({room, roomId, setRoom, user_id, setNew
         </>
     )
 })
+
+export const useBeforeUnload = (value) => {
+    const handleBeforeunload = (e) => {
+      let returnValue
+      if (typeof value === 'function') {
+        returnValue = value(e)
+      } else {
+        returnValue = value
+      }
+      if (returnValue) {
+        e.preventDefault()
+        e.returnValue = returnValue
+      }
+      return returnValue
+    }
+  
+    useEffect(() => {
+      window.addEventListener('beforeunload', handleBeforeunload)
+      return () => window.removeEventListener('beforeunload', handleBeforeunload)
+      // eslint-disable-next-line
+    }, [])
+  }

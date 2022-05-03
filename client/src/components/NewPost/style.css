@@ -12,7 +12,7 @@
 }
 
 .create-post-content {
-    background-color: #FFFFFF;
+    background-color: var(--new-post-bg-white-to-purple-color);
     position: absolute;
     top: 15%;
     width: 50%;
@@ -70,7 +70,7 @@
 }
 
 .format:hover {
-    background-color: #f5eaea;
+    background-color: var(--chat-hover-color);
 }
 
 .test_class {

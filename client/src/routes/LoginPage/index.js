@@ -20,7 +20,6 @@ const BoxStyles = {
 }
 
 const inputStyles = {
-    background: 'rgba(244, 244, 244, 0.7)',
     boxSizing: 'borderBox',
     borderRadius: '5px',
     marginTop: '24px',
@@ -130,10 +129,10 @@ export const LoginPage = () => {
         <div style={{display: 'flex'}}>
             {errorWindowState ? <RegLogError errorInfo={errorWindowInfo} state={setErrorWindowState}/> : null}
             {logging ? <LoadingIcon/> :
-            <div style={BoxStyles}>
+            <div style={BoxStyles} className="box-reglog">
                 <h2 style={{fontStyle: 'normal', fontWeight: 'normal',
-                fontSize: '20px', lineHeight: '23px', color: 'rgba(0, 0, 0, 0.7)'
-                }}>Авторизация</h2>
+                fontSize: '20px', lineHeight: '23px'
+                }} className="reglog-name">Авторизация</h2>
                 <div style={formStyles}>
                     <TextField
                         label="Имя профиля"

@@ -40,7 +40,7 @@ const AvatarContainer = (props) => {
         alignItems: 'flex-end',
         justifyContent: 'right',
         border: '0',
-        borderRadius: '0 20px 20px 0',
+        borderRadius: '0 15px 15px 0',
         backgroundColor: 'rgba(172, 128, 193, 0.7)',
         color: 'rgba(255, 255, 255, 0.9)',
         fontSize: '20px'
@@ -99,9 +99,15 @@ const AvatarContainer = (props) => {
             let reader = new FileReader();
             reader.onloadend = function() {
                 Axios.post('/changeAvatar', {
-                    base: reader.result,
-                    media_id: ava
-                })
+                    base: reader.result.split(',')[1],
+                    prev_media: ava,
+                    user_id
+                }).then((res) => {
+                    if(res.data.changed){
+                        dispatch(addProfilePhoto({path_to_media: res.data.name})) 
+                    }
+                }
+                )   
             }
             reader.readAsDataURL(img);
         }
@@ -116,6 +122,7 @@ const AvatarContainer = (props) => {
         Axios.post('/deleteAvatar', {
             id: user_id 
         })
+        dispatch(addProfilePhoto({path_to_media: '1.jpg'}))
         setChoice(false)
     }
 

@@ -27,7 +27,6 @@ function SocialInfo(props) {
 
     let container = {
         width: '100%',
-        backgroundColor: 'white',
         margin: '10px 0 40px 0',
         borderRadius: '5px 5px 5px 15px'
     }
@@ -73,8 +72,7 @@ function SocialInfo(props) {
             alignItems: 'center',
             flexDirection: 'column',
             overflow: 'auto',
-            zIndex: 4,
-            backgroundColor: 'white'
+            zIndex: 4
         }
         data_switcher = {
             dispplay: 'none'
@@ -199,25 +197,9 @@ function SocialInfo(props) {
         setToFind(e)
     }
 
-    const follow = (obj) => {
-        Axios.post('un_follow/', {
-            follower_id: loged_user_id,
-            user_id: obj.follower_id,
-            follow: true
-        }).then((response) => {
-            if(response.data !== 'error'){
-                dispatch(changeFolSubsLogedUser({follow: 0, subscription: 1}))
-                dispatch(addFollower({follower_id: loged_user_id, follower_info: {id: loged_user_id, username: loged_user_username, path_to_media: loged_user_path},
-                                        subscriptor_id: obj.follower_id, subscriptor_info: {id: obj.follower_id, username: obj.user_username, path_to_media: obj.path_to_media}}))
-                setSubscriptionsIds(subscriptions_ids.concat([obj.follower_id]))
-                let res = {...subscriptions_media}
-                res[obj.follower_id] = obj.user_avatar
-            }
-        })
-    }
 
     return (
-        <div style={container}>
+        <div style={container} className="container-soc-info">
             <span onClick={() => props.close(false)} style={close_button}>&#10006;</span>
             <div style={user_rel_container}>
                 <div style={data_switcher}>
@@ -239,7 +221,6 @@ function SocialInfo(props) {
                                         <img className="user-line-img" src={`/get_post_media/${sub.path_to_media}`}></img>
                                         <p className="user-line-name">{sub.username}</p>
                                     </div>
-                                    {sub.id !== loged_user_id && !subscriptions_ids.includes(sub.id) ? <a className="user-line-sub"><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
                             )
                         }
@@ -258,7 +239,6 @@ function SocialInfo(props) {
                                         </div> : null}
                                         <p className="user-line-name">{fol.username}</p>
                                     </div>
-                                    {followers_media[fol.id] && fol.id !== loged_user_id && !subscriptions_ids.includes(fol.id) ? <a className="user-line-sub" onClick={() => follow({follower_id: fol.id, user_username: fol.username, user_avatar: followers_media[fol.id]})}><i className="fa fa-user-plus"></i></a> : null}
                                 </div>
                             )
                         }

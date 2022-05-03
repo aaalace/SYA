@@ -22,7 +22,7 @@ export const ChatsList = ({chats, selectedId, setSelectedId}) => {
                     <Link className='chat-link' to={`/forum/chat/${chat.id}`} key={nanoid(8)}
                         onClick={() => {handleClick(chat.id)}}
                         style={{backgroundColor: 
-                            chat.id === selectedId.id && selectedId.type === 'chat' ? '#e7e4e4' : null
+                            chat.id === selectedId.id && selectedId.type === 'chat' ? 'var(--chat-focus-color)' : null
                     }}>
                         <ListEl userId={chat.user_id} chat={chat} />
                     </Link> 
