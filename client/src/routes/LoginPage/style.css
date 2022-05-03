@@ -22,3 +22,7 @@ input::placeholder {
 .faq-icon:hover {
     color: #43314b;
 }
+
+.box-reglog {
+    background-color: var(--box-reglog);
+}

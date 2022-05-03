@@ -33,6 +33,7 @@ wss.on('connection', function connection(ws) {
             case 'chat':
                 switch (message.event) {
                     case 'message':
+                        console.log(message)
                         broadCastMessageToChat(message);
                         break;
                     case 'connection':
@@ -58,8 +59,10 @@ function broadCastMessageToRoom(message) {
 
 function broadCastMessageToChat(message) {
     const chatId = 'chat/' + message.chat_id;
+    console.log(chatId)
     wss.clients.forEach(client => {
         if (client.id === chatId) {
+            console.log(client.id)
             client.send(JSON.stringify(message))
         }
     })

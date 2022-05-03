@@ -319,14 +319,24 @@ export const PostComments = (props) => {
                 type: newCommentType
             }).then((response) => {
                 if(response.data !== 'error'){
-                    dispatch(addComment({post_id, commentId: response.data.commentId, comment: {commentId: response.data.commentId, type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, commentDate: response.data.commentDate, path_to_media: response.data.commentPath, path_to_avatar: logedUserPath,
-                        authorData: {
-                            authorId: logedUserId, authorNickname: logedUserNickname
-                        }, 
-                        replyComments: []
-                    }}))
-                }
-                else{
+                    const comment = {
+                        post_id, commentId: response.data.commentId, 
+                        comment: {
+                            commentId: response.data.commentId, 
+                            type: newCommentType, likes_count: 0, repliesOpened: false , text: newComment, 
+                            commentDate: response.data.commentDate, path_to_media: response.data.commentPath, 
+                            path_to_avatar: logedUserPath,
+                            authorData: {
+                                authorId: logedUserId, authorNickname: logedUserNickname
+                            }, 
+                            replyComments: []
+                        }
+                    }
+
+                    dispatch(addComment(comment))
+                    
+
+                } else {
                     console.log('error')
                 }
                 setnewCommentLoadingState(false)
@@ -362,6 +372,8 @@ export const PostComments = (props) => {
         else{
             getComments()
         }
+        
+
     }, [post_id])
 
     const addMediaComment = (e) => {
