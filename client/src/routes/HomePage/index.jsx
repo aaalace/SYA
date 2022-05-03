@@ -45,7 +45,7 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
     }, [])
 
     return ( 
-        <div style={{position: 'relative'}} id="sec-1">
+        <div style={{position: 'relative'}} id="sec-1 sec">
             <div className="background">
             </div>
             <div  className='main'>
@@ -68,8 +68,8 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
                         {!Object.values(mediaConnect).filter(item => item ===  '').length ?
                             Object.values(postsConnect).sort(
                                 function (post1, post2){
-                                    if (post1.likes_count > post2.likes_count) { return -1 }
-                                return 0;
+                                    if (post1.likes_count > post2.likes_count) return -1
+                                    return 0;
                             }).map((post, index) => 
                                 <div className='posts' id={`sec-${index + 2}`} key={nanoid(8)}>
                                     <div className='post homepage-box'>

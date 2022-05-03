@@ -56,7 +56,6 @@ const ChatCon = ForumChatConnect(({childRef, chat, setChat, setNewMessage, setSe
     const [message, setMessage] = useState("");
 
     const sendMsgObject = (msgObject) => {
-        console.log(msgObject)
         setNewMessage(msgObject)
         setChatMessages(prevState => ({...prevState, [msgObject.id]: {...msgObject}}))
     }

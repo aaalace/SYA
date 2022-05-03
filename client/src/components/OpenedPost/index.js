@@ -37,7 +37,6 @@ export const OpenedPost = (props) => {
     const switchType = (type) => {
         if(type === 4){
             Axios.get(`/get_media/${post.media_id}`).then((res) => {
-                console.log(res.data)
                 setMediaText(res.data)
             })
         }
@@ -117,10 +116,12 @@ export const OpenedPost = (props) => {
                                 {props.from_main ? <div style={{padding: '15px', backgroundColor: 'transparent'}}></div> : 
                                     liked_posts.includes(post.id) ?
                                     <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                        <i className="fas fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                        <i className="fas fa-heart"/>
+                                        <a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
                                     </p> :
                                     <p onClick={() => changeLikeX(post.id)} className="post-icon">
-                                        <i className="far fa-heart"></i><a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
+                                        <i className="far fa-heart"/>
+                                        <a style={{fontSize: '19px', margin: '0 0 0 3px'}}>{post.likes_count}</a>
                                     </p>
                                 }
                             </div>

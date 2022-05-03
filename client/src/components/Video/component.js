@@ -19,11 +19,9 @@ export default function Video ({src}) {
     playerRef.current = player;
 
     player.on('waiting', () => {
-      console.log('player is waiting');
     });
 
     player.on('dispose', () => {
-      console.log('player will dispose');
     });
   };
   
