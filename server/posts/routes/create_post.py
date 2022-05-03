@@ -53,13 +53,16 @@ def create_post():
                 else:
                     media.media_body = content
                 db.session.commit()
+                print('1')
         except Exception as e:
             print(e)
             return 'ошибка базы'
 
         try:
             media_id = media.id
+            print(media_id)
             path_to_media = media.path_to_image
+            print('2')
         except Exception as e:
             print(e)
             return 'ошибка запроса'
