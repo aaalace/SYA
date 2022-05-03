@@ -17,7 +17,8 @@ html[data-theme='light'] {
     --new-post-bg-white-to-purple-color: white;
     --text-post-bg-color-textarea: #f8f8f8;
     --text-black-to-white: #000000;
-    --comment-input: #FFFFFF
+    --comment-input: #FFFFFF;
+    --box-reglog: transparent
 }
 
 html[data-theme='dark'] {
@@ -37,7 +38,8 @@ html[data-theme='dark'] {
     --new-post-bg-white-to-purple-color: #21153a;
     --text-post-bg-color-textarea: #21153a;
     --text-black-to-white: #FFFFFF;
-    --comment-input: #21153a
+    --comment-input: #21153a;
+    --box-reglog: #ffffffbb;
 }
 
 @keyframes bg-light {
