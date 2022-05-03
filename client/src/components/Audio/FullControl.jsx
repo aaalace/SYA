@@ -183,7 +183,7 @@ export class FullControl extends React.Component {
             {(this.state.volume * 100).toFixed()}
           </p>
         </div>
-        <div className='seek'>
+         <div className='seek'>
           <label className='seek-label'>
             <div className='seek-div'>
               {this.state.playing ?
