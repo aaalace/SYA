@@ -80,7 +80,7 @@ function MessagePanel() {
     }, [user_id])
 
     const followChange = () => {
-        Axios.post('https://sya.syaapihandler.ru/profile/un_follow', {
+        Axios.post('https://sya.syaapihandler.ru/profile/un_follow/', {
             follower_id: follower_id,
             user_id: user_id,
             follow: !followState
