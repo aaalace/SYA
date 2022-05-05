@@ -30,7 +30,7 @@ export const ProfilePage = () => {
     const [subscriptionsCount, setSubscriptionsCount] = useState(0)
 
     function getUserData(par) {
-        Axios.get('/get_oth/', {
+        Axios.get('https://sya.syaapihandler.ru/get_oth/', {
             params: {username: par}
         }).then(response => {
             const data = {

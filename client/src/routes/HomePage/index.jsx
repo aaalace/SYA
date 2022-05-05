@@ -23,14 +23,14 @@ export const HomePage = mainPagePostsConnect(({postsConnect, mediaConnect, setPo
 
     const getMedia = (mediaIds) => {
         for (let mediaId in mediaIds) {
-            Axios.get(`/get_media/${mediaId}`).then((res) => {
+            Axios.get(`https://sya.syaapihandler.ru/get_media/${mediaId}`).then((res) => {
                 updateMedia({[mediaId]: res.data})
             })
         }
     }
 
     const getPosts = () => {
-        Axios.get(`/get_posts/${post_limit}`)
+        Axios.get(`https://sya.syaapihandler.ru/get_posts/${post_limit}`)
             .then((res) => {
                 setPosts(res.data);
                 getMedia(res.data.media_ids)

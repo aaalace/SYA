@@ -53,7 +53,7 @@ export const LoginPage = () => {
     const [ logging, setLogging ] = useState(false)
 
     const getFollowers = (id) => {
-        Axios.get('/profile/get_followers/', {
+        Axios.get('https://sya.syaapihandler.ru/profile/get_followers/', {
             params: {id: id}
         }).then((response) => {
             let res = []
@@ -65,7 +65,7 @@ export const LoginPage = () => {
     }
 
     const getSubscriptions = (id) => {
-        Axios.get('/profile/get_subscriptions/', {
+        Axios.get('https://sya.syaapihandler.ru/profile/get_subscriptions/', {
             params: {id: id}
         }).then((response) => {
             let res = []
@@ -80,7 +80,7 @@ export const LoginPage = () => {
     const handlerLog = (arg) => {
         setLogging(true)
         if(arg === 'home'){
-            Axios.post('/checkLoged',
+            Axios.post('https://sya.syaapihandler.ru/checkLoged',
                 {
                     profile_name: profileName,
                     profile_password: profilePassword

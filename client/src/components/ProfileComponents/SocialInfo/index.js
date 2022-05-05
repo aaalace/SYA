@@ -106,7 +106,7 @@ function SocialInfo(props) {
     let [subscriptions_ids, setSubscriptionsIds] = useState([])
 
     const getFollowers = () => {
-        Axios.get('get_followers/', {
+        Axios.get('https://sya.syaapihandler.ru/profile/get_followers/', {
             params: {id: props.id}
         }).then((response) => {
             let res = []
@@ -218,7 +218,7 @@ function SocialInfo(props) {
                             return(
                                 <div key={sub.id} className="user-line">
                                     <div className="user-line-left" onClick={() => openProfile(sub.username)}>
-                                        <img className="user-line-img" src={`/get_post_media/${sub.path_to_media}`}></img>
+                                        <img className="user-line-img" src={`https://sya.syaapihandler.ru/get_post_media/${sub.path_to_media}`}></img>
                                         <p className="user-line-name">{sub.username}</p>
                                     </div>
                                 </div>
@@ -232,10 +232,10 @@ function SocialInfo(props) {
                             return(
                                 <div key={fol.id} className="user-line">
                                     <div className="user-line-left" onClick={() => openProfile(fol.username)}>
-                                        {fol.id === loged_user_id ? <img className="user-line-img" src={`/get_post_media/${loged_user_path}`}></img> : null}
+                                        {fol.id === loged_user_id ? <img className="user-line-img" src={`https://sya.syaapihandler.ru/get_post_media/${loged_user_path}`}></img> : null}
                                         {fol.id !== loged_user_id ? 
                                         <div>
-                                            <img className="user-line-img" src={`/get_post_media/${fol.path_to_media}`}></img>
+                                            <img className="user-line-img" src={`https://sya.syaapihandler.ru/get_post_media/${fol.path_to_media}`}></img>
                                         </div> : null}
                                         <p className="user-line-name">{fol.username}</p>
                                     </div>

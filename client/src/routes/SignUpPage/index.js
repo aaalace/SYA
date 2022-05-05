@@ -102,7 +102,7 @@ export const SignUpPage = () => {
     }
 
     async function create_user(){
-        let response = await Axios.post('/createUser', 
+        let response = await Axios.post('https://sya.syaapihandler.ru/createUser', 
                 {
                 profile_name: profileName,
                 profile_password: profilePassword,
@@ -149,7 +149,7 @@ export const SignUpPage = () => {
     }
 
     const captchaOnChange = (value) => {
-        Axios.post('/captchaChecker', 
+        Axios.post('https://sya.syaapihandler.ru/captchaChecker', 
         {
             captcha: value
         }).then((response) => {

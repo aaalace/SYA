@@ -9,7 +9,7 @@ import Axios from 'axios';
 
 export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id}) => {
     if (!user) {
-        Axios.get('/get_oth/', {
+        Axios.get('https://sya.syaapihandler.ru/get_oth/', {
             params: {user_id: msg.user_id}
         }).then(response => {
             setUserN({user_id: msg.user_id, data: response.data})
@@ -29,7 +29,7 @@ export const UserMessage = UsersConnect(({msg, user, setUserN, current_user_id})
                     borderRadius: '18px',
                     margin: '0 10px'
                 }}
-                src={`/get_post_media/${user.path_to_media}`}
+                src={`https://sya.syaapihandler.ru/get_post_media/${user.path_to_media}`}
             /> : <IconLoader style={{margin: '0 10px'}} />}
             <div style={{ display: 'flex', flexDirection: 'column', 
                 alignItems: current_user_id === msg.user_id ? 'flex-end' : 'flex-start'

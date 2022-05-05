@@ -11,7 +11,7 @@ import { AllPostsPage } from "./routes/AllPostsPage";
 import { ForumPage } from "./routes/Forum";
 import { SocketContext } from "./context"
 
-
+export const ws_on = false;
 let SERVER_URL = "ws://localhost:3001";
 
 export const App = () => {
@@ -22,26 +22,27 @@ export const App = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = new WebSocket(SERVER_URL)
+    if (ws_on) {
+      socket.current = new WebSocket(SERVER_URL)
 
-    socket.current.onopen = () => {
+      socket.current.onopen = () => {
         const message = {
             type: 'zero',
             event: 'connection',
             user_id
         }
         socket.current.send(JSON.stringify(message))
-    }
-    socket.current.onmessage = (event) => {
+      }
+      socket.current.onmessage = (event) => {
         const message = JSON.parse(event.data);
         console.log(message)
-    }
-    socket.current.onclose= () => {
-    }
-    socket.current.onerror = () => {
-    }
+      }
+      socket.current.onclose= () => {
+      }
+      socket.current.onerror = () => {
+      }
 
-    return () => {
+      return () => {
         socket.current.send(JSON.stringify({
             type: 'zero',
             event: 'disconnect'
@@ -49,11 +50,14 @@ export const App = () => {
         
         socket.current.close()
         socket.current = null;
+      }
     }
   }, [user_id])
 
   const sendMessage = async (message) => {
-    socket.current.send(JSON.stringify(message));
+    if (ws_on) {
+      socket.current.send(JSON.stringify(message));
+    }
   }
 
   return (

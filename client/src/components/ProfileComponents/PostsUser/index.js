@@ -16,7 +16,7 @@ const PostsUser = (props) => {
     const dispatch = useDispatch()
 
     function getUserPosts(){
-        Axios.get(`/get_user_posts/`, {
+        Axios.get(`https://sya.syaapihandler.ru/get_user_posts/`, {
             params: {id: props.id}
         }).then((response) => {
                 const object = {}
@@ -111,7 +111,7 @@ const OnePost = (props) => {
             case 3:
                 return (
                     <figure className="post-image-prof">
-                        <img className="image-in-post" src={`/get_post_media/${post.path_to_media}`}></img>
+                        <img className="image-in-post" src={`https://sya.syaapihandler.ru/get_post_media/${post.path_to_media}`}></img>
                     </figure>
                 )
             case 4:

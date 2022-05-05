@@ -30,7 +30,7 @@ export const Posts = allPagePostsConnect(({postsConnect, setPosts}) => {
     const postsRef = useRef(null)
 
     const getPosts = () => {
-        Axios.get(`/get_posts_by_tags`, {params: {
+        Axios.get(`https://sya.syaapihandler.ru/get_posts_by_tags`, {params: {
             userTags: userTags,
             postIds: postIds.join('`'),
             count: 18

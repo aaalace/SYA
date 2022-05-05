@@ -133,7 +133,7 @@ export const NewPostPage = ({createNewPost, setCreatePost}) => {
             ...prevState,
             loading: true,
         }));
-        Axios.post('/createPost',
+        Axios.post('https://sya.syaapihandler.ru/createPost',
             {
                 userId,
                 type: formatSelected,

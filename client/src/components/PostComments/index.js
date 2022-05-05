@@ -22,15 +22,15 @@ const CommentMedia = (props) => {
     switch(comment.type) {
         case 1:
             return (
-                <FullControl src={`/get_post_media/${comment.path_to_media}`}></FullControl>
+                <FullControl src={`https://sya.syaapihandler.ru/get_post_media/${comment.path_to_media}`}></FullControl>
             )
         case 2:
             return (
-                <video className="comment-loaded-video" controls><source src={`/get_post_media/${comment.path_to_media}`}/></video>
+                <video className="comment-loaded-video" controls><source src={`https://sya.syaapihandler.ru/get_post_media/${comment.path_to_media}`}/></video>
             )
         case 3:
             return (
-                <img style={{aspectRatio: `1 / ${comment.proportion}`}} className="comment-media" src={`/get_post_media/${comment.path_to_media}`}></img>
+                <img style={{aspectRatio: `1 / ${comment.proportion}`}} className="comment-media" src={`https://sya.syaapihandler.ru/get_post_media/${comment.path_to_media}`}></img>
             )
         default:
             return 'error'
@@ -55,7 +55,7 @@ const OneReply = (props) => {
     return(
         <div className="reply_container">
             <div className="author_data" onClick={() => moveProfile(reply.authorData.authorNickname)}>
-                <img src={`/get_post_media/${reply.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
+                <img src={`https://sya.syaapihandler.ru/get_post_media/${reply.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
                 <div className="author-comment-pers-data">
                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <p className="author-comment-pers-nickname">{reply.authorData.authorNickname}</p>
@@ -129,7 +129,7 @@ const OneComment = (props) => {
             setReplyState(false)
             setreplyText('')
             setnewreplyMedia(null)
-            Axios.post('/addReply', {
+            Axios.post('https://sya.syaapihandler.ru/addReply', {
                 comment_id: comment.commentId,
                 user_id: logedUserId,
                 media: replyMedia,
@@ -157,7 +157,7 @@ const OneComment = (props) => {
             dispatch(changeCommentLike({post_id: props.post_id, commentId: comment.commentId, like: 1}))
             dispatch(changeCommentUserLikes(comment.commentId))
         }
-        Axios.post('/changeCommentLike/', {
+        Axios.post('https://sya.syaapihandler.ru/changeCommentLike/', {
             'comment_id': comment.commentId,
             'user_id': logedUserId
         })
@@ -196,7 +196,7 @@ const OneComment = (props) => {
     return(
         <div className="comment_container">
             <div className="author_data" onClick={() => moveProfile(comment.authorData.authorNickname)}>
-                <img src={`/get_post_media/${comment.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
+                <img src={`https://sya.syaapihandler.ru/get_post_media/${comment.path_to_avatar}`} className="author-comment-avatar" alt="avatar"/>
                 <div className="author-comment-pers-data">
                     <p className="author-comment-pers-nickname">{comment.authorData.authorNickname}</p>
                     <p className="author-comment-datatime">{comment.commentDate}</p>
@@ -288,7 +288,7 @@ export const PostComments = (props) => {
     const [newCommentLoadingState, setnewCommentLoadingState] = useState(false)
 
     async function getComments() {
-        await Axios.get(`/getComments//${post_id}`).then((response) => {
+        await Axios.get(`https://sya.syaapihandler.ru/getComments/${post_id}`).then((response) => {
             dispatch(addInitialComments({post_id, comments: response.data.comments}))
             setComments(response.data.comments)
             response.data.comments.sort(function(a, b) {
@@ -310,7 +310,7 @@ export const PostComments = (props) => {
             const new_med = newCommentMedia
             setNewComment('')
             setnewCommentMedia(null)
-            Axios.post('/addComment', {
+            Axios.post('https://sya.syaapihandler.ru/addComment', {
                 post_id,
                 user_id: logedUserId,
                 media: new_med,

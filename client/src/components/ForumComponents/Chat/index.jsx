@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { UserMessage } from "../../UserMessage";
 import { nanoid } from "nanoid";
 import { SocketContext } from "../../../context";
+import { ws_on } from "../../../App";
 
 
 export const Chat = ({user_id, setSelectedId}) => {
@@ -13,24 +14,26 @@ export const Chat = ({user_id, setSelectedId}) => {
     const childRef = useRef();
 
     useEffect(() => {
-        const message = {
-            type: 'chat',
-            event: 'connection',
-            user_id,
-            chat_id: chatId
-        }
-        socket.current.send(JSON.stringify(message))
-
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            childRef.current(message)
-        }
-
-        return () => {
-            socket.current.send(JSON.stringify({
+        if (ws_on) {
+            const message = {
                 type: 'chat',
-                event: 'disconnect'
-            }));
+                event: 'connection',
+                user_id,
+                chat_id: chatId
+            }
+            socket.current.send(JSON.stringify(message))
+    
+            socket.current.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                childRef.current(message)
+            }
+    
+            return () => {
+                socket.current.send(JSON.stringify({
+                    type: 'chat',
+                    event: 'disconnect'
+                }));
+            }
         }
     }, [chatId])
     
@@ -75,7 +78,7 @@ const ChatCon = ForumChatConnect(({childRef, chat, setChat, setNewMessage, setSe
     }, [ChatId])
 
     const getMessages = () => {
-        Axios.get(`/get_chat_messages//${ChatId}`).then((res) => {
+        Axios.get(`https://sya.syaapihandler.ru/get_chat_messages/${ChatId}`).then((res) => {
             setChat({ChatId, data: res.data})
             setChatMessages({...res.data})
         })
@@ -93,7 +96,7 @@ const ChatCon = ForumChatConnect(({childRef, chat, setChat, setNewMessage, setSe
                 id: messageId,
             }
             sendMsgObject(msgObject);
-            Axios.post('/add_chat_message', msgObject)
+            Axios.post('https://sya.syaapihandler.ru/add_chat_message', msgObject)
                 .then((response) => {
                     if (response.data === 1) {
                         sendMessage(msgObject)

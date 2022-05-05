@@ -98,7 +98,7 @@ const AvatarContainer = (props) => {
             let img = event.target.files[0];
             let reader = new FileReader();
             reader.onloadend = function() {
-                Axios.post('/changeAvatar', {
+                Axios.post('https://sya.syaapihandler.ru/changeAvatar', {
                     base: reader.result.split(',')[1],
                     prev_media: ava,
                     user_id
@@ -119,7 +119,7 @@ const AvatarContainer = (props) => {
     }
 
     const deleteAva = () => {
-        Axios.post('/deleteAvatar', {
+        Axios.post('https://sya.syaapihandler.ru/deleteAvatar', {
             id: user_id 
         })
         dispatch(addProfilePhoto({path_to_media: '1.jpg'}))
@@ -128,7 +128,7 @@ const AvatarContainer = (props) => {
 
     return (
             <div className={med_cont}>
-                <img style={ava_style} src={`/get_post_media/${ava}`} onClick={owner ? giveClickChoice : null}></img>
+                <img style={ava_style} src={`https://sya.syaapihandler.ru/get_post_media/${ava}`} onClick={owner ? giveClickChoice : null}></img>
                 {owner ? <button onClick={changeAva} style={btn_change}><i style={icon_с} className="fa fa-paperclip"></i></button>: null} 
                 {owner ? <button onClick={deleteAva} style={btn_delete}><i style={icon_d} class="fa fa-trash" aria-hidden="true"></i></button>: null}     
                 <input type="file" ref={selectedFileRef} style={{display: "none"}} onChange={encodeImage}/>

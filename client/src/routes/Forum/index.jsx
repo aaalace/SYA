@@ -58,14 +58,14 @@ export const ForumPage = ForumConnect(({roomsConnect, setRoomsCon, chatsConnect,
     }, [])
 
     const getRooms = () => {
-        Axios.get('/get_forum_rooms').then((res) => {
+        Axios.get('https://sya.syaapihandler.ru/get_forum_rooms').then((res) => {
             setRoomsCon(res.data)
             setRoomsLoaded(true);
         })
     }
 
     const getChats = () => {
-        Axios.get(`/get_user_chats//${user_id}`).then((res) => {
+        Axios.get(`https://sya.syaapihandler.ru/get_user_chats/${user_id}`).then((res) => {
             setChatsCon(res.data)
             setChatsLoaded(true);
         })

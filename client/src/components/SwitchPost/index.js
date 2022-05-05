@@ -45,7 +45,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
                 <div className="audio-post-homepage" style={{
                     border: `2px solid ${borderColor}`, width: '100%'
                 }}>
-                    <FullControl src={path_to_media ? `/get_post_media/${path_to_media}` : null} />
+                    <FullControl src={path_to_media ? `https://sya.syaapihandler.ru/get_post_media/${path_to_media}` : null} />
                     <button className="cta" 
                         onClick={() => openPost(post)}
                         style={{ width: '100%', alignItems: 'center', marginTop: '6px',
@@ -62,7 +62,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
         case 2:
             return (
                 <div style={{marginTop: '2%'}}>
-                    <Video src={path_to_media ? `/get_post_media/${path_to_media}` : null} style={{width: '100%'}} onLoadEnd={() => {}}/>
+                    <Video src={path_to_media ? `https://sya.syaapihandler.ru/get_post_media/${path_to_media}` : null} style={{width: '100%'}} onLoadEnd={() => {}}/>
                     <button className="cta" onClick={() => openPost(post)} style={{
                         width: '100%', alignItems: 'center', marginTop: '6px',
                         display: 'flex', justifyContent: 'flex-start'
@@ -84,7 +84,7 @@ export const PostSwitcher = ({post, getMedia, mediaConnect}) => {
                             marginLeft: 'auto', marginRight: 'auto'
                     }}>
                         <img alt=""
-                            src={`/get_post_media/${path_to_media}`} 
+                            src={`https://sya.syaapihandler.ru/get_post_media/${path_to_media}`} 
                             className="hoverBrightness" 
                             style={{width: '100%', borderRadius: '15px'}} 
                             onError={({ currentTarget }) => {

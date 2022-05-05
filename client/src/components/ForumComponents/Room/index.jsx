@@ -5,6 +5,7 @@ import { ForumRoomConnect } from "../../../connect/Forum/roomMessagesCon";
 import { UserMessage } from "../../UserMessage";
 import { nanoid } from "nanoid";
 import { SocketContext } from "../../../context";
+import { ws_on } from "../../../App";
 
 export const Room = ({user_id, setSelectedId}) => {
     const childRef = useRef();
@@ -12,24 +13,26 @@ export const Room = ({user_id, setSelectedId}) => {
     const {socket, sendMessage} = useContext(SocketContext);
 
     useEffect(() => {
-        const message = {
-            type: 'room',
-            event: 'connection',
-            user_id,
-            room_id: roomId
-        }
-        socket.current.send(JSON.stringify(message))
-
-        socket.current.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            childRef.current(message)
-        }
-
-        return () => {
-            socket.current.send(JSON.stringify({
+        if (ws_on) {
+            const message = {
                 type: 'room',
-                event: 'disconnect'
-            }));
+                event: 'connection',
+                user_id,
+                room_id: roomId
+            }
+            socket.current.send(JSON.stringify(message))
+    
+            socket.current.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                childRef.current(message)
+            }
+    
+            return () => {
+                socket.current.send(JSON.stringify({
+                    type: 'room',
+                    event: 'disconnect'
+                }));
+            }
         }
     }, [roomId])
     
@@ -74,7 +77,7 @@ export const RoomCon = ForumRoomConnect(({childRef, room, roomId, setRoom, user_
     }
 
     const getMessages = () => {
-        Axios.get(`/get_room_messages//${roomId}`).then((res) => {
+        Axios.get(`https://sya.syaapihandler.ru/get_room_messages/${roomId}`).then((res) => {
             setRoom({roomId, data: res.data})
             setRoomMessages({...res.data})
         })
@@ -91,7 +94,7 @@ export const RoomCon = ForumRoomConnect(({childRef, room, roomId, setRoom, user_
                 message: message,
                 id: messageId,
             }
-            Axios.post('/add_forum_message', msgObject
+            Axios.post('https://sya.syaapihandler.ru/add_forum_message', msgObject
         ).then((response) => {
             if (response.data === 1) {
                 sendMessage(msgObject)

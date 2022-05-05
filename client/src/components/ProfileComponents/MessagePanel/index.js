@@ -47,14 +47,14 @@ function MessagePanel() {
     const [followState, setFollowState] = useState(false)
 
     const handleMessage = () => {
-        Axios.get('/check_chat_exist', {params: {
+        Axios.get('https://sya.syaapihandler.ru/check_chat_exist', {params: {
             user_id1: follower_id,
             user_id2: user_id
         }}).then(res => {
             if (res.data.checked) {
                 navigate(`/forum/chat/${res.data.chat_id}`)
             } else {
-                Axios.post('/create_chat', {
+                Axios.post('https://sya.syaapihandler.ru/create_chat', {
                     user_id1: follower_id,
                     user_id2: user_id
                 }).then(res => {
@@ -80,7 +80,7 @@ function MessagePanel() {
     }, [user_id])
 
     const followChange = () => {
-        Axios.post('un_follow/', {
+        Axios.post('https://sya.syaapihandler.ru/profile/un_follow', {
             follower_id: follower_id,
             user_id: user_id,
             follow: !followState

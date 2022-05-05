@@ -170,7 +170,7 @@ export const Header = () => {
     }
 
     function findUsersByReq(text){
-        Axios.get(`/find_users/`, {
+        Axios.get(`https://sya.syaapihandler.ru/find_users/`, {
             params: {text}
         }).then((response) => {
                 if(Object.keys(response.data).length > 0){

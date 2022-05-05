@@ -36,7 +36,7 @@ export const OpenedPost = (props) => {
 
     const switchType = (type) => {
         if(type === 4){
-            Axios.get(`/get_media/${post.media_id}`).then((res) => {
+            Axios.get(`https://sya.syaapihandler.ru/get_media/${post.media_id}`).then((res) => {
                 setMediaText(res.data)
             })
         }
@@ -44,19 +44,19 @@ export const OpenedPost = (props) => {
             case 1:
                 return (
                     <div className="post-image-container">
-                        <FullControl src={`/get_post_media/${post.path_to_media}`} style={{display: 'block', width: '70%', margin: '0 auto'}}></FullControl>
+                        <FullControl src={`https://sya.syaapihandler.ru/get_post_media/${post.path_to_media}`} style={{display: 'block', width: '70%', margin: '0 auto'}}></FullControl>
                     </div>
                 )
             case 2:
                 return (
                     <div className="post-image-container">
-                        <Video src={`/get_post_media/${post.path_to_media}`}></Video>
+                        <Video src={`https://sya.syaapihandler.ru/get_post_media/${post.path_to_media}`}></Video>
                     </div>
                 )
             case 3:
                 return (
                     <div className="post-image-container">
-                        <img src={`/get_post_media/${post.path_to_media}`} className="post-image" alt="картинка"/>
+                        <img src={`https://sya.syaapihandler.ru/get_post_media/${post.path_to_media}`} className="post-image" alt="картинка"/>
                     </div>
                 )
             case 4:
@@ -84,7 +84,7 @@ export const OpenedPost = (props) => {
             dispatch(setLikesCurrentPost(1))
             dispatch(setNewTags(post.tags))
         }
-        Axios.post('/change_like', {
+        Axios.post('https://sya.syaapihandler.ru/change_like/', {
             post_id,
             user_id,
             post_tags: post.tags
@@ -98,7 +98,7 @@ export const OpenedPost = (props) => {
                 <div className='openpost-box_content'>
                     <div className="post-header">
                         <div className="post-left">
-                            <img src={`/get_post_media/${post.path_to_avatar}`} className="post-avatar" alt="avatar"/>
+                            <img src={`https://sya.syaapihandler.ru/get_post_media/${post.path_to_avatar}`} className="post-avatar" alt="avatar"/>
                             <div className="post-pers-data">
                                 <p className="post-pers-nickname">{post.user_name}</p>
                                 <p className="post-datatime">{post.post_time}</p>

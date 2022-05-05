@@ -34,7 +34,7 @@ export const ChatsList = ({chats, selectedId, setSelectedId}) => {
 
 const ListEl = UsersConnect(({user, chat, setUserN}) => {
     if (!user) {
-        Axios.get('/get_oth/', {
+        Axios.get('https://sya.syaapihandler.ru/get_oth/', {
             params: {user_id: chat.user_id}
         }).then(response => {
             setUserN({user_id: chat.user_id, data: response.data})
@@ -52,7 +52,7 @@ const ListEl = UsersConnect(({user, chat, setUserN}) => {
                     borderRadius: '18px',
                     margin: '0 10px 0 0'
                 }}
-                src={`/get_post_media/${user.path_to_media}`}
+                src={`https://sya.syaapihandler.ru/get_post_media/${user.path_to_media}`}
             /> : <IconLoader style={{margin: '0 10px 0 0'}} />}
             <div>
                 {user ? 
